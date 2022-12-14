@@ -1,15 +1,31 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <title>Omniscient0</title>
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <%= csrf_meta_tags %>
-    <%= csp_meta_tag %>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <% title = yield(:title)%>
+  <title>Omniscient0</title>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
+</head>
+<body>
 
-    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
-  </head>
+  <div id ="footer-pusher-workaround">
+    <%= render 'layouts/header' %>
+    <div id ="main-side-padding">
 
-  <body>
-    <%= yield %>
-  </body>
+    	<main id="main">
+        <% if notice %>
+          <p id="notice" class="error"><%= notice %></p>
+        <% end %>
+    
+        <h2><%= yield(:title) %></h2>
+      	<%= yield %>
+    	</main>
+    </div>
+  </div>
+  <%= render 'layouts/footer' %>
+
+</body>
 </html>
