@@ -1,0 +1,2 @@
+module PseudoStaticHelper
+end
