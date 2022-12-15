@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <% title = yield(:title)%>
-  <title>Omniscient0</title>
+  <title><%= yield(:title) %> <%= unless yield(:title).empty? then ' | ' end %>Omniscient</title>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <%= csrf_meta_tags %>
@@ -19,7 +19,7 @@
         <% if notice %>
           <p id="notice" class="error"><%= notice %></p>
         <% end %>
-    
+
         <h2><%= yield(:title) %></h2>
       	<%= yield %>
     	</main>
