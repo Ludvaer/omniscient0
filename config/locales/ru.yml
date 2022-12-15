@@ -1,0 +1,101 @@
+# Files in the config/locales directory are used for internationalization
+# and are automatically loaded by Rails. If you want to use locales other
+# than English, add the necessary files in this directory.
+#
+# To use the locales, use `I18n.t`:
+#
+#     I18n.t 'hello'
+#
+# In views, this is aliased to just `t`:
+#
+#     <%= t('hello') %>
+#
+# To use a different locale, set it with `I18n.locale`:
+#
+#     I18n.locale = :es
+#
+# This would use the information in config/locales/es.yml.
+#
+# To learn more, please read the Rails Internationalization guide
+# available at http://guides.rubyonrails.org/i18n.html.
+ru:
+  hello: "привет мир"
+  app_name_left: "Омни"
+  app_name_right: "сент"
+  app_name_full: "Омнисент"
+  Profile: "Профиль"
+  Log in: "Вход"
+  Log out: "Выход"
+  Sign up: "Регистрация"
+  Remember me: "Помни меня"
+  Welcome: "Добро пожаловать"
+  Here be dragons: "Hic sunt dracones."
+  Edit: "Редактировать"
+  Edit profile title: "Редактирование профиля"
+  Email: "Почтa"
+  Em@il: "Почт@"
+  Name: "Имя"
+  Username: "Имя"
+  Id: "Id"
+  Password: "Пароль"
+  Old password: "Прежний пароль"
+  Confirmation: "Подтверждение"
+  email_empty: "Адрес электронной почты должен быть."
+  email_too_long: "Длинновато. Пожалуйста сделайте E-mail покороче. "
+  email_invalid: "Непохоже на корректный E-mail."
+  email_taken: "Уже есть кто-то у кого такой E-mail."
+  email_unknown: "Не знаем пользователя у которого такой E-mail."
+  doublepost: "Обнаружено что та же форма было отправлена второй раз."
+  decryption_failed: "Ошибка безопасности, попробуйте ещё раз."
+  no_right: "У вас нет права это делать."
+  Success: "Готово"
+  redirecting: "перенаправление"
+  password_confirmation_empty: "Подтверждение пустым быть не может."
+  password_confirmation_not_match: "Пароли не совпадают."
+  password_empty: "Пароль пуст быть не может."
+  password_invalid: "То ли пароль не тот, то ли имя не то."
+  name_empty: "Имя нужно."
+  name_too_short: "Имя коротковато."
+  name_too_long: "Имя длинновато."
+  name_invalid: "Что-то тут в имени какие-то странные символы, хотелось бы ограничиться буквами цифрами и без излишеств."
+  name_taken: "Имя занято." #Попробуйте подождать несколько лет - имя может освобоиться..., но лучше просто выбрать другое имя."
+  name_unknown: "Пользователь с таким именем у нас не значится."
+  Users: "Пользователи."
+  Destroy: "Удалить"
+  Users list: "Список пользователей"
+  Edit profile: "Изменение профиля"
+  Activation letter sent: "На указанную почту отправлена ссылка по которой нужно перейти для подтверждение адреса."
+  Password reset link sent: "На указанную почту отправлена ссылка для сброса пароля."
+  Password reset success: "Сброс пароля успешен."
+  Login successful: "Вход выполнен."
+  Logout successfull: "Выход выполнен."
+  User was successfully created: "Пользователь создан."
+  User was successfully updated: "Профиль успешно изменён."
+  Are you sure: "Уверены?"
+  Email is not confirmed: "Почтовый адрес не подтверждён, если вы не нашли письма с сылкой мы можем "
+  resend letter: "отправить письмо заново"
+  link_already_activated: "Эта ссылка уже активирована."
+  not_logged_in: "Это точно вы? Залогиньтесь."
+  wrong_user: "Это не ваша ссылка."
+  user_already_activated: "Адрес этого пользователя уже подтверждён."
+  Email confirmation: "Подтверждение адреса электронной почты."
+  email_changed: "Ваш текущий адрес не соответствует тому на который выслана ссылка."
+  Email confirmed: "Email was successfully confirmed."
+  Email Confirmation failed: "Email Confirmation failed"
+  Password reset: "Установка нового пароля."
+  password reset: "yстановка нового пароля."
+  Password reset failed: "Пароль неизменен. Ссылка недействительна."
+  password_reset_action: "Установить"
+  Request password reset: "Запрос на сброс пароля"
+  password_request_action: "Запросить"
+  Forgot password: "Забыт пароль?"
+  account activation: "Подтверждение почтового адреса."
+  mail_confirmation_mail_body: "Пройдите по ссылке чтобы подтвердить адрес:"
+  password_reset_mail_body: "Пройдите по ссылке чтобы установить новый пароль:"
+  Session reseted: "Сессия перезапущена."
+  User was successfully updated: "Профиль успешно изменён."
+  User was successfully destroyed: "Профиль успешно удалён."
+  In progress: "В работе"
+  Here be dragons: "Здесь водятся драконы"
+  sigil: "сигил"
+  Awailable things: "Доступные инструменты:"

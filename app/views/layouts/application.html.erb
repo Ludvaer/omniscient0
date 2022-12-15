@@ -2,8 +2,11 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <% title = yield(:title)%>
-  <title><%= yield(:title) %> <%= unless yield(:title).empty? then ' | ' end %>Omniscient</title>
+  <title>
+    <%= yield(:title) %>
+    <%= unless yield(:title).empty? then ' | ' end %>
+    Omniscient
+  </title>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <%= csrf_meta_tags %>
