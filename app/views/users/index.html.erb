@@ -1,14 +1,27 @@
-<p style="color: green"><%= notice %></p>
+<% provide(:title, t('Users')) %>
+<table>
+  <thead>
+    <tr>
+      <th><%= t('Name') %></th>
+      <th><%= t('Email') %></th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
 
-<h1>Users</h1>
+  <tbody>
+    <% @users.each do |user| %>
+      <tr>
+        <td><%= user.name %></td>
+        <td><%= user.email %></td>
+        <td><%= link_to t('Profile'), user %>
+        <% if access?(user) %>
+          <%= link_to t('Edit'), edit_user_path(user) %>
+          <%= link_to t('Destroy'), user, method: :delete, data: { confirm: 'Are you sure?' } %>
+        <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
 
-<div id="users">
-  <% @users.each do |user| %>
-    <%= render user %>
-    <p>
-      <%= link_to "Show this user", user %>
-    </p>
-  <% end %>
-</div>
-
-<%= link_to "New user", new_user_path %>
+<br>

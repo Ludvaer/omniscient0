@@ -9,10 +9,13 @@ gem "rails", "~> 7.0.4"
 # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
 gem "sprockets-rails"
 
-# Use sqlite3 as the database for Active Record
+# Use pg as the database for Active Record
 gem "pg"
 
-gem "sass-rails"
+
+
+#need sequre_password functionality
+gem 'bcrypt'
 
 # Use the Puma web server [https://github.com/puma/puma]
 gem "puma", "~> 5.0"
@@ -43,6 +46,14 @@ gem "tzinfo-data"
 
 # Reduces boot times through caching; required in config/boot.rb
 gem "bootsnap", require: false
+
+
+#sass stylesheets
+gem "sass-rails"
+gem 'uglifier'
+gem 'jquery-rails'
+gem 'coffee-rails'
+gem 'coffee-script-source'
 
 # Use Sass to process CSS
 # gem "sassc-rails"

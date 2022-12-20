@@ -1,0 +1,13 @@
+<div class="field">
+	<%= f.label :name, t('Username') %>
+	<%= f.text_field :name %>
+	<%= user_field_error_message('name_empty')%>
+	<%= user_field_error_message('name_too_short')%>
+	<%= user_field_error_message('name_too_long')%>
+	<%= user_field_error_message('name_invalid')%>
+	<% if for_new %> 
+		<%= user_field_error_message('name_taken')%>
+	<% else %>
+		<%= user_field_error_message('name_unknown')%>
+	<% end %>
+</div>

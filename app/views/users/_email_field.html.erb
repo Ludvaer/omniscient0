@@ -1,0 +1,12 @@
+<div class="field">
+    <%= f.label :email, t('Em@il') %>
+	<%= f.email_field :email %>
+	<%= user_field_error_message('email_empty')%>
+	<%= user_field_error_message('email_too_long')%>
+	<%= user_field_error_message('email_invalid')%>
+	<% if for_new %>
+		<%= user_field_error_message('email_taken')%>
+	<% else %>
+		<%= user_field_error_message('email_unknown')%>
+	<% end %>
+</div>

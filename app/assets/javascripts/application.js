@@ -28,4 +28,6 @@
 //= require forge/x509
 //= require forge/pki
 //= require forge/hmac
+//= require jquery
+//= require jquery_ujs
 //= require_tree .

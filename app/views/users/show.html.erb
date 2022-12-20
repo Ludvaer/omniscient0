@@ -1,10 +1,9 @@
-<p style="color: green"><%= notice %></p>
-
-<%= render @user %>
-
-<div>
-  <%= link_to "Edit this user", edit_user_path(@user) %> |
-  <%= link_to "Back to users", users_path %>
-
-  <%= button_to "Destroy this user", @user, method: :delete %>
+<% provide(:title, "#{@user.name}") %>
+<div class="user_show">
+<%= render 'user' %>
 </div>
+<% if access?(@user) %>
+  <td><%= link_to t('Edit'), edit_user_path(@user) %></td> |
+  <td><%= link_to t('Destroy'), @user, method: :delete, data: { confirm: t('Are you sure') } %></td> |
+<% end %>
+<%= link_to t('Users list'), users_path %>

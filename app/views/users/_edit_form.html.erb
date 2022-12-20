@@ -1,0 +1,12 @@
+<%= render 'errors' %>
+<%= public_key_field %>
+<%= form_for(@user) do |f| %>
+	<%= render 'form_common' %>
+	
+	<%= user_old_password_field(f) %>
+	<%= user_name_field(f,true) %>
+	<%= user_password_field(f,true) %>
+	<%= user_password_confirmation_field(f) %>
+	<%= user_email_field(f,true) %>
+	<%= f.submit id:'user-submit', value: 't(Edit)', :class => "btn"%>
+<% end %>

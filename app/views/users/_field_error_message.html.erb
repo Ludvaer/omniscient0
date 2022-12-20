@@ -1,0 +1,3 @@
+<div class="error" <%= 'hidden="hidden"' unless @user.send(message_id) %> id="<%= message_id.gsub('_','-') %>" > 
+<%= t(message_id) %>
+</div>

@@ -1,70 +1,124 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: %i[ show edit update destroy ]
+  before_action :set_user, only: [:show, :edit, :update, :destroy]
+  before_action only: [:new, :create, :edit, :update, :destroy]
 
-  # GET /users or /users.json
+
+  # GET /users
+  # GET /users.json
   def index
     @users = User.all
   end
 
-  # GET /users/1 or /users/1.json
+  def new
+  	@user = User.new
+    init_form()
+  end
+
   def show
   end
 
-  # GET /users/new
-  def new
-    @user = User.new
-  end
-
-  # GET /users/1/edit
   def edit
+    @no_right = !access?(@user)
+    init_form()
   end
 
-  # POST /users or /users.json
+
+  # POST /users
   def create
-    @user = User.new(user_params)
-
-    respond_to do |format|
-      if @user.save
-        format.html { redirect_to user_url(@user), notice: "User was successfully created." }
-        format.json { render :show, status: :created, location: @user }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @user.errors, status: :unprocessable_entity }
+    @isEdit = false #TODO: remove this, make distinct forms
+    @isCreate = true
+  	@user = User.new
+    if @success = @user.validate_signup_input(user_params)
+      @success = @user.save
+    end
+    unless @success
+      respond_to do |format|
+        format.js { render :json => { :html => render_to_string('_form'), redirect: false}, :content_type => 'text/json' }
+        format.html { render :new }
+      end
+    else
+      flash[:notice] = 'User was successfully created.'
+      @user.send_activation_letter
+      log_in(@user)
+      respond_to do |format|
+        format.js { render :json => { :html => redirect_link(user_path(@user)), redirect: true}, :content_type => 'text/json' }
+        format.html { redirect_to @user}
       end
     end
   end
 
-  # PATCH/PUT /users/1 or /users/1.json
+
+  # PATCH/PUT /users/1
   def update
-    respond_to do |format|
-      if @user.update(user_params)
-        format.html { redirect_to user_url(@user), notice: "User was successfully updated." }
-        format.json { render :show, status: :ok, location: @user }
+    @isEdit = true #TODO: remove this, make distinct forms
+    @isCreate = false
+    init_form()
+    oldmail = @user.email
+    if (@success = @user.validate_edit_input(user_params))
+      if access?(@user)
+        @success = @user.save
+        email_changed = (oldmail != @user.email)
       else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @user.errors, status: :unprocessable_entity }
+        @success = false
+        @no_right = true #TODO: make some tests
+      end
+    end
+    unless @success
+      respond_to do |format|
+        format.js { render :json => { :html => render_to_string('_edit_form'), redirect: false}, :content_type => 'text/json' }
+        format.html { render :edit }
+      end
+    else
+      if (email_changed)
+        @user.send_activation_letter
+      end
+      flash[:notice] = t('User was successfully updated.')
+      respond_to do |format|
+        format.js { render :json => { :html => redirect_link(user_path(@user)), redirect: true}, :content_type => 'text/json' }
+        format.html { redirect_to @user }
       end
     end
   end
 
-  # DELETE /users/1 or /users/1.json
+  # DELETE /users/1
   def destroy
-    @user.destroy
-
-    respond_to do |format|
-      format.html { redirect_to users_url, notice: "User was successfully destroyed." }
-      format.json { head :no_content }
+    if access?(@user)
+      @user.destroy
+      flash[:notice] = t('User was successfully destroyed')
+      respond_to do |format|
+          format.html { redirect_to users_url }
+      end
+    else
+      respond_to do |format|
+        format.html { redirect_to '/500', notice: 'No right.' }
+      end
     end
   end
+
+
+
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_user
-      @user = User.find(params[:id])
+    def init_form
+      @publickey = User.key()
+      @salt =  User.salt
+      p "keys when init form:"
+      p @publickey
+      p @salt
     end
 
-    # Only allow a list of trusted parameters through.
-    def user_params
-      params.require(:user).permit(:name, :email, :password_digest, :token, :downame, :activated)
+    def set_user
+      if params[:id] == '0'
+      	@user = User.find(1)
+      else
+        @user = User.find(params[:id])
+      end
     end
+
+    # Never trust parameters from the scary internet, only allow the white list through.
+    def user_params
+      params.require(:user).permit(:name, :email, :password, :password_confirmation,
+       :password_encrypted, :password_confirmation_encrypted, :old_password, :old_password_encrypted, :salt)
+    end
+
 end
