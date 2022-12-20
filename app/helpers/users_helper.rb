@@ -11,11 +11,6 @@ module UsersHelper
     errors.map{ |message|  "<div class='error'>#{message}</div>"}.join().html_safe
   end
 
-  def access?(user)
-    true
-  end
-
-
   def user_name_field(f,is_signup = false)
     render partial: 'users/username_field', locals: { f: f, for_new: is_signup }
   end

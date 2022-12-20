@@ -1,6 +1,10 @@
 <header class="hat" id="header">
-<h1><%= link_to (t('app_name_left')+'<small style="font-size:0;"> </small>'+t('app_name_right')).html_safe, root_path, id: 'alogo'  %></h1>
-<nav class="top_nav">
-	 <%=  link_to t('Sign up'), signup_path, class: 'sign' %>
+	<h1><%= link_to (t('app_name_left')+'<small style="font-size:0;"> </small>'+t('app_name_right')).html_safe, pseudo_root_path, id: 'alogo'  %></h1>
+	<nav class="top_nav">
+	    <% if logged_in? %>
+	     <%= link_to t('Profile'), current_user, class: 'sign' %> | <%= link_to t('Log out'), logout_path, class: 'sign' %>
+	    <% else %>
+		   <%=  link_to t('Sign up'), signup_path, class: 'sign' %> | <%=  link_to t('Log in'), login_path(redirect_url: request.original_url), class: 'sign' %>
+		<% end %>
 	</nav>
 </header>

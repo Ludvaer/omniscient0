@@ -54,6 +54,7 @@ gem 'uglifier'
 gem 'jquery-rails'
 gem 'coffee-rails'
 gem 'coffee-script-source'
+gem 'turbolinks'
 
 # Use Sass to process CSS
 # gem "sassc-rails"

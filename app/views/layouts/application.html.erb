@@ -17,6 +17,11 @@
 <body>
 
   <div id ="footer-pusher-workaround">
+    <% if Rails.env.development?  %>
+    <div style="font-size: 16px;">
+    <%= debug(params) %>
+    </div>
+  <% end %>
     <%= render 'layouts/header' %>
     <div id ="main-side-padding">
 

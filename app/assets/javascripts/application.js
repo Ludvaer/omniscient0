@@ -30,4 +30,5 @@
 //= require forge/hmac
 //= require jquery
 //= require jquery_ujs
+//= require turbolinks
 //= require_tree .
