@@ -1,0 +1,32 @@
+<%= form_with(model: account_activation) do |form| %>
+  <% if account_activation.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(account_activation.errors.count, "error") %> prohibited this account_activation from being saved:</h2>
+
+      <ul>
+        <% account_activation.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :user_id, style: "display: block" %>
+    <%= form.number_field :user_id %>
+  </div>
+
+  <div>
+    <%= form.label :token, style: "display: block" %>
+    <%= form.text_field :token %>
+  </div>
+
+  <div>
+    <%= form.label :email, style: "display: block" %>
+    <%= form.text_field :email %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>

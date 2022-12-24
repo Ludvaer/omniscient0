@@ -98,6 +98,19 @@ class User < ActiveRecord::Base
 		return salt
 	end
 
+	def self.log_in(remember = false)
+		id = user.id
+		if remember
+			s = Session.new
+			s.init_token
+			s.user_id = id
+			if s.save
+				cookies.signed.permanent[:remember_token] = s.token
+			end
+		end
+		session[:user_id] = id
+	end
+
 	def self.checksalt(salt)
     p "value cached for #{salt} key #{Rails.cache.read(salt)}"
 		if Rails.cache.fetch(salt)

@@ -1,0 +1,16 @@
+<% if @user.errors.any? %>
+    <div id="error_explanation" class="error">
+      <h3><%= pluralize(@user.errors.count, "error") %> happened:</h3>
+      <ul>
+      <% @user.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+<% end %>
+
+<% form_params =  {url: send_reset_request_url} %>
+<%= form_for(@user, form_params) do |f| %>
+	<%= user_email_field(f) %>
+	<%= f.submit id:'user-submit',  value:  (yield :action), :class => "btn"%>
+<% end %>

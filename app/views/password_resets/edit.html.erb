@@ -1,0 +1,8 @@
+<% provide(:title, t('Password reset')) %>
+<% provide(:action, t('password_reset_action')) %>
+
+<% if @user %>
+  <%= render 'reset_form' %>
+<% else %>
+  <div class="error"> <%= t('Password reset failed') %></div>
+<% end %>

@@ -29,7 +29,7 @@
         <% if notice %>
           <p id="notice" class="error"><%= notice %></p>
         <% end %>
-
+        <%= render 'account_activations/notice' %>
         <h2><%= yield(:title) %></h2>
       	<%= yield %>
     	</main>

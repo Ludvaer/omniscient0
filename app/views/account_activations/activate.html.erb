@@ -1,0 +1,11 @@
+<% provide(:title, "Email confirmation.") %>
+<%= simple_error_message('link_already_activated') %>
+<%= simple_error_message('not_logged_in') %>
+<%= simple_error_message('wrong_user') %>
+<%= simple_error_message('user_already_activated') %>
+<%= simple_error_message('email_changed') %>
+<% if @success %>
+	<p><%= t('Email confirmed') %></p>
+<% else %>
+	<p><%= t('Email Confirmation failed') %></p>
+<% end %>

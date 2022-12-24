@@ -1,0 +1,4 @@
+<%= t('app_name_full')%> <%= t('account activation')%>
+<%= t('mail_confirmation_mail_body')%>
+
+<%=  account_activate_url(token: @account_activation.get_token) %>

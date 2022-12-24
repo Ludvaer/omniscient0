@@ -1,0 +1,19 @@
+<% if @user.errors.any? %>
+    <div id="error_explanation" class="error">
+      <h3><%= pluralize(@user.errors.count, "error") %> happened:</h3>
+      <ul>
+      <% @user.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+<% end %>
+
+<% form_params =  {url: reset_password_url} %>
+<%= form_for(@user, form_params) do |f| %>
+  <input type="text" style="display: none;" hidden="hidden" name="token" id = "password-reset-token" value="<%= @token %>"/>
+  <%= render 'users/form_common' %>
+	<%= user_password_field(f,true) %>
+  <%= user_password_confirmation_field(f) %>
+	<%= f.submit id:'user-submit',  value:  (yield :action), :class => "btn"%>
+<% end %>

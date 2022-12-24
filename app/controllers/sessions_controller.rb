@@ -24,7 +24,7 @@ class SessionsController < ApplicationController
 	      flash[:notice] = t('Login successful.')
 	      redirect_url = params[:redirect_url]
 	      redirect_url ||= users_url(id: @user)
-        log_in(@user,login_params[:remember] == "1")
+        log_in(@user, login_params[:remember] == "1")
 	      respond_to do |format|
 	        format.js {	render :json => { :html => redirect_link(redirect_url), redirect: true}, :content_type => 'text/json'}
 	        format.html { redirect_to redirect_url }
@@ -87,4 +87,17 @@ class SessionsController < ApplicationController
       session.delete(:user_id)
       @current_user = nil
     end
+    def log_in(user, remember = false)
+      id = user.id
+      if remember
+        s = Session.new
+        s.init_token
+        s.user_id = id
+        if s.save
+          cookies.signed.permanent[:remember_token] = s.token
+        end
+      end
+      session[:user_id] = id
+    end
+
 end

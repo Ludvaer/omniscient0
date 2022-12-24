@@ -1,4 +1,4 @@
-class Session < ActiveRecord::Base
+class Session < ApplicationRecord
 	validates :user_id,  presence: true
 	validates :token,  presence: true, uniqueness: { case_sensitive: true }
 	def init_token

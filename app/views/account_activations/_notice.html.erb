@@ -1,0 +1,8 @@
+<% if current_user and not current_user.activated %>
+<p class="error" id="email-not-confirmed-notice">
+    <%= render 'account_activations/notice_content' %>
+</p>
+<script>
+ajaxify_link($('#resend-activation-letter'),$('#email-not-confirmed-notice'));
+</script>
+<% end %>

@@ -1,0 +1,12 @@
+<% provide(:title, t('Request password reset')) %>
+<% provide(:action, t('password_request_action')) %>
+
+<div id="sign-up-response">
+	<%= render 'password_resets/request_form' %>
+</div>
+
+<input type="button" class="btn" style="display:none;" hidden="true" value="<%= yield :action%>" id="sign-up-button" onclick="encryptsignup()" />
+
+<script type="text/javascript">
+    init_users_form();
+</script>

@@ -1,0 +1,7 @@
+<h1><%= t('app_name_full')%> <%= t('account activation')%> </h1>
+
+<p>
+<%= t('mail_confirmation_mail_body')%>
+</p>
+
+<%= link_to 'Activate', account_activate_url(token: @account_activation.get_token), method: :post%>

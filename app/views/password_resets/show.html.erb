@@ -1,0 +1,10 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @password_reset %>
+
+<div>
+  <%= link_to "Edit this password reset", edit_password_reset_path(@password_reset) %> |
+  <%= link_to "Back to password resets", password_resets_path %>
+
+  <%= button_to "Destroy this password reset", @password_reset, method: :delete %>
+</div>
