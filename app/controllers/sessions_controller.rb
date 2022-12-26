@@ -87,17 +87,6 @@ class SessionsController < ApplicationController
       session.delete(:user_id)
       @current_user = nil
     end
-    def log_in(user, remember = false)
-      id = user.id
-      if remember
-        s = Session.new
-        s.init_token
-        s.user_id = id
-        if s.save
-          cookies.signed.permanent[:remember_token] = s.token
-        end
-      end
-      session[:user_id] = id
-    end
+
 
 end

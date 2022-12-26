@@ -1,0 +1,470 @@
+<% provide(:title, t('Sigil generator.')) %>
+
+<h1 id = "countdown"></h1>
+<form onsubmit="draw(); return false;">
+
+ <label>enter spell</label>
+ <input type="string" name="s" id = "spell-input" value=""  class="long_input">
+ <input type="button" value="go" onclick="draw()" class="row_button">
+ <input type="button" value="reset" onclick="rset()" class="row_button">
+</form>
+
+<div style="text-align:center">
+
+
+<svg xmlns="http://www.w3.org/2000/svg" id="pikcha" max-width="100%" max-height="100vh">
+
+</svg>
+</div>
+
+<script>
+var svg = document.getElementById('pikcha');
+svg.style.maxHeight = "90vw";
+svg.style.maxHeight = "90vh";
+svg.style.marginLeft ="auto";
+svg.style.marginRight ="auto";
+
+var spell_input = document.getElementById("spell-input");
+function rset() {
+while(svg.children.length > 0) svg.removeChild(svg.children[0]);
+spell_input.value = "";
+}
+
+var x = 10.0;
+var y = 10.0;
+var direction = 0.0;
+var standart_length = 10.0;
+var tail = 0.2
+
+function forward_i(l)
+{
+  var x1 = x;
+  var y1 = y;
+  var dx = standart_length * l *Math.cos(direction)
+  var dy = standart_length * l *Math.sin(direction)
+  x = x1 + dx;
+  y = y1 + dy;
+}
+
+function forward(l)
+{
+  var x1 = x;
+  var y1 = y;
+  var dx = standart_length * l *Math.cos(direction)
+  var dy = standart_length * l *Math.sin(direction)
+  x = x1 + dx;
+  y = y1 + dy;
+  var d = [
+        "M", x1, y1,
+        "L", x, y
+    ].join(" ");
+
+  var element = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+  element.setAttribute("fill-opacity", 0);
+  element.setAttribute("stroke-opacity", 0.9);
+  element.setAttribute("stroke", "blue");
+  element.setAttribute("d", d);
+  svg.appendChild(element);
+}
+
+function polarToCartesian(centerX, centerY, radius, angle) {
+  var angleInRadians = angle;
+
+  return {
+    x: centerX + (radius * Math.sin(angleInRadians)),
+    y: centerY - (radius * Math.cos(angleInRadians))
+  };
+}
+
+
+
+function arc_right(a,l, gomid = false)
+{
+  var radius = standart_length * l*180/a/Math.PI;
+  var arcSweep = Math.abs(a) <= 180 ? "0" : "1";
+   var arcDirect = a < 0 ?  "0" : "1";
+  a = a/180*Math.PI;
+  startAngle = direction
+  endAngle = direction + a;
+  var start = polarToCartesian(0, 0, radius, startAngle);
+  var end = polarToCartesian(0, 0, radius, endAngle);
+  var dx = end.x - start.x;
+  var dy = end.y - start.y;
+  var x1 = x;
+  var y1 = y;
+  direction = endAngle;
+  x = x1 + dx;
+  y = y1 + dy;
+  if (gomid) {
+    x = x1 + dx*0.5;
+    y = y1 + dy*0.5;
+    if(arcSweep == "1"){
+      x = x1 - start.x;
+      y = y1 - start.y;
+    }
+    direction = (startAngle + endAngle + ( 2 * arcDirect- 1)*Math.PI)*0.5
+  }
+
+
+    var d = [
+        "M", x1, y1,
+        "A", radius, radius, 1, arcSweep, arcDirect, x1 + dx, y1 + dy,
+    ].join(" ");
+
+  var element = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+  element.setAttribute("fill-opacity", 0);
+  element.setAttribute("stroke-opacity", 0.9);
+  element.setAttribute("stroke", "blue");
+  element.setAttribute("d", d);
+  svg.appendChild(element);
+ if (gomid) {
+    forward(tail)
+  }
+}
+function arc_left(a,l, gomid = false)
+{
+  arc_right(-a,l,gomid)
+}
+
+function right_i(angle)
+{
+  direction += angle/180.0*Math.PI;
+}
+function left_i(angle)
+{
+  direction -= angle/180.0*Math.PI;
+}
+function right(angle)
+{
+  arc_right(angle,0.01)
+  forward(tail)
+}
+function left(angle)
+{
+  arc_left(angle,0.01)
+  forward(tail)
+}
+
+var x_min = x;
+var x_max = x;
+var y_min = y;
+var y_max = y;
+
+function draw_a() {
+  right(180)
+}
+function draw_o() {
+  left(120)
+}
+function draw_e() {
+  right(120)
+}
+function draw_i() {
+  right(90)
+}
+function draw_j() {
+  left(90)
+}
+function draw_u() {
+  right(45)
+}
+function draw_y() {
+  left(45)
+}
+
+
+function draw_k() {
+      forward(2)
+      left_i(180)
+      forward_i(1)
+      left_i(90)
+      forward_i(0.5)
+      forward(tail)
+}
+function draw_g() {
+      forward(2)
+      right_i(180)
+      forward_i(1)
+      right_i(90)
+      forward_i(0.5)
+      forward(tail)
+}
+function draw_s() {
+      arc_right(300,2)
+}
+function draw_c() {
+      arc_left(300,2)
+}
+function draw_z() {
+      arc_right(300,2,true)
+}
+function draw_zh() {
+      arc_left(300,2,true)
+}
+function draw_t() {
+      arc_right(135,2)
+}
+function draw_d() {
+      arc_left(135,2)
+}
+
+function draw() {
+   x = 1000;
+ y =1000;
+ x_min = x;
+ x_max = x;
+ y_min = y;
+ y_max = y;
+
+direction = 0;
+  var str = spell_input.value;
+
+  while(svg.children.length > 0) svg.removeChild(svg.children[0]);
+draw_a()
+draw_a()
+  for (var i = 0; i < str.length; i++) {
+    var char = str.charAt(i);
+    switch(char) {
+    case '@':
+      draw_a()
+      draw_t()
+    case 'Ð':
+    case 'Ð°':
+    case 'A':
+    case 'a':
+      draw_a()
+      break;
+    case 'Ð':
+    case 'Ð±':
+    case 'B':
+    case 'b':
+      arc_left(135,2,true)
+      break;
+    case 'Ð¦':
+    case 'Ñ':
+    case 'C':
+    case 'c':
+      draw_c()
+      break;
+    case 'Ð':
+    case 'Ð´':
+    case 'D':
+    case 'd':
+      draw_d()
+      break;
+    case 'Ð­':
+    case 'Ñ':
+    case 'E':
+    case 'e':
+      draw_e()
+      break;
+    case 'Ð¤':
+    case 'Ñ':
+    case 'F':
+    case 'f':
+      arc_right(180,2)
+      break;
+    case 'Ð':
+    case 'Ð³':
+    case 'G':
+    case 'g':
+      draw_g()
+      break;
+    case 'Ð¥':
+    case 'Ñ':
+    case 'H':
+    case 'h':
+      arc_right(240,2)
+      break;
+    case 'Ð':
+    case 'Ð¸':
+    case 'I':
+    case 'i':
+      draw_i()
+      break;
+    case 'Ð«':
+    case 'Ñ':
+    case 'J':
+    case 'j':
+      draw_j()
+      break;
+    case 'Ð':
+    case 'Ðº':
+    case 'K':
+    case 'k':
+      draw_k()
+      break;
+    case 'Ð':
+    case 'Ð»':
+    case 'L':
+    case 'l':
+      arc_left(90,2)
+      break;
+    case 'М':
+    case 'м':
+    case 'M':
+    case 'm':
+      arc_left(45,3)
+      break;
+    case 'Ð':
+    case 'Ð½':
+    case 'N':
+    case 'n':
+      arc_right(45,3)
+      break;
+    case 'Ð':
+    case 'Ð¾':
+    case 'O':
+    case 'o':
+      draw_o()
+      break;
+    case 'Ð':
+    case 'Ð¿':
+    case 'P':
+    case 'p':
+      arc_right(135,2,true)
+      break;
+    case 'Q':
+    case 'q':
+      arc_right(60,2,true)
+      break;
+    case 'Ð ':
+    case 'Ñ':
+    case 'R':
+    case 'r':
+      arc_right(90,2)
+      break;
+    case 'Ð¡':
+    case 'Ñ':
+    case 'S':
+    case 's':
+      draw_s()
+      break;
+    case 'Ð¢':
+    case 'Ñ':
+    case 'T':
+    case 't':
+      draw_t()
+      break;
+    case 'Ð£':
+    case 'Ñ':
+    case 'U':
+    case 'u':
+      draw_u()
+      break;
+    case 'Ð':
+    case 'Ð²':
+    case 'V':
+    case 'v':
+      arc_left(180,2)
+      break;
+    case 'W':
+    case 'w':
+      arc_left(240,2)
+      break;
+    case 'X':
+    case 'x':
+      draw_k()
+      draw_s()
+      break;
+    case 'Ы':
+    case 'ы':
+    case 'Y':
+    case 'y':
+      draw_y()
+      break;
+    case 'Ð':
+    case 'Ð·':
+    case 'Z':
+    case 'z':
+      draw_z()
+      break;
+    case '_':
+      forward(0.3)
+      forward_i(0.3)
+      forward(0.3)
+      break;
+    case ' ':
+      forward_i(0.9)
+      break;
+    case 'Ж':
+    case 'ж':
+      draw_zh()
+      break;
+    case 'Е':
+    case 'е':
+      draw_y()
+      forward(0.5)
+      draw_e()
+      break;
+    case 'Ё':
+    case 'ё':
+      draw_y()
+      forward(0.5)
+      draw_o()
+      break;
+    case 'Ю':
+    case 'ю':
+      draw_y()
+      forward(0.5)
+      draw_u()
+      break;
+    case 'Я':
+    case 'я':
+      draw_y()
+      forward(0.5)
+      draw_a()
+      break;
+    case 'Й':
+    case 'й':
+      draw_y()
+      forward(0.5)
+      break;
+    case 'Ðª':
+    case 'Ñ':
+      forward(1)
+      break;
+    case 'Ð§':
+    case 'Ñ':
+      arc_left(60,2,true)
+      break;
+    case 'Ð¨':
+    case 'Ñ':
+      arc_left(240,2,true)
+      break;
+    case 'Ъ':
+    case 'ъ':
+      arc_right(240,2,true)
+      break;
+    default:
+    }
+    if(x > x_max) x_max = x;
+    if(x < x_min) x_min = x;
+    if(y > y_max) y_max = y;
+    if(y < y_min) y_min = y;
+
+  }
+ arc_left(90,0.001)
+arc_left(90,0.001)
+arc_left(90,0.001)
+arc_left(90,0.001)
+
+ var vb =
+[x_min-1*standart_length,
+ y_min-1*standart_length,
+ x_max-x_min+2*standart_length,
+ y_max-y_min+2*standart_length].join(" ");
+ svg.setAttribute("viewBox", vb);
+}
+default_spells = [
+"Hail Eris",
+"Because the night is bright and full of wonders",
+"Let it be magic here",
+"Nothing is true, everything is permitted",
+"For the Glory of Chaos of Course",
+"Enjoy the silence",
+"Lupus lupo homo est",
+]
+spell_input.value = default_spells[Math.floor(Math.random()*default_spells.length)];
+draw();
+</script>

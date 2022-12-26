@@ -4,6 +4,8 @@ Rails.application.routes.draw do
   get '/:locale' => 'pseudo_static#welcome', as: :pseudo_root
 
   scope "(:locale)", locale: /en|ru/ do
+
+    get 'sigil' => 'pseudo_static#sigil',  as: :sigil
     #signup view destroy users
     resources :users
     get 'signup'  => 'users#new'
