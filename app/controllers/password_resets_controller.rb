@@ -19,7 +19,7 @@ class PasswordResetsController < ApplicationController
       @user.send_password_reset_letter
       flash[:notice] = t('Password reset link sent')
       respond_to do |format|
-        format.js { redirect_to login_url}
+        format.js { render :json => { :html => redirect_link(login_url), redirect: true}, :content_type => 'text/json' }
         format.html { redirect_to login_url }
       end
     end
