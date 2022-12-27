@@ -1,0 +1,34 @@
+<% provide(:title, t('Shullte Results')) %>
+
+<table>
+  <thead>
+    <tr>
+      <th><%= t('user name') %></th>
+      <th><%= t('time_taken') %></th>
+      <th><%= t('mistakes') %></th>
+      <th><%= t('size') %></th>
+      <th><%= t('shuffle') %></th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @shultes.each do |shulte| %>
+      <tr>
+        <td><%= User.find( shulte.user_id).name %></td>
+        <td><%= shulte.time %></td>
+        <td><%= shulte.mistakes %></td>
+        <td><%= shulte.size %></td>
+        <td><%= shulte.shuffle %></td>
+        <td><%= link_to t('details'), shulte %>
+        <%# <% if access?(user) %>
+          <%#  <%= link_to t('Edit'), edit_user_path(user) %>
+          <%# <%= link_to t('Destroy'), user, method: :delete, data: { confirm: 'Are you sure?' } %>
+          <%#<% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= link_to "New shulte", new_shulte_path %>

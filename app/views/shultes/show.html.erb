@@ -1,0 +1,10 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @shulte %>
+
+<div>
+  <%= link_to "Edit this shulte", edit_shulte_path(@shulte) %> |
+  <%= link_to "Back to shultes", shultes_path %>
+
+  <%= button_to "Destroy this shulte", @shulte, method: :delete %>
+</div>

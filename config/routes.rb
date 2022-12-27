@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+
   #welcome
   root 'pseudo_static#welcome'
   get '/:locale' => 'pseudo_static#welcome', as: :pseudo_root
@@ -30,6 +31,9 @@ Rails.application.routes.draw do
     post 'send_reset_request'  => 'password_resets#create' #sends password request and creates corresponding record in db
     get 'password_resets/:token' => 'password_resets#edit', as: :password_reset #get password reset form
     patch 'reset_password' => 'password_resets#reset' #finally changes password in user, reset record in db can be deleted
+
+
+    resources :shultes
   end
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
