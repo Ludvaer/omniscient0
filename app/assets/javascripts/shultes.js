@@ -1,3 +1,7 @@
+
+(function() {
+  root = typeof exports !== "undefined" && exports !== null ? exports : this;
+
   serializeForm = function(form) {
     var hash, i, item, len, ref;
     hash = {};
@@ -9,7 +13,7 @@
     return hash;
   };
 
-  sendShulte = function() {
+  root.sendShulte = function() {
     var data, method;
     data = serializeForm($('form'));
     method = 'post';
@@ -28,3 +32,5 @@
         return $("#shulte-save-response").html(data.html);
       }
     });
+  }
+}).call(this);

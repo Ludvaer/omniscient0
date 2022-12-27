@@ -1,4 +1,5 @@
-  var root, serializeForm;
+(function() {
+    var root, serializeForm;
 
   root = typeof exports !== "undefined" && exports !== null ? exports : this;
 
@@ -13,12 +14,12 @@
     return hash;
   };
 
-  init_users_form = function() {
+  root.init_users_form = function() {
     $('#user-submit').hide();
     return $('#sign-up-button').show();
   };
 
-  encryptsignup = function() {
+  root.encryptsignup = function() {
     var data, encrypted1, encrypted2, hashed1, hashed2, hmac, method, name_as_salt, publicKey1, salt, uname;
     $('#sign-up-button').hide();
     uname = $("#user_name").val();
@@ -83,3 +84,4 @@
       }
     });
   };
+}).call(this);
