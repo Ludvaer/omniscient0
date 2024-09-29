@@ -22,7 +22,7 @@ class ShultesController < ApplicationController
   # POST /shultes or /shultes.json
   def create
     @shulte = Shulte.new(shulte_params)
-    @shulte.user_id = current_user.id
+    @shulte.user_id = current_user.id #TODO: do smth about not logged in user
     respond_to do |format|
       if @shulte.save
         format.html { redirect_to shulte_url(@shulte), notice: "Shulte was successfully created." }
