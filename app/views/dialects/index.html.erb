@@ -1,0 +1,14 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Dialects</h1>
+
+<div id="dialects">
+  <% @dialects.each do |dialect| %>
+    <%= render dialect %>
+    <p>
+      <%= link_to "Show this dialect", dialect %>
+    </p>
+  <% end %>
+</div>
+
+<%= link_to "New dialect", new_dialect_path %>

@@ -1,0 +1,10 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @dialect %>
+
+<div>
+  <%= link_to "Edit this dialect", edit_dialect_path(@dialect) %> |
+  <%= link_to "Back to dialects", dialects_path %>
+
+  <%= button_to "Destroy this dialect", @dialect, method: :delete %>
+</div>

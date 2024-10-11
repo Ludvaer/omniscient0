@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  resources :translations
+  resources :words
+  resources :dialects
+  resources :languages
 
   #welcome
   root 'pseudo_static#welcome'

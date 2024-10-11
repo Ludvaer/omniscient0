@@ -56,6 +56,9 @@ gem 'coffee-rails'
 gem 'coffee-script-source'
 gem 'turbolinks'
 
+#language
+gem 'mojinizer'
+
 # Use Sass to process CSS
 # gem "sassc-rails"
 

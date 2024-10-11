@@ -45,21 +45,33 @@ csv.each do |row|
   japanese = row['japanese']
   romaji = row['romaji']
   english = row['english']
-  words = [[japanese, japanese_dialect_id], [english, japanese_dialect_id]]
-  # words.each do |spelling,dialect_id|
-  unless Word.where(spelling:japanese,dialect_id:japanese_dialect_id).exists?
+  hiragana = romaji.hiragana
+  unless Word.where(spelling:japanese, dialect_id:japanese_dialect_id).exists?
       word = Word.new
-      word.spelling = japanese
+      word.spelling = japanese 
       word.dialect_id = japanese_dialect_id
       word.save
   end
   word_id = Word.find_by(spelling:japanese,dialect_id:japanese_dialect_id).id
-  unless Translation.where(spelling:japanese,dialect_id:japanese_dialect_id).exists?
-      translation = Translation.new
+  unless Translation.where(word_id:word_id, translation_dialect_id:english_dialect_id).exists?
+      translation = Translation.find_by(word_id:word_id, translation_dialect_id:english_dialect_id)
+      unless translation
+        translation = Translation.new
+      end
       translation.word_id = word_id
       translation.translation = english
-      word.dialect_id = japanese_dialect_id
-      word.save
+      translation.translation_dialect_id = english_dialect_id
+      translation.save
+  end
+  unless Translation.where(word_id:word_id, translation_dialect_id:kana_dialect_id).exists?
+      translation = Translation.find_by(word_id:word_id, translation_dialect_id:kana_dialect_id)
+      unless translation
+        translation = Translation.new
+      end
+      translation.word_id = word_id
+      translation.translation = hiragana
+      translation.translation_dialect_id = kana_dialect_id
+      translation.save
   end
   # end
 end
