@@ -1,17 +1,17 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  name: MyString
-  email: MyString
-  password_digest: MyString
+  name: Lurr
+  email: wolflurr@gmail.com
+  password_digest: $2a$12$NLWWzZj5TpwaeNkstzzMOOlLvQCZNwT0gUPrPZdr3Q2roImM3PBuq
   token: MyString
-  downame: MyString
+  downame: lurr
   activated: false
 
 two:
-  name: MyString
-  email: MyString
-  password_digest: MyString
+  name: MikhailUtochkin
+  email: mikhailutochkin@gmail.com
+  password_digest: $2a$12$XLo6p94vvx4OxoFjKrV35.esxK.VE549Nthmdsi5tSPgCWFxnC9ge
   token: MyString
-  downame: MyString
+  downame: mikhailutochkin
   activated: false
