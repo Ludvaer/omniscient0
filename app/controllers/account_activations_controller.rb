@@ -73,26 +73,6 @@ class AccountActivationsController < ApplicationController
     def account_activation_params
       params.require(:account_activation).permit(:user_id, :token, :email)
     end
-
-    #gets user
-    def current_user
-      if session[:user_id]
-        @current_user ||= User.find_by(id: session[:user_id])
-      elsif cookies.signed[:remember_token]
-        s = Session.find_by(token: cookies.signed[:remember_token])
-        if s
-          id = s.user_id
-          u = User.find_by(id: id)
-          if u
-            log_in(u)
-            return @current_user ||= u
-          end
-        end
-        cookies.delete(:remember_token)
-        @current_user = nil
-      end
-    end
-
     # Returns true if the user is logged in, false otherwise.
     def logged_in?
       !current_user.nil?
