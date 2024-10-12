@@ -1,1 +1,6 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user_id: 1
+  token: 4a08c270e12d6861a8a46b6a95169f301570cc809013f61aa8561626252a1922
+  email: wolflurr@gmail.com
