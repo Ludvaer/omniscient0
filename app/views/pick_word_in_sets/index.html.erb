@@ -1,0 +1,14 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Pick word in sets</h1>
+
+<div id="pick_word_in_sets">
+  <% @pick_word_in_sets.each do |pick_word_in_set| %>
+    <%= render pick_word_in_set %>
+    <p>
+      <%= link_to "Show this pick word in set", pick_word_in_set %>
+    </p>
+  <% end %>
+</div>
+
+<%= link_to "New pick word in set", new_pick_word_in_set_path %>

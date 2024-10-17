@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_09_29_174927) do
+ActiveRecord::Schema[7.0].define(version: 2024_10_14_035238) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -18,6 +18,12 @@ ActiveRecord::Schema[7.0].define(version: 2024_09_29_174927) do
     t.integer "user_id"
     t.string "token"
     t.string "email"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "descriptions", force: :cascade do |t|
+    t.string "text"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -38,6 +44,15 @@ ActiveRecord::Schema[7.0].define(version: 2024_09_29_174927) do
   create_table "password_resets", force: :cascade do |t|
     t.integer "user_id"
     t.string "token"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "pick_word_in_sets", force: :cascade do |t|
+    t.integer "correct_id"
+    t.integer "picked_id"
+    t.integer "set_id"
+    t.integer "version"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -75,6 +90,18 @@ ActiveRecord::Schema[7.0].define(version: 2024_09_29_174927) do
     t.string "token"
     t.string "downame"
     t.boolean "activated"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "word_in_sets", force: :cascade do |t|
+    t.integer "word_set_id"
+    t.integer "word_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "word_sets", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

@@ -1,0 +1,64 @@
+<% provide(:title, t('Pick correct translation.')) %>
+<% correct = @translations.sample %>
+
+<div id="optionboard">
+  <svg class="fit-text" xmlns="http://www.w3.org/2000/svg" style="width: 100%; height: 30vmin; margin-left: auto; margin-right: auto;">
+    <text dominant-baseline="middle" text-anchor="middle">
+      <%= correct.word.spelling %>
+    </text>
+  </svg>
+  <br>
+  <% @translations.each do |translation| %>
+    <button class="option_btn" onclick="select(<%= translation.word.id %>)">
+          <%= translation.translation %>
+
+    </button>
+  <% end %>
+</div>
+
+<script>
+  function fit_all_text()
+  {
+    let fit_text_svgs = document.getElementsByClassName("fit-text");
+    console.log(fit_text_svgs);
+    for (let i = 0; i < fit_text_svgs.length; i++) {
+      let svg = fit_text_svgs[i]
+      console.log(svg);
+      for (let j = 0; j < svg.children.length; j++) {
+        let text_element = svg.children[j]
+        console.log(text_element);
+        let bbox = text_element.getBBox();
+        let vb =
+          [bbox.x,
+           bbox.y,
+           bbox.width,
+           bbox.height].join(" ");
+        console.log(vb);
+        svg.setAttribute("viewBox", vb);
+      }
+    }
+  }
+  function select(id)
+  {
+    document.getElementById('picked').value = id;
+  }
+  function fill_form()
+  {
+    document.getElementById('correct').value = <%= correct.word.id %>;
+    document.getElementById('set').value = 0;
+    document.getElementById('version').value = 1;
+  }
+  fit_all_text();
+</script>
+
+
+<%= render "form", pick_word_in_set: @pick_word_in_set %>
+<script>
+  fill_form();
+</script>
+
+<br>
+
+<div>
+  <%= link_to "Back to pick word in sets", pick_word_in_sets_path %>
+</div>

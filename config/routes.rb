@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  resources :descriptions
+  resources :word_in_sets
+  resources :word_sets
   resources :translations
   resources :words
   resources :dialects
@@ -38,6 +41,7 @@ Rails.application.routes.draw do
 
 
     resources :shultes
+    resources :pick_word_in_sets
   end
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html

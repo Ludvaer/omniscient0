@@ -1,0 +1,37 @@
+<%= form_with(model: pick_word_in_set) do |form| %>
+  <% if pick_word_in_set.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(pick_word_in_set.errors.count, "error") %> prohibited this pick_word_in_set from being saved:</h2>
+
+      <ul>
+        <% pick_word_in_set.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :correct_id %>
+    <%= form.number_field :correct_id, id: :correct%>
+  </div>
+
+  <div>
+    <%= form.label :picked_id %>
+    <%= form.number_field :picked_id, id: :picked %>
+  </div>
+
+  <div>
+    <%= form.label :set_id %>
+    <%= form.number_field :set_id, id: :set %>
+  </div>
+
+  <div>
+    <%= form.label :version %>
+    <%= form.number_field :version, id: :version %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>

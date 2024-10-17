@@ -1,0 +1,14 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Descriptions</h1>
+
+<div id="descriptions">
+  <% @descriptions.each do |description| %>
+    <%= render description %>
+    <p>
+      <%= link_to "Show this description", description %>
+    </p>
+  <% end %>
+</div>
+
+<%= link_to "New description", new_description_path %>

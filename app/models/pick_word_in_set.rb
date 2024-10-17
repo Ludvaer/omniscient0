@@ -1,0 +1,2 @@
+class PickWordInSet < ApplicationRecord
+end

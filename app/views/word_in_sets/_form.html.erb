@@ -1,0 +1,27 @@
+<%= form_with(model: word_in_set) do |form| %>
+  <% if word_in_set.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(word_in_set.errors.count, "error") %> prohibited this word_in_set from being saved:</h2>
+
+      <ul>
+        <% word_in_set.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :word_set_id, style: "display: block" %>
+    <%= form.number_field :word_set_id %>
+  </div>
+
+  <div>
+    <%= form.label :word_id, style: "display: block" %>
+    <%= form.number_field :word_id %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>

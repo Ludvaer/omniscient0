@@ -1,0 +1,10 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @word_in_set %>
+
+<div>
+  <%= link_to "Edit this word in set", edit_word_in_set_path(@word_in_set) %> |
+  <%= link_to "Back to word in sets", word_in_sets_path %>
+
+  <%= button_to "Destroy this word in set", @word_in_set, method: :delete %>
+</div>

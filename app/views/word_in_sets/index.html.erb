@@ -1,0 +1,14 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Word in sets</h1>
+
+<div id="word_in_sets">
+  <% @word_in_sets.each do |word_in_set| %>
+    <%= render word_in_set %>
+    <p>
+      <%= link_to "Show this word in set", word_in_set %>
+    </p>
+  <% end %>
+</div>
+
+<%= link_to "New word in set", new_word_in_set_path %>

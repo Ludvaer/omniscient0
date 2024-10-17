@@ -1,0 +1,10 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @pick_word_in_set %>
+
+<div>
+  <%= link_to "Edit this pick word in set", edit_pick_word_in_set_path(@pick_word_in_set) %> |
+  <%= link_to "Back to pick word in sets", pick_word_in_sets_path %>
+
+  <%= button_to "Destroy this pick word in set", @pick_word_in_set, method: :delete %>
+</div>
