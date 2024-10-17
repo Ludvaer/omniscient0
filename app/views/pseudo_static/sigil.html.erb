@@ -12,14 +12,16 @@
 <div style="text-align:center">
 
 
-<svg xmlns="http://www.w3.org/2000/svg" id="pikcha" max-width="100%" max-height="100vh">
+<svg xmlns="http://www.w3.org/2000/svg" id="pikcha">
 
 </svg>
+
+
 </div>
 
 <script>
 var svg = document.getElementById('pikcha');
-svg.style.maxHeight = "90vw";
+svg.style.maxWidth = "90vw";
 svg.style.maxHeight = "90vh";
 svg.style.marginLeft ="auto";
 svg.style.marginRight ="auto";
@@ -465,6 +467,6 @@ default_spells = [
 "Enjoy the silence",
 "Lupus lupo homo est",
 ]
-spell_input.value = default_spells[Math.floor(Math.random()*default_spells.length)];
-draw();
+ spell_input.value = default_spells[Math.floor(Math.random()*default_spells.length)];
+ draw();
 </script>
