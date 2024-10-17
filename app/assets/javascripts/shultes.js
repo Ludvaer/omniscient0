@@ -109,7 +109,8 @@
       let size = table_size;
       let length = table_length;
       var fontsize = length > 99 ? 30/size : 40/size;
-      table.style.fontSize = fontsize + "vmin";
+      table.style.fontSize = "24px"//fontsize + "vmin";
+
       //var shuffleCount = factorialize(length)
       let numbers =[]
       for (var i = 0; i < length; i++)
@@ -131,11 +132,23 @@
           //cell.innerHTML = numbers[i*size+j];
           row.appendChild(cell);
           let btn = document.createElement("button");
-          let number = numbers[i*size+j];
-          btn.innerHTML = number; //consider making it svg for better
-          btn.onclick = function () { click_cell(number,btn); };
-          btn.style.fontSize = fontsize + "vmin";
           cell.appendChild(btn);
+          let number = numbers[i*size+j];
+          btn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" style="width: 100%; height: 100%; margin-left: auto; margin-right: auto;"><text dominant-baseline="middle" text-anchor="middle">a</text></svg>'
+          let svg = btn.children[0];
+          let text_element = svg.children[0];
+          text_element.textContent = number;
+          let bbox = text_element.getBBox();
+          let vb =
+            [bbox.x,
+             bbox.y,
+             bbox.width,
+             bbox.height].join(" ");
+          svg.setAttribute("viewBox", vb);
+
+          btn.onclick = function () { click_cell(number,btn); };
+          //btn.style.fontSize = fontsize + "vmin";
+
         }
       }
       return suffle_number;
