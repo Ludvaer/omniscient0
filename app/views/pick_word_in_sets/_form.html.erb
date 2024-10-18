@@ -10,33 +10,11 @@
       </ul>
     </div>
   <% end %>
-
-  <div>
-    <%= form.label :id %>
-    <%= form.number_field :id, id: :pick_word_in_set_id%>
-  </div>
-
-  <div>
-    <%= form.label :correct_id %>
-    <%= form.number_field :correct_id, id: :correct%>
-  </div>
-
   <div>
     <%= form.label :picked_id %>
     <%= form.number_field :picked_id, id: :picked %>
   </div>
-
   <div>
-    <%= form.label :translation_set_id %>
-    <%= form.number_field :translation_set_id, id: :set %>
-  </div>
-
-  <div>
-    <%= form.label :version %>
-    <%= form.number_field :version, id: :version %>
-  </div>
-
-  <div>
-    <%= form.submit %>
+    <%= form.submit value: (yield :action), :class => "btn" %>
   </div>
 <% end %>
