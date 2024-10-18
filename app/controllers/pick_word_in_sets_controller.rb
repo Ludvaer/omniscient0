@@ -3,7 +3,7 @@ class PickWordInSetsController < ApplicationController
 
   # GET /pick_word_in_sets or /pick_word_in_sets.json
   def index
-    @pick_word_in_sets = PickWordInSet.all
+    @pick_word_in_sets = PickWordInSet.where(user_id: current_user.id)
   end
 
   # GET /pick_word_in_sets/1 or /pick_word_in_sets/1.json
@@ -24,7 +24,7 @@ class PickWordInSetsController < ApplicationController
   #i need to move here logic currently in new and move this to
   # POST /pick_word_in_sets or /pick_word_in_sets.json
   def create
-    incompelete = PickWordInSet.where(picked_id: nil).order(:created_at)
+    incompelete = PickWordInSet.where(picked_id: nil, user_id: current_user.id).order(:created_at)
     if incompelete.empty?
       @pick_word_in_set = PickWordInSet.new
       japanese_dialect_id = Dialect.find_by(name:'japanese').id
@@ -51,6 +51,7 @@ class PickWordInSetsController < ApplicationController
       @pick_word_in_set.correct_id = @correct.id
       @pick_word_in_set.translation_set = @translation_set
       @pick_word_in_set.version = 1
+      @pick_word_in_set.user_id = current_user.id
       @saved = @pick_word_in_set.save
       @notice = "Pick word in set was successfully created."
     else
@@ -75,6 +76,7 @@ class PickWordInSetsController < ApplicationController
     respond_to do |format|
       if @pick_word_in_set.picked_id == nil and
          @translations.any? { |t| t.id == pick_word_in_set_params[:picked_id].to_i } and
+         @pick_word_in_set.user_id == current_user.id
          @pick_word_in_set.update(pick_word_in_set_params)
         format.html { redirect_to pick_word_in_set_url(@pick_word_in_set), notice: "Pick word in set was successfully updated." }
         format.json { render :show, status: :ok, location: @pick_word_in_set }

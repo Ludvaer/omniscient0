@@ -1,10 +1,9 @@
-<p style="color: green"><%= notice %></p>
+<% provide(:title, t('Test result')) %>
+<% provide(:assets, javascript_include_tag('pick_word_in_sets')) %>
 
-<%= render @pick_word_in_set %>
+<%= render "form", pick_word_in_set: @pick_word_in_set %>
+<%= render "form", pick_word_in_set: PickWordInSet.new %>
 
 <div>
-  <%= link_to "Edit this pick word in set", edit_pick_word_in_set_path(@pick_word_in_set) %> |
   <%= link_to "Back to pick word in sets", pick_word_in_sets_path %>
-
-  <%= button_to "Destroy this pick word in set", @pick_word_in_set, method: :delete %>
 </div>

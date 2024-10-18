@@ -1,20 +1,61 @@
-<%= form_with(model: pick_word_in_set) do |form| %>
-  <% if pick_word_in_set.errors.any? %>
-    <div style="color: red">
-      <h2><%= pluralize(pick_word_in_set.errors.count, "error") %> prohibited this pick_word_in_set from being saved:</h2>
+<%
+translation_set = pick_word_in_set.translation_set
+translations = translation_set&.translations
+correct = translations&.find{|t| t.id == pick_word_in_set.correct_id}
+optionboard_id = if correct.nil? then 'new_test_form' else "optionboard_#{pick_word_in_set.id}" end
+form_id = if correct.nil? then 'new_test_form' else "test_pick_#{pick_word_in_set.id}_form" end
+picked_id = if correct.nil? then 'new_picked' else "test_pick_#{pick_word_in_set.id}_input" end
+%>
+<% if correct %>
+  <div class="optionboard" id="<%= optionboard_id %>">
+    <svg class="fit-text" xmlns="http://www.w3.org/2000/svg" style="width: 100%; height: 30vmin; margin-left: auto; margin-right: auto;">
+      <text dominant-baseline="middle" text-anchor="middle">
+        <%= correct&.word&.spelling %>
+      </text>
+    </svg>
+    <br>
+    <% translations&.each do |translation| %>
+      <button type="button"
+        <% if pick_word_in_set.picked_id.nil? %>
+          class="enabled_option_btn" onclick="select(<%= translation.id %>,<%= pick_word_in_set.id %>)">
+        <% elsif pick_word_in_set.picked_id == translation.id and correct.word.id == translation.word.id %>
+          class="disabled_option_btn" style="border-color:#00ff00;"  disabled>✔
+        <% elsif pick_word_in_set.picked_id == translation.id %>
+          class="disabled_option_btn" style="border-color:#ff0000;"  disabled>❌
+        <% elsif correct.word.id == translation.word.id %>
+          class="disabled_option_btn" style="border-color:#0000ff;"  disabled>!
+        <% else %>
+          class="disabled_option_btn" style="border-color:#aaaaaa;"  disabled>
+        <% end%>
 
-      <ul>
-        <% pick_word_in_set.errors.each do |error| %>
-          <li><%= error.full_message %></li>
-        <% end %>
-      </ul>
+            <b><%= translation.translation %></b>
+      </button>
+    <% end %>
+  </div>
+  <script> fit_all_text(document.getElementById("<%= optionboard_id %>")) </script>
+<% end %>
+
+<br>
+<% if pick_word_in_set.picked_id.nil? or correct.nil? %>
+  <%= form_with(model: pick_word_in_set, id: form_id) do |form| %>
+    <% if pick_word_in_set.errors.any? %>
+      <div style="color: red">
+        <h2><%= pluralize(pick_word_in_set.errors.count, "error") %> prohibited this pick_word_in_set from being saved:</h2>
+
+        <ul>
+          <% pick_word_in_set.errors.each do |error| %>
+            <li><%= error.full_message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+    <div style="display: none;">
+      <%= form.label :picked_id %>
+      <%= form.number_field :picked_id, id: picked_id %>
+    </div>
+    <div <% unless correct.nil? %>style="display: none;"<% end %>>
+      <%= form.submit id: if correct.nil? then 'new_test_submit' else "test_pick_#{pick_word_in_set.id}_submit" end,
+       value: t('Run test'), :class => "btn", data: { disable_with: ( t('In progress')) }  %>
     </div>
   <% end %>
-  <div>
-    <%= form.label :picked_id %>
-    <%= form.number_field :picked_id, id: :picked %>
-  </div>
-  <div>
-    <%= form.submit value: (yield :action), :class => "btn" %>
-  </div>
 <% end %>

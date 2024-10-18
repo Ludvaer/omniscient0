@@ -1,5 +1,5 @@
 <% provide(:title, t('New pick correct translation')) %>
-<% provide(:action, t('Run test')) %>
+<% provide(:assets, javascript_include_tag('pick_word_in_sets')) %>
 <%= render "form", pick_word_in_set: @pick_word_in_set %>
 <br>
 <div>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_10_18_091336) do
+ActiveRecord::Schema[7.0].define(version: 2024_10_18_141821) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -55,7 +55,9 @@ ActiveRecord::Schema[7.0].define(version: 2024_10_18_091336) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "translation_set_id", null: false
+    t.bigint "user_id", null: false
     t.index ["translation_set_id"], name: "index_pick_word_in_sets_on_translation_set_id"
+    t.index ["user_id"], name: "index_pick_word_in_sets_on_user_id"
   end
 
   create_table "sessions", force: :cascade do |t|
@@ -130,4 +132,5 @@ ActiveRecord::Schema[7.0].define(version: 2024_10_18_091336) do
   end
 
   add_foreign_key "pick_word_in_sets", "translation_sets"
+  add_foreign_key "pick_word_in_sets", "users"
 end

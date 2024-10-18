@@ -306,7 +306,7 @@ table {
     text-align: center;
 }
 
-#optionboard
+.optionboard
 {
   border: 3px solid brown;
   text-align: center;
@@ -320,7 +320,7 @@ table {
 .fit-text {
 }
 
-.option_btn {
+.disabled_option_btn {
     font-size: 1.25em;
     color: $btncolor;
     background-color: transparent;
@@ -329,7 +329,17 @@ table {
     margin: 1vmin 1vmin;
     border-radius: 5vmin;
     border: 1vmin solid $btncolor;
+}
 
+.enabled_option_btn {
+  font-size: 1.25em;
+  color: $btncolor;
+  background-color: transparent;
+  border-color: $btncolor;
+  padding: 1vmin 1vmin;
+  margin: 1vmin 1vmin;
+  border-radius: 5vmin;
+  border: 1vmin solid $btncolor;
     &:hover {
         color: #efefe0;
         background-color: $btncolor;
