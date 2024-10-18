@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_10_14_035238) do
+ActiveRecord::Schema[7.0].define(version: 2024_10_18_091336) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -51,10 +51,11 @@ ActiveRecord::Schema[7.0].define(version: 2024_10_14_035238) do
   create_table "pick_word_in_sets", force: :cascade do |t|
     t.integer "correct_id"
     t.integer "picked_id"
-    t.integer "set_id"
     t.integer "version"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "translation_set_id", null: false
+    t.index ["translation_set_id"], name: "index_pick_word_in_sets_on_translation_set_id"
   end
 
   create_table "sessions", force: :cascade do |t|
@@ -73,6 +74,16 @@ ActiveRecord::Schema[7.0].define(version: 2024_10_14_035238) do
     t.decimal "shuffle"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "translation_sets", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "translation_sets_translations", id: false, force: :cascade do |t|
+    t.bigint "translation_id", null: false
+    t.bigint "translation_set_id", null: false
   end
 
   create_table "translations", force: :cascade do |t|
@@ -106,6 +117,11 @@ ActiveRecord::Schema[7.0].define(version: 2024_10_14_035238) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "word_sets_words", id: false, force: :cascade do |t|
+    t.bigint "word_id", null: false
+    t.bigint "word_set_id", null: false
+  end
+
   create_table "words", force: :cascade do |t|
     t.string "spelling"
     t.integer "dialect_id"
@@ -113,4 +129,5 @@ ActiveRecord::Schema[7.0].define(version: 2024_10_14_035238) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "pick_word_in_sets", "translation_sets"
 end

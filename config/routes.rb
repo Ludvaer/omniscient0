@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :translation_sets
   resources :descriptions
   resources :word_in_sets
   resources :word_sets

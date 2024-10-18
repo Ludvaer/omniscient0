@@ -20,6 +20,14 @@ rails generate scaffold PickWordInSet correct_id:integer picked_id:integer set_i
 #this will be probably a bit more intuitive if set will include correct answer but a bit less redundant and
 rails generate scaffold Description text:string
 
-rails generate migration AddUserRefToProducts user:references
-t.integer "word_id" :word, foreign_key: true
-rails generate migration AddWordRefToTranslations user:references
+#rails generate migration AddUserRefToProducts user:references
+#t.integer "word_id" :word, foreign_key: true
+#rails generate migration AddWordRefToTranslations user:references
+
+rails generate migration CreateJoinTableWordWordSet word word_set
+
+rails generate scaffold TranslationSet
+rails generate migration CreateJoinTableTranslationTranslationSet translation translation_set
+rails generate migration RemoveSetIdFromPickWordInSet set_id:integer
+rails generate migration AddTranslationSetRefToPickWordInSet translation_set:references
+rails generate migration AddUserRefToPickWordInSet user:references

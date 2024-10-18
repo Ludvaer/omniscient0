@@ -1,0 +1,10 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @translation_set %>
+
+<div>
+  <%= link_to "Edit this translation set", edit_translation_set_path(@translation_set) %> |
+  <%= link_to "Back to translation sets", translation_sets_path %>
+
+  <%= button_to "Destroy this translation set", @translation_set, method: :delete %>
+</div>

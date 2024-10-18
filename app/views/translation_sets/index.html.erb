@@ -1,0 +1,14 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Translation sets</h1>
+
+<div id="translation_sets">
+  <% @translation_sets.each do |translation_set| %>
+    <%= render translation_set %>
+    <p>
+      <%= link_to "Show this translation set", translation_set %>
+    </p>
+  <% end %>
+</div>
+
+<%= link_to "New translation set", new_translation_set_path %>

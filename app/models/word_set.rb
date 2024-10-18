@@ -1,2 +1,3 @@
 class WordSet < ApplicationRecord
+
 end

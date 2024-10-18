@@ -12,6 +12,11 @@
   <% end %>
 
   <div>
+    <%= form.label :id %>
+    <%= form.number_field :id, id: :pick_word_in_set_id%>
+  </div>
+
+  <div>
     <%= form.label :correct_id %>
     <%= form.number_field :correct_id, id: :correct%>
   </div>
@@ -22,8 +27,8 @@
   </div>
 
   <div>
-    <%= form.label :set_id %>
-    <%= form.number_field :set_id, id: :set %>
+    <%= form.label :translation_set_id %>
+    <%= form.number_field :translation_set_id, id: :set %>
   </div>
 
   <div>
