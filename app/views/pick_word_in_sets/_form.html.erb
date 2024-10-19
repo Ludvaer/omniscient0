@@ -23,7 +23,7 @@ picked_id = if correct.nil? then 'new_picked' else "test_pick_#{pick_word_in_set
         <% elsif pick_word_in_set.picked_id == translation.id %>
           class="disabled_option_btn" style="border-color:#ff0000;"  disabled>❌
         <% elsif correct.word.id == translation.word.id %>
-          class="disabled_option_btn" style="border-color:#0000ff;"  disabled>!
+          class="disabled_option_btn" style="border-color:#0000ff;"  disabled>🢂
         <% else %>
           class="disabled_option_btn" style="border-color:#aaaaaa;"  disabled>
         <% end%>

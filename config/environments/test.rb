@@ -52,6 +52,19 @@ Rails.application.configure do
   # Tell Active Support which deprecation messages to disallow.
   config.active_support.disallowed_deprecation_warnings = []
 
+
+  host = 'localhost:3000'
+  config.action_mailer.default_url_options = { host: host }
+  config.action_mailer.raise_delivery_errors = true
+  ActionMailer::Base.delivery_method = :smtp
+  ActionMailer::Base.smtp_settings = {
+    :address        => '127.0.0.1',
+    :domain         => 'omnisend.com',
+    :port           =>  25,
+    :user_name      => 'app@omnisend.com',
+  :password       => '1234',
+  :authentication => :login,
+  }
   # Raises error for missing translations.
   # config.i18n.raise_on_missing_translations = true
 

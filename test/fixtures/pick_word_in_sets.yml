@@ -1,13 +1,13 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
-
-one:
-  correct_id: 1
-  picked_id: 1
-  set_id: 1
-  version: 1
-
-two:
-  correct_id: 1
-  picked_id: 1
-  set_id: 1
-  version: 1
+# 
+# one:
+#   correct_id: 1
+#   picked_id: 1
+#   set_id: 1
+#   version: 1
+#
+# two:
+#   correct_id: 1
+#   picked_id: 1
+#   set_id: 1
+#   version: 1

@@ -231,8 +231,8 @@ class User < ActiveRecord::Base
 
 	def check_old_password (user_params)
 		decrypted, @decryption_failed  = decrypt(user_params[:old_password],user_params[:old_password_encrypted],user_params[:salt])
-		#@doublepost ||=  !User.checksalt(decrypted[-1]) unless decryption_failed
-    p "doublepost:#{doublepost}"
+		@doublepost ||=  !User.checksalt(decrypted[-1]) unless decryption_failed
+    p "doublepost:#{@doublepost}"
 		@old_password = decrypted[0]
 		@old_password_empty = (decrypted[0] == hash_pass(''))
 		@err ||= (@decryption_failed || @doublepost || @old_password_empty)
@@ -241,7 +241,7 @@ class User < ActiveRecord::Base
 	def check_password (user_params)
 		decrypted, decryption_failed = decrypt(user_params[:password],user_params[:password_encrypted],user_params[:salt])
 		@decryption_failed ||= decryption_failed
-	  #	@doublepost ||=  !User.checksalt(decrypted[-1]) unless decryption_failed
+	  @doublepost ||=  !User.checksalt(decrypted[-1]) unless decryption_failed
 		self.password = decrypted[0]
 		@password_empty = (decrypted[0] == hash_pass(''))
 		@err ||= (decryption_failed || doublepost || @password_empty)
@@ -250,7 +250,7 @@ class User < ActiveRecord::Base
 	def check_password_confirmation (user_params)
 		decrypted, decryption_failed = decrypt(user_params[:password_confirmation],user_params[:password_confirmation_encrypted],user_params[:salt])
 		@decryption_failed ||= decryption_failed
-		# @doublepost ||=  !User.checksalt(decrypted[-1]) unless decryption_failed
+		@doublepost ||=  !User.checksalt(decrypted[-1]) unless decryption_failed
 		@password_confirmation_empty = (decrypted[0] == hash_pass(''))
 		#unless @password_confirmation_empty = (decrypted[0] == User.hash_pass(''))
 			@password_confirmation_not_match = password != decrypted[0]
