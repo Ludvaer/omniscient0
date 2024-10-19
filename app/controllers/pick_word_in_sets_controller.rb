@@ -29,24 +29,26 @@ class PickWordInSetsController < ApplicationController
       @pick_word_in_set = PickWordInSet.new
       japanese_dialect_id = Dialect.find_by(name:'japanese').id
       english_dialect_id = Dialect.find_by(name:'english').id
-      @translations = Translation.joins(:word).where('word.dialect_id':japanese_dialect_id, translation_dialect_id:english_dialect_id)
+      @translations =
+          Translation.joins(:word)
+          .where('word.dialect_id':japanese_dialect_id, translation_dialect_id:english_dialect_id)
           .order('RANDOM()').take(5)
       translations_ids = @translations.map{|t| t.id}
-      # Find all WordSets that have at least the same words
+      # Find all WordSets that have the same words
       matching_translation_sets = TranslationSet.joins(:translations)
                                   .where(translations: { id: translations_ids })
                                   .group('translation_sets.id')
                                   .having('COUNT(1) = ?', translations_ids.size)
       if matching_translation_sets.empty?
         # No matching WordSet found, so create a new one
-        new_translation_set = TranslationSet.create!
+        new_translation_set = TranslationSet.new
         new_translation_set.translations << @translations
         new_translation_set.save
         @translation_set = new_translation_set.reload
       else
         @translation_set = matching_translation_sets[0]
       end
-      @correct = @translations[0]
+      @correct = @translations.sample()
       @pick_word_in_set.picked_id = nil
       @pick_word_in_set.correct_id = @correct.id
       @pick_word_in_set.translation_set = @translation_set
