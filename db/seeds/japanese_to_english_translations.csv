@@ -1,12 +1,61 @@
-japanese;romaji;english
-猫;neko;cat
-箒;houki;broom
-青い;aoi;blue
-一方;ippou;one side
-学校;gakkou;school
-茶色;chairo;brown
-金融;kin'yuu;finance
-記入;kinyuu;entry (in a form, register, diary, etc.)
-全員;zen'in;all members, everyone, everybody, whole
-是認;zenin;approval
-反対;hantai;opposition, resistance, antagonism, hostility, objection, dissent
+japanese|type|romaji|english|russian
+猫|noun|neko|cat|кошка, кот
+箒|noun|houki|broom|метла, веник
+青い|adjective|aoi|blue; green;|синий, голубой; зелёный;
+一方|noun|ippou|one side, one hand; one way; the other side; the other party;|одна сторона; другая сторона;
+学校|noun|gakkou|school|школа, учебное заведение
+茶色|noun|chairo|brown|коричневый
+金融|noun|kin'yuu|finance|денежное обращение, финансовый рынок, финансы
+記入|noun|kinyuu|entry (in a form, register, diary, etc.)|запись; внесение, включение (в список); заполнение (бланка)
+全員|noun|zen'in|all members, everyone, everybody, whole|се [участники, члены]; весь штат; весь личный состав
+是認|noun|zenin|approval|одобрение, принятие, признание
+反対|noun|hantai|opposition, resistance, antagonism, hostility, objection, dissent|противоположность, противное, обратное; противодействие; возражение; антагонизм; оппозиция; контраст;
+友達|noun|tomodachi|friend, companion|друг, приятель
+学生|noun|gakusei|student|студент
+卒業生|noun|sotsugyōsei|graduate, alumnus (alumna)|выпускник
+学長|noun|gakuchō|[university] president|ректор [университета]
+先生|noun|sensei|teacher, master; doctor|учитель, преподаватель;
+秘書|noun|hisho|1) private secretary; 2) treasured (secret) book|личный секретарь; 2) бережно хранимая (секретная) книга
+大学|noun|daigaku|university|университет
+食堂|noun|shokudō|cafeteria; buffet; refectory; dining hall|столовая; буфет
+家;内|noun|uchi|house, home, family|дом, семья
+此れ;これ|pronoun|kore|this|это
+此方;こちら|pronoun|kochira|here, this place; this side;|здесь; это место; эта сторона;
+私|pronoun|watashi;watakushi|I, me, myself;|я
+貴方|pronoun|anata|you|ты, вы
+彼|pronoun|kare|he|он
+彼ら;彼等|pronoun|karera|they|они
+彼女|pronoun|kanojo|she|она
+彼女ら;彼女等|pronoun|kanojora|they|они
+今日|noun|kyō;konnichi|today; this day|сегодня
+明日|noun|ashita;asu;myōnichi|tomorrow|завтра; завтрашний день
+毎日||mainichi|every day; daily; day after day|каждый день; ежедневно; день за днём
+行く|verb|iku|go, walk;|идти, ходить;
+来る|verb|kuru|1) come [over], come near; arrive; visit; 2) come round, set in (as of seasons); 3) come, derive, be due to smth.|1) приходить; приезжать; прибывать; 2) наступать (о времени года и т.п.); 3) проистекать, происходить;
+帰る|verb|kaeru|go back [home]; return;|уходить [домой]; возвращаться [домой];
+泳ぐ|verb|oyogu|swim|плавать; купаться;
+食べる|verb|taberu|1) eat, have a meal; 2) live on, subsist on|1) есть; 2) перен. жить, существовать
+まあまあ||mā-mā|so-so, passable, not (so) bad, reasonable|1) неплохой, годный, удовлетворительный, более-менее; нормально, сойдёт, ничего; 2) полноте, довольно, ладно уже; 3) межд. ох!, ах!
+これから||kore-kara|1) now, from now on, after this, hereafter, in the future; ~no future, coming; 2) from here|1) [а] теперь, сейчас; в скором будущем; отныне, впредь; ~no будущий, предстоящий; 2) отсюда, с этого места, дальше
+一緒に||isshoni|together; at the same time, all at once;|вместе; вместе, сразу, одновременно;
+ええ||ee|1) yes, yeah; OK; 2) eh?, what?, pardon?; |1) да; 2) а?, что?;
+いいえ||iie|no|нет
+お早う||o-hayō|good morning!|доброе утро!
+お早う御座居ます|phrase|ohayō gozaimas|good morning!|доброе утро!
+今日は||konnichiwa|hello, good day;|добрый день!, здравствуйте!;
+暫く||shibaraku|1) a while, a moment, a short time;2) good while, long time|1)некоторое время, немного; 2) долгое время
+暫くですね|phrase|shibarakudesune|I haven't seen you for a long time; It's been a while.|Давно не виделиь.
+初めまして||hajimemashite|pleased to meet you, how do you do|рад познакомиться, очень приятно
+今晩は||kombanwa|good evening|добрый вечер
+お元気ですか|phrase|おげんきですか|How are you?|Как поживаете? Как дела? Как здоровье?
+今晩は||kombanwa|good evening|добрый вечер
+お休みなさい||o-yasumi-nasai|Good night|спокойной ночи!
+左様なら|sayounara|sayonara|good-bye|до свидания
+有り難う||arigatō|thank you|спасибо
+有り難う御座居ます|phrase|arigatō gozaimas|thank you very much|большое спасибо
+どうも有り難う御座居ます|phrase|dōmo arigatō gozaimas|thank you very much indeed|очень большое спасибо
+そうですか|phrase|sou desu ka|is that so?  I see. Really?|Вот как? Действительно?
+済みません||sumimasen|I am sorry; Excuse me|извините
+どう致しまして|phrase|dōitashimashite|you are welcome|пожалуйста, не за что
+さん|suffix|san|Mr, Ms|господин, госпожа
+達|suffix|tachi|plural suffix|суффикс множественного числа
