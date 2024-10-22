@@ -1,0 +1,8 @@
+id	name	email	password_digest	Token	downame	activated
+1	"mikhailutochkin"	"mikhailutochkin@gmail.com"	"$2a$12$XLo6p94vvx4OxoFjKrV35.esxK.VE549Nthmdsi5tSPgCWFxnC9ge"		"mikhailutochkin"	true
+2	"Lurr"	"wolflurr@gmail.com"	"$2a$12$NLWWzZj5TpwaeNkstzzMOOlLvQCZNwT0gUPrPZdr3Q2roImM3PBuq"		"lurr"	true
+5	"YarxiSeed"	"yarxiseed@example.com"	"$2a$12$nkOARH5DCFUohPyHX4vAOeYaSG.u1miWbGb6ag0/hWoKUefCfTeRi"		"yarxiseed"	true
+6	"JishopSeed"	"jishopseed@example.com"	"$2a$12$a11luVtBgUC5aPFaD56Greb2PxuQkg390QgAVU0jKQpA2..zqkm/u"		"jishopseed"	true
+7	"HirokoStormSeed"	"hirokostormseed@example.com"	"$2a$12$jqaZ76QPr/ToxIK5dTNhZ.MZm4U4oQMTfUSiyN73IAPEN8iRS9j6e"		"hirokostormseed"	true
+8	"YarxiComboSeed"	"yarxicomboseed@example.com"	"$2a$12$QnLSVJUrjFcIScR1h2MNGeORu/HZTMVrOWIB4RIHxEaJp.ZcEFD8C"		"yarxicomboseed"	true
+9	"JishopComboSeed"	"jishopcomboseed@example.com"	"$2a$12$ktsDeqB.uSZE.ZleOvpnqODSW6mf00XtFdmL7vN91ifi.EKdMSJSS"		"jishopcomboseed"	true

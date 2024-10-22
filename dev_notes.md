@@ -25,9 +25,26 @@ rails generate scaffold Description text:string
 #rails generate migration AddWordRefToTranslations user:references
 
 rails generate migration CreateJoinTableWordWordSet word word_set
-
+#i am creating separate translation set table cause I want to be able to reuse tonce created set in multiple tests
 rails generate scaffold TranslationSet
+#has and bleongs to many relateion between translation and translationset
 rails generate migration CreateJoinTableTranslationTranslationSet translation translation_set
+#keeeping set of words is wrong if you don not know which translations or even to what dialet was used
 rails generate migration RemoveSetIdFromPickWordInSet set_id:integer
+#tracking which translations was used in which set
 rails generate migration AddTranslationSetRefToPickWordInSet translation_set:references
+#we need to track which user completed which test
 rails generate migration AddUserRefToPickWordInSet user:references
+#I want to add users ref to my words translation table to track source
+rails generate migration AddUserRefToTranslation user:references
+
+in order:
+ - system to select languages which you learn and which you know -
+   probably as settings profile belongs to user while user has many settings profiles
+   and settings profile belongs to languages that are know and are in progress of learning with different aliases
+- js script that doing testing in cycles keeping preloaded queue and cahing words and TranslationSet
+- additional test variants, like translation from test and kana related
+- additional fields on finished and running test like how it looks in kana, and basic kanji meaning
+- but first I will suffer through exporting some data from existing dictionaries and jshop and yarxi db
+- figuring out staff related to set generation logic and order of learning
+. . .
