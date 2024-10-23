@@ -46,5 +46,23 @@ in order:
 - additional test variants, like translation from test and kana related
 - additional fields on finished and running test like how it looks in kana, and basic kanji meaning
 - but first I will suffer through exporting some data from existing dictionaries and jshop and yarxi db
-- figuring out staff related to set generation logic and order of learning
+- figuring out staff related to set generation based on estimation of mistake probability logic and order of learning
+- ensure there is no similar word in set in terms of meaning yet there are similar suffixes or form
+- fix na -ajectiv duplicates issue
+- add at least serbian from eng and ru learners and english from eng
+- remove obsolete tables like wordsets
 . . .
+
+current priority task is selecting words to train based on estimation of answering correctly probability
+but first I need to force order of utility frequency so word would be learned started from basic to advanced
+
+first I need to create kanji table and mark them with nicknames and utility
+I probably want to avoid creating separate tables and may be I will add column
+ to the words table lets call it 'priority' and then add dialect kanji
+ and then save kanji as words nicknames in translations and priority for words calculate from relevant kanji
+
+Q: Should I mark translation or word with priority? Or both?
+A: Well given that word can have multiple translations and some of them may be less interesting then other
+I may want to start with adding priority column to translations table and decide if words themselves
+need any priority (they probably do) later
+generate migration AddPriorityToTranslation priority:integer

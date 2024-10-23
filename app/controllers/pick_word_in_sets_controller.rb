@@ -21,7 +21,6 @@ class PickWordInSetsController < ApplicationController
 
   end
 
-  #i need to move here logic currently in new and move this to
   # POST /pick_word_in_sets or /pick_word_in_sets.json
   def create
     incompelete = PickWordInSet.where(picked_id: nil, user_id: current_user.id).order(:created_at)
