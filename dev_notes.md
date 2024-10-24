@@ -66,3 +66,10 @@ A: Well given that word can have multiple translations and some of them may be l
 I may want to start with adding priority column to translations table and decide if words themselves
 need any priority (they probably do) later
 generate migration AddPriorityToTranslation priority:integer
+new after i parsed kanji files I may start figuring out code that calculates estimation of probability of correct answer
+based on estimation of sigma function thrown up on translation ordered by priority for not yet tested Word
+but for tested words it needs come from 100% for resently added words to some midpoint beetween sigmoid estimation
+and actual stats for case when actual stats of correct to incorrect answers
+
+
+Iwill definetly need rewrite some rquest to be moar efficient 
