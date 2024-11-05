@@ -21,6 +21,7 @@ class PickWordInSetsController < ApplicationController
 
   end
 
+
   # POST /pick_word_in_sets or /pick_word_in_sets.json
   def create
     incompelete = PickWordInSet.where(picked_id: nil, user_id: current_user.id).order(:created_at)
@@ -110,5 +111,14 @@ class PickWordInSetsController < ApplicationController
     # Only allow a list of trusted parameters through.
     def pick_word_in_set_params
       params.require(:pick_word_in_set).permit(:picked_id)
+    end
+
+    def create_new
+      #writing the supidest possible code to sort by the facking estimated probability
+      source_dialect_id = Dialect.find_by(name:'english').id
+      target_dialct_id =  Dialect.find_by(name:'japanese').id
+      @translations =
+          Translation.joins(:word)
+          .where('word.dialect_id':source_dialect_id, translation_dialect_id:target_dialct_id)
     end
 end

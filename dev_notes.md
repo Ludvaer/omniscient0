@@ -72,4 +72,9 @@ but for tested words it needs come from 100% for resently added words to some mi
 and actual stats for case when actual stats of correct to incorrect answers
 
 
-Iwill definetly need rewrite some rquest to be moar efficient 
+Iwill definetly need rewrite some rquest to be moar efficient
+
+I want separete table for performance that will join users and picks while tracking
+it should contain usuccesfull vs successfull vs index attmts
+
+rails generate model UserTranslationLearnProgress user_id:big_int translation_id:big_int correct:integer failed:integer last_counter:integer

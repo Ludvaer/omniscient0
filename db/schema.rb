@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_10_23_084640) do
+ActiveRecord::Schema[7.0].define(version: 2024_11_05_095440) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -94,11 +94,23 @@ ActiveRecord::Schema[7.0].define(version: 2024_10_23_084640) do
     t.integer "translation_dialect_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "user_id", default: 0, null: false
+    t.bigint "user_id", default: 7, null: false
     t.integer "priority"
     t.index ["translation_dialect_id"], name: "index_translations_on_translation_dialect_id"
     t.index ["user_id"], name: "index_translations_on_user_id"
     t.index ["word_id"], name: "index_translations_on_word_id"
+  end
+
+  create_table "user_translation_learn_progresses", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "translation_id"
+    t.integer "correct"
+    t.integer "failed"
+    t.integer "last_counter"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["translation_id"], name: "index_user_translation_learn_progresses_on_translation_id"
+    t.index ["user_id"], name: "index_user_translation_learn_progresses_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|

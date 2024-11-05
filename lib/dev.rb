@@ -10,6 +10,7 @@ end
 puts "#{1.5*1.5} = sum_sqr_d(1,2) = #{sum_sqr_d(1,2)}"
 puts "#{2.5*2.5} = sum_sqr_d(1,3) = #{sum_sqr_d(2,3)}"
 puts "#{1.5*1.5 + 2.5*2.5} = sum_sqr_d(1,3) = #{sum_sqr_d(1,3)}"
+puts "#{2.5*2.5+3.5*3.5+4.5*4.5} = sum_sqr_d(2,5) = #{sum_sqr_d(1,3)}"
 
 user = User.find_by(name: 'Lurr')
 source_dialect_id = Dialect.find_by(name:'english').id
@@ -26,14 +27,47 @@ index = 0
 last_index = 0
 last_prob = 1
 estimated_probs = { 0=>1.0, translations.size+1=>0.0  }
-
+pick_index_by_id = {}
+UserTranslationLearnProgress.delete_all
+PickWordInSet
+    .where("picked_id IS NOT NULL AND user_id=#{user.id}").order(:created_at)
+    .each_with_index do |p,i|
+        pick_index_by_id[p.id] = i
+        is_correct = Translation.find_by(id:p.correct_id).word.spelling == Translation.find_by(id:p.picked_id).word.spelling
+        t_ids = if p.correct_id == p.picked_id then [p.correct_id] else [ p.correct_id, p.picked_id] end
+        t_ids.each do |t_id|
+          lp = UserTranslationLearnProgress.find_by(user_id:user.id,translation_id: t_id)
+          if lp.nil?
+            lp = UserTranslationLearnProgress.new
+            lp.correct = 0
+            lp.failed = 0
+            lp.user_id = user.id
+            lp.translation_id = t_id
+          end
+          lp.last_counter = i
+          if is_correct
+            lp.correct += 1
+          else
+            lp.failed += 1
+          end
+          lp.save
+        end
+    end
+maxi = pick_index_by_id.size
+puts "pick_index_by_id of size #{maxi} is #{pick_index_by_id}"
 translations.each do |translation|
   index = index + 1
   picks = PickWordInSet
-    .where("(correct_id = #{translation.id} OR picked_id = #{translation.id}) AND picked_id IS NOT NULL")
+    .where("(correct_id = #{translation.id} OR picked_id = #{translation.id}) AND picked_id IS NOT NULL AND user_id=#{user.id}")
   correct_picks = picks.select{ |pick| Translation.find_by(id:pick.correct_id).word.spelling == Translation.find_by(id:pick.picked_id).word.spelling }
-  estimated_prob = correct_picks.size / picks.size.to_f
+  estimated_prob = correct_picks.size / (picks.size.to_f + 1)
   if picks.exists?
+    attempts_after = picks.map{|p|pick_index_by_id[p.id]}.max
+    corrected_estimated_prob = 1.0 - attempts_after*0.1*(1.0 - estimated_prob)
+    if attempts_after > 10
+      corrected_estimated_prob = (0.5)**((attempts_after - 10.0)/1000.0)*estimated_prob
+    end
+    estimated_prob = corrected_estimated_prob
     estimated_probs[index] = estimated_prob
     tpairs = picks.map{|pick| [Translation.find_by(id:pick.correct_id).word.spelling,Translation.find_by(id:pick.picked_id).word.spelling]}
     puts "#{index}:#{translation.priority}: [#{picks.map{|p|p.id}}]: #{tpairs}: #{estimated_prob}"

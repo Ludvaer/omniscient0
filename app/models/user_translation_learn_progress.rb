@@ -1,0 +1,2 @@
+class UserTranslationLearnProgress < ApplicationRecord
+end
