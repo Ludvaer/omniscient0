@@ -57,6 +57,10 @@ maxi = pick_index_by_id.size
 puts "pick_index_by_id of size #{maxi} is #{pick_index_by_id}"
 translations.each do |translation|
   index = index + 1
+  unless translation.rank == index
+    translation.rank = index
+    translation.save
+  end
   picks = PickWordInSet
     .where("(correct_id = #{translation.id} OR picked_id = #{translation.id}) AND picked_id IS NOT NULL AND user_id=#{user.id}")
   correct_picks = picks.select{ |pick| Translation.find_by(id:pick.correct_id).word.spelling == Translation.find_by(id:pick.picked_id).word.spelling }
@@ -65,7 +69,7 @@ translations.each do |translation|
     attempts_after = picks.map{|p|pick_index_by_id[p.id]}.max
     corrected_estimated_prob = 1.0 - attempts_after*0.1*(1.0 - estimated_prob)
     if attempts_after > 10
-      corrected_estimated_prob = (0.5)**((attempts_after - 10.0)/1000.0)*estimated_prob
+      corrected_estimated_prob = estimated_prob * (0.5**((attempts_after - 10.0)/1000.0))
     end
     estimated_prob = corrected_estimated_prob
     estimated_probs[index] = estimated_prob

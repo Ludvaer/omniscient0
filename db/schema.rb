@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_11_05_095440) do
+ActiveRecord::Schema[7.0].define(version: 2024_11_05_205048) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -96,6 +96,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_11_05_095440) do
     t.datetime "updated_at", null: false
     t.bigint "user_id", default: 7, null: false
     t.integer "priority"
+    t.integer "rank"
     t.index ["translation_dialect_id"], name: "index_translations_on_translation_dialect_id"
     t.index ["user_id"], name: "index_translations_on_user_id"
     t.index ["word_id"], name: "index_translations_on_word_id"

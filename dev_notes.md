@@ -78,3 +78,7 @@ I want separete table for performance that will join users and picks while track
 it should contain usuccesfull vs successfull vs index attmts
 
 rails generate model UserTranslationLearnProgress user_id:big_int translation_id:big_int correct:integer failed:integer last_counter:integer
+rails generate migration AddRankToTranslations rank:integer
+
+
+i must fix keeping stats updated when testing !!!!
