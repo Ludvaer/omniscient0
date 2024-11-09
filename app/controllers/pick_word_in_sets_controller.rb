@@ -24,7 +24,13 @@ class PickWordInSetsController < ApplicationController
 
   # POST /pick_word_in_sets or /pick_word_in_sets.json
   def create
-    incompelete = PickWordInSet.where(picked_id: nil, user_id: current_user.id).order(:created_at)
+    @user = current_user
+    @target_dialect_id = [Dialect.find_by(name:'japanese').id]
+    @source_dialect_id  = [Dialect.find_by(name:'english').id]
+    incompelete = PickWordInSet.where(picked_id: nil, user_id: @user.id).order(:created_at)
+    if incompelete.empty?
+      incompelete = get_new_pics(10,10)
+    end
     if incompelete.empty?
       @pick_word_in_set = PickWordInSet.new
       japanese_dialect_id = Dialect.find_by(name:'japanese').id
@@ -126,6 +132,7 @@ class PickWordInSetsController < ApplicationController
       @correct = @translations.find{|t| t.id == @pick_word_in_set.correct_id}
       @target_dialect_id = [@correct.word.dialect_id]
       @source_dialect_id = [@correct.translation_dialect_id]
+      @user = current_user
     end
 
     # Only allow a list of trusted parameters through.
@@ -135,9 +142,212 @@ class PickWordInSetsController < ApplicationController
 
     def dialect_progress
       @dialect_progress ||= UserDialectProgress \
-                .find_or_create_by(source_dialect_id:@source_dialect_id, dialect_id: @target_dialect_id, user_id: @user.id)
+                .find_or_create_by(source_dialect_id:@source_dialect_id, \
+                                   dialect_id: @target_dialect_id, \
+                                   user_id: @user.id)
+    end
+
+    def progresses
+      @progresses ||= UserTranslationLearnProgress \
+        .joins("INNER JOIN translations ON translations.id=user_translation_learn_progresses.translation_id") \
+        .joins("INNER JOIN words ON words.id=translations.word_id") \
+        .where("user_translation_learn_progresses.user_id = #{@user.id} \
+           AND translations.translation_dialect_id IN (?) \
+           AND words.dialect_id IN (?)", @source_dialect_id, @target_dialect_id)
+      return @progresses
+    end
+
+    def get_estimated_prob_by_rank
+      prob_by_rank = { 0=>1.0}
+      learn_progress_count = progresses.size
+      max_rank = 1
+      maxpick = dialect_progress.counter
+      puts "maxpick = #{maxpick}; learn_progress_count = #{learn_progress_count}"
+      progresses.each do |progress|
+           rank = progress.translation.rank
+           max_rank = [rank,max_rank].max
+           if progress.correct.nil?
+             puts "#{progress.translation.word.spelling} => #{progress.translation.translation} \
+              : #{progress.correct} / #{progress.failed} #{progress.last_counter}"
+           end
+           estimated_prob =  progress.correct / (progress.correct + progress.failed + 0.01)
+           short = (1 - estimated_prob) * (0.5**(0.1 * (maxpick - progress.last_counter)))
+           long = (estimated_prob - 0)* (0.5**((maxpick - progress.last_counter)/learn_progress_count))
+           prob_by_rank[rank] = short + long
+           puts "#{ progress.correct}/#{progress.correct + progress.failed} = #{estimated_prob} => \
+            #{short} + #{long} = #{prob_by_rank[rank]}"
+      end
+      prob_by_rank[max_rank+1] = 0
+      puts "#{progresses.size} translation progresses counted"
+      prob_by_rank
+    end
+
+    #TODO: figure out how to organize math functions properly in some separte place
+    def sum_sqr(i) # sum(a*a) for a from 0.5 to i - 0.5 (inclusive)
+      i * (2 * i + 1) * (2 * i - 1) / 12.0
+    end
+    # sum_sqr(1) = 0.5*0.5 = 0.25
+    # sum_sqr(2) = 0.5*0.5 + 1.5*1.5 = 2.5
+    def sum_sqr_d(i1,i2) #sum(a*a) for a from i1 + 0.5 to i2 - 0.5 (inclusive)
+      sum_sqr(i2) - sum_sqr(i1)
+    end
+    # puts "#{1.5*1.5} = sum_sqr_d(1,2) = #{sum_sqr_d(1,2)}"
+    # puts "#{2.5*2.5} = sum_sqr_d(1,3) = #{sum_sqr_d(2,3)}"
+    # puts "#{1.5*1.5 + 2.5*2.5} = sum_sqr_d(1,3) = #{sum_sqr_d(1,3)}"
+    # puts "#{2.5*2.5 + 3.5*3.5 + 4.5*4.5} = sum_sqr_d(2,5) = #{sum_sqr_d(2,5)}"
+
+    def guesstimate_sigmoid(y_by_x) # y_by_x = {x1 => y1, x2 => y2, .... xk => yk}
+      unless @center.nil? || @slope.nil?
+        return [@center, @slope]
+      end
+      # guesstimtes sigmoid (erf kind) while pretending that dy/dx is a normal distribution
+      # sigmoid implied to be negatively sloped from 1 on left to 0 on right
+      # !!! y values on range ends a supposed to be y[x_min] = 1 and y[x_max] = 0
+      # otherwise we have infinitely wrong guestimate on tails which is kinda hard to minimize
+      # average position weighted by -slope * dx where dx = segment length and slope = dy/dx
+      # sum(-dy/dx*dx*avearge(x))/(sum(slope*dx))
+      # which is sum(-dy*average(x))/sum(dy)
+      # sum(dy) = y.last - y.first = 1
+      # sum(-dy*average(x)) = sum(-(y2-y1)*(x2-x1)/2)
+      #TODO: get rid of dict, supply sorted array of arrays [[x1,y1],[x2,y2],[x3,y3]]
+      center = y_by_x.sort_by{|x,y| x}.each_cons(2).sum{|(x1,y1),(x2,y2)| -0.5 * (y2 - y1) * (x2 + x1).to_f}
+      squerror_sum = 0
+      puts "center =  #{center}"
+      squerror_sum = y_by_x.sort_by{|x,y| x}.each_cons(2).sum do |(x1,y1),(x2,y2)|
+        # sqerror = sum((x-c)*(x-c)) for x from x1 to x2
+        # = + sum(x^2) - sum(2*x*center) + sum(center^2) [ for x from x1 to x2]
+        squerror = sum_sqr_d(x1, x2) - (x1 + x2) * (x2 - x1) * center + (x2 - x1) * center * center
+        slope = -(y2 - y1) / (x2 - x1).to_f
+        slope * squerror
+      end
+      puts "std_err = #{Math.sqrt(squerror_sum)}"
+      std_err = Math.sqrt(squerror_sum)
+      slope = -Math.sqrt(2)/(Math.sqrt(Math::PI)*std_err) #we still like negative slope
+      puts "center=#{center}; slope=#{slope})"
+      @center = center
+      @slope = slope
+      [@center, @slope]
+    end
+
+    def get_translations_to_learn(minimal_size)
+      iter = 0
+      margin = minimal_size/10+5
+      center,slope = guesstimate_sigmoid(get_estimated_prob_by_rank)
+      maxpick = dialect_progress.counter
+      learn_progress_count = progresses.size
+      translations = []
+      #a lso sorry we guesstimated erf bur will use tanh instead
+      while translations.size < minimal_size and iter < 3 do
+        translations +=
+            Translation.joins(:word) # .left_outer_joins(:user_translation_learn_progresses)
+            .joins("LEFT OUTER JOIN user_translation_learn_progresses \
+               ON user_translation_learn_progresses.translation_id=translations.id \
+               AND user_translation_learn_progresses.user_id=#{@user.id}") \
+            .where(word:{dialect_id: @target_dialect_id}, translation_dialect_id: @source_dialect_id) \
+        #   .select('DISTINCT ON (word.spelling) *') #sadly does not work if not sorted primarily by spelling
+            .order(Arel.sql( \
+              "abs( COALESCE( \
+              (1.0 - correct/(correct + failed + 0.01))*0.5^(0.1 * (#{maxpick} - last_counter)) \
+              + (correct/(correct + failed + 0.01) - 0.5*(1 + tanh(#{slope}*(translations.rank-#{center}))) )*0.5^((#{maxpick} - last_counter)/#{learn_progress_count}) \
+              ,0) + 0.5*(1 + tanh(#{slope}*(translations.rank-#{center}))) - 0.85) \
+              + 0.02*RANDOM()" \
+              )).drop(iter*(minimal_size + margin)).take(minimal_size + margin) \
+              .group_by{|t|t.word.spelling}.map{|s,ts|ts[0]}
+        iter += 1
+      end
+      translations
     end
 
 
+    def group_tranlation_sets(translations, pick_count, pick_size)
+      # select translations for picks in sets
+      sets = []
+      taken = {"" => 0}
+      taken.default = 0
+      # picked_translations = translations.take(pick_count)
+      # picked_translations.each{|trans|taken[trans]=1}
+      translations.each do |trans|
+        if taken[trans.word.spelling] > 0
+          next
+        end
+        if sets.size >= pick_count
+          break
+        end
+        whole_word = trans.word.spelling
+        puts "> > > [#{whole_word}] < < <"
+        trans_set = []
+        if whole_word.contains_kanji?
+          puts ("#{whole_word} contains kanji")
+          trans_set = []
+          kanji_list = whole_word.each_char.select{|ch|ch.kanji?}
+          reversed_kana_list = whole_word.reverse.each_char.select{|ch|ch.kana?}
+          puts ("kanji_list #{kanji_list} reversed_kana_list #{reversed_kana_list}")
+          trans_set = translations.sort_by do |t|
+            same_kanji_cost = t.word.spelling.each_char.count{|ch|ch.in?(kanji_list)}*10
+            taken_cost = (taken[t.word.spelling])
+            kana_cost = - 2*reversed_kana_list.take(t.word.spelling.size).each_with_index.count{|ch,i| ch == t.word.spelling[-i-1]}
+            same_word_cost = (t.word.spelling === whole_word ? 100 : 0)
+            no_kana_cost = (reversed_kana_list.size === 0 ? 2*t.word.spelling.each_char.count{|ch|ch.kana?} : 0)
+            size_dif = 0.05*(whole_word.size - t.word.spelling.size).abs
+            same_kanji_cost + taken_cost + kana_cost + same_word_cost + no_kana_cost + 0.05*size_dif
+          end.take(pick_size - 1)
+        else
+          puts ("#{whole_word} pure kana")
+          trans_set = []
+          trans_set = translations.sort_by do |t|
+            kanji_cost = t.word.spelling.each_char.count{|ch|ch.contains_kanji?}*10
+            taken_cost = (taken[t.word.spelling] )
+            same_word_cost = (t.word.spelling === whole_word ? 100 : 0)
+            start_same_cost = 2*t.word.spelling.each_char.to_a.each_with_index.count{|ch,i| ch === whole_word[i]}
+            size_dif = 0.05*(whole_word.size - t.word.spelling.size).abs
+            kanji_cost + taken_cost + same_word_cost + start_same_cost + size_dif
+          end.take(pick_size - 1)
+        end
+        puts "good set complete is #{trans_set.map{|t|[t.word.spelling,t.translation]}}"
+        trans_set.each{|t|taken[t.word.spelling]+=1}
+        sets.append [trans,trans_set]
+      end
+      sets
+    end
 
+    def save_translation_groups_as_picks(sets)
+      picks = []
+      sets.each do |correct, translations|
+        @pick_word_in_set = PickWordInSet.new
+        @translations = translations
+        @translations.append(correct)
+        translations_ids = @translations.map{|t| t.id}
+        # Find all WordSets that have the same words
+        matching_translation_sets = TranslationSet.joins(:translations)
+                                    .where(translations: { id: translations_ids })
+                                    .group('translation_sets.id')
+                                    .having('COUNT(1) = ?', translations_ids.size)
+        if matching_translation_sets.empty?
+          # No matching WordSet found, so create a new one
+          new_translation_set = TranslationSet.new
+          new_translation_set.translations << @translations
+          new_translation_set.save
+          @translation_set = new_translation_set.reload
+        else
+          @translation_set = matching_translation_sets[0]
+        end
+        @correct = correct
+        @pick_word_in_set.picked_id = nil
+        @pick_word_in_set.correct_id = @correct.id
+        @pick_word_in_set.translation_set = @translation_set
+        @pick_word_in_set.version = 1
+        @pick_word_in_set.user_id = current_user.id
+        @saved = @pick_word_in_set.save
+        @notice = "Pick word in set was successfully created."
+        picks.append(@pick_word_in_set)
+      end
+      picks
+    end
+
+    def get_new_pics(pick_count, pick_size)
+      translations = get_translations_to_learn(pick_count * pick_size + 5)
+      sets = group_tranlation_sets(translations, pick_count, pick_size)
+      picks = save_translation_groups_as_picks(sets)
+      picks
+    end
 end
