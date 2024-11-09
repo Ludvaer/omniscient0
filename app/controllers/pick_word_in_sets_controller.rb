@@ -76,10 +76,28 @@ class PickWordInSetsController < ApplicationController
   # PATCH/PUT /pick_word_in_sets/1 or /pick_word_in_sets/1.json
   def update
     respond_to do |format|
-      if @pick_word_in_set.picked_id == nil and
-         @translations.any? { |t| t.id == pick_word_in_set_params[:picked_id].to_i } and
-         @pick_word_in_set.user_id == current_user.id
-         @pick_word_in_set.update(pick_word_in_set_params)
+      @picked = @translations.find{|t| t.id == pick_word_in_set_params[:picked_id].to_i}
+      if (@pick_word_in_set.picked_id == nil and \
+          not @picked.nil?  and \
+          @pick_word_in_set.user_id == current_user.id)
+        @user = current_user
+        target_dialect_id = @correct.word.dialect_id
+        source_dialect_id = @correct.translation_dialect_id
+        dialect_progress.increment!(:counter)
+        [@correct.id, @picked.id].uniq.each do |trans_id|
+          utlp = UserTranslationLearnProgress.find_or_create_by(translation_id: trans_id, user_id: @user.id)
+          utlp.last_counter ||= 0
+          utlp.correct ||= 0
+          utlp.failed ||= 0
+          if @correct.word.spelling === @picked.word.spelling
+            utlp.increment(:correct)
+          else
+            utlp.increment(:failed)
+          end
+          utlp.last_counter = [dialect_progress.counter || 0, utlp.last_counter || 0].max
+          utlp.save
+        end
+        @pick_word_in_set.update(pick_word_in_set_params)
         format.html { redirect_to pick_word_in_set_url(@pick_word_in_set), notice: "Pick word in set was successfully updated." }
         format.json { render :show, status: :ok, location: @pick_word_in_set }
       else
@@ -106,6 +124,8 @@ class PickWordInSetsController < ApplicationController
       @translation_set = @pick_word_in_set.translation_set
       @translations = @translation_set.translations
       @correct = @translations.find{|t| t.id == @pick_word_in_set.correct_id}
+      @target_dialect_id = [@correct.word.dialect_id]
+      @source_dialect_id = [@correct.translation_dialect_id]
     end
 
     # Only allow a list of trusted parameters through.
@@ -113,12 +133,11 @@ class PickWordInSetsController < ApplicationController
       params.require(:pick_word_in_set).permit(:picked_id)
     end
 
-    def create_new
-      #writing the supidest possible code to sort by the facking estimated probability
-      source_dialect_id = Dialect.find_by(name:'english').id
-      target_dialct_id =  Dialect.find_by(name:'japanese').id
-      @translations =
-          Translation.joins(:word)
-          .where('word.dialect_id':source_dialect_id, translation_dialect_id:target_dialct_id)
+    def dialect_progress
+      @dialect_progress ||= UserDialectProgress \
+                .find_or_create_by(source_dialect_id:@source_dialect_id, dialect_id: @target_dialect_id, user_id: @user.id)
     end
+
+
+
 end

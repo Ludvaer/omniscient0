@@ -12,24 +12,28 @@ def sum_sqr_d(i1,i2)
   sum_sqr(i2) - sum_sqr(i1)
 end
 
-all_eligible_translations =
-    Translation.joins(:word)
-    .where(word: {dialect_id: target_dialect_id}, translation_dialect_id:source_dialect_id)
-prob_by_rank = { 0=>1.0, all_eligible_translations.size+1=>0.0  }
-# semi fake border values
-# need to do that on sider or calculation might sail away with average slope being wrong sign
+puts "launched"
 
+prob_by_rank = { 0=>1.0}
 progresses = UserTranslationLearnProgress
   .joins("INNER JOIN translations ON translations.id=user_translation_learn_progresses.translation_id")
   .joins("INNER JOIN words ON words.id=translations.word_id") #:word)
   .where("user_translation_learn_progresses.user_id = #{user.id} \
      AND translations.translation_dialect_id IN (?) \
      AND words.dialect_id IN (?)",source_dialect_id,target_dialect_id)
-maxpick = progresses.maximum(:last_counter) + 1
+udp = UserDialectProgress
+          .find_or_create_by(dialect_id: target_dialect_id, user_id: user.id, source_dialect_id:source_dialect_id)
+maxpick = udp.counter
 learn_progress_count = progresses.count
 puts "#{learn_progress_count} translations with total #{maxpick} attempts"
+max_rank = 1
 progresses.each do |progress|
      rank = progress.translation.rank
+     max_rank = [rank,max_rank].max
+     if progress.correct.nil?
+       puts "#{progress.translation.word.spelling} => #{progress.translation.translation} \
+        : #{progress.correct} / #{progress.failed} #{progress.last_counter}"
+     end
      estimated_prob =  progress.correct / (progress.correct + progress.failed + 0.01)
      short = (1 - estimated_prob) * (0.5**(0.1 * (maxpick - progress.last_counter)))
      long = (estimated_prob - 0)* (0.5**((maxpick - progress.last_counter)/learn_progress_count))
@@ -37,6 +41,7 @@ progresses.each do |progress|
      puts "#{ progress.correct}/#{progress.correct + progress.failed} = #{estimated_prob} => \
       #{short} + #{long} = #{prob_by_rank[rank]}"
 end
+prob_by_rank[max_rank+1] = 0
 # I do not fit anything or estimate probabilities
 # Then, I pretend derivative of empiric probabilities over rank it is a normal distribution
 # Then I pretend that corresponding 1/2(2-erf) is a sigmoid function
@@ -75,9 +80,9 @@ puts "std_err = #{Math.sqrt(squerror_sum)}"
 std_err = Math.sqrt(squerror_sum)
 slope = -Math.sqrt(2)/(Math.sqrt(Math::PI)*std_err)
 
-#debug block to Remove
 translations = []
 iter = 0
+batch_size = (pick_size + 1) * (pick_count + 1) + 100
 while translations.size < pick_size*pick_count and iter < 3 do
   translations +=
       Translation.joins(:word) # .left_outer_joins(:user_translation_learn_progresses)
@@ -93,7 +98,7 @@ while translations.size < pick_size*pick_count and iter < 3 do
         ,0) + 0.5*(1 + tanh(#{slope}*(translations.rank-#{center}))) - 0.85) \
         + 0.02*RANDOM()"
         # "abs(0.5*(1 + tanh(#{slope}*(translations.rank-#{center}))) - 0.85)"
-        )).drop(iter*(pick_size + 1) * (pick_count + 1)).take((pick_size + 1) * (pick_count + 1))
+        )).drop(iter*batch_size).take(batch_size)
         .group_by{|t|t.word.spelling}.map{|s,ts|ts[0]}
   iter += 1
 end
@@ -129,8 +134,15 @@ end
 sets = []
 taken = {"" => 0}
 taken.default = 0
-translations.take(pick_count).each{|trans|taken[trans]=1}
-translations.take(pick_count).each do |trans|
+# picked_translations = translations.take(pick_count)
+# picked_translations.each{|trans|taken[trans]=1}
+translations.each do |trans|
+  if taken[trans.word.spelling] > 0
+    next
+  end
+  if sets.size >= pick_count
+    break
+  end
   whole_word = trans.word.spelling
   puts "> > > [#{whole_word}] < < <"
   trans_set = []

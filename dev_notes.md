@@ -82,3 +82,9 @@ rails generate migration AddRankToTranslations rank:integer
 
 
 i must fix keeping stats updated when testing !!!!
+I may want to add more advanced search for common hiragana suffix and confusing translation evader later
+That would require separate request for each newly created pick test which would find similar for different meaning words with similar not entirely well known.
+
+rails generate model UserDialectProgress counter:integer
+rails generate migration AddUserRefToUserDialectProgress user:references
+rails generate migration AddDialectRefToUserDialectProgress dialect:references

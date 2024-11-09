@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_11_05_205048) do
+ActiveRecord::Schema[7.0].define(version: 2024_11_08_112605) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -102,12 +102,24 @@ ActiveRecord::Schema[7.0].define(version: 2024_11_05_205048) do
     t.index ["word_id"], name: "index_translations_on_word_id"
   end
 
+  create_table "user_dialect_progresses", force: :cascade do |t|
+    t.integer "counter", default: 0
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "user_id", null: false
+    t.bigint "dialect_id", null: false
+    t.bigint "source_dialect_id", null: false
+    t.index ["dialect_id"], name: "index_user_dialect_progresses_on_dialect_id"
+    t.index ["source_dialect_id"], name: "index_user_dialect_progresses_on_source_dialect_id"
+    t.index ["user_id"], name: "index_user_dialect_progresses_on_user_id"
+  end
+
   create_table "user_translation_learn_progresses", force: :cascade do |t|
     t.bigint "user_id"
     t.bigint "translation_id"
-    t.integer "correct"
-    t.integer "failed"
-    t.integer "last_counter"
+    t.integer "correct", default: 0
+    t.integer "failed", default: 0
+    t.integer "last_counter", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["translation_id"], name: "index_user_translation_learn_progresses_on_translation_id"
@@ -154,4 +166,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_11_05_205048) do
   add_foreign_key "pick_word_in_sets", "translation_sets"
   add_foreign_key "pick_word_in_sets", "users"
   add_foreign_key "translations", "users"
+  add_foreign_key "user_dialect_progresses", "dialects"
+  add_foreign_key "user_dialect_progresses", "dialects", column: "source_dialect_id"
+  add_foreign_key "user_dialect_progresses", "users"
 end
