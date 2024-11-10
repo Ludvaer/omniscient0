@@ -35,9 +35,10 @@ class PickWordInSetsController < ApplicationController
       @pick_word_in_set = PickWordInSet.new
       japanese_dialect_id = Dialect.find_by(name:'japanese').id
       english_dialect_id = Dialect.find_by(name:'english').id
-      @translations =
-          Translation.joins(:word)
-          .where('word.dialect_id':japanese_dialect_id, translation_dialect_id:english_dialect_id)
+      @translations = \
+          Translation.joins(:word) \
+          .includes(:word) \
+          .where('word.dialect_id':japanese_dialect_id, translation_dialect_id:english_dialect_id) \
           .order('RANDOM()').take(5)
       translations_ids = @translations.map{|t| t.id}
       # Find all WordSets that have the same words
@@ -126,7 +127,8 @@ class PickWordInSetsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_pick_word_in_set
-      @pick_word_in_set = PickWordInSet.find(params[:id])
+      @pick_word_in_set = PickWordInSet.where(id: params[:id]) \
+      .includes(:translation_set, translation_set: [:translations], translation_set: {translations: :word}).first
       @translation_set = @pick_word_in_set.translation_set
       @translations = @translation_set.translations
       @correct = @translations.find{|t| t.id == @pick_word_in_set.correct_id}
@@ -149,36 +151,34 @@ class PickWordInSetsController < ApplicationController
 
     def progresses
       @progresses ||= UserTranslationLearnProgress \
+        .includes(:translation) \
         .joins("INNER JOIN translations ON translations.id=user_translation_learn_progresses.translation_id") \
         .joins("INNER JOIN words ON words.id=translations.word_id") \
         .where("user_translation_learn_progresses.user_id = #{@user.id} \
            AND translations.translation_dialect_id IN (?) \
-           AND words.dialect_id IN (?)", @source_dialect_id, @target_dialect_id)
+           AND words.dialect_id IN (?)", @source_dialect_id, @target_dialect_id) \
+        .order("translations.rank")
       return @progresses
     end
 
     def get_estimated_prob_by_rank
-      prob_by_rank = { 0=>1.0}
+      prob_by_rank = [[0, 1.0]]
       learn_progress_count = progresses.size
       max_rank = 1
       maxpick = dialect_progress.counter
-      puts "maxpick = #{maxpick}; learn_progress_count = #{learn_progress_count}"
+      #puts "maxpick = #{maxpick}; learn_progress_count = #{learn_progress_count}"
       progresses.each do |progress|
            rank = progress.translation.rank
            max_rank = [rank,max_rank].max
-           if progress.correct.nil?
-             puts "#{progress.translation.word.spelling} => #{progress.translation.translation} \
-              : #{progress.correct} / #{progress.failed} #{progress.last_counter}"
-           end
            estimated_prob =  progress.correct / (progress.correct + progress.failed + 0.01)
            short = (1 - estimated_prob) * (0.5**(0.1 * (maxpick - progress.last_counter)))
            long = (estimated_prob - 0)* (0.5**((maxpick - progress.last_counter)/learn_progress_count))
-           prob_by_rank[rank] = short + long
-           puts "#{ progress.correct}/#{progress.correct + progress.failed} = #{estimated_prob} => \
-            #{short} + #{long} = #{prob_by_rank[rank]}"
+           prob_by_rank.append([rank, short + long])
+           puts "#rank = #{rank}; #{progress.correct}/#{progress.correct + progress.failed} = #{estimated_prob} => \
+            #{short} + #{long} = #{short + long}"
       end
-      prob_by_rank[max_rank+1] = 0
-      puts "#{progresses.size} translation progresses counted"
+      prob_by_rank.append([max_rank+1, 0])
+      #puts "#{progresses.size} translation progresses counted"
       prob_by_rank
     end
 
@@ -196,7 +196,7 @@ class PickWordInSetsController < ApplicationController
     # puts "#{1.5*1.5 + 2.5*2.5} = sum_sqr_d(1,3) = #{sum_sqr_d(1,3)}"
     # puts "#{2.5*2.5 + 3.5*3.5 + 4.5*4.5} = sum_sqr_d(2,5) = #{sum_sqr_d(2,5)}"
 
-    def guesstimate_sigmoid(y_by_x) # y_by_x = {x1 => y1, x2 => y2, .... xk => yk}
+    def guesstimate_sigmoid(y_by_x) # y_by_x = {[x1,y1], [x2, y2], .... [xk, yk]}
       unless @center.nil? || @slope.nil?
         return [@center, @slope]
       end
@@ -210,18 +210,13 @@ class PickWordInSetsController < ApplicationController
       # sum(dy) = y.last - y.first = 1
       # sum(-dy*average(x)) = sum(-(y2-y1)*(x2-x1)/2)
       #TODO: get rid of dict, supply sorted array of arrays [[x1,y1],[x2,y2],[x3,y3]]
-      center = y_by_x.sort_by{|x,y| x}.each_cons(2).sum{|(x1,y1),(x2,y2)| -0.5 * (y2 - y1) * (x2 + x1).to_f}
-      squerror_sum = 0
-      puts "center =  #{center}"
-      squerror_sum = y_by_x.sort_by{|x,y| x}.each_cons(2).sum do |(x1,y1),(x2,y2)|
-        # sqerror = sum((x-c)*(x-c)) for x from x1 to x2
-        # = + sum(x^2) - sum(2*x*center) + sum(center^2) [ for x from x1 to x2]
-        squerror = sum_sqr_d(x1, x2) - (x1 + x2) * (x2 - x1) * center + (x2 - x1) * center * center
-        slope = -(y2 - y1) / (x2 - x1).to_f
-        slope * squerror
+      # .sort_by{|x,y| x} removed since supplied sorted
+      sum, sqr_sum =  y_by_x.each_cons(2).inject([0, 0]) do |(acc, sqr_acc),((x1,y1),(x2,y2))|
+        [acc +  -0.5 * (y2 - y1) * (x2 + x1), sqr_acc - ((y2 - y1) / (x2 - x1).to_f) * sum_sqr_d(x1, x2)]
       end
-      puts "std_err = #{Math.sqrt(squerror_sum)}"
-      std_err = Math.sqrt(squerror_sum)
+      dispersion = sqr_sum - sum * sum
+      puts "dispersion = #{sum * sum} - #{sqr_sum} = #{dispersion};  std_err = #{Math.sqrt(dispersion)}"
+      center,std_err = sum, Math.sqrt(dispersion)
       slope = -Math.sqrt(2)/(Math.sqrt(Math::PI)*std_err) #we still like negative slope
       puts "center=#{center}; slope=#{slope})"
       @center = center
@@ -239,7 +234,8 @@ class PickWordInSetsController < ApplicationController
       #a lso sorry we guesstimated erf bur will use tanh instead
       while translations.size < minimal_size and iter < 3 do
         translations +=
-            Translation.joins(:word) # .left_outer_joins(:user_translation_learn_progresses)
+            Translation.joins(:word) \
+            .includes(:word) \
             .joins("LEFT OUTER JOIN user_translation_learn_progresses \
                ON user_translation_learn_progresses.translation_id=translations.id \
                AND user_translation_learn_progresses.user_id=#{@user.id}") \
@@ -316,6 +312,7 @@ class PickWordInSetsController < ApplicationController
         @pick_word_in_set = PickWordInSet.new
         @translations = translations
         @translations.append(correct)
+        @translations.sort_by!{|t|t.id}
         translations_ids = @translations.map{|t| t.id}
         # Find all WordSets that have the same words
         matching_translation_sets = TranslationSet.joins(:translations)
@@ -324,19 +321,24 @@ class PickWordInSetsController < ApplicationController
                                     .having('COUNT(1) = ?', translations_ids.size)
         if matching_translation_sets.empty?
           # No matching WordSet found, so create a new one
-          new_translation_set = TranslationSet.new
-          new_translation_set.translations << @translations
-          new_translation_set.save
-          @translation_set = new_translation_set.reload
+          new_translation_set = TranslationSet.create!
+          # TranslationSetTranslation.import(
+          #   translations_ids.map { |t_id| { translation_set_id: new_translation_set.id, translation_id: t_id } },
+          # )
+          values = translations_ids.map { |t_id| "(#{new_translation_set.id}, #{t_id})" }.join(", ")
+          sql = "INSERT INTO translation_sets_translations (translation_set_id, translation_id) VALUES #{values}"
+          # Execute the SQL
+          ActiveRecord::Base.connection.execute(sql)
+          @translation_set = new_translation_set
         else
           @translation_set = matching_translation_sets[0]
         end
         @correct = correct
         @pick_word_in_set.picked_id = nil
         @pick_word_in_set.correct_id = @correct.id
-        @pick_word_in_set.translation_set = @translation_set
+        @pick_word_in_set.translation_set_id = @translation_set.id
         @pick_word_in_set.version = 1
-        @pick_word_in_set.user_id = current_user.id
+        @pick_word_in_set.user_id = @user.id
         @saved = @pick_word_in_set.save
         @notice = "Pick word in set was successfully created."
         picks.append(@pick_word_in_set)
