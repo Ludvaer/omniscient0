@@ -3,9 +3,11 @@ translation_set = pick_word_in_set.translation_set
 translations = translation_set&.translations
 correct = translations&.find{|t| t.id == pick_word_in_set.correct_id}
 optionboard_id = if correct.nil? then 'new_test_form' else "optionboard_#{pick_word_in_set.id}" end
+div_id = if correct.nil? then 'new_test_form' else "pick_word_in_set_#{pick_word_in_set.id}" end
 form_id = if correct.nil? then 'new_test_form' else "test_pick_#{pick_word_in_set.id}_form" end
 picked_id = if correct.nil? then 'new_picked' else "test_pick_#{pick_word_in_set.id}_input" end
 %>
+<div class="pick_word_in_set" id="<%= div_id %>">
 <% if correct %>
   <div class="optionboard" id="<%= optionboard_id %>">
     <svg class="fit-text" xmlns="http://www.w3.org/2000/svg" style="width: 100%; height: 30vmin; margin-left: auto; margin-right: auto;">
@@ -17,7 +19,7 @@ picked_id = if correct.nil? then 'new_picked' else "test_pick_#{pick_word_in_set
     <% translations&.each do |translation| %>
       <button type="button"
         <% if pick_word_in_set.picked_id.nil? %>
-          class="enabled_option_btn" onclick="select(<%= translation.id %>,<%= pick_word_in_set.id %>)">
+          class="enabled_option_btn" onclick="select(<%= translation.id %>,pick_model_<%= pick_word_in_set.id %>)">
         <% elsif pick_word_in_set.picked_id == translation.id and correct.word.id == translation.word.id %>
           class="disabled_option_btn" style="border-color:#00ff00;"  disabled>✔
         <% elsif pick_word_in_set.picked_id == translation.id %>
@@ -49,13 +51,22 @@ picked_id = if correct.nil? then 'new_picked' else "test_pick_#{pick_word_in_set
         </ul>
       </div>
     <% end %>
-    <div style="display: none;">
-      <%= form.label :picked_id %>
-      <%= form.number_field :picked_id, id: picked_id %>
-    </div>
+    <%= form.label :picked_id, style: "display: none;" %>
+    <%= form.number_field :picked_id, id: picked_id, style: "display: none;" %>
+    <%= form.number_field  "n", value: 10, name: "n", style: "display: none;" %>
     <div <% unless correct.nil? %>style="display: none;"<% end %>>
       <%= form.submit id: if correct.nil? then 'new_test_submit' else "test_pick_#{pick_word_in_set.id}_submit" end,
        value: t('Run test'), :class => "btn", data: { disable_with: ( t('In progress')) }  %>
     </div>
   <% end %>
 <% end %>
+</div>
+
+<script>
+  pick_word_in_set_<%=@pick_word_in_set.id %>
+  =
+  <%= raw(render partial: "pick_word_in_set", formats: [:json], locals: {pick_word_in_set: @pick_word_in_set}) %>;
+  <% if pick_word_in_set.picked_id.nil? && correct %>
+    pick_model_<%= pick_word_in_set.id %> = form_form_model_from(document.getElementById("<%= div_id %>"));
+  <% end %>
+</script>
