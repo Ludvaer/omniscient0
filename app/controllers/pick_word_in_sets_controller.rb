@@ -26,10 +26,13 @@ class PickWordInSetsController < ApplicationController
 
   # POST /pick_word_in_sets or /pick_word_in_sets.json
   def create
+    @target_dialect_id ||= Dialect.find_by(name:'japanese').id
+    @source_dialect_id ||= Dialect.find_by(name:'english').id
+    @target_dialect_ids ||= [Dialect.find_by(name:'japanese').id]
+    @source_dialect_ids ||= [Dialect.find_by(name:'english').id]
+    puts "dialect_progress=#{dialect_progress} counter=#{dialect_progress.counter}"
     n = [[params[:n].to_i, 1].max,MAX_PICKS_PER_REQUEST].min
     puts "n = #{n}"
-    @target_dialect_id = [Dialect.find_by(name:'japanese').id]
-    @source_dialect_id  = [Dialect.find_by(name:'english').id]
     incompelete = PickWordInSet.where(picked_id: nil, user_id: @user.id).order(:created_at)
     if incompelete.size < n
       incompelete += create_new_picks(n,PICK_SIZE)
@@ -64,15 +67,19 @@ class PickWordInSetsController < ApplicationController
 
   # PATCH/PUT /pick_word_in_sets/1 or /pick_word_in_sets/1.json
   def update
+    @target_dialect_id = @correct.word.dialect_id
+    @source_dialect_id = @correct.translation_dialect_id
+    @user = current_user
+    puts "dialect_progress=#{dialect_progress} counter=#{dialect_progress.counter}"
     respond_to do |format|
       @picked = @translations.find{|t| t.id == pick_word_in_set_params[:picked_id].to_i}
       if (@pick_word_in_set.picked_id == nil and \
           not @picked.nil?  and \
           @pick_word_in_set.user_id == current_user.id)
-        @user = current_user
         target_dialect_id = @correct.word.dialect_id
         source_dialect_id = @correct.translation_dialect_id
         dialect_progress.increment!(:counter)
+        puts "update dialect_progress=#{dialect_progress} counter=#{dialect_progress.counter}"
         [@correct.id, @picked.id].uniq.each do |trans_id|
           utlp = UserTranslationLearnProgress.find_or_create_by(translation_id: trans_id, user_id: @user.id)
           utlp.last_counter ||= 0
@@ -114,8 +121,8 @@ class PickWordInSetsController < ApplicationController
       @translation_set = @pick_word_in_set.translation_set
       @translations = @translation_set.translations
       @correct = @translations.find{|t| t.id == @pick_word_in_set.correct_id}
-      @target_dialect_id = [@correct.word.dialect_id]
-      @source_dialect_id = [@correct.translation_dialect_id]
+      @target_dialect_id = @correct.word.dialect_id
+      @source_dialect_id = @correct.translation_dialect_id
     end
 
     def set_user
@@ -128,8 +135,9 @@ class PickWordInSetsController < ApplicationController
     end
 
     def dialect_progress
+      puts "checking new dialect_progress u: #{@user.id} dialects: #{@source_dialect_id} => #{@target_dialect_id}"
       @dialect_progress ||= UserDialectProgress \
-                .find_or_create_by(source_dialect_id:@source_dialect_id, \
+                .find_or_create_by!(source_dialect_id: @source_dialect_id, \
                                    dialect_id: @target_dialect_id, \
                                    user_id: @user.id)
     end
@@ -151,7 +159,7 @@ class PickWordInSetsController < ApplicationController
       learn_progress_count = progresses.size
       max_rank = 1
       maxpick = dialect_progress.counter
-      #puts "maxpick = #{maxpick}; learn_progress_count = #{learn_progress_count}"
+      puts "maxpick = #{maxpick}; learn_progress_count = #{learn_progress_count}"
       progresses.each do |progress|
            rank = progress.translation.rank
            max_rank = [rank,max_rank].max
@@ -199,7 +207,7 @@ class PickWordInSetsController < ApplicationController
       sum, sqr_sum =  y_by_x.each_cons(2).inject([0, 0]) do |(acc, sqr_acc),((x1,y1),(x2,y2))|
         [acc +  -0.5 * (y2 - y1) * (x2 + x1), sqr_acc - ((y2 - y1) / (x2 - x1).to_f) * sum_sqr_d(x1, x2)]
       end
-      dispersion = sqr_sum - sum * sum
+      dispersion = [sqr_sum - sum * sum, 1].max
       puts "dispersion = #{sum * sum} - #{sqr_sum} = #{dispersion};  std_err = #{Math.sqrt(dispersion)}"
       center,std_err = sum, Math.sqrt(dispersion)
       slope = -Math.sqrt(2)/(Math.sqrt(Math::PI)*std_err) #we still like negative slope
