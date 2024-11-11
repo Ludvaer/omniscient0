@@ -1,5 +1,9 @@
 class PickWordInSetsController < ApplicationController
   before_action :set_pick_word_in_set, only: %i[ show edit update destroy ]
+  before_action :set_user
+  PICK_SIZE = 10
+  MAX_PICKS_PER_REQUEST =100
+  TARGET_PROBABILITY = 0.85
 
   # GET /pick_word_in_sets or /pick_word_in_sets.json
   def index
@@ -18,64 +22,42 @@ class PickWordInSetsController < ApplicationController
 
   # GET /pick_word_in_sets/1/edit
   def edit
-
   end
-
 
   # POST /pick_word_in_sets or /pick_word_in_sets.json
   def create
-    @user = current_user
+    n = [[params[:n].to_i, 1].max,MAX_PICKS_PER_REQUEST].min
+    puts "n = #{n}"
     @target_dialect_id = [Dialect.find_by(name:'japanese').id]
     @source_dialect_id  = [Dialect.find_by(name:'english').id]
     incompelete = PickWordInSet.where(picked_id: nil, user_id: @user.id).order(:created_at)
-    if incompelete.empty?
-      incompelete = get_new_pics(10,10)
+    if incompelete.size < n
+      incompelete += create_new_picks(n,PICK_SIZE)
     end
-    if incompelete.empty?
-      @pick_word_in_set = PickWordInSet.new
-      japanese_dialect_id = Dialect.find_by(name:'japanese').id
-      english_dialect_id = Dialect.find_by(name:'english').id
-      @translations = \
-          Translation.joins(:word) \
-          .includes(:word) \
-          .where('word.dialect_id':japanese_dialect_id, translation_dialect_id:english_dialect_id) \
-          .order('RANDOM()').take(5)
-      translations_ids = @translations.map{|t| t.id}
-      # Find all WordSets that have the same words
-      matching_translation_sets = TranslationSet.joins(:translations)
-                                  .where(translations: { id: translations_ids })
-                                  .group('translation_sets.id')
-                                  .having('COUNT(1) = ?', translations_ids.size)
-      if matching_translation_sets.empty?
-        # No matching WordSet found, so create a new one
-        new_translation_set = TranslationSet.new
-        new_translation_set.translations << @translations
-        new_translation_set.save
-        @translation_set = new_translation_set.reload
-      else
-        @translation_set = matching_translation_sets[0]
-      end
-      @correct = @translations.sample()
-      @pick_word_in_set.picked_id = nil
-      @pick_word_in_set.correct_id = @correct.id
-      @pick_word_in_set.translation_set = @translation_set
-      @pick_word_in_set.version = 1
-      @pick_word_in_set.user_id = current_user.id
-      @saved = @pick_word_in_set.save
-      @notice = "Pick word in set was successfully created."
-    else
-      @pick_word_in_set = incompelete[0]
-      @notice = "Incomplete pick word in set."
-      @saved = true
-    end
+    @pick_word_in_set = incompelete[0]
+    @notice = "Incomplete pick word in set."
+    @saved = true
 
-    respond_to do |format|
-      if @saved
-        format.html { redirect_to edit_pick_word_in_set_url(@pick_word_in_set), notice: @notice}
-        format.json { render :show, status: :created, location: @pick_word_in_set }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @pick_word_in_set.errors, status: :unprocessable_entity }
+    if n <= 1
+      respond_to do |format|
+        if @saved
+          format.html { redirect_to edit_pick_word_in_set_url(@pick_word_in_set), notice: @notice}
+          format.json { render :show, status: :created, location: @pick_word_in_set }
+        else
+          format.html { render :new, status: :unprocessable_entity }
+          format.json { render json: @pick_word_in_set.errors, status: :unprocessable_entity }
+        end
+      end
+    else
+      @pick_word_in_sets = incompelete
+      respond_to do |format|
+        if @saved
+          format.html { redirect_to edit_pick_word_in_set_url(@pick_word_in_set), notice: @notice}
+          format.json { render :index, status: :created, location: @pick_word_in_set }
+        else
+          format.html { render :new, status: :unprocessable_entity }
+          format.json { render json: @pick_word_in_set.errors, status: :unprocessable_entity }
+        end
       end
     end
   end
@@ -134,12 +116,15 @@ class PickWordInSetsController < ApplicationController
       @correct = @translations.find{|t| t.id == @pick_word_in_set.correct_id}
       @target_dialect_id = [@correct.word.dialect_id]
       @source_dialect_id = [@correct.translation_dialect_id]
+    end
+
+    def set_user
       @user = current_user
     end
 
     # Only allow a list of trusted parameters through.
     def pick_word_in_set_params
-      params.require(:pick_word_in_set).permit(:picked_id)
+      params.require(:pick_word_in_set).permit(:picked_id, :n)
     end
 
     def dialect_progress
@@ -225,32 +210,31 @@ class PickWordInSetsController < ApplicationController
     end
 
     def get_translations_to_learn(minimal_size)
-      iter = 0
       margin = minimal_size/10+5
       center,slope = guesstimate_sigmoid(get_estimated_prob_by_rank)
+      if slope < - 0.1 #if comeone managed to archieve sharp transition from new to old
+        slope = -0.1 # blur the slope to include new translations
+        center += 0.5*(10 + 1/slope) # move center to new translations
+      end
       maxpick = dialect_progress.counter
       learn_progress_count = progresses.size
       translations = []
       #a lso sorry we guesstimated erf bur will use tanh instead
-      while translations.size < minimal_size and iter < 3 do
-        translations +=
-            Translation.joins(:word) \
-            .includes(:word) \
-            .joins("LEFT OUTER JOIN user_translation_learn_progresses \
-               ON user_translation_learn_progresses.translation_id=translations.id \
-               AND user_translation_learn_progresses.user_id=#{@user.id}") \
-            .where(word:{dialect_id: @target_dialect_id}, translation_dialect_id: @source_dialect_id) \
-        #   .select('DISTINCT ON (word.spelling) *') #sadly does not work if not sorted primarily by spelling
-            .order(Arel.sql( \
-              "abs( COALESCE( \
-              (1.0 - correct/(correct + failed + 0.01))*0.5^(0.1 * (#{maxpick} - last_counter)) \
-              + (correct/(correct + failed + 0.01) - 0.5*(1 + tanh(#{slope}*(translations.rank-#{center}))) )*0.5^((#{maxpick} - last_counter)/#{learn_progress_count}) \
-              ,0) + 0.5*(1 + tanh(#{slope}*(translations.rank-#{center}))) - 0.85) \
-              + 0.02*RANDOM()" \
-              )).drop(iter*(minimal_size + margin)).take(minimal_size + margin) \
-              .group_by{|t|t.word.spelling}.map{|s,ts|ts[0]}
-        iter += 1
-      end
+      translations =
+          Translation.joins(:word) \
+          .includes(:word) \
+          .joins("LEFT OUTER JOIN user_translation_learn_progresses \
+             ON user_translation_learn_progresses.translation_id=translations.id \
+             AND user_translation_learn_progresses.user_id=#{@user.id}") \
+          .where(word:{dialect_id: @target_dialect_id}, translation_dialect_id: @source_dialect_id) \
+      #   .select('DISTINCT ON (word.spelling) *') #sadly does not work if not sorted primarily by spelling
+          .order(Arel.sql( \
+            "abs( COALESCE( \
+            (1.0 - correct/(correct + failed + 0.01))*0.5^(0.1 * (#{maxpick} - last_counter)) \
+            + (correct/(correct + failed + 0.01) - 0.5*(1 + tanh(#{slope}*(translations.rank-#{center}))) )*0.5^((#{maxpick} - last_counter)/#{learn_progress_count}) \
+            ,0) + 0.5*(1 + tanh(#{slope}*(translations.rank-#{center}))) - 0.85) \
+            + 0.02*RANDOM()" \
+            )).take(minimal_size + margin)
       translations
     end
 
@@ -340,13 +324,13 @@ class PickWordInSetsController < ApplicationController
         @pick_word_in_set.version = 1
         @pick_word_in_set.user_id = @user.id
         @saved = @pick_word_in_set.save
-        @notice = "Pick word in set was successfully created."
+        puts "@pick_word_in_set id = #{@pick_word_in_set.id}; savd =#{@saved}"
         picks.append(@pick_word_in_set)
       end
       picks
     end
 
-    def get_new_pics(pick_count, pick_size)
+    def create_new_picks(pick_count, pick_size)
       translations = get_translations_to_learn(pick_count * pick_size + 5)
       sets = group_tranlation_sets(translations, pick_count, pick_size)
       picks = save_translation_groups_as_picks(sets)

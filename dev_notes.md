@@ -88,3 +88,6 @@ That would require separate request for each newly created pick test which would
 rails generate model UserDialectProgress counter:integer
 rails generate migration AddUserRefToUserDialectProgress user:references
 rails generate migration AddDialectRefToUserDialectProgress dialect:references
+
+
+!!!Very important avoid creating duplicates when adding more words to non completed test
