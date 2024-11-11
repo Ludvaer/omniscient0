@@ -1,6 +1,6 @@
 general issues:
 filter digits in a row that are not filtered out yet (probably some sort of knaji links)
-check if there are nearly empy translations like archaic: or obsolete: obs.
+check if there are nearly empy translations like archaic: or obsolete: or obs.
 ; - on end of string
 m in kana is not kanned while should be equivalent to n
 

@@ -14,12 +14,7 @@ as[0].product(*as[1..-1]).each do |source_dialect,target_dialect,user|
         .each_with_index do |p,i|
     is_correct = Translation.find_by(id:p.correct_id).word.spelling === Translation.find_by(id:p.picked_id).word.spelling
     [ p.correct_id, p.picked_id].uniq.each do |t_id|
-      lp = UserTranslationLearnProgress.find_or_create_by(user_id:user.id,translation_id: t_id)
-      if lp.correct.nil? || lp.failed.nil? || lp.last_counter.nil?
-        lp.correct = 0
-        lp.failed = 0
-        lp.last_counter = 0
-      end
+      lp = UserTranslationLearnProgress.find_or_create_by!(user_id:user.id,translation_id: t_id)
       lp.last_counter = [i, lp.last_counter].max
       if is_correct
         lp.correct += 1

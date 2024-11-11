@@ -91,3 +91,4 @@ rails generate migration AddDialectRefToUserDialectProgress dialect:references
 
 
 !!!Very important avoid creating duplicates when adding more words to non completed test
+!make text on disabled button selectable (imitate disabling with color style adn detaching onclick instead?)
