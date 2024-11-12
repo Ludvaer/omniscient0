@@ -329,6 +329,7 @@ table {
     margin: 1vmin 1vmin;
     border-radius: 5vmin;
     border: 1vmin solid $btncolor;
+    user-select: text;
 }
 
 .enabled_option_btn {

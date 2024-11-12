@@ -7,7 +7,7 @@ class PickWordInSetsController < ApplicationController
 
   # GET /pick_word_in_sets or /pick_word_in_sets.json
   def index
-    @pick_word_in_sets = PickWordInSet.where(user_id: current_user.id)
+    @pick_word_in_sets = PickWordInSet.where(user_id: @user.id)
   end
 
   # GET /pick_word_in_sets/1 or /pick_word_in_sets/1.json
@@ -31,7 +31,7 @@ class PickWordInSetsController < ApplicationController
     @target_dialect_ids ||= [Dialect.find_by(name:'japanese').id]
     @source_dialect_ids ||= [Dialect.find_by(name:'english').id]
     puts "dialect_progress=#{dialect_progress} counter=#{dialect_progress.counter}"
-    n = [[params[:n].to_i, 1].max,MAX_PICKS_PER_REQUEST].min
+    n = [[params[:n].to_i || 1, 1].max,MAX_PICKS_PER_REQUEST].min
     puts "n = #{n}"
     incompelete = PickWordInSet.where(picked_id: nil, user_id: @user.id).order(:created_at)
     if incompelete.size < n
@@ -69,31 +69,26 @@ class PickWordInSetsController < ApplicationController
   def update
     @target_dialect_id = @correct.word.dialect_id
     @source_dialect_id = @correct.translation_dialect_id
-    @user = current_user
     puts "dialect_progress=#{dialect_progress} counter=#{dialect_progress.counter}"
     respond_to do |format|
       @picked = @translations.find{|t| t.id == pick_word_in_set_params[:picked_id].to_i}
       if (@pick_word_in_set.picked_id == nil and \
           not @picked.nil?  and \
-          @pick_word_in_set.user_id == current_user.id)
+          @pick_word_in_set.user_id == @user_id)
         target_dialect_id = @correct.word.dialect_id
         source_dialect_id = @correct.translation_dialect_id
         dialect_progress.increment!(:counter)
         puts "update dialect_progress=#{dialect_progress} counter=#{dialect_progress.counter}"
         [@correct.id, @picked.id].uniq.each do |trans_id|
-          utlp = UserTranslationLearnProgress.find_or_create_by(translation_id: trans_id, user_id: @user.id)
-          utlp.last_counter ||= 0
-          utlp.correct ||= 0
-          utlp.failed ||= 0
+          utlp = UserTranslationLearnProgress.find_or_create_by!(translation_id: trans_id, user_id: @user_id)
+          last_counter = [dialect_progress.counter, utlp.last_counter].max
           if @correct.word.spelling === @picked.word.spelling
-            utlp.increment(:correct)
+            utlp.update!(correct: (utlp.correct + 1), last_counter: last_counter)
           else
-            utlp.increment(:failed)
+            utlp.update!(failed: (utlp.failed + 1), last_counter: last_counter)
           end
-          utlp.last_counter = [dialect_progress.counter || 0, utlp.last_counter || 0].max
-          utlp.save
         end
-        @pick_word_in_set.update(pick_word_in_set_params)
+        @pick_word_in_set.update!(picked_id: pick_word_in_set_params[:picked_id].to_i)
         format.html { redirect_to pick_word_in_set_url(@pick_word_in_set), notice: "Pick word in set was successfully updated." }
         format.json { render :show, status: :ok, location: @pick_word_in_set }
       else
@@ -116,8 +111,10 @@ class PickWordInSetsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_pick_word_in_set
-      @pick_word_in_set = PickWordInSet.where(id: params[:id]) \
-      .includes(:translation_set, translation_set: [:translations], translation_set: {translations: :word}).first
+      @pick_word_in_set = PickWordInSet \
+      .joins(:translation_set, translation_set: [:translations], translation_set: {translations: :word}) \
+      .includes(:translation_set, translation_set: [:translations], translation_set: {translations: :word}) \
+      .find(params[:id])
       @translation_set = @pick_word_in_set.translation_set
       @translations = @translation_set.translations
       @correct = @translations.find{|t| t.id == @pick_word_in_set.correct_id}
@@ -127,6 +124,7 @@ class PickWordInSetsController < ApplicationController
 
     def set_user
       @user = current_user
+      @user_id = @user.id.to_i
     end
 
     # Only allow a list of trusted parameters through.

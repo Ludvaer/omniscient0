@@ -19,15 +19,15 @@ picked_id = if correct.nil? then 'new_picked' else "test_pick_#{pick_word_in_set
     <% translations&.each do |translation| %>
       <button type="button"
         <% if pick_word_in_set.picked_id.nil? %>
-          class="enabled_option_btn" onclick="select(<%= translation.id %>,pick_model_<%= pick_word_in_set.id %>)">
+          class="enabled_option_btn" onclick="select(<%= translation.id %>,pick_model_<%= pick_word_in_set.id %>)"><span></span>
         <% elsif pick_word_in_set.picked_id == translation.id and correct.word.id == translation.word.id %>
-          class="disabled_option_btn" style="border-color:#00ff00;"  disabled>✔
+          class="disabled_option_btn" style="border-color:#00ff00;"  disabled><span>✔</span>
         <% elsif pick_word_in_set.picked_id == translation.id %>
-          class="disabled_option_btn" style="border-color:#ff0000;"  disabled>❌
+          class="disabled_option_btn" style="border-color:#ff0000;"  disabled><span>❌</span>
         <% elsif correct.word.id == translation.word.id %>
-          class="disabled_option_btn" style="border-color:#0000ff;"  disabled>🢂
+          class="disabled_option_btn" style="border-color:#0000ff;"  disabled><span>🢂</span>
         <% else %>
-          class="disabled_option_btn" style="border-color:#aaaaaa;"  disabled>
+          class="disabled_option_btn" style="border-color:#aaaaaa;"  disabled><span></span>
         <% end%>
 
             <b><%= translation.translation %></b>
@@ -63,10 +63,27 @@ picked_id = if correct.nil? then 'new_picked' else "test_pick_#{pick_word_in_set
 </div>
 
 <script>
-  pick_word_in_set_<%=@pick_word_in_set.id %>
-  =
-  <%= raw(render partial: "pick_word_in_set", formats: [:json], locals: {pick_word_in_set: @pick_word_in_set}) %>;
-  <% if pick_word_in_set.picked_id.nil? && correct %>
+  <% unless pick_word_in_set.id.nil? %>
+    pick_word_in_set_<%=pick_word_in_set.id %>
+    =
+    <%= raw(render partial: "pick_word_in_set", formats: [:json], locals: {pick_word_in_set: pick_word_in_set}) %>;
+  <% end %>
+  <% if correct && pick_word_in_set.picked_id.nil? %>
     pick_model_<%= pick_word_in_set.id %> = form_form_model_from(document.getElementById("<%= div_id %>"));
+    data_preload_url = "<%= data_preload_url %>";
+    pick_word_in_set_url = "<%= pick_word_in_set_url(@pick_word_in_set) %>";
+    preloadData({"PickWordInSet":[<%=pick_word_in_set.id %>]}, ()=> {
+      pick_word_in_set_<%=pick_word_in_set.id %> = recordManager.objects['PickWordInSet'][<%=pick_word_in_set.id %>];
+      pick_model_<%= pick_word_in_set.id %>.data = pick_word_in_set_<%=pick_word_in_set.id %>;
+    });
+    //pick_word_in_set_<%=pick_word_in_set.id %> = ;
+    //pick_model_<%= pick_word_in_set.id %>.data = pick_word_in_set_<%=pick_word_in_set.id %>;
+    // pick_word_in_set_<%=pick_word_in_set.id %>.className = 'PickWordInSet';
+    // objectsToRequest = {};
+    // collectId(pick_word_in_set_569, objectsToRequest);
+    // arrayariseObjectsToRequest(objectsToRequest);
+    // previouslyRequested = {"PickWordInSet":{<%= pick_word_in_set.id %>:pick_word_in_set_<%=pick_word_in_set.id %>}};
+    //
+    //console.log(`>>> data to request = ${JSON.stringify(objectsToRequest)}`);
   <% end %>
 </script>

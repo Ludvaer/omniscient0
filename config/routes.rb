@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   resources :words
   resources :dialects
   resources :languages
+  get '/data_preload' => 'data_preload#preload', as: :data_preload
 
   #welcome
   root 'pseudo_static#welcome'
