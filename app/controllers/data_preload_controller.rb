@@ -1,7 +1,7 @@
 class DataPreloadController < ApplicationController
   def preload
     request_data = params.require(:data).permit!
-    recursive = true; # params[:recursive] == "true"  # Check if recursive loading is enabled
+    recursive = params[:recursive] == "true"  # Check if recursive loading is enabled
     response_data = {}
     # initialize a hash to keep track of already requested objcts
     requested_data = request_data.each.map{|type,array|[type, array.to_set]}.to_h

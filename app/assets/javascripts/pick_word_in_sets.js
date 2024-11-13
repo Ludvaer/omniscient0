@@ -127,10 +127,10 @@
             objectFromDict(previouslyRequested, className)[id] = incomingObject;
           });
         });
-        if (Object.values(objectsToRequest).some(a => a.length > 0))
+        console.log(`>>> data to request = ${JSON.stringify(objectsToRequest)}`);
+        if (Object.values(objectsToRequest).some(a => Object.values(a).length > 0))
         {
           arrayariseObjectsToRequest(objectsToRequest);
-          console.log(`>>> data to request = ${JSON.stringify(objectsToRequest)}`);
           //preloadData(objectsToRequest);
           setTimeout(() =>{preloadData(objectsToRequest,finishFunction,previouslyRequested)}, 100);
         }
