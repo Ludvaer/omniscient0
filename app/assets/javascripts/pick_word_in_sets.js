@@ -3,7 +3,9 @@
   //Objects which are already receive  stored in rawObjects {id:object}
   //Objects which have their dependancies loaded are stored in objects {id:object}
   //Type structure stored within classes {'TypeName':{'field_name':'ReferencedType'}}
+  system_fields = {'className':true,'isPreloaded':true}
   recordManager = root.recordManager = {'classes':{}, 'objects':{}, 'rawObjects':{}};
+  recordManager.classes = recordManager.objects['ClassModel'] = recordManager.rawObjects['ClassModel'] = {'ClassModel':{}};
   function objectFromDict(dict, key) {
     if (!(key in dict)){ dict[key] = { }; }
     return dict[key]
@@ -17,41 +19,24 @@
        return classes[name]
     }
     let klass = {};
-    switch (name) {
-      case 'PickWordInSet':
-        klass = {
-          'picked': 'Translation',
-          'correct': 'Translation',
-          'translation_set': 'TranslationSet'
-         }
-        break;
-      case 'TranslationSet':
-        klass = {
-          'translation': 'Translation'
-         }
-        break;
-      case 'Translation':
-        klass = {
-          'word': 'Word'
-         }
-        break;
-      case 'Word':
-        klass = {
-         }
-        break;
-      default:
-        console.log(`Sorry, we are out of ${name}.`);
-    }
+    console.log(`Sorry, we are out of ${name}.`);
     classes[name] = klass;
     return klass;
   }
   root.classStructure = classStructure;
 
   function collectId(data, objectsToRequest) {
-    structure = classStructure(data.className)
+    // if(data.className == 'ClassModel') {
+    //   Object.entries(data).forEach(([field,className]) => {
+    //     if(!(className in recordManager.classes))
+    //   }
+    // }
+
+    structure = (data.className == 'ClassModel') ? data : classStructure(data.className)
     //id of abject which are already received are stored in rawObjects
     objectCollections = recordManager.rawObjects
     Object.entries(structure).forEach(([field,className]) => {
+        if (field in system_fields) { return;}
         objectsExist = objectFromDict(objectCollections, className)
         objectsRequest = objectFromDict(objectsToRequest, className)
         singleIdField = field + '_id'
@@ -70,8 +55,12 @@
 
   function connectReferences(data, loadedObjectsTree) {
     //console.log(`~~~filling ${data.className} : ${JSON.stringify(data)}`)
+    if(data.className == 'ClassModel') {
+      return;
+    }
     structure = classStructure(data.className)
     Object.entries(structure).forEach(([field,className]) => {
+        if (field in system_fields) { return;}
         objectsLoaded = objectFromDict(loadedObjectsTree, className)
         singleIdField = field + '_id'
         if (singleIdField in data) {
@@ -108,6 +97,9 @@
       objectsRaw = objectFromDict(objectCollections, className)
       Object.entries(incomingObjects).forEach(([id,incomingObject]) => {
           //mark all incoming objects as already requested
+          if(className === "ClassModel") {
+
+          }
           incomingObject.isPreloaded = false;
           incomingObject.className = className;
           objectFromDict(previouslyRequested, className)[id] = incomingObject;
@@ -149,6 +141,17 @@
   root.receiveData = receiveData
   function preloadData(objectsToRequest, finishFunction, previouslyRequested={})
   {
+    //check if preload of unknown classes is requested
+    requestedClasses = {}
+    if ('ClassModel' in objectsToRequest) {
+      objectsToRequest['ClassModel'].forEach((name) => requestedClasses[name] = true);
+    }
+    Object.entries(objectsToRequest).forEach(([className,requestedObjects]) => {
+      if(!((className in recordManager.classes) || (className in requestedClasses))) {
+        if (!('ClassModel' in objectsToRequest)) { objectsToRequest['ClassModel'] = []; }
+        objectsToRequest['ClassModel'].push(className);
+      }
+    });
     //objectsToRequest as {'TypeName':[id]}
     //finishFunction to call after all objects and references objs are in replace
     //previouslyRequested to keep track of objects loaded over recursive calls
