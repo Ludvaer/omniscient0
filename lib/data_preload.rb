@@ -1,3 +1,7 @@
+records = User.where(id: [1,2])
+records.each.each{|x|puts("#{x.preloadable_attributes}")}
+puts "#{Dialect.first.attributes_to_output}"
+
 def get_belongs_to_references(model_name)
   # Convert the model name to a class
   model_class = model_name.constantize
