@@ -16,7 +16,6 @@ class DataPreloadController < ApplicationController
          # Check if the model is a container
          if model_class.is_container
            associations = model_class.contained_associations
-           records = records
            records_hash = {}
            records.each do |record|
              #preloadable_attributes contains filtered attributes
