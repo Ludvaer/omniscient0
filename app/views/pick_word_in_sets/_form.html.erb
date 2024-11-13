@@ -72,18 +72,12 @@ picked_id = if correct.nil? then 'new_picked' else "test_pick_#{pick_word_in_set
     pick_model_<%= pick_word_in_set.id %> = form_form_model_from(document.getElementById("<%= div_id %>"));
     data_preload_url = "<%= data_preload_url %>";
     pick_word_in_set_url = "<%= pick_word_in_set_url(@pick_word_in_set) %>";
-    preloadData({"PickWordInSet":[<%=pick_word_in_set.id %>]}, ()=> {
+    <% preloadedData = DataPreloadService.fetch_data({"PickWordInSet" => [pick_word_in_set.id]}, recursive: true) %>
+    receiveData(<%= preloadedData.to_json.html_safe %>, ()=> {
+    // preloadData({"PickWordInSet":[<%=pick_word_in_set.id %>]}, ()=> { // this shoud send request instead of prerender in place of receiveData
       pick_word_in_set_<%=pick_word_in_set.id %> = recordManager.objects['PickWordInSet'][<%=pick_word_in_set.id %>];
       pick_model_<%= pick_word_in_set.id %>.data = pick_word_in_set_<%=pick_word_in_set.id %>;
     });
-    //pick_word_in_set_<%=pick_word_in_set.id %> = ;
-    //pick_model_<%= pick_word_in_set.id %>.data = pick_word_in_set_<%=pick_word_in_set.id %>;
-    // pick_word_in_set_<%=pick_word_in_set.id %>.className = 'PickWordInSet';
-    // objectsToRequest = {};
-    // collectId(pick_word_in_set_569, objectsToRequest);
-    // arrayariseObjectsToRequest(objectsToRequest);
-    // previouslyRequested = {"PickWordInSet":{<%= pick_word_in_set.id %>:pick_word_in_set_<%=pick_word_in_set.id %>}};
-    //
-    //console.log(`>>> data to request = ${JSON.stringify(objectsToRequest)}`);
+
   <% end %>
 </script>

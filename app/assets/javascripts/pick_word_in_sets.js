@@ -66,10 +66,6 @@
            });
         }
     })
-    data.isPreloaded = false
-    objectFromDict(recordManager.rawObjects, data.className)[data.id] = data;
-    //objectFromDict(recordManager.rawObjects, data.className)[data.id] = data;
-    console.log(`+++collecting ${data.className} : ${data.id} => [${Object.keys(objectFromDict(recordManager.rawObjects, data.className)).length}]`);
   }
 
   function connectReferences(data, loadedObjectsTree) {
@@ -90,7 +86,6 @@
            });
         }
     })
-    data.isPreloaded = true
   }
 
   root.collectId = collectId
@@ -98,11 +93,60 @@
   {
      Object.entries(objectsToRequest).forEach(([className,idsToRequest]) => {
        objectsToRequest[className] = Object.entries(idsToRequest)
-          .filter(([id,idsToRequest]) => idsToRequest)
+          //.filter(([id,idsToRequest]) => idsToRequest)
           .map(([id,idsToRequest]) => id);
      });
   }
   root.arrayariseObjectsToRequest = arrayariseObjectsToRequest
+  function receiveData(data, finishFunction, previouslyRequested={}) {
+    console.log(`>>> success loading data = ${JSON.stringify(data)}`);
+    objectCollections = recordManager.rawObjects;
+    objectsToRequest = {};
+    //preprocessing
+    //ensure incoming objects ar registered as requested and save as raw
+    Object.entries(data).forEach(([className,incomingObjects]) => {
+      objectsRaw = objectFromDict(objectCollections, className)
+      Object.entries(incomingObjects).forEach(([id,incomingObject]) => {
+          //mark all incoming objects as already requested
+          incomingObject.isPreloaded = false;
+          incomingObject.className = className;
+          objectFromDict(previouslyRequested, className)[id] = incomingObject;
+          objectsRaw[id] = incomingObject;
+      });
+    });
+    //building request
+    //collect missing ids from incoming object ignoring already loaded ids
+    Object.entries(data).forEach(([className,incomingObjects]) => {
+      Object.entries(incomingObjects).forEach(([id,incomingObject]) => {
+        collectId(incomingObject, objectsToRequest);
+      });
+    });
+    arrayariseObjectsToRequest(objectsToRequest);
+    console.log(`>>> data to request = ${JSON.stringify(objectsToRequest)}`);
+    if (Object.values(objectsToRequest).some(a => a.length > 0))
+    {
+      //TODO: make timeout only in dev environment (for infinite recursion safe debug)
+      setTimeout(() =>{preloadData(objectsToRequest,finishFunction,previouslyRequested)}, 100);
+    }
+    else { //postprocessing if all object tree is loaded
+      //if all requested objects received then match all references objs
+      Object.entries(previouslyRequested).forEach(([className,requestedObjects]) => {
+        Object.entries(requestedObjects).forEach(([id,requestedObject]) => {
+          connectReferences(requestedObject, previouslyRequested);
+        });
+      });
+      //only after references for all objs are connected we can save them in fully loaded
+      Object.entries(previouslyRequested).forEach(([className,requestedObjects]) => {
+        objectsById = objectFromDict(recordManager.objects, className)
+        Object.entries(requestedObjects).forEach(([id,requestedObject]) => {
+          requestedObject.isPreloaded = true;
+          objectsById[id] = requestedObject;
+        });
+      });
+      finishFunction(); //proceed to action that required loaded objects
+    }
+  }
+  root.receiveData = receiveData
   function preloadData(objectsToRequest, finishFunction, previouslyRequested={})
   {
     //objectsToRequest as {'TypeName':[id]}
@@ -118,50 +162,7 @@
         //with polite reminding that saving issues are here
       },
       success: function(data, textStatus, jqXHR) {
-        console.log(`>>> success loading data = ${JSON.stringify(data)}`);
-        objectCollections = recordManager.rawObjects;
-        objectsToRequest = {};
-        //preprocessing
-        //ensure incoming objects ar registered as requested and save as raw
-        Object.entries(data).forEach(([className,incomingObjects]) => {
-          objectsRaw = objectFromDict(objectCollections, className)
-          Object.entries(incomingObjects).forEach(([id,incomingObject]) => {
-              //mark all incoming objects as already requested
-              objectFromDict(previouslyRequested, className)[id] = incomingObject;
-              objectsRaw[id] = incomingObject;
-              incomingObject.className = className;
-          });
-        });
-        //building request
-        //collect missing ids from incoming object ignoring already loaded ids
-        Object.entries(data).forEach(([className,incomingObjects]) => {
-          Object.entries(incomingObjects).forEach(([id,incomingObject]) => {
-            collectId(incomingObject, objectsToRequest);
-          });
-        });
-        console.log(`>>> data to request = ${JSON.stringify(objectsToRequest)}`);
-        if (Object.values(objectsToRequest).some(a => Object.values(a).length > 0))
-        {
-          arrayariseObjectsToRequest(objectsToRequest);
-          //TODO: make timeout only in dev environment (for infinite recursion safe debug)
-          setTimeout(() =>{preloadData(objectsToRequest,finishFunction,previouslyRequested)}, 100);
-        }
-        else { //postprocessing if all object tree is loaded
-          //if all requested objects received then match all references objs
-          Object.entries(previouslyRequested).forEach(([className,requestedObjects]) => {
-            Object.entries(requestedObjects).forEach(([id,requestedObject]) => {
-              connectReferences(requestedObject, previouslyRequested);
-            });
-          });
-          //only after references for all objs are connected we can save them in fully loaded
-          Object.entries(previouslyRequested).forEach(([className,requestedObjects]) => {
-            objectsById = objectFromDict(recordManager.objects, className)
-            Object.entries(requestedObjects).forEach(([id,requestedObject]) => {
-              objectsById[id] = requestedObject;
-            });
-          });
-          finishFunction(); //proceed to action that required loaded objects
-        }
+        receiveData(data, finishFunction, previouslyRequested)
       }
     });
   }

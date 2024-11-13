@@ -7,6 +7,6 @@ class ApplicationRecord < ActiveRecord::Base
   end
 
   def preloadable_attributes
-    attributes.filter{|x,y| !(x in SKIP_ATTRIBUTES)}
+    attributes.reject{|x,y|SKIP_ATTRIBUTES.include?(x)}
   end
 end
