@@ -123,11 +123,11 @@
           Object.entries(incomingObjects).forEach(([id,incomingObject]) => {
             incomingObject.className = className;
             console.log(`---collecting ${className} : ${id}`);
-            collectId(incomingObject, objectsToRequest, previouslyRequested);
+            collectId(incomingObject, objectsToRequest);
             objectFromDict(previouslyRequested, className)[id] = incomingObject;
           });
         });
-        if (Object.keys(objectsToRequest).length > 0)
+        if (Object.values(objectsToRequest).some(a => a.length > 0))
         {
           arrayariseObjectsToRequest(objectsToRequest);
           console.log(`>>> data to request = ${JSON.stringify(objectsToRequest)}`);

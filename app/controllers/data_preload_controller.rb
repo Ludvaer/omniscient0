@@ -1,56 +1,64 @@
 class DataPreloadController < ApplicationController
   def preload
-    # Parse the incoming JSON payload
     request_data = params.require(:data).permit!
-
-    # Initialize a response hash
+    recursive = true; # params[:recursive] == "true"  # Check if recursive loading is enabled
     response_data = {}
+    # Initialize a queue to keep track of all models and ids to load
+    load_queue = request_data.to_h
+    # Process the queue until there are no more models/ids to load
+    while load_queue.any?
+     current_type, ids = load_queue.shift
+     puts "(#{current_type}):[#{ids}]"
+     model_class = current_type.to_s.constantize
+     records = model_class.where(id: ids)
+     # Check if the model is a container
+     if model_class.is_container
+       associations = model_class.contained_associations
+       records = records.includes(*associations)
 
-    # Iterate through each type in the incoming request
-    request_data.each do |type_name, ids|
-      # Use the constantize method to convert the type name into a model class
-      model_class = type_name.constantize
+       records_hash = records.each_with_object({}) do |record, hash|
+         record_data = record.attributes
 
-      # Query the database for records with the given ids
-      records = model_class.where(id: ids)
+         # Add contained association ids
+         associations.each do |association|
+           related_ids = record.public_send(association).pluck(:id)
+           record_data["#{association.to_s.singularize}_ids"] = related_ids
 
-      # Detect if the class is a "Set" type (contains elements of a different model)
-      if type_name.end_with?("Set")
-       # Infer associated model by removing the "Set" suffix
-       associated_model_name = type_name.chomp("Set")
-
-       # Convert to lowercase and pluralize for relationship inference
-       associated_relation = associated_model_name.underscore.pluralize
-
-       # Check if the association exists to ensure robustness
-       if model_class.reflect_on_association(associated_relation.to_sym)
-         # Preload the inferred association
-         records = records.includes(associated_relation.to_sym)
-
-         # Convert records to a hash with associated ids
-         records_hash = records.each_with_object({}) do |record, hash|
-           # Build a hash with attributes and add associated ids
-           hash[record.id] = record.attributes.merge(
-             "#{associated_relation.singularize}_ids": record.public_send(associated_relation).pluck(:id)
-           )
+           # If recursive, queue related objects for loading
+           if recursive
+             related_class = association.to_s.singularize.camelize.constantize
+             load_queue[association.to_s.singularize.capitalize] ||= []
+             load_queue[association.to_s.singularize.capitalize].concat(related_ids).uniq!
+           end
          end
-       else
-         # If no association is found, fall back to attributes only
-         records_hash = records.index_by(&:id).transform_values(&:attributes)
-       end
-      else
-       # For non-Set types, load attributes only
-       records_hash = records.index_by(&:id).transform_values(&:attributes)
-      end
-      # 
-      # # Convert records to a hash with id as keys
-      # records_hash = records.index_by(&:id).transform_values(&:attributes)
 
-      # Add the results to the response hash
-      response_data[type_name] = records_hash
+         hash[record.id] = record_data
+       end
+     else
+       # For non-container types, load basic attributes
+       records_hash = records.index_by(&:id).transform_values(&:attributes)
+     end
+
+     # Add records to response
+     response_data[current_type] ||= {}
+     response_data[current_type].merge!(records_hash)
+
+     # Handle belongs_to associations if recursive loading is enabled
+     if recursive
+       model_class.reflect_on_all_associations(:belongs_to).each do |association|
+         associated_class = association.class_name.constantize
+         associated_ids = records.pluck(association.foreign_key).compact.uniq
+
+         # Add associated objects to queue if not already loaded
+         next if associated_ids.empty? || response_data[association.class_name]&.keys&.include?(associated_ids)
+
+         load_queue[association.class_name] ||= []
+         load_queue[association.class_name].concat(associated_ids).uniq!
+       end
+     end
     end
 
-    # Render the response as JSON
+    # Render the complete data tree as JSON
     render json: response_data
   end
 end
