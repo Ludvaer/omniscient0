@@ -16,9 +16,9 @@ class DataPreloadController < ApplicationController
          # Check if the model is a container
          if model_class.is_container
            associations = model_class.contained_associations
-           records = records.includes(*associations)
-
-           records_hash = records.each_with_object({}) do |record, hash|
+           records = records
+           records_hash = {}
+           records.each do |record|
              #preloadable_attributes contains filtered attributes
              record_data = record.preloadable_attributes
              # Add contained association ids
@@ -42,7 +42,7 @@ class DataPreloadController < ApplicationController
                end
              end
 
-             hash[record.id] = record_data
+             records_hash[record.id] = record_data
            end
          else
            # For non-container types, load basic attributes

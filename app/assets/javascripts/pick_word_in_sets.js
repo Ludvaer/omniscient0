@@ -1,5 +1,8 @@
 (function() {
   root = typeof exports !== "undefined" && exports !== null ? exports : this;
+  //Objects which are already receive  stored in rawObjects {id:object}
+  //Objects which have their dependancies loaded are stored in objects {id:object}
+  //Type structure stored within classes {'TypeName':{'field_name':'ReferencedType'}}
   recordManager = root.recordManager = {'classes':{}, 'objects':{}, 'rawObjects':{}};
   function objectFromDict(dict, key) {
     if (!(key in dict)){ dict[key] = { }; }
@@ -46,6 +49,7 @@
 
   function collectId(data, objectsToRequest) {
     structure = classStructure(data.className)
+    //id of abject which are already received are stored in rawObjects
     objectCollections = recordManager.rawObjects
     Object.entries(structure).forEach(([field,className]) => {
         objectsExist = objectFromDict(objectCollections, className)
@@ -68,28 +72,25 @@
     console.log(`+++collecting ${data.className} : ${data.id} => [${Object.keys(objectFromDict(recordManager.rawObjects, data.className)).length}]`);
   }
 
-  function fillId(data, previouslyRequested) {
+  function connectReferences(data, loadedObjectsTree) {
     //console.log(`~~~filling ${data.className} : ${JSON.stringify(data)}`)
     structure = classStructure(data.className)
-    objectCollections = previouslyRequested
     Object.entries(structure).forEach(([field,className]) => {
-        objectsExist = objectFromDict(objectCollections, className)
+        objectsLoaded = objectFromDict(loadedObjectsTree, className)
         singleIdField = field + '_id'
         if (singleIdField in data) {
            id = data[singleIdField]
-           if(!(id == null) && (id in objectsExist)) { data[field] = objectsExist[id]; }
+           if(!(id == null) && (id in objectsLoaded)) { data[field] = objectsLoaded[id]; }
         }
         multipleId = field + '_ids'
         if (multipleId in data) {
            let dataField = data[field + 's'] = []
            data[multipleId].forEach((id) => {
-             if(!(id == null) && (id in objectsExist)) { dataField.push(objectsExist[id]); }
+             if(!(id == null) && (id in objectsLoaded)) { dataField.push(objectsLoaded[id]); }
            });
         }
     })
     data.isPreloaded = true
-    objectFromDict(recordManager.objects, data.className)[data.id] = data;
-    //console.log(`+++filling ${data.className} : ${data.id} => [${Object.keys(objectFromDict(recordManager.objects, data.className)).length}]`);
   }
 
   root.collectId = collectId
@@ -104,6 +105,9 @@
   root.arrayariseObjectsToRequest = arrayariseObjectsToRequest
   function preloadData(objectsToRequest, finishFunction, previouslyRequested={})
   {
+    //objectsToRequest as {'TypeName':[id]}
+    //finishFunction to call after all objects and references objs are in replace
+    //previouslyRequested to keep track of objects loaded over recursive calls
     return $.ajax(root.data_preload_url, {
       type: 'GET',
       dataType: 'json',
@@ -117,32 +121,46 @@
         console.log(`>>> success loading data = ${JSON.stringify(data)}`);
         objectCollections = recordManager.rawObjects;
         objectsToRequest = {};
+        //preprocessing
+        //ensure incoming objects ar registered as requested and save as raw
         Object.entries(data).forEach(([className,incomingObjects]) => {
           objectsRaw = objectFromDict(objectCollections, className)
-          //console.log(`+++ ${className} => ${JSON.stringify(incomingObjects)}`);
           Object.entries(incomingObjects).forEach(([id,incomingObject]) => {
-            incomingObject.className = className;
-            console.log(`---collecting ${className} : ${id}`);
+              //mark all incoming objects as already requested
+              objectFromDict(previouslyRequested, className)[id] = incomingObject;
+              objectsRaw[id] = incomingObject;
+              incomingObject.className = className;
+          });
+        });
+        //building request
+        //collect missing ids from incoming object ignoring already loaded ids
+        Object.entries(data).forEach(([className,incomingObjects]) => {
+          Object.entries(incomingObjects).forEach(([id,incomingObject]) => {
             collectId(incomingObject, objectsToRequest);
-            objectFromDict(previouslyRequested, className)[id] = incomingObject;
           });
         });
         console.log(`>>> data to request = ${JSON.stringify(objectsToRequest)}`);
         if (Object.values(objectsToRequest).some(a => Object.values(a).length > 0))
         {
           arrayariseObjectsToRequest(objectsToRequest);
-          //preloadData(objectsToRequest);
+          //TODO: make timeout only in dev environment (for infinite recursion safe debug)
           setTimeout(() =>{preloadData(objectsToRequest,finishFunction,previouslyRequested)}, 100);
         }
-        else { //if all requested subobjects received  then iterate overthem
+        else { //postprocessing if all object tree is loaded
+          //if all requested objects received then match all references objs
           Object.entries(previouslyRequested).forEach(([className,requestedObjects]) => {
             Object.entries(requestedObjects).forEach(([id,requestedObject]) => {
-              //console.log(`---fill ${className} : ${id}`);
-              requestedObject.className = className
-              fillId(requestedObject, previouslyRequested); //and match id with loaded objects
+              connectReferences(requestedObject, previouslyRequested);
             });
           });
-          finishFunction();
+          //only after references for all objs are connected we can save them in fully loaded
+          Object.entries(previouslyRequested).forEach(([className,requestedObjects]) => {
+            objectsById = objectFromDict(recordManager.objects, className)
+            Object.entries(requestedObjects).forEach(([id,requestedObject]) => {
+              objectsById[id] = requestedObject;
+            });
+          });
+          finishFunction(); //proceed to action that required loaded objects
         }
       }
     });
