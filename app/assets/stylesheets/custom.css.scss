@@ -182,7 +182,6 @@ $btncolor: #563d7c;
 
 
 
-
 form {
     text-align: center;
     display: block;
@@ -320,19 +319,13 @@ table {
 .fit-text {
 }
 
-.disabled_option_btn {
-    font-size: 1.25em;
-    color: $btncolor;
-    background-color: transparent;
-    border-color: $btncolor;
-    padding: 1vmin 1vmin;
-    margin: 1vmin 1vmin;
-    border-radius: 5vmin;
-    border: 1vmin solid $btncolor;
-    user-select: text;
+
+.btn-next {
+  @extend .btn;
 }
 
-.enabled_option_btn {
+
+.option_button {
   font-size: 1.25em;
   color: $btncolor;
   background-color: transparent;
@@ -341,6 +334,29 @@ table {
   margin: 1vmin 1vmin;
   border-radius: 5vmin;
   border: 1vmin solid $btncolor;
+  font-weight: bold;
+}
+
+.disabled_option_btn {
+    @extend .option_button;
+    user-select: text;
+    border-color:#aaaaaa;
+}
+.disabled_option_btn_yes {
+    @extend .disabled_option_btn;
+    border-color:#00ff00;
+}
+.disabled_option_btn_no {
+    @extend .disabled_option_btn;
+    border-color:#ff0000;
+}
+.disabled_option_btn_this {
+    @extend .disabled_option_btn;
+    border-color:#0000ff;
+}
+
+.enabled_option_btn {
+    @extend .option_button;
     &:hover {
         color: #efefe0;
         background-color: $btncolor;

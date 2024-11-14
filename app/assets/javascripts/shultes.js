@@ -13,7 +13,6 @@
 
   function play()
   {
-
     root.table_size = 3;
     root.game_status = 0;
     root.table_length = table_size*table_size;
@@ -41,16 +40,15 @@
     var mult = BigInt(1);
     // While there remain elements to shuffle.
     while (currentIndex != 0) {
+        // Pick a remaining element.
+        randomIndex = Math.floor(Math.random() * currentIndex);
+        number +=  BigInt(randomIndex)*mult;
+        mult *= BigInt(currentIndex +1);
+        currentIndex--;
 
-      // Pick a remaining element.
-      randomIndex = Math.floor(Math.random() * currentIndex);
-      number +=  BigInt(randomIndex)*mult;
-      mult *= BigInt(currentIndex +1);
-      currentIndex--;
-
-      // And swap it with the current element.
-      [array[currentIndex], array[randomIndex]] = [
-        array[randomIndex], array[currentIndex]];
+        // And swap it with the current element.
+        [array[currentIndex], array[randomIndex]] = [
+          array[randomIndex], array[currentIndex]];
       }
 
       return [array,number];
@@ -166,6 +164,7 @@
     };
 
     root.sendShulte = function() {
+        console.log(`sending shulte`);
       var data, method;
       data = serializeForm($('form'));
       method = 'post';
@@ -181,7 +180,9 @@
           return show_start_button();
         },
         success: function(data, textStatus, jqXHR) {
+                      console.log(`sending shulte success`);
           return $("#shulte-save-response").html(data.html);
+
         }
       });
     }

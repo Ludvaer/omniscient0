@@ -89,7 +89,20 @@ rails generate model UserDialectProgress counter:integer
 rails generate migration AddUserRefToUserDialectProgress user:references
 rails generate migration AddDialectRefToUserDialectProgress dialect:references
 
++make text on disabled button selectable (imitate disabling with color style adn detaching onclick instead?)
 
 !!!Very important avoid creating duplicates when adding more words to non completed test
-+make text on disabled button selectable (imitate disabling with color style adn detaching onclick instead?)
+!!!also make priority for previously encountered words not to fall below 85%
+!!!may be make higher threshold for expressions that are leftier on sigmoid
+!think about weight may be in some circumstances like after big pause correct answer should weight more ?
+!store correct and fail as floats (capped to same sum to avoid 0 increment) or bigger integer or cap normal integer
+!and allow bigger or smoller increments for various circumstances
+!Move ClassModel from preload to pseudomodel class
+
 !cleanup migration and db stucture before shipping
+
+I need to decide weather I want to rebuild the interface and/to populate it from js or build a pure json reques flow for current one
+
+!!!create edit form from json instead of actual redirect, you probably keep queue full method before that
+!!!do not let old pick_word_in_set objects hang in memory too much
+!!!check how action retrived for each ajax in new test

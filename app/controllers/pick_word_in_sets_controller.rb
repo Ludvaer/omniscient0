@@ -31,16 +31,20 @@ class PickWordInSetsController < ApplicationController
     @target_dialect_ids ||= [Dialect.find_by(name:'japanese').id]
     @source_dialect_ids ||= [Dialect.find_by(name:'english').id]
     puts "dialect_progress=#{dialect_progress} counter=#{dialect_progress.counter}"
-    n = [[params[:n].to_i || 1, 1].max,MAX_PICKS_PER_REQUEST].min
-    puts "n = #{n}"
+    n = [params[:n].to_i || 1, 1].max
+    puts "n1 = #{n}"
+    n = [n, MAX_PICKS_PER_REQUEST].min
+    puts "n2 = #{n}"
     incompelete = PickWordInSet.where(picked_id: nil, user_id: @user.id).order(:created_at)
     if incompelete.size < n
+      puts "incompelete.size < n => #{incompelete.size} < #{n}"
       incompelete += create_new_picks(n,PICK_SIZE)
     end
     @pick_word_in_set = incompelete[0]
     @notice = "Incomplete pick word in set."
     @saved = true
 
+    puts(">>> rendering #{@pick_word_in_set} #{@pick_word_in_set.attributes}")
     if n <= 1
       respond_to do |format|
         if @saved
@@ -56,7 +60,7 @@ class PickWordInSetsController < ApplicationController
       respond_to do |format|
         if @saved
           format.html { redirect_to edit_pick_word_in_set_url(@pick_word_in_set), notice: @notice}
-          format.json { render :index, status: :created, location: @pick_word_in_set }
+          format.json { render :show, status: :created, location: @pick_word_in_set }
         else
           format.html { render :new, status: :unprocessable_entity }
           format.json { render json: @pick_word_in_set.errors, status: :unprocessable_entity }
@@ -329,8 +333,10 @@ class PickWordInSetsController < ApplicationController
         @pick_word_in_set.translation_set_id = @translation_set.id
         @pick_word_in_set.version = 1
         @pick_word_in_set.user_id = @user.id
+
+        puts "saving @pick_word_in_set = #{@pick_word_in_set.attributes};"
         @saved = @pick_word_in_set.save
-        puts "@pick_word_in_set id = #{@pick_word_in_set.id}; savd =#{@saved}"
+        puts "@pick_word_in_set id = #{@pick_word_in_set.id}; saved = #{@saved} / #{@pick_word_in_set.errors}"
         picks.append(@pick_word_in_set)
       end
       picks
