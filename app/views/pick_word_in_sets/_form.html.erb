@@ -8,7 +8,7 @@ form_id = if correct.nil? then 'new_test_form' else "test_pick_#{pick_word_in_se
 picked_id = if correct.nil? then 'new_picked' else "test_pick_#{pick_word_in_set.id}_input" end
 %>
 <div class="pick_word_in_set" id="<%= div_id %>">
-<% if correct %>
+<%# if correct %>
   <div class="optionboard" id="<%= optionboard_id %>">
     <svg class="fit-text" xmlns="http://www.w3.org/2000/svg" style="width: 100%; height: 30vmin; margin-left: auto; margin-right: auto;">
       <text dominant-baseline="middle" text-anchor="middle">
@@ -21,24 +21,23 @@ picked_id = if correct.nil? then 'new_picked' else "test_pick_#{pick_word_in_set
         <% if pick_word_in_set.picked_id.nil? %>
           class="enabled_option_btn" onclick="select(<%= translation.id %>,pick_model_<%= pick_word_in_set.id %>)"><span></span>
         <% elsif pick_word_in_set.picked_id == translation.id and correct.word.id == translation.word.id %>
-          class="disabled_option_btn" style="border-color:#00ff00;"  disabled><span>✔</span>
+          class="disabled_option_btn_yes"><span>✔</span>
         <% elsif pick_word_in_set.picked_id == translation.id %>
-          class="disabled_option_btn" style="border-color:#ff0000;"  disabled><span>❌</span>
+          class="disabled_option_btn_no"><span>❌</span>
         <% elsif correct.word.id == translation.word.id %>
-          class="disabled_option_btn" style="border-color:#0000ff;"  disabled><span>🢂</span>
+          class="disabled_option_btn_this"><span>🢂</span>
         <% else %>
-          class="disabled_option_btn" style="border-color:#aaaaaa;"  disabled><span></span>
+          class="disabled_option_btn"><span></span>
         <% end%>
-
-            <b><%= translation.translation %></b>
+        <b><%= translation.translation %></b>
       </button>
     <% end %>
   </div>
   <script> fit_all_text(document.getElementById("<%= optionboard_id %>")) </script>
-<% end %>
+<%# end %>
 
 <br>
-<% if pick_word_in_set.picked_id.nil? or correct.nil? %>
+<%# if pick_word_in_set.picked_id.nil? or correct.nil? %>
   <%= form_with(model: pick_word_in_set, id: form_id) do |form| %>
     <% if pick_word_in_set.errors.any? %>
       <div style="color: red">
@@ -54,31 +53,29 @@ picked_id = if correct.nil? then 'new_picked' else "test_pick_#{pick_word_in_set
     <%= form.label :picked_id, style: "display: none;" %>
     <%= form.number_field :picked_id, id: picked_id, style: "display: none;" %>
     <%# = form.number_field  "n", value: 10, name: "n", style: "display: none;" %>
-    <div <% unless correct.nil? %>style="display: none;"<% end %>>
+    <div <%# unless correct.nil? %>style="display: none;"<%# end %>>
       <%= form.submit id: if correct.nil? then 'new_test_submit' else "test_pick_#{pick_word_in_set.id}_submit" end,
        value: t('Run test'), :class => "btn", data: { disable_with: ( t('In progress')) }  %>
     </div>
   <% end %>
-<% end %>
-<button type="button" class="btn-next" onclick="postNew()" hidden="true;" >Next</button>
+<%# end %>
+<button type="button" class="btn-next" onclick="postNew(pick_model_<%= pick_word_in_set.id %>)" hidden="true;" >Next</button>
 </div>
 
 <script>
-  <% unless pick_word_in_set.id.nil? %>
-    pick_word_in_set_<%=pick_word_in_set.id %>
-    =
-    <%= raw(render partial: "pick_word_in_set", formats: [:json], locals: {pick_word_in_set: pick_word_in_set}) %>;
-  <% end %>
-  <% if correct && pick_word_in_set.picked_id.nil? %>
-    pick_model_<%= pick_word_in_set.id %> = form_form_model_from(document.getElementById("<%= div_id %>"));
-    data_preload_url = "<%= data_preload_url %>";
-    this_pick_word_in_set_url = "<%= pick_word_in_set_url(@pick_word_in_set) %>";
-    pick_word_in_sets_url = "<%= pick_word_in_sets_url %>";
+  pick_model_<%= pick_word_in_set.id %> = form_form_model_from(document.getElementById("<%= div_id %>"));
+  data_preload_url = "<%= data_preload_url %>";
+  this_pick_word_in_set_url = "<%= pick_word_in_set_url(@pick_word_in_set) %>";
+  pick_word_in_sets_url = "<%= pick_word_in_sets_url %>";
+  <% if pick_word_in_set.id.nil? %>
+    fill_form(pick_model_<%= pick_word_in_set.id %>)
+  <% else %>
     <% preloadedData = DataPreloadService.fetch_data({"PickWordInSet" => [pick_word_in_set.id]}, recursive: true) %>
     receiveData(<%= preloadedData.to_json.html_safe %>, ()=> {
     // preloadData({"PickWordInSet":[<%=pick_word_in_set.id %>]}, ()=> { // this shoud send request instead of prerender in place of receiveData
       pick_word_in_set_<%=pick_word_in_set.id %> = recordManager.objects['PickWordInSet'][<%=pick_word_in_set.id %>];
       pick_model_<%= pick_word_in_set.id %>.data = pick_word_in_set_<%=pick_word_in_set.id %>;
+      fill_form(pick_model_<%= pick_word_in_set.id %>)
     });
 
   <% end %>

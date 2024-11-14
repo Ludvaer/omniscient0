@@ -57,10 +57,13 @@ class PickWordInSetsController < ApplicationController
       end
     else
       @pick_word_in_sets = incompelete
+      puts ("@pick_word_in_set.id #{@pick_word_in_set.id}")
       respond_to do |format|
         if @saved
           format.html { redirect_to edit_pick_word_in_set_url(@pick_word_in_set), notice: @notice}
-          format.json { render :show, status: :created, location: @pick_word_in_set }
+          format.json { render json: \
+             DataPreloadService.fetch_data({"PickWordInSet" => [@pick_word_in_set.id]}, recursive: true) \
+             , status: :created, location: @pick_word_in_set }
         else
           format.html { render :new, status: :unprocessable_entity }
           format.json { render json: @pick_word_in_set.errors, status: :unprocessable_entity }

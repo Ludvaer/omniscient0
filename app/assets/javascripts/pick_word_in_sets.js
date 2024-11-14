@@ -175,6 +175,9 @@
   root.fit_all_text = function (element = document)
   {
     let fit_text_svgs = element.getElementsByClassName("fit-text");
+    if (element.className == "fit-text") {
+      fit_text_svgs.push(element)
+    }
     for (let i = 0; i < fit_text_svgs.length; i++) {
       let svg = fit_text_svgs[i]
       for (let j = 0; j < svg.children.length; j++) {
@@ -205,7 +208,7 @@
   }
   root.select = select
 
-  function postNew() {
+  function postNew(form_model) {
     return $.ajax(pick_word_in_sets_url, {
       type: 'POST',
       dataType: 'json',
@@ -216,9 +219,17 @@
         //with polite reminding that saving issues are here
       },
       success: function(data, textStatus, jqXHR) {
-          console.log(`$$$ data loaded = ${JSON.stringify(data)}`);
-          root.dataFromNewPick = data;
-          return Turbolinks.visit(pick_word_in_sets_url + "/" + data.id + "/edit");
+          console.log(`$$$ data loaded`);
+          receiveData(data,() =>
+          {
+              root.dataFromNewPick = data;
+              id = Object.keys(data['PickWordInSet'])[0]
+              form_model.data = recordManager.objects['PickWordInSet'][id];
+              fill_form(form_model)
+              history.pushState({id:form_model.data.id}, "", pick_word_in_sets_url + "/" + form_model.data.id + "/edit")
+          })
+          //root.dataFromNewPick = data;
+          //return Turbolinks.visit(pick_word_in_sets_url + "/" + data.id + "/edit");
           // similar behavior as an HTTP redirect
           //window.location.replace(pick_word_in_set_url);
           // similar behavior as clicking on a link
@@ -230,6 +241,12 @@
   root.postNew = postNew
   function fill_form(form_model)
   {
+    console.log(`%%% filling form`);
+    if(form_model.data == null || form_model.data.id == null)
+    {
+      form_model.nextButton.hidden = false;
+      return;
+    }
     pick_word_in_set = form_model.data;
     let translations = pick_word_in_set.translation_set.translations
     let length = translations.length
@@ -242,21 +259,29 @@
       if (pick_word_in_set.picked_id == null) {
         button.className="enabled_option_btn"
         button.onclick = (() =>{select(translation.id,form_model)});
+        //console.log(`% ${j} enabled_option_btn`);
       }
       else if (pick_word_in_set.picked_id == translation.id && isCorrect) {
         button.className="disabled_option_btn_yes"
         prefix = "✔";
+        //console.log(`% ${j} disabled_option_btn_yes`);
       } else if (pick_word_in_set.picked_id == translation.id) {
         button.className="disabled_option_btn_no";
         prefix = "❌";
+        //console.log(`% ${j} enabled_option_btn`);
       } else if (form_model.isCorrectTransaction(translation)) {
         button.className="disabled_option_btn_this";
         prefix = "🢂";
+        //console.log(`% ${j} disabled_option_btn_this`);
       } else {
         button.className="disabled_option_btn";
+        //console.log(`% ${j} disabled_option_btn`);
       }
       button.innerHTML = prefix + translation.translation
     }
+    form_model.svgText.innerHTML = pick_word_in_set.correct.word.spelling;
+    form_model.nextButton.hidden = (pick_word_in_set.picked_id == null);
+    fit_all_text(form_model.root);
   }
   root.fill_form = fill_form
 
@@ -265,7 +290,7 @@
     var data, method;
     data = {'pick_word_in_set[picked_id]':form_model.data.picked_id};
     method = 'PATCH';
-    return $.ajax(form_model.form.getAttribute('action'), {
+    return $.ajax(pick_word_in_sets_url +'/' + form_model.data.id, {
       type: method,
       dataType: 'json',
       data: data,
@@ -319,7 +344,7 @@
     for (let j = 0; j < svg.children.length; j++)
     {
       let child = svg.children[j]
-      if(child.tagName == 'TEXT')
+      if(child.tagName == 'text')
         { svgText = model.svgText = child; }
     }
     for (let j = 0; j < form.children.length; j++)
@@ -334,7 +359,7 @@
     model.isCorrect = (() => {
       return model.data.correct_id == model.data.picked_id;
     });
-    model.nextButton = model.root.querySelector('.btn-next')
+    model.nextButton = model.root.querySelector('.btn-next');
     return model;
   }
   root.form_form_model_from = form_form_model_from;

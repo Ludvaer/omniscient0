@@ -72,7 +72,7 @@ but for tested words it needs come from 100% for resently added words to some mi
 and actual stats for case when actual stats of correct to incorrect answers
 
 
-Iwill definetly need rewrite some rquest to be moar efficient
+Iwill definetly need rewrite some request to be moar efficient
 
 I want separete table for performance that will join users and picks while tracking
 it should contain usuccesfull vs successfull vs index attmts
@@ -92,7 +92,7 @@ rails generate migration AddDialectRefToUserDialectProgress dialect:references
 +make text on disabled button selectable (imitate disabling with color style adn detaching onclick instead?)
 
 !!!Very important avoid creating duplicates when adding more words to non completed test
-!!!also make priority for previously encountered words not to fall below 85%
+!!!also make priority for previously encountered words not to fall below 85% (or bellow some thershold sigmoid?)
 !!!may be make higher threshold for expressions that are leftier on sigmoid
 !think about weight may be in some circumstances like after big pause correct answer should weight more ?
 !store correct and fail as floats (capped to same sum to avoid 0 increment) or bigger integer or cap normal integer
@@ -106,3 +106,14 @@ I need to decide weather I want to rebuild the interface and/to populate it from
 !!!create edit form from json instead of actual redirect, you probably keep queue full method before that
 !!!do not let old pick_word_in_set objects hang in memory too much
 !!!check how action retrived for each ajax in new test
+!I will probably add some faster navigation support through state pop and state objects
+
+1) complete delayless test flow by keeping queue of tests,
+2) rework interface and display hiragana
+3) add multiple test support
+4) rework queue generation to reduce regeneration of sets and learn more in order
+
+!!!make smth about totally repeating translations
+(!I can probably make surelish that bad answered questions would not be skipped cause of falling on sigmoid
+  by making convergence to sigmoid be estimated from correct to failed ratio)
+(! add chenging toraget prob functionality)
