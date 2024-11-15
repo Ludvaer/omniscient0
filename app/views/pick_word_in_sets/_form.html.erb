@@ -33,7 +33,6 @@ picked_id = if correct.nil? then 'test_pick_new_input' else "test_pick_#{pick_wo
       </button>
     <% end %>
   </div>
-  <script> fit_all_text(document.getElementById("<%= optionboard_id %>")) </script>
 <%# end %>
 
 <br>
@@ -59,26 +58,33 @@ picked_id = if correct.nil? then 'test_pick_new_input' else "test_pick_#{pick_wo
     </div>
   <% end %>
 <%# end %>
-<button type="button" class="btn-next" onclick="postNew(pick_model_<%= pick_word_in_set.id %>)" hidden="true;" >Next</button>
+<button type="button" class="btn-next" onclick="moveNewPick(pick_model_<%= pick_word_in_set.id %>)" hidden="true;" >Next</button>
 </div>
 
 <script>
-  pick_model_<%= pick_word_in_set.id %> = form_form_model_from(document.getElementById("<%= div_id %>"));
-  data_preload_url = "<%= data_preload_url %>";
-  pick_word_in_sets_url = "<%= pick_word_in_sets_url %>";
-  <% if pick_word_in_set.id.nil? %>
-    fill_form(pick_model_<%= pick_word_in_set.id %>)
-  <% else %>
-    <% preloadedData = DataPreloadService.fetch_data({"PickWordInSet" => [pick_word_in_set.id]}, recursive: true) %>
+  window.onload = function() {
+    pick_model_<%= pick_word_in_set.id %> = form_form_model_from(document.getElementById("<%= div_id %>"));
+    data_preload_url = "<%= data_preload_url %>";
+    pick_word_in_sets_url = "<%= pick_word_in_sets_url %>";
+    preload_queue_target_size = 10;
+    <% ids = locals[:ids]%>
+    <% ids = if defined?(ids) && (!ids.nil?) then ids else [] end %>
+    <% ids = if ids.empty? && !pick_word_in_set.id.nil? then [pick_word_in_set.id] else ids end %>
+    <% ids = if ids.include?(pick_word_in_set.id) then ids else ids + [pick_word_in_set.id] end %>
+    <% preloadedData = DataPreloadService.fetch_data({"PickWordInSet" => ids}, recursive: true) %>
     receiveData(<%= preloadedData.to_json.html_safe %>, ()=> {
-    // preloadData({"PickWordInSet":[<%=pick_word_in_set.id %>]}, ()=> { // this shoud send request instead of prerender in place of receiveData
-      pick_word_in_set_<%=pick_word_in_set.id %> = recordManager.objects['PickWordInSet'][<%=pick_word_in_set.id %>];
-      pick_model_<%= pick_word_in_set.id %>.data = pick_word_in_set_<%=pick_word_in_set.id %>;
-      fill_form(pick_model_<%= pick_word_in_set.id %>)
+      // preloadData({"PickWordInSet":[<%=pick_word_in_set.id %>]}, ()=> { // this shoud send request instead of prerender in place of receiveData
+      <% if pick_word_in_set.id.nil? %>
+        fill_form(pick_model_<%= pick_word_in_set.id %>)
+      <% else %>
+        moveNewPick(pick_model_<%= pick_word_in_set.id %>, <%= pick_word_in_set.id %>)
+      <% end %>
+    //pick_word_in_set_<%=pick_word_in_set.id %> = recordManager.objects['PickWordInSet'][<%= pick_word_in_set.id  %>];
+    //pick_model_<%= pick_word_in_set.id %>.data = pick_word_in_set_<%=pick_word_in_set.id %>;
+    //fill_form(pick_model_<%= pick_word_in_set.id %>)
       <% unless locals[:activated] %>
          pick_model_<%= pick_word_in_set.id %>.nextButton.hidden =true;
       <%end%>
     });
-
-  <% end %>
+  };
 </script>

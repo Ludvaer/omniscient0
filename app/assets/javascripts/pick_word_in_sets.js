@@ -62,16 +62,25 @@
     Object.entries(structure).forEach(([field,className]) => {
         if (field in system_fields) { return;}
         objectsLoaded = objectFromDict(loadedObjectsTree, className)
+        objectsLoaded2 = objectFromDict(recordManager.rawObjects, className)
         singleIdField = field + '_id'
         if (singleIdField in data) {
            id = data[singleIdField]
-           if(!(id == null) && (id in objectsLoaded)) { data[field] = objectsLoaded[id]; }
+           if(!(id == null)) {
+             if (id in objectsLoaded) { data[field] = objectsLoaded[id]; }
+             else if (id in objectsLoaded2) { data[field] = objectsLoaded2[id]; }
+             else { console.log(`??? lost ${singleIdField}: ${className} for ${data.className}[${data.id}]`) }
+           }
         }
         multipleId = field + '_ids'
         if (multipleId in data) {
            let dataField = data[field + 's'] = []
            data[multipleId].forEach((id) => {
-             if(!(id == null) && (id in objectsLoaded)) { dataField.push(objectsLoaded[id]); }
+             if(!(id == null)) {
+                if (id in objectsLoaded) { dataField.push(objectsLoaded[id]); }
+                else if (id in objectsLoaded2) { dataField.push(objectsLoaded2[id]); }
+                else { console.log(`??? lost ${singleIdField}: ${className} for ${data.className}[${data.id}]`) }
+             }
            });
         }
     })
@@ -88,7 +97,8 @@
   }
   root.arrayariseObjectsToRequest = arrayariseObjectsToRequest
   function receiveData(data, finishFunction, previouslyRequested={}) {
-    console.log(`>>> success loading data = ${JSON.stringify(data)}`);
+    //console.log(`>>> success loading data = ${JSON.stringify(data)}`);
+    console.log(`>>> success loading data = ${data}`);
     objectCollections = recordManager.rawObjects;
     objectsToRequest = {};
     //preprocessing
@@ -115,7 +125,8 @@
       });
     });
     arrayariseObjectsToRequest(objectsToRequest);
-    console.log(`>>> data to request = ${JSON.stringify(objectsToRequest)}`);
+    //console.log(`>>> data to request = ${JSON.stringify(objectsToRequest)}`);
+    console.log(`>>> data to request = ${objectsToRequest}`);
     if (Object.values(objectsToRequest).some(a => a.length > 0))
     {
       //TODO: make timeout only in dev environment (for infinite recursion safe debug)
@@ -196,24 +207,41 @@
   {
     form_model.picked_input.value = translation_id
     form_model.data.picked_id = translation_id
+    recordManager.objects[form_model.data.className][form_model.data.id] = form_model.data
     connectReferences(form_model.data)
     //submit_pick(form_model, () => {window.location.replace(pick_word_in_set_url);})
     //submit_pick(form_model {return Turbolinks.visit(pick_word_in_set_url);})
     submit_pick(form_model,()=>{});
     //todo correcly would be pass url in linkable object
-    history.pushState({id:form_model.data.id}, "", pick_word_in_sets_url + "/" + form_model.data.id + "?n=10")
+    history.pushState({id:form_model.data.id}, "",
+          `${pick_word_in_sets_url}/${form_model.data.id}?n=${preload_queue_target_size}`)
     fill_form(form_model)
     form_model.nextButton.hidden = false;
     //form.submit();
   }
   root.select = select
 
-  function postNew(form_model) {
+  function moveNewPick(form_model, id = null) {
     form_model.nextButton.hidden = true;
+    let tests = recordManager.objects.PickWordInSet;
+    let unfilledTests = Object.values(tests).filter((p) => p.picked_id == null)
+    let filled = false;
+    if(unfilledTests.length >= 1 || (id != null)) {
+      form_model.data = id == null ? unfilledTests[0] : recordManager.objects.PickWordInSet[id];
+      fill_form(form_model)
+      history.pushState({id:form_model.data.id}, "", pick_word_in_sets_url + "/" + form_model.data.id + "/edit")
+      filled = true
+      //filter out filled pick_word_in_set???
+    }
+    if (unfilledTests.length < root.preload_queue_target_size) {
+      postNew(filled ? null : form_model); //pass model to be  filled with new picks if needed
+    }
+  }
+  function postNew(form_model = null) {
     return $.ajax(pick_word_in_sets_url, {
       type: 'POST',
       dataType: 'json',
-      data: {n:10},
+      data: {n:preload_queue_target_size},
       error: function(jqXHR, textStatus, errorThrown) {
         alert("Loadin new progress failed.");
         //TODO: system for local keeping and retrying to save obj
@@ -223,11 +251,10 @@
           console.log(`$$$ data loaded`);
           receiveData(data,() =>
           {
-              root.dataFromNewPick = data;
-              id = Object.keys(data['PickWordInSet'])[0]
-              form_model.data = recordManager.objects['PickWordInSet'][id];
-              fill_form(form_model)
-              history.pushState({id:form_model.data.id}, "", pick_word_in_sets_url + "/" + form_model.data.id + "/edit")
+            if(form_model != null) //passed model meant to use it to fill with new data
+            {
+              moveNewPick(form_model);
+            }
           })
           //root.dataFromNewPick = data;
           //return Turbolinks.visit(pick_word_in_sets_url + "/" + data.id + "/edit");
@@ -239,7 +266,8 @@
       }
     });
   }
-  root.postNew = postNew
+  root.moveNewPick = moveNewPick;
+  root.postNew = postNew;
   function fill_form(form_model)
   {
     console.log(`%%% filling form`);

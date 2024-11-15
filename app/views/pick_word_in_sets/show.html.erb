@@ -1,7 +1,7 @@
 <% provide(:title, t('Test result')) %>
-<% provide(:assets, javascript_include_tag('pick_word_in_sets')) %>
+<% provide(:assets,javascript_include_tag('pick_word_in_sets','data-turbolinks-track' => true)) %>
 
-<%= render "form", pick_word_in_set: @pick_word_in_set, locals: {activated: true} %>
+<%= render "form", pick_word_in_set: @pick_word_in_set, locals: {activated: true, ids: @incompelete.pluck(:id)} %>
 
 
 <div>

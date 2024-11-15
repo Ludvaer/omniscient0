@@ -14,6 +14,10 @@ Things you may want to cover:
 * Database creation
 
 * Database initialization
+Init data (should be safe to repeat)
+rails db:seed
+Rebuilt inferred values, stats and alike
+rails runner lib/rebuild_counters.rb
 
 * How to run the test suite
 

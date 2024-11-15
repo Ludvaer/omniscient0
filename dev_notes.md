@@ -133,3 +133,7 @@ test queue / probability calculation idea:
 funny  fucntionality / messages concepts:
 !!1 ^_^ automaticaly increase preload queue size if user epirience delay and nervousl lcicking/miving mouse around
 !!1 ^_^ tag system for tests that among ather thing allow to block pronouns related  tests
+
+?refactor ajaxes (denodify)
+
+!init form with more data before continue to have a proper uninterrupted flow

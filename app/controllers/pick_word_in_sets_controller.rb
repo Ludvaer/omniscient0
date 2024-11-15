@@ -12,16 +12,22 @@ class PickWordInSetsController < ApplicationController
 
   # GET /pick_word_in_sets/1 or /pick_word_in_sets/1.json
   def show
+    @incompelete = PickWordInSet.where(picked_id: nil, user_id: @user.id).order(:created_at)
+    puts("@incompelete[#{@incompelete.size}]")
   end
 
   # I need move this logic to create and make start test button here or smth
   # GET /pick_word_in_sets/new
   def new
+    @incompelete = PickWordInSet.where(picked_id: nil, user_id: @user.id).order(:created_at)
+    puts("@incompelete[#{@incompelete.size}]")
     @pick_word_in_set = PickWordInSet.new
   end
 
   # GET /pick_word_in_sets/1/edit
   def edit
+    @incompelete = PickWordInSet.where(picked_id: nil, user_id: @user.id).order(:created_at)
+    puts("@incompelete[#{@incompelete.size}]")
   end
 
   # POST /pick_word_in_sets or /pick_word_in_sets.json
@@ -36,6 +42,7 @@ class PickWordInSetsController < ApplicationController
     n = [n, MAX_PICKS_PER_REQUEST].min
     puts "n2 = #{n}"
     incompelete = PickWordInSet.where(picked_id: nil, user_id: @user.id).order(:created_at)
+    @incompelete = incompelete
     if incompelete.size < n
       puts "incompelete.size < n => #{incompelete.size} < #{n}"
       incompelete += create_new_picks(n,PICK_SIZE)
@@ -62,7 +69,7 @@ class PickWordInSetsController < ApplicationController
         if @saved
           format.html { redirect_to edit_pick_word_in_set_url(@pick_word_in_set), notice: @notice}
           format.json { render json: \
-             DataPreloadService.fetch_data({"PickWordInSet" => [@pick_word_in_set.id]}, recursive: true) \
+             DataPreloadService.fetch_data({"PickWordInSet" => [@pick_word_in_sets.pluck(:id)]}, recursive: false) \
              , status: :created, location: @pick_word_in_set }
         else
           format.html { render :new, status: :unprocessable_entity }
