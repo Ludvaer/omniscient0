@@ -91,19 +91,14 @@ rails generate migration AddDialectRefToUserDialectProgress dialect:references
 
 +make text on disabled button selectable (imitate disabling with color style adn detaching onclick instead?)
 
-!!!Very important avoid creating duplicates when adding more words to non completed test
-!!!also make priority for previously encountered words not to fall below 85% (or bellow some thershold sigmoid?)
-!!!may be make higher threshold for expressions that are leftier on sigmoid
-!think about weight may be in some circumstances like after big pause correct answer should weight more ?
-!store correct and fail as floats (capped to same sum to avoid 0 increment) or bigger integer or cap normal integer
-!and allow bigger or smoller increments for various circumstances
+
+
 !Move ClassModel from preload to pseudomodel class
 
 !cleanup migration and db stucture before shipping
 
 I need to decide weather I want to rebuild the interface and/to populate it from js or build a pure json reques flow for current one
 
-!!!create edit form from json instead of actual redirect, you probably keep queue full method before that
 !!!do not let old pick_word_in_set objects hang in memory too much
 !!!check how action retrived for each ajax in new test
 !I will probably add some faster navigation support through state pop and state objects
@@ -113,10 +108,28 @@ I need to decide weather I want to rebuild the interface and/to populate it from
 3) add multiple test support
 4) rework queue generation to reduce regeneration of sets and learn more in order
 
+I might also want to add some message queue to allow traking of saving progress and other stuff
+!do something about links below interactive fields (remain old)
+!need to clenaup non id calls from _form render to ensure pure js render
+!need to redisign index with single load data call
+
+!shuffle and safe order of words (like you do with numbers in shilte)
+!track actual answers to predicted and make correction intu target
+
+test queue / probability calculation idea:
+!!!Very important avoid creating duplicates when adding more words to non completed test
+!!!also make priority for previously encountered words not to fall below 85% (or bellow some thershold sigmoid?)
+  ???may be make higher threshold for expressions that are leftier on sigmoid
 !!!make smth about totally repeating translations
 (!I can probably make surelish that bad answered questions would not be skipped cause of falling on sigmoid
   by making convergence to sigmoid be estimated from correct to failed ratio)
-(! add chenging toraget prob functionality)
+!ensure stats incremented only when saved is true
+!think about weight may be in some circumstances like after big pause correct answer should weight more ?
+  !store correct and fail as floats (capped to same sum to avoid 0 increment) or bigger integer or cap normal integer
+  !and allow bigger or smaller increments for various circumstances
 
-I might also want to add some message queue to allow traking of saving progress and other stuff
-!do something about links below interactive fiels (remain old)
+(! add chenging taraget prob functionality)
+
+funny  fucntionality / messages concepts:
+!!1 ^_^ automaticaly increase preload queue size if user epirience delay and nervousl lcicking/miving mouse around
+!!1 ^_^ tag system for tests that among ather thing allow to block pronouns related  tests
