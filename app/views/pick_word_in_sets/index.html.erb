@@ -3,11 +3,14 @@
 
 <div id="pick_word_in_sets">
   <% @pick_word_in_sets.each do |pick_word_in_set| %>
-    <% test_render = render pick_word_in_set %>
+    <% test_render = render pick_word_in_set, locals: {activated: false} %>
     <p>
       <%= link_to test_render, pick_word_in_set %>
     </p>
   <% end %>
 </div>
 
-<%= render "form", pick_word_in_set: PickWordInSet.new %>
+<%= link_to t('Pick word in set test') + " x 10", new_pick_word_in_set_path(n: 10) %>
+<%= link_to t('Pick word in set test'), new_pick_word_in_set_path %>
+
+<%#= render "form", pick_word_in_set: PickWordInSet.new, acivated: false %>

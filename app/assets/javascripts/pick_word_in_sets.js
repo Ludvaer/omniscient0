@@ -209,6 +209,7 @@
   root.select = select
 
   function postNew(form_model) {
+    form_model.nextButton.hidden = true;
     return $.ajax(pick_word_in_sets_url, {
       type: 'POST',
       dataType: 'json',
@@ -244,18 +245,28 @@
     console.log(`%%% filling form`);
     if(form_model.data == null || form_model.data.id == null)
     {
+      form_model.optionBoard.hidden = true;
       form_model.nextButton.hidden = false;
       return;
     }
+    form_model.optionBoard.hidden = false;
     pick_word_in_set = form_model.data;
     let translations = pick_word_in_set.translation_set.translations
     let length = translations.length
     let isCorrect = form_model.isCorrect() //pick_word_in_set.correct.word.id == pick_word_in_set.picked.word.id
     for (let j = 0; j < length; j++)
     {
+      if(form_model.buttons.length < length)
+      {
+          let btn = document.createElement("button");
+          form_model.optionBoard.appendChild(btn);
+          form_model.buttons.push(btn);
+      }
       let button = form_model.buttons[j]
+      button.hidden = false;
       let translation = translations[j]
       let prefix = ""
+      button.onclick = (()=>{})
       if (pick_word_in_set.picked_id == null) {
         button.className="enabled_option_btn"
         button.onclick = (() =>{select(translation.id,form_model)});
@@ -278,6 +289,9 @@
         //console.log(`% ${j} disabled_option_btn`);
       }
       button.innerHTML = prefix + translation.translation
+    }
+    for (let j = length; j < form_model.buttons.length; j++) {
+      form_model.buttons[j].hidden = true;
     }
     form_model.svgText.innerHTML = pick_word_in_set.correct.word.spelling;
     form_model.nextButton.hidden = (pick_word_in_set.picked_id == null);

@@ -2,10 +2,10 @@
 translation_set = pick_word_in_set.translation_set
 translations = translation_set&.translations
 correct = translations&.find{|t| t.id == pick_word_in_set.correct_id}
-optionboard_id = if correct.nil? then 'new_test_form' else "optionboard_#{pick_word_in_set.id}" end
-div_id = if correct.nil? then 'new_test_form' else "pick_word_in_set_#{pick_word_in_set.id}" end
-form_id = if correct.nil? then 'new_test_form' else "test_pick_#{pick_word_in_set.id}_form" end
-picked_id = if correct.nil? then 'new_picked' else "test_pick_#{pick_word_in_set.id}_input" end
+optionboard_id = if correct.nil? then 'optionboard_new' else "optionboard_#{pick_word_in_set.id}" end
+div_id = if correct.nil? then 'pick_word_in_set_new_div' else "pick_word_in_set_#{pick_word_in_set.id}_div" end
+form_id = if correct.nil? then 'test_pick_new_form' else "test_pick_#{pick_word_in_set.id}_form" end
+picked_id = if correct.nil? then 'test_pick_new_input' else "test_pick_#{pick_word_in_set.id}_input" end
 %>
 <div class="pick_word_in_set" id="<%= div_id %>">
 <%# if correct %>
@@ -65,7 +65,6 @@ picked_id = if correct.nil? then 'new_picked' else "test_pick_#{pick_word_in_set
 <script>
   pick_model_<%= pick_word_in_set.id %> = form_form_model_from(document.getElementById("<%= div_id %>"));
   data_preload_url = "<%= data_preload_url %>";
-  this_pick_word_in_set_url = "<%= pick_word_in_set_url(@pick_word_in_set) %>";
   pick_word_in_sets_url = "<%= pick_word_in_sets_url %>";
   <% if pick_word_in_set.id.nil? %>
     fill_form(pick_model_<%= pick_word_in_set.id %>)
@@ -76,6 +75,9 @@ picked_id = if correct.nil? then 'new_picked' else "test_pick_#{pick_word_in_set
       pick_word_in_set_<%=pick_word_in_set.id %> = recordManager.objects['PickWordInSet'][<%=pick_word_in_set.id %>];
       pick_model_<%= pick_word_in_set.id %>.data = pick_word_in_set_<%=pick_word_in_set.id %>;
       fill_form(pick_model_<%= pick_word_in_set.id %>)
+      <% unless locals[:activated] %>
+         pick_model_<%= pick_word_in_set.id %>.nextButton.hidden =true;
+      <%end%>
     });
 
   <% end %>

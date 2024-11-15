@@ -117,3 +117,6 @@ I need to decide weather I want to rebuild the interface and/to populate it from
 (!I can probably make surelish that bad answered questions would not be skipped cause of falling on sigmoid
   by making convergence to sigmoid be estimated from correct to failed ratio)
 (! add chenging toraget prob functionality)
+
+I might also want to add some message queue to allow traking of saving progress and other stuff
+!do something about links below interactive fiels (remain old)

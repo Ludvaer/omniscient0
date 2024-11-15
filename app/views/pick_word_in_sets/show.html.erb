@@ -1,7 +1,7 @@
 <% provide(:title, t('Test result')) %>
 <% provide(:assets, javascript_include_tag('pick_word_in_sets')) %>
 
-<%= render "form", pick_word_in_set: @pick_word_in_set %>
+<%= render "form", pick_word_in_set: @pick_word_in_set, locals: {activated: true} %>
 
 
 <div>

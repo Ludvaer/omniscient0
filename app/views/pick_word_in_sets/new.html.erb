@@ -1,6 +1,6 @@
 <% provide(:title, t('New pick correct translation')) %>
 <% provide(:assets, javascript_include_tag('pick_word_in_sets')) %>
-<%= render "form", pick_word_in_set: @pick_word_in_set %>
+<%= render "form", pick_word_in_set: @pick_word_in_set, locals: {activated: true} %>
 <br>
 <div>
   <%= link_to "Back to pick word in sets", pick_word_in_sets_path %>
