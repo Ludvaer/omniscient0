@@ -1,7 +1,7 @@
 class PickWordInSetsController < ApplicationController
   before_action :set_pick_word_in_set, only: %i[ show edit update destroy ]
   before_action :set_user
-  PICK_SIZE = 10
+  PICK_SIZE = 9
   MAX_PICKS_PER_REQUEST =100
   TARGET_PROBABILITY = 0.85
 

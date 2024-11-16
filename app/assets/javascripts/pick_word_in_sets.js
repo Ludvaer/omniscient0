@@ -31,7 +31,7 @@
     //     if(!(className in recordManager.classes))
     //   }
     // }
-
+    //TPDO: probably more reliable to use previously requested  and loaded objects 
     structure = (data.className == 'ClassModel') ? data : classStructure(data.className)
     //id of abject which are already received are stored in rawObjects
     objectCollections = recordManager.rawObjects
@@ -61,8 +61,10 @@
     structure = classStructure(data.className)
     Object.entries(structure).forEach(([field,className]) => {
         if (field in system_fields) { return;}
+        //new objects linked either from accumulated objects to be linked
+        //or from olready fully loaded objects
         objectsLoaded = objectFromDict(loadedObjectsTree, className)
-        objectsLoaded2 = objectFromDict(recordManager.rawObjects, className)
+        objectsLoaded2 = objectFromDict(recordManager.objects, className)
         singleIdField = field + '_id'
         if (singleIdField in data) {
            id = data[singleIdField]

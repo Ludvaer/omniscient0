@@ -137,3 +137,5 @@ funny  fucntionality / messages concepts:
 ?refactor ajaxes (denodify)
 
 !init form with more data before continue to have a proper uninterrupted flow
+!need moar various checks for user access and tests for this or everythingg is messed up
+!9 + 8 tests where 9 translations displayed and new word is shown each time you choosing on ranslation selected and correct one are replaced with new from pool
