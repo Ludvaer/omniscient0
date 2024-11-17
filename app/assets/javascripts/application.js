@@ -34,3 +34,4 @@
 //= require_tree .
 //= stub 'shultes'
 //= stub 'pick_word_in_sets'
+//= stub 'test_page'

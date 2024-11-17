@@ -1,0 +1,83 @@
+container {
+  width: 100%;
+  max-height: 100vh;
+  display: flex;
+}
+.original {
+font-size: 5em;
+margin: 0.25em;
+}
+.kana {
+font-size: 4em;
+margin: 0.25em;
+}
+$btncolor: #563d7c;
+$btnHeight: 20vh;
+/* Option button styles */
+.option {
+
+  width: 30%;
+  height: $btnHeight;
+  max-height: $btnHeight;
+  font-size: 2em;
+
+  margin: 0em;
+  padding: 0em;
+  overflow: hidden; /* Ensures that overflowing content is hidden */
+  //text-overflow: ellipsis; /* Adds an ellipsis to truncated text */
+  white-space: normal; /* Allows the text to wrap onto multiple lines */
+  border-radius: 1em;
+  border: 0.25em solid $btncolor;
+  background-color: rgba(200, 200, 200, 1);
+  margin: 0.05em;
+
+  display: inline-flex;
+}
+
+.option-text {
+  top: 2%;
+  //margin-bottom: -100em;
+  border-radius: 1em;
+  //border: 2em solid rgba(200, 200, 200, 1);
+  margin: 0em;
+  padding: -10em;
+  width: 90%;
+  //max-height: 100%;
+  background-color: rgba(200, 200, 200, 1);
+  pointer-events: none;
+}
+.option-marker {
+  width: 1em;
+  color: #707070;
+}
+
+.option:hover,
+.option:focus {
+  //display: contents;
+  overflow:visible; /* Allow full text to overflow */
+  white-space: normal; /* Enable text wrapping */
+  z-index: 10; /* Bring the button to the front */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  background-color: rgba(200, 200, 200, 1);
+  border: 0em solid $btncolor;
+
+}
+
+.option:hover .option-text,
+.option:focus .option-text{
+  background-color: rgba(200, 200, 200, 1);
+  z-index: 15;
+  transform:translate(-30%,-25%);
+  min-width: 250%;
+  min-height: 2*$btnHeight;
+  border-radius: 1em;
+  border: 0.25em solid $btncolor;
+
+  //align-content: center; // ? causes interaction
+  //text-align: center;
+}
+
+.option-dunno {
+  @extend .option;
+  height: 2em;
+}

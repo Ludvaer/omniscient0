@@ -305,64 +305,208 @@ table {
     text-align: center;
 }
 
+$optionMargin: 0.5vmin;
 .optionboard
 {
   border: 3px solid brown;
   text-align: center;
   align-items: center;
-  width: 80vmin;
+  width: 100%;
   height:auto;
   margin-left: auto;
   margin-right: auto;
   vertical-align: middle;
+  //display: flex;
 }
+.source-word{
+  width: 100%;
+  min-height: 2em;
+  height: 15vh;
+  margin-top: $optionMargin;
+  margin-bottom: $optionMargin;
+}
+.comment-word{
+  width: 100%;
+  min-height: 2em;
+  height: auto;
+  max-height: 10vh;
+  margin-top: $optionMargin;
+  margin-bottom: $optionMargin;
+  padding: $optionMargin;
+  font-size: 1.75em;
+  font-weight: bold;
+}
+
+
 .fit-text {
 }
 
 
-.btn-next {
-  @extend .btn;
-}
 
-
+$maxOptionHeight: 18vh;
+$maxOptionWidth: 31%;
 .option_button {
-  font-size: 1.25em;
+  font-size: 1.5em;
   color: $btncolor;
-  background-color: transparent;
   border-color: $btncolor;
   padding: 1vmin 1vmin;
-  margin: 1vmin 1vmin;
+  margin: $optionMargin $optionMargin;
   border-radius: 5vmin;
   border: 1vmin solid $btncolor;
   font-weight: bold;
+
+  display: inline-flex; //othervice text pushes around other blocks
+  width: $maxOptionWidth;
+  min-width: 5em;
+  height: fit-text;
+  max-height: $maxOptionHeight;
+  overflow: hidden;
+  white-space: normal;
+
+
+  //background-color: solid;
+  background-color: rgba(222, 222, 222, 1);
+}
+
+
+.option-wrap {
+  pointer-events: none;
+  margin-top: -1vmin;
+  margin-left: -1vmin;
+  margin-right: -1vmin;
+  margin-bottom:  -1vmin;
+  padding: inherit;
+
+  border-radius: inherit;
+  border-color: inherit;
+  border-style: inherit;
+  border-width: 0;
+
+  min-height: 100%;
+  min-width: 90%;
+  width: auto;
+
+  background-color: rgba(222, 222, 222, 1);
+}
+
+.option-marker {
+  width: 1em;
+  color: #aaaaaa;
+  font-weight: bold;
+  font-size: 1.1em;
+}
+.enabled_option_btn {
+    @extend .option_button;
+}
+
+.btn-next {
+  @extend .option_button;
+  align-self: flex-end;
+  &.option-wrap.option-marker {
+    text-shadow: 0em 0em 0em  #00000000;
+  }
+}
+.btn-dunno {
+  width: 2*$maxOptionWidth;
+  // &:focus {
+  //
+  // }
 }
 
 .disabled_option_btn {
     @extend .option_button;
     user-select: text;
     border-color:#aaaaaa;
+    .option-marker {
+      color: #aaaaaa;
+      text-shadow: 0.1em 0.1em 0.2em  #11111155;
+    }
 }
 .disabled_option_btn_yes {
     @extend .disabled_option_btn;
     border-color:#00ff00;
+    .option-marker {
+      color: #00ff00;
+    }
 }
 .disabled_option_btn_no {
     @extend .disabled_option_btn;
     border-color:#ff0000;
+    .option-marker {
+      color: #ff0000;
+    }
 }
 .disabled_option_btn_this {
     @extend .disabled_option_btn;
     border-color:#0000ff;
+    .option-marker {
+      color: #0000ff;
+    }
 }
 
-.enabled_option_btn {
-    @extend .option_button;
-    &:hover {
-        color: #efefe0;
-        background-color: $btncolor;
-    }
-    &:active {
-        color: #fffff0;
-        background-color: #563d00;
-    }
+.option_button:hover,
+.option_button:focus
+{
+  transform:translate(-2.5%,-2.5%);
+  transform:scale(105%,105%);
+  outline: none;
+}
+.disabled_option_btn:focus,
+.enabled_option_btn:hover,
+.enabled_option_btn:focus,
+.disabled_option_btn_yes:hover,
+.disabled_option_btn_yes:focus,
+.disabled_option_btn_no:hover,
+.disabled_option_btn_no:focus,
+.disabled_option_btn_this:hover,
+.disabled_option_btn_this:focus,
+.option_button:hover,
+.option_button:focus {
+    border-width: 0;
+    background-color: transparent;
+    overflow:visible;
+    height: fit-text;
+    margin-bottom: -$optionMargin;
+    max-height: 1 + $maxOptionHeight;
+    //padding-bottom: -1vmin;
+}
+// .btn-next:focus {
+//   border-width: 1vmin;
+// }
+
+// .btn-next:hover,
+// .btn-next:focus {
+//   border-width: 1vmin;
+// }
+.btn-dunno:hover .option-wrap,
+.btn-dunno:focus .option-wrap,
+.btn-next:hover .option-wrap,
+.btn-next:focus .option-wrap,
+.enabled_option_btn:hover .option-wrap,
+.enabled_option_btn:focus .option-wrap,
+.disabled_option_btn_yes:hover .option-wrap,
+.disabled_option_btn_yes:focus .option-wrap,
+.disabled_option_btn_no:hover .option-wrap,
+.disabled_option_btn_no:focus .option-wrap,
+.disabled_option_btn_this:hover .option-wrap,
+.disabled_option_btn_this:focus .option-wrap,
+.disabled_option_btn:hover .option-wrap,
+.disabled_option_btn:focus .option-wrap{
+      background-color: solid;
+      z-index: 17;
+      height: fit-text;
+      border-width: 1vmin;
+      height: auto;
+      max-width: 93.8%;
+
+      margin-bottom: auto;
+      box-shadow: 0 1vmin 2vmin rgba(0, 0, 0, 0.2);
+      margin-left: -1vmin;
+      margin-right: auto;
+}
+
+.btn-dunno:hover .option-wrap,
+.btn-dunno:focus .option-wrap {
+  margin-left: -0vmin;
+  min-width: 91.8%;
 }

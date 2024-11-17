@@ -3,4 +3,6 @@ class PseudoStaticController < ApplicationController
   end
   def sigil
   end
+  def test_page
+  end
 end

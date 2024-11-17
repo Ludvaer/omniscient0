@@ -10,60 +10,92 @@ picked_id = if correct.nil? then 'test_pick_new_input' else "test_pick_#{pick_wo
 <div class="pick_word_in_set" id="<%= div_id %>">
 <%# if correct %>
   <div class="optionboard" id="<%= optionboard_id %>">
-    <svg class="fit-text" xmlns="http://www.w3.org/2000/svg" style="width: 100%; height: 30vmin; margin-left: auto; margin-right: auto;">
+    <svg class="fit-text source-word" xmlns="http://www.w3.org/2000/svg">
       <text dominant-baseline="middle" text-anchor="middle">
         <%= correct&.word&.spelling %>
       </text>
     </svg>
-    <br>
-    <% translations&.each do |translation| %>
-      <button type="button"
-        <% if pick_word_in_set.picked_id.nil? %>
-          class="enabled_option_btn" onclick="select(<%= translation.id %>,pick_model_<%= pick_word_in_set.id %>)"><span></span>
-        <% elsif pick_word_in_set.picked_id == translation.id and correct.word.id == translation.word.id %>
-          class="disabled_option_btn_yes"><span>✔</span>
-        <% elsif pick_word_in_set.picked_id == translation.id %>
-          class="disabled_option_btn_no"><span>❌</span>
-        <% elsif correct.word.id == translation.word.id %>
-          class="disabled_option_btn_this"><span>🢂</span>
-        <% else %>
-          class="disabled_option_btn"><span></span>
-        <% end%>
-        <b><%= translation.translation %></b>
+    <p class="comment-word">Kana Transcription</p>
+    <%# translations&.each do |translation| %>
+    <% (1..9).each do |i| %>
+      <%  translation =  translations ? translations[i] : false %>
+      <button type="button">
+        <div class="option-wrap">
+            <span class="option-marker"><%=i%>:</span>
+            <span class="option-text"><%=translation ? translation.translation : "" %></span>
+        </div>
       </button>
     <% end %>
+    <button type="button" class="btn-dunno"  >
+      <div class="option-wrap">
+        <span class="option-marker">0:</span>
+        <span class="option-text"> Don't know </span>
+      </div>
+    </button>
+    <button type="button" onclick="moveNewPick(pick_model_<%= pick_word_in_set.id %>)">
+      <div class="option-wrap">
+        <span class="option-marker">enter:</span>
+        <span class="option-text"> Next </span>
+      </div>
+    </button>
   </div>
 <%# end %>
-
-<br>
-<%# if pick_word_in_set.picked_id.nil? or correct.nil? %>
-  <%= form_with(model: pick_word_in_set, id: form_id) do |form| %>
-    <% if pick_word_in_set.errors.any? %>
-      <div style="color: red">
-        <h2><%= pluralize(pick_word_in_set.errors.count, "error") %> prohibited this pick_word_in_set from being saved:</h2>
-
-        <ul>
-          <% pick_word_in_set.errors.each do |error| %>
-            <li><%= error.full_message %></li>
-          <% end %>
-        </ul>
-      </div>
-    <% end %>
-    <%= form.label :picked_id, style: "display: none;" %>
-    <%= form.number_field :picked_id, id: picked_id, style: "display: none;" %>
-    <%# = form.number_field  "n", value: 10, name: "n", style: "display: none;" %>
-    <div <%# unless correct.nil? %>style="display: none;"<%# end %>>
-      <%= form.submit id: if correct.nil? then 'new_test_submit' else "test_pick_#{pick_word_in_set.id}_submit" end,
-       value: t('Run test'), :class => "btn", data: { disable_with: ( t('In progress')) }  %>
-    </div>
-  <% end %>
-<%# end %>
-<button type="button" class="btn-next" onclick="moveNewPick(pick_model_<%= pick_word_in_set.id %>)" hidden="true;" >Next</button>
 </div>
 
 <script>
-  window.onload = function() {
-    pick_model_<%= pick_word_in_set.id %> = form_form_model_from(document.getElementById("<%= div_id %>"));
+  var declared_pick_model_inits;
+  try {
+    pick_model_inits = pick_model_inits? pick_model_inits : [];
+    declared_pick_model_inits = true;
+  } catch(e) {
+    declared_pick_model_inits = false;
+  }
+  pick_model_inits = declared_pick_model_inits ? pick_model_inits : [];
+
+  var declared_loadedPickWordInSet<%= pick_word_in_set.id %>;
+  try {
+    isLoadedPickWordInSet<%= pick_word_in_set.id %>;
+    declared_loadedPickWordInSet<%= pick_word_in_set.id %> = true;
+  } catch(e) {
+    declared_loadedPickWordInSet<%= pick_word_in_set.id %> = false;
+  }
+  isLoadedPickWordInSet<%= pick_word_in_set.id %> = declared_loadedPickWordInSet<%= pick_word_in_set.id %> ? isLoadedPickWordInSet<%= pick_word_in_set.id %> : false;
+
+  function pick_model_<%= pick_word_in_set.id %>_load() {
+    if(isLoadedPickWordInSet<%= pick_word_in_set.id %>) {
+      console.log(`=== already loaded`);
+      var pick_div = document.getElementById("<%= div_id %>");
+      if(pick_div == null){
+        console.log(`=== pick_div null`);
+        //document.removeEventListener('turbolinks:load', pick_model_<%= pick_word_in_set.id %>_load);
+        return;
+      }
+      pick_model_<%= pick_word_in_set.id %> = form_form_model_from(pick_div);
+      fill_form(pick_model_<%= pick_word_in_set.id %>);
+      return;
+    }
+    dunnoText = '<%=t("I don't know").html_safe%>';
+    nextText = '<%=t("Next").html_safe%>';
+    var pick_div = document.getElementById("<%= div_id %>");
+    if(pick_div == null){
+      console.log(`=== pick_div null`);
+      //document.removeEventListener('turbolinks:load', pick_model_<%= pick_word_in_set.id %>_load);
+      return;
+    }
+    var declaredFormFormFrom;
+    try {
+      form_form_model_from;
+      declaredFormFormFrom = true;
+    } catch(e) {
+      declaredFormFormFrom = false;
+    }
+    if(!declaredFormFormFrom || form_form_model_from == null) {
+      console.log(`=== form_form_model_from null`);
+      return;
+    }
+    console.log(`=== loading`);
+    isLoadedPickWordInSet<%= pick_word_in_set.id %> = true;
+    pick_model_<%= pick_word_in_set.id %> = form_form_model_from(pick_div);
     data_preload_url = "<%= data_preload_url %>";
     pick_word_in_sets_url = "<%= pick_word_in_sets_url %>";
     preload_queue_target_size = 10;
@@ -87,4 +119,7 @@ picked_id = if correct.nil? then 'test_pick_new_input' else "test_pick_#{pick_wo
       <%end%>
     });
   };
+  pick_model_inits.push( pick_model_<%= pick_word_in_set.id %>_load);
+  document.addEventListener('turbolinks:load', pick_model_<%= pick_word_in_set.id %>_load);
+  //document.onload = pick_model_<%= pick_word_in_set.id %>_load;
 </script>

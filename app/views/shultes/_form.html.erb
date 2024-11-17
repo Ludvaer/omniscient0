@@ -7,7 +7,9 @@
 
 </div>
 <script type="text/javascript"> //consider moveing to separate file
-show_start_button();
+try {
+  show_start_button();
+} catch {}
 </script>
 <%= form_with(model: shulte, id: 'shulte_form') do |form| %>
   <% if shulte.errors.any? %>

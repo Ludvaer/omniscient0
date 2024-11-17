@@ -1,0 +1,44 @@
+<% provide(:assets, javascript_include_tag('test_page')) %>
+<style>
+ <%=Omniscient0::Application.assets.find_asset('test_page.css').source.html_safe  %>
+</style>
+<% provide(:title, t('Japanese => English')) %>
+<div class=".contaner">
+  <p class="original">Japanese Word</p>
+  <p class="kana">Kana Transcription</p>
+  <button class="option" data-key="7"><div class="option-text">
+      <span class="option-marker">7:</span>Short Option
+  </div>  </button>
+  <button class="option long" data-key="8"><div class="option-text">
+    <span class="option-marker">8:</span>Short Option</div></button>
+  <button class="option long" data-key="9"><div class="option-text">
+    <span class="option-marker">9:</span>
+    A very long option text that overflows very badly like do not fit at all, very overflowing like you can't hope that it fit button , will it even fit screen, like I have totally not idea, may be yes may be not, lets try to see ....
+  </div></button>
+  <button class="option long" data-key="4"><div class="option-text">
+    <span class="option-marker">4:</span>
+    A very long option text that overflows very badly like do not fit at all, very overflowing like you can't hope that it fit button , will it even fit screen, like I have totally not idea, may be yes may be not, lets try to see ....
+  </div></button>
+  <button class="option long" data-key="5"><div class="option-text">
+    <span class="option-marker">5:</span>Short Option</div></button>
+  <button class="option long" data-key="6"><div class="option-text">
+    <span class="option-marker">6:</span>
+    A very long option text that overflows very badly like do not fit at all, very overflowing like you can't hope that it fit button , will it even fit screen, like I have totally no idea, may be yes may be not, let's try to see ....
+  </div></button>
+  <button class="option" data-key="1"><div class="option-text">
+    <span class="option-marker">1:</span>Short Option
+  </div></button>
+  <button class="option" data-key="2"><div class="option-text">
+    <span class="option-marker">2:</span>Short Option
+  </div></button>
+  <button class="option" data-key="3"><div class="option-text">
+    <span class="option-marker">3:</span>
+    A very long option text that overflows very badly like do not fit at all, very overflowing like you can't hope that it fit button , will it even fit screen, like I have totally not idea, may be yes may be not, lets try to see ....
+  </div></button>
+  <!-- Repeat for other options -->
+  <button class="option-dunno" data-key="0"><div class="option-text">
+    <span class="option-marker">0:</span>I don't know
+  </div></button>
+</div>
+
+<!-- this currently produces nearly desireble result I am only abit dissapointet then wen hovered text expands only to bottom direction while i wnat like it f -->

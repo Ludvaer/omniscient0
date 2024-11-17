@@ -58,12 +58,15 @@ class DataPreloadService
       # Store the association name and class name in the references hash
       references[association.name] = association.class_name
     end
+    puts "preloadable_fake_references for #{model_name} are #{model_class.preloadable_fake_references}"
+    references.merge!(model_class.preloadable_fake_references)
     if model_class.is_container
       model_class.contained_associations.each do |association_label|
         association = association_from_label(model_class, association_label)
         references[association_label.to_s.singularize] = association.class_name
       end
     end
+    puts "all_references for #{model_name} are #{references}"
     references
   end
 
@@ -105,12 +108,27 @@ class DataPreloadService
     model_class.reflect_on_all_associations(:belongs_to).each do |association|
       # currently autoload all containers even when not recoursive
       # but consider using separate force preload marker
-      if(association.class_name.constantize.is_container || @recursive)
-        associated_ids = records.pluck(association.foreign_key).compact.uniq
-        queue_related_objects(association.class_name, associated_ids)
-        queue_related_objects('ClassModel', [association.class_name])
+      key = association.foreign_key
+      class_name =association.class_name
+      if(class_name.constantize.is_container || @recursive)
+        associated_ids = records.pluck(key).compact.uniq
+        queue_related_objects(class_name, associated_ids)
+        queue_related_objects('ClassModel', [class_name])
       end
     end
+
+    model_class.preloadable_fake_references.each do |key,class_name|
+      # currently autoload all containers even when not recoursive
+      # but consider using separate force preload marker
+      ref_class = class_name.constantize;
+      if(ref_class.is_container || @recursive)
+        associated_ids = records.map{|r| r.preloadable_attributes[(key.to_s + "_id").to_sym]}.compact.uniq
+        puts "preloadable_fake_references plucked is #{associated_ids}"
+        queue_related_objects(class_name, associated_ids)
+        queue_related_objects('ClassModel', [class_name])
+      end
+    end
+
   end
 
   def queue_related_objects(class_name, related_ids)

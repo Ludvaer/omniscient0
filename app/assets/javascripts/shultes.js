@@ -23,8 +23,10 @@
   show_start_button = function()
   {
     root.gameboard = document.getElementById('gameboard');
+    if (root.gameboard == null) {return}
     root.gameboard.innerHTML = "";
     var start_button = document.createElement("button");
+    if (start_button == null) {return}
     //start_button.id = "start_button"
     start_button.innerHTML = "Start"
     start_button.onclick = play;
@@ -186,4 +188,5 @@
         }
       });
     }
+    show_start_button();
   }).call(this);

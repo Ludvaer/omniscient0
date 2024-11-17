@@ -11,6 +11,8 @@ Rails.application.routes.draw do
 
   #welcome
   root 'pseudo_static#welcome'
+  get 'test_page' => 'pseudo_static#test_page',  as: :test_page
+
   get '/:locale' => 'pseudo_static#welcome', as: :pseudo_root
 
   scope "(:locale)", locale: /en|ru/ do

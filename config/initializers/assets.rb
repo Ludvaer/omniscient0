@@ -15,3 +15,5 @@ Rails.application.config.assets.precompile += ['*.js', '*.css']
 
 Rails.application.config.assets.precompile += %w( shultes.js )
 Rails.application.config.assets.precompile += %w( pick_word_in_set.js )
+Rails.application.config.assets.precompile += %w( test_page.js )
+Rails.application.config.assets.precompile += %w( test_page.css.scss )

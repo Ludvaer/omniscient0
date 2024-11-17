@@ -31,7 +31,7 @@
     //     if(!(className in recordManager.classes))
     //   }
     // }
-    //TPDO: probably more reliable to use previously requested  and loaded objects 
+    //TPDO: probably more reliable to use previously requested  and loaded objects
     structure = (data.className == 'ClassModel') ? data : classStructure(data.className)
     //id of abject which are already received are stored in rawObjects
     objectCollections = recordManager.rawObjects
@@ -207,7 +207,7 @@
   }
   function select(translation_id,form_model)
   {
-    form_model.picked_input.value = translation_id
+    //form_model.picked_input.value = translation_id
     form_model.data.picked_id = translation_id
     recordManager.objects[form_model.data.className][form_model.data.id] = form_model.data
     connectReferences(form_model.data)
@@ -219,9 +219,38 @@
           `${pick_word_in_sets_url}/${form_model.data.id}?n=${preload_queue_target_size}`)
     fill_form(form_model)
     form_model.nextButton.hidden = false;
+          console.log(`nextButton.hidden = false`);
     //form.submit();
   }
   root.select = select
+
+  function scrollToElementCenter(element) {
+      if (!element) return;
+
+      // Get the element's bounding rectangle
+      const rect = element.getBoundingClientRect();
+
+      if (rect.top >= 0 &&
+      rect.left >= 0 &&
+      rect.bottom <= window.innerHeight &&
+      rect.right <= window.innerWidth) {
+          return;
+      } // Element is already completely within the viewport
+      // Calculate the center position of the element relative to the viewport
+      const elementCenterX = rect.left + rect.width / 2;
+      const elementCenterY = rect.top + rect.height / 2;
+
+      // Calculate the scroll offsets needed to center the element
+      const scrollX = window.scrollX + elementCenterX - window.innerWidth / 2;
+      const scrollY = window.scrollY + elementCenterY - window.innerHeight / 2;
+
+      // Smoothly scroll to the calculated position
+      window.scrollTo({
+          top: scrollY,
+          left: scrollX,
+          behavior: 'smooth'
+      });
+  }
 
   function moveNewPick(form_model, id = null) {
     form_model.nextButton.hidden = true;
@@ -233,6 +262,7 @@
       fill_form(form_model)
       history.pushState({id:form_model.data.id}, "", pick_word_in_sets_url + "/" + form_model.data.id + "/edit")
       filled = true
+      scrollToElementCenter(form_model.root);
       //filter out filled pick_word_in_set???
     }
     if (unfilledTests.length < root.preload_queue_target_size) {
@@ -275,57 +305,83 @@
     console.log(`%%% filling form`);
     if(form_model.data == null || form_model.data.id == null)
     {
-      form_model.optionBoard.hidden = true;
+      Array.from(form_model.optionBoard.children).forEach((item) => {
+        item.hidden = true;
+      });
+      //form_model.optionBoard.hidden = true;
       form_model.nextButton.hidden = false;
+      form_model.nextButton.className = 'btn-next'
       return;
     }
+    Array.from(form_model.optionBoard.children).forEach((item) => {
+      item.hidden = false;
+    });
     form_model.optionBoard.hidden = false;
     pick_word_in_set = form_model.data;
     let translations = pick_word_in_set.translation_set.translations
-    let length = translations.length
+    let length = form_model.buttons.length;
     let isCorrect = form_model.isCorrect() //pick_word_in_set.correct.word.id == pick_word_in_set.picked.word.id
+    form_model.commentWord.innerHTML = form_model.data.additional.translation;
     for (let j = 0; j < length; j++)
     {
-      if(form_model.buttons.length < length)
-      {
-          let btn = document.createElement("button");
-          form_model.optionBoard.appendChild(btn);
-          form_model.buttons.push(btn);
-      }
-      let button = form_model.buttons[j]
-      button.hidden = false;
-      let translation = translations[j]
+      if(j > buttons.length) { break; }
+      let button = form_model.buttons[j];
+      let translation = j < translations.length? translations[j] :  {};
+      if(button == form_model.dunnoButton) { translation ={'id': 0, 'translation':dunnoText};}
+      if(button == form_model.nextButton) { translation ={'id': -1, 'translation':nextText};}
       let prefix = ""
-      button.onclick = (()=>{})
+      let className="enabled_option_btn"
+      if(button != form_model.nextButton) {
+        button.onclick = (()=>{});
+        button.hidden = false;
+      }
       if (pick_word_in_set.picked_id == null) {
-        button.className="enabled_option_btn"
-        button.onclick = (() =>{select(translation.id,form_model)});
+        className="enabled_option_btn"
+        if(button != form_model.nextButton) {
+            button.onclick = (() =>{select(translation.id,form_model)});
+        }
+        prefix = [7,8,9,4,5,6,1,2,3,0,'enter'][j] + ":";
         //console.log(`% ${j} enabled_option_btn`);
       }
       else if (pick_word_in_set.picked_id == translation.id && isCorrect) {
-        button.className="disabled_option_btn_yes"
+        className="disabled_option_btn_yes"
         prefix = "✔";
         //console.log(`% ${j} disabled_option_btn_yes`);
       } else if (pick_word_in_set.picked_id == translation.id) {
-        button.className="disabled_option_btn_no";
+        className="disabled_option_btn_no";
         prefix = "❌";
         //console.log(`% ${j} enabled_option_btn`);
       } else if (form_model.isCorrectTransaction(translation)) {
-        button.className="disabled_option_btn_this";
+        className="disabled_option_btn_this";
         prefix = "🢂";
         //console.log(`% ${j} disabled_option_btn_this`);
       } else {
-        button.className="disabled_option_btn";
+        className="disabled_option_btn";
         //console.log(`% ${j} disabled_option_btn`);
       }
-      button.innerHTML = prefix + translation.translation
-    }
-    for (let j = length; j < form_model.buttons.length; j++) {
-      form_model.buttons[j].hidden = true;
+      if(button != form_model.nextButton)
+      {
+         button.className = className;
+         button.optionMarker.innerHTML = prefix;
+         if(button == form_model.dunnoButton) {button.classList.add("btn-dunno");}
+         else { button.optionText.innerHTML = translation.translation; }
+      }
     }
     form_model.svgText.innerHTML = pick_word_in_set.correct.word.spelling;
-    form_model.nextButton.hidden = (pick_word_in_set.picked_id == null);
     fit_all_text(form_model.root);
+    if(pick_word_in_set.picked_id == null)
+    {
+      console.log(`nextButton.hidden = true`);
+      form_model.nextButton.hidden = true;
+      form_model.nextButton.className = ''
+      //form_model.nextButton.style.display = 'hidden'
+    }
+    else
+    {
+      console.log(`nextButton.hidden = false`);
+      form_model.nextButton.hidden = false;
+      form_model.nextButton.className = 'btn-next'
+    }
   }
   root.fill_form = fill_form
 
@@ -368,7 +424,10 @@
     svg = model.svg = null;
     buttons = model.buttons = [];
     svgText = model.svgText = null;
-    picked_input = model.picked_input = null;
+    model.commentWord = model.root.querySelector('.comment-word');
+    // nextButton = model.nextButton = model.root.querySelector('.btn-next');
+    // model.dunnoButton = model.root.querySelector('.btn-dunno');
+    //picked_input = model.picked_input = null;
     for (let j = 0; j < pick_div.children.length; j++)
     {
       let child = pick_div.children[j]
@@ -382,8 +441,11 @@
       let child = optionBoard.children[j]
       if(child.tagName == 'svg')
         { svg = model.svg = child; }
-      if(child.tagName == 'BUTTON')
-        { buttons.push(child); }
+      if(child.tagName == 'BUTTON') {
+        buttons.push(child);
+        child.optionText = child.querySelector('.option-text');
+        child.optionMarker = child.querySelector('.option-marker');
+      }
     }
     for (let j = 0; j < svg.children.length; j++)
     {
@@ -391,20 +453,39 @@
       if(child.tagName == 'text')
         { svgText = model.svgText = child; }
     }
-    for (let j = 0; j < form.children.length; j++)
-    {
-      let child = form.children[j]
-      if(child.tagName == 'INPUT' && child.getAttribute("name") == "pick_word_in_set[picked_id]")
-        { picked_input = model.picked_input = child; }
-    }
-    model.isCorrectTransaction = ((transaction) => {
-      return model.data.correct_id == transaction.id;
-    });
-    model.isCorrect = (() => {
-      return model.data.correct_id == model.data.picked_id;
-    });
-    model.nextButton = model.root.querySelector('.btn-next');
+    nextButton = model.nextButton = buttons[buttons.length-1];
+    model.dunnoButton = buttons[buttons.length-2];
+    // for (let j = 0; j < form.children.length; j++)
+    // {
+    //   let child = form.children[j]
+    //   if(child.tagName == 'INPUT' && child.getAttribute("name") == "pick_word_in_set[picked_id]")
+    //     { picked_input = model.picked_input = child; }
+    // }
+
+     buttons.forEach(btn => {
+      btn.addEventListener('mouseenter', () => {
+        model.buttons.forEach(b => {b != btn? b.blur() : b.focus(); });
+        // Automatically focus the button on hover and unfocus every one else
+      });
+      btn.addEventListener('mouseleave', () => {    btn.blur(); });
+     });
+
+     model.isCorrectTransaction = ((transaction) => {
+       return model.data.correct_id == transaction.id;
+     });
+     model.isCorrect = (() => {
+       return model.data.correct_id == model.data.picked_id;
+     });
     return model;
   }
   root.form_form_model_from = form_form_model_from;
+  var declared;
+  try {
+    root.pick_model_inits = root.pick_model_inits? root.pick_model_inits : [];
+    declared = true;
+  } catch(e) {
+    declared = false;
+  }
+  var pick_model_inits = declared ? pick_model_inits : [];
+  root.pick_model_inits.forEach( (i) => {i();})
 }).call(this);
