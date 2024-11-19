@@ -219,7 +219,8 @@
           `${pick_word_in_sets_url}/${form_model.data.id}?n=${preload_queue_target_size}`)
     fill_form(form_model)
     form_model.nextButton.hidden = false;
-          console.log(`nextButton.hidden = false`);
+    form_model.nextButton.className = 'btn-next'
+    console.log(`nextButton.hidden = false`);
     //form.submit();
   }
   root.select = select
@@ -253,7 +254,8 @@
   }
 
   function moveNewPick(form_model, id = null) {
-    form_model.nextButton.hidden = true;
+    form_model.nextButton.hidden = false;
+    form_model.nextButton.classList.add('transparent');
     let tests = recordManager.objects.PickWordInSet;
     let unfilledTests = Object.values(tests).filter((p) => p.picked_id == null)
     let filled = false;
@@ -372,8 +374,8 @@
     if(pick_word_in_set.picked_id == null)
     {
       console.log(`nextButton.hidden = true`);
-      form_model.nextButton.hidden = true;
-      form_model.nextButton.className = ''
+      form_model.nextButton.hidden = false;
+      form_model.nextButton.classList.add('transparent');
       //form_model.nextButton.style.display = 'hidden'
     }
     else
@@ -476,6 +478,7 @@
      model.isCorrect = (() => {
        return model.data.correct_id == model.data.picked_id;
      });
+     model.nextButton.className = 'btn-next';
     return model;
   }
   root.form_form_model_from = form_form_model_from;

@@ -316,6 +316,7 @@ $optionMargin: 0.5vmin;
   margin-left: auto;
   margin-right: auto;
   vertical-align: middle;
+  min-height: 100%;
   //display: flex;
 }
 .source-word{
@@ -344,12 +345,13 @@ $optionMargin: 0.5vmin;
 
 
 $maxOptionHeight: 18vh;
-$maxOptionWidth: 31%;
+$maxOptionWidth: 28%;
 .option_button {
+  box-sizing: border-box;
   font-size: 1.5em;
   color: $btncolor;
-  border-color: $btncolor;
-  padding: 1vmin 1vmin;
+  padding: 0vmin;
+  padding-bottom: 0vmin;
   margin: $optionMargin $optionMargin;
   border-radius: 5vmin;
   border: 1vmin solid $btncolor;
@@ -358,7 +360,6 @@ $maxOptionWidth: 31%;
   display: inline-flex; //othervice text pushes around other blocks
   width: $maxOptionWidth;
   min-width: 5em;
-  height: fit-text;
   max-height: $maxOptionHeight;
   overflow: hidden;
   white-space: normal;
@@ -370,23 +371,29 @@ $maxOptionWidth: 31%;
 
 
 .option-wrap {
+
+  box-sizing:content-box;
+
   pointer-events: none;
-  margin-top: -1vmin;
-  margin-left: -1vmin;
-  margin-right: -1vmin;
-  margin-bottom:  -1vmin;
-  padding: inherit;
+  padding: 1vmin;
 
   border-radius: inherit;
-  border-color: inherit;
-  border-style: inherit;
-  border-width: 0;
+  border-width: 1vmin;
+  border-color: transparent;
 
-  min-height: 100%;
-  min-width: 90%;
-  width: auto;
+
+  width: 100%;
+  max-height: 100%;
+  margin: -1vmin;
+  margin-bottom: 0vmin;
 
   background-color: rgba(222, 222, 222, 1);
+
+  z-index: 2;
+  overflow: hidden;
+
+  border-style: solid;
+  padding-bottom: 2vmin;
 }
 
 .option-marker {
@@ -397,14 +404,19 @@ $maxOptionWidth: 31%;
 }
 .enabled_option_btn {
     @extend .option_button;
+     &:hover .option-wrap{
+      border-color:$btncolor;
+    }
 }
 
 .btn-next {
   @extend .option_button;
-  align-self: flex-end;
   &.option-wrap.option-marker {
     text-shadow: 0em 0em 0em  #00000000;
   }
+  &:hover .option-wrap{
+   border-color:$btncolor;
+ }
 }
 .btn-dunno {
   width: 2*$maxOptionWidth;
@@ -417,6 +429,9 @@ $maxOptionWidth: 31%;
     @extend .option_button;
     user-select: text;
     border-color:#aaaaaa;
+     &:hover .option-wrap{
+      border-color:#aaaaaaff;
+    }
     .option-marker {
       color: #aaaaaa;
       text-shadow: 0.1em 0.1em 0.2em  #11111155;
@@ -425,6 +440,10 @@ $maxOptionWidth: 31%;
 .disabled_option_btn_yes {
     @extend .disabled_option_btn;
     border-color:#00ff00;
+     &:hover .option-wrap{
+      border-color:#00ff00ff;
+
+    }
     .option-marker {
       color: #00ff00;
     }
@@ -432,6 +451,10 @@ $maxOptionWidth: 31%;
 .disabled_option_btn_no {
     @extend .disabled_option_btn;
     border-color:#ff0000;
+     &:hover .option-wrap{
+      border-color:#ff0000ff;
+
+    }
     .option-marker {
       color: #ff0000;
     }
@@ -439,16 +462,18 @@ $maxOptionWidth: 31%;
 .disabled_option_btn_this {
     @extend .disabled_option_btn;
     border-color:#0000ff;
+    &:hover .option-wrap{
+      border-color:#0000ffff;
+    }
     .option-marker {
       color: #0000ff;
     }
 }
 
+
 .option_button:hover,
 .option_button:focus
 {
-  transform:translate(-2.5%,-2.5%);
-  transform:scale(105%,105%);
   outline: none;
 }
 .disabled_option_btn:focus,
@@ -462,13 +487,13 @@ $maxOptionWidth: 31%;
 .disabled_option_btn_this:focus,
 .option_button:hover,
 .option_button:focus {
-    border-width: 0;
+    border-width: 1vmin;
+    border-color: transparent;
     background-color: transparent;
     overflow:visible;
-    height: fit-text;
-    margin-bottom: -$optionMargin;
-    max-height: 1 + $maxOptionHeight;
-    //padding-bottom: -1vmin;
+    max-height: $maxOptionHeight;
+  //  padding-bottom: -1vmin;
+  //  margin-bottom: -0.5vmin;
 }
 // .btn-next:focus {
 //   border-width: 1vmin;
@@ -492,21 +517,35 @@ $maxOptionWidth: 31%;
 .disabled_option_btn_this:focus .option-wrap,
 .disabled_option_btn:hover .option-wrap,
 .disabled_option_btn:focus .option-wrap{
-      background-color: solid;
       z-index: 17;
-      height: fit-text;
-      border-width: 1vmin;
       height: auto;
-      max-width: 93.8%;
-
       margin-bottom: auto;
-      box-shadow: 0 1vmin 2vmin rgba(0, 0, 0, 0.2);
-      margin-left: -1vmin;
-      margin-right: auto;
+      transform:translate(-3%,-3%);
+      transform:scale(106%,106%);
+      box-shadow: 0 2vmin 4vmin rgba(0, 0, 0, 0.4);
+      min-height: 100%;
 }
 
 .btn-dunno:hover .option-wrap,
 .btn-dunno:focus .option-wrap {
-  margin-left: -0vmin;
-  min-width: 91.8%;
+  // min-width: 100%;
+  // max-width: 100%;
+}
+
+.transparent {
+  border-color: transparent;
+  color:  transparent;
+  background-color: transparent;
+  .option-wrap{
+
+    border-color: transparent;
+    color:  transparent;
+    background-color: transparent;
+    .option-marker,
+    .optiopn-text, {
+      border-color: transparent;
+      color:  transparent;
+      background-color: transparent;
+    }
+  }
 }
