@@ -85,7 +85,9 @@ class PickWordInSetsController < ApplicationController
     @source_dialect_id = @correct.translation_dialect_id
     puts "dialect_progress=#{dialect_progress} counter=#{dialect_progress.counter}"
     respond_to do |format|
-      @picked = @translations.find{|t| t.id == pick_word_in_set_params[:picked_id].to_i}
+      # @picked = @translations.find{|t| t.id == pick_word_in_set_params[:picked_id].to_i}
+      picked_id = pick_word_in_set_params[:picked_id].to_i
+      @picked = picked_id == 0 ? Translation.find_by(id:picked_id) : @translations.find{|t| t.id == picked_id}
       if (@pick_word_in_set.picked_id == nil and \
           not @picked.nil?  and \
           @pick_word_in_set.user_id == @user_id)

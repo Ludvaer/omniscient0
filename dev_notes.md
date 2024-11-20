@@ -141,3 +141,6 @@ funny  fucntionality / messages concepts:
 !9 + 8 tests where 9 translations displayed and new word is shown each time you choosing on ranslation selected and correct one are replaced with new from pool
 !!!need supprot for multiple kana
 !!!need reload data if issued with saving reveal that desync happened
+? style issue with border
+? might be better move shorter answers to bottom and autoscroll of they are too long anyway
+!!need better filter for similar to correct translations

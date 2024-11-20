@@ -355,6 +355,7 @@ $maxOptionWidth: 28%;
   margin: $optionMargin $optionMargin;
   border-radius: 5vmin;
   border: 1vmin solid $btncolor;
+  //border-bottom-width: 0vmin;
   font-weight: bold;
 
   display: inline-flex; //othervice text pushes around other blocks
@@ -365,11 +366,10 @@ $maxOptionWidth: 28%;
   white-space: normal;
 
 
-
-  //background-color: solid;
-  background-color: rgba(222, 222, 222, 1);
-  //padding-bottom: -1vmin;
+  //can create vlur at bottom but need to be either match border color or be backgroundish
+  //background: linear-gradient(0deg, $btncolor 0%, transparent 10%, transparent);
   align-content: stretch;
+  z-index: 3;
 }
 
 
@@ -390,9 +390,9 @@ $maxOptionWidth: 28%;
   margin-left: -1vmin;
   margin-bottom: 0vmin;
 
-  background-color: rgba(222, 222, 222, 1);
+  background-color: #f0f0eeff;
+  z-index: 1;
 
-  z-index: 2;
   //overflow: hidden;
 
   border-style: solid;
@@ -410,28 +410,39 @@ $maxOptionWidth: 28%;
 }
 .enabled_option_btn {
     @extend .option_button;
-     &:hover .option-wrap,
-     &:focus .option-wrap {
+    &:hover {
+        cursor: pointer;
+    }
+  //  &:hover .option-wrap,
+    &:focus .option-wrap {
       border-color:$btncolor;
+      box-shadow: 0 2vmin 4vmin rgba(0, 0, 0, 0.6);
+      outline-style: double;
+      outline-color: black;
+      outline-width: thick;
     }
 }
 
 .btn-next {
-  @extend .option_button;
+  @extend .enabled_option_btn;
+  margin: 1*$optionMargin 5*$optionMargin;
+  margin-right: 2*$optionMargin;
   &.option-wrap.option-marker {
     text-shadow: 0em 0em 0em  #00000000;
   }
-  &:hover .option-wrap,
+  //&:hover .option-wrap,
   &:focus .option-wrap {
    border-color:$btncolor;
  }
 }
 .btn-dunno {
   width: 2*$maxOptionWidth;
+  margin: 1*$optionMargin 5*$optionMargin;
+  margin-left: 2*$optionMargin;
   &.option-wrap.option-marker {
     text-shadow: 0em 0em 0em  #00000000;
   }
-    &:hover .option-wrap,
+    //&:hover .option-wrap,
     &:focus .option-wrap {
      border-color:$btncolor;
    }
@@ -441,7 +452,7 @@ $maxOptionWidth: 28%;
     @extend .option_button;
     user-select: text;
     border-color:#aaaaaa;
-     &:hover .option-wrap,
+     //&:hover .option-wrap,
      &:focus .option-wrap {
       border-color:#aaaaaaff;
     }
@@ -453,7 +464,7 @@ $maxOptionWidth: 28%;
 .disabled_option_btn_yes {
     @extend .disabled_option_btn;
     border-color:#00ff00;
-     &:hover .option-wrap,
+     //&:hover .option-wrap,
      &:focus .option-wrap {
       border-color:#00ff00ff;
 
@@ -465,7 +476,7 @@ $maxOptionWidth: 28%;
 .disabled_option_btn_no {
     @extend .disabled_option_btn;
     border-color:#ff0000;
-     &:hover .option-wrap,
+     //&:hover .option-wrap,
      &:focus .option-wrap {
       border-color:#ff0000ff;
 
@@ -477,7 +488,7 @@ $maxOptionWidth: 28%;
 .disabled_option_btn_this {
     @extend .disabled_option_btn;
     border-color:#0000ff;
-    &:hover .option-wrap,
+    //&:hover .option-wrap,
     &:focus .option-wrap {
       border-color:#0000ffff;
     }
@@ -493,88 +504,73 @@ $maxOptionWidth: 28%;
   outline: none;
 }
 .disabled_option_btn:focus,
-.enabled_option_btn:hover,
+// .enabled_option_btn:hover,
 .enabled_option_btn:focus,
-.disabled_option_btn_yes:hover,
+// .disabled_option_btn_yes:hover,
 .disabled_option_btn_yes:focus,
-.disabled_option_btn_no:hover,
+// .disabled_option_btn_no:hover,
 .disabled_option_btn_no:focus,
-.disabled_option_btn_this:hover,
+// .disabled_option_btn_this:hover,
 .disabled_option_btn_this:focus,
-.option_button:hover,
+// .option_button:hover,
 .option_button:focus {
     border-width: 1vmin;
     border-color: transparent;
+    background-image: none;
     background-color: transparent;
     overflow:visible;
     max-height: $maxOptionHeight;
-    //padding-bottom: 2.5vmin;
-    //margin-bottom: -0.5vmin;
 }
-// .btn-next:focus {
-//   border-width: 1vmin;
-// }
 
-// .btn-next:hover,
-// .btn-next:focus {
-//   border-width: 1vmin;
-// }
-.btn-dunno:hover .option-wrap,
+
+// .btn-dunno:hover .option-wrap,
 .btn-dunno:focus .option-wrap,
-.btn-next:hover .option-wrap,
+// .btn-next:hover .option-wrap,
 .btn-next:focus .option-wrap,
-.enabled_option_btn:hover .option-wrap,
+// .enabled_option_btn:hover .option-wrap,
 .enabled_option_btn:focus .option-wrap,
-.disabled_option_btn_yes:hover .option-wrap,
+// .disabled_option_btn_yes:hover .option-wrap,
 .disabled_option_btn_yes:focus .option-wrap,
-.disabled_option_btn_no:hover .option-wrap,
+// .disabled_option_btn_no:hover .option-wrap,
 .disabled_option_btn_no:focus .option-wrap,
-.disabled_option_btn_this:hover .option-wrap,
+// .disabled_option_btn_this:hover .option-wrap,
 .disabled_option_btn_this:focus .option-wrap,
-.disabled_option_btn:hover .option-wrap,
+//.disabled_option_btn:hover .option-wrap,
 .disabled_option_btn:focus .option-wrap{
       z-index: 17;
       height: auto;
+      background-color: #f8f8f0ff;
+
       margin-bottom: auto;
-      transform:translate(-2%,-2%);
-      transform:scale(104%,104%);
-      box-shadow: 0 2vmin 4vmin rgba(0, 0, 0, 0.4);
+      transform:translate(-4%,-4%);
+      transform:scale(108%,108%);
+
 }
 
+
+
+.transparent:hover,
+.transparent:focus,
 .transparent {
   border-color: transparent;
   color:  transparent;
+  background-image: none;
   background-color: transparent;
+  outline: none;
+  box-shadow: none;
+  cursor: auto;
   .option-wrap{
-
     border-color: transparent;
     color:  transparent;
     background-color: transparent;
+    outline: none;
+    box-shadow: none;
     .option-marker,
     .optiopn-text, {
       border-color: transparent;
       color:  transparent;
       background-color: transparent;
+      outline: none;
     }
-  }
-}
-
-.transparent:hover,
-.transparent:focus {
-  border-color: transparent;
-  color:  transparent;
-  background-color: transparent;
-  .option-wrap{
-
-    border-color: transparent;
-    color:  transparent;
-    background-color: transparent;
-    .option-marker,
-    .optiopn-text, {
-      border-color: transparent;
-      color:  transparent;
-      background-color: transparent;
-    }
-    box-shadow: 0 0vmin 0vmin transparent;
   }
 }

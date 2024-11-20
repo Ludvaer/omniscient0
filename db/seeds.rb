@@ -7,6 +7,13 @@
 #   Character.create(name: "Luke", movie: movies.first)
 require 'csv'
 
+#zero translation and zero word are needed for 'do not know' option to be distinguishable from nil / undefined
+zero_word = Word.find_or_create_by!(id:0)
+zero_translation = Translation.find_or_create_by!(id:0, word_id:0)
+#just in case most things must have some stub zero elemnt
+zero_language = Language.find_or_create_by!(id:0)
+zero_dialect = Dialect.find_or_create_by!(id:0, language_id:0)
+
 csv_text = File.read(Rails.root.join('db', 'seeds', 'users.csv'))
 csv_text.gsub! '"', ''
 csv_text.gsub! ' ', ''
