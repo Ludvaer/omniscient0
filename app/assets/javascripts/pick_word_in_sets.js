@@ -230,24 +230,30 @@
       const rect = element.getBoundingClientRect();
 
       let scrollY = null;
-      if (rect.top < 0) {
-        if (rect.height < window.innerHeight) {
+      if (rect.top < 0 + 1) {
+        if (rect.height < window.innerHeight + 1) {
+          console.log(`||| scroll top top`);
           scrollY = window.scrollY + rect.top;
-        } else if (rect.bottom < window.innerHeight) {
-          scrollY = window.scrollY + rect.bottom - window.innerHeight;
+        } else if (rect.top + rect.height < window.innerHeight + 1) {
+          console.log(`||| scroll top bot`);
+          scrollY = window.scrollY + rect.top + rect.height - window.innerHeight;
         }
       }
-      if (rect.bottom > window.innerHeight) {
-        if (rect.height < window.innerHeight) {
-          scrollY = window.scrollY + rect.bottom - window.innerHeight;
-        } else if (rect.top > 0) {
+      if (rect.top + rect.height > window.innerHeight - 1) {
+        if (rect.height < window.innerHeight + 1) {
+          console.log(`||| scroll bot bot`);
+          scrollY = window.scrollY + rect.top + rect.height - window.innerHeight;
+        } else if (rect.top > 0 - 1) {
+          console.log(`||| scroll bot top`);
           scrollY = window.scrollY + rect.top;
         }
       }
+
       if(scrollY != null) {
+          console.log(`||| scroll go`);
         window.scrollTo({
             top: scrollY,
-            left: scrollX,
+            left: window.scrollX,
             behavior: 'smooth'
         });
       }
@@ -303,9 +309,10 @@
   }
   root.moveNewPick = moveNewPick;
   root.postNew = postNew;
+  const markerSet3 = ['','','','','','','','','','','']
   const markerSet2 = ['q','w','e','a','s','d','z','x','c','\\','⌴']
   const markerSet1 = ['7','8','9','4','5','6','1','2','3','0','enter']
-  const markerSets = [markerSet1,markerSet2]
+  const markerSets = [markerSet1,markerSet2,markerSet3]
   function getRandomInt(max) {
     return Math.floor(Math.random() * max);
   }
@@ -335,7 +342,7 @@
     let isCorrect = form_model.isCorrect() //pick_word_in_set.correct.word.id == pick_word_in_set.picked.word.id
     form_model.commentWord.innerHTML = form_model.data.additional.translation;
     if(!('markerSet' in form_model)  || form_model.markerSet == null || form_model.data.picked_id == null)
-      {form_model.markerSet = markerSets[getRandomInt(2)];}
+      {form_model.markerSet = markerSets[getRandomInt(markerSets.length)];}
     markerSet = form_model.markerSet ;
     for (let j = 0; j < length; j++)
     {
@@ -357,9 +364,12 @@
               //console.log(`%%% clicking`);
               if(button === document.activeElement)
                 {select(translation.id,form_model);}
+              else {
+                buttons.forEach((b) => { b == button ? b.focus() : b.blur(); });
+              }
             });
         }
-        prefix = markerSet[j] + ":";
+        prefix = markerSet[j];// + ":";
         //console.log(`% ${j} enabled_option_btn`);
       }
       else if (pick_word_in_set.picked_id == translation.id && isCorrect) {
@@ -483,7 +493,7 @@
      buttons.forEach(btn => {
       btn.addEventListener('mouseenter', () => {
         model.buttons.forEach(b => {b != btn? b.blur() : b.focus(); });
-        if(model.data.picked_id == null && btn != nextButton) { model.hideNextButton(); }
+        if('data' in model && model.data.picked_id == null && btn != nextButton) { model.hideNextButton(); }
         // Automatically focus the button on hover and unfocus every one else
       });
       btn.addEventListener('mouseleave', () => { model.buttons.forEach(b => b.blur()); });
@@ -535,52 +545,52 @@
 
   function keyMapping(key) {
     switch (key) {
-      case 7:
+      case '7':
       case 'q':
       case 'й':
       case 'home':
         return 0;
-      case 8:
+      case '8':
       case 'w':
       case 'ц':
       case 'arrowup':
         return 1;
-      case 9:
+      case '9':
       case 'e':
       case 'у':
       case 'pageup':
         return 2;
-      case 4:
+      case '4':
       case 'a':
       case 'ф':
       case 'arrowleft':
         return 3;
-      case 5:
+      case '5':
       case 's':
       case 'ы':
       case 'clear':
         return 4;
-      case 6:
+      case '6':
       case 'd':
       case 'в':
       case 'arrowright':
         return 5;
-      case 1:
+      case '1':
       case 'z':
       case 'я':
       case 'end':
         return 6;
-      case 2:
+      case '2':
       case 'x':
       case 'ч':
       case 'arrowdown':
         return 7;
-      case 3:
+      case '3':
       case 'c':
       case 'с':
       case 'pagedown':
         return 8;
-      case 0:
+      case '0':
       case '\\':
       case '|':
       case '/':
