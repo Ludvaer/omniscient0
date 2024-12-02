@@ -1,7 +1,8 @@
 <% provide(:title, t('Running pick correct translation')) %>
 <% provide(:assets,javascript_include_tag('pick_word_in_sets','data-turbolinks-track' => true)) %>
 
-<%= render "form", pick_word_in_set: @pick_word_in_set, locals: {activated: true, ids: @incompelete.pluck(:id)} %>
+<%= render "form", pick_word_in_set: @pick_word_in_set, locals: {activated: true, ids: @incompelete.pluck(:id), \
+  params: {n:@n, source_dialect_id: @source_dialect_id, target_dialect_id: @target_dialect_id, option_dialect_id: @option_dialect_id }} %>
 <br>
 <div>
   <%= link_to "Show this pick word in set", @pick_word_in_set %> |

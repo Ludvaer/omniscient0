@@ -145,3 +145,5 @@ funny  fucntionality / messages concepts:
 ? might be better move shorter answers to bottom and autoscroll of they are too long anyway
 !!need better filter for similar to correct translations
 !need to apply on second tap when mobile
+!!! I still think that flow/cascade pick test should be implemented
+!!! avoid repeating kana

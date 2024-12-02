@@ -5,4 +5,10 @@
   <%= link_to t('Pick word in set test') + " x 10", new_pick_word_in_set_path(n: 10) %>
   <%= link_to t('Pick word in set test'), new_pick_word_in_set_path %>
   <%= link_to t('Sigil'), sigil_path %>
+
+  <%= new_pick_word_in_set_url_from_names('english','japanese','english')  %>
+  <%= new_pick_word_in_set_url_from_names('english','japanese','japanese')  %>
+  <%= new_pick_word_in_set_url_from_names('english','japanese','kana')  %>
+  <%= new_pick_word_in_set_url_from_names('english','kanji','english')  %>
+  <%= new_pick_word_in_set_url_from_names('english','kanji','kanji')  %>
 </div>

@@ -12,36 +12,41 @@ class PickWordInSetsController < ApplicationController
 
   # GET /pick_word_in_sets/1 or /pick_word_in_sets/1.json
   def show
-    @incompelete = PickWordInSet.where(picked_id: nil, user_id: @user.id).order(:created_at)
+    @n = params[:n] || 1
+    @incompelete = request_incomplete
     puts("@incompelete[#{@incompelete.size}]")
   end
 
   # I need move this logic to create and make start test button here or smth
   # GET /pick_word_in_sets/new
   def new
-    @incompelete = PickWordInSet.where(picked_id: nil, user_id: @user.id).order(:created_at)
+    @n = params[:n]
+    @source_dialect_id = params[:source_dialect_id]
+    @target_dialect_id = params[:target_dialect_id]
+    @option_dialect_id = params[:option_dialect_id]
+    @incompelete = request_incomplete
     puts("@incompelete[#{@incompelete.size}]")
     @pick_word_in_set = PickWordInSet.new
   end
 
   # GET /pick_word_in_sets/1/edit
   def edit
+    @n = params[:n] || 1
     @incompelete = PickWordInSet.where(picked_id: nil, user_id: @user.id).order(:created_at)
     puts("@incompelete[#{@incompelete.size}]")
   end
 
   # POST /pick_word_in_sets or /pick_word_in_sets.json
   def create
-    @target_dialect_id ||= Dialect.find_by(name:'japanese').id
-    @source_dialect_id ||= Dialect.find_by(name:'english').id
-    @target_dialect_ids ||= [Dialect.find_by(name:'japanese').id]
-    @source_dialect_ids ||= [Dialect.find_by(name:'english').id]
+    @source_dialect_id = params[:source_dialect_id]
+    @target_dialect_id = params[:target_dialect_id]
+    @option_dialect_id = params[:option_dialect_id]
     puts "dialect_progress=#{dialect_progress} counter=#{dialect_progress.counter}"
     n = [params[:n].to_i || 1, 1].max
     puts "n1 = #{n}"
     n = [n, MAX_PICKS_PER_REQUEST].min
     puts "n2 = #{n}"
-    incompelete = PickWordInSet.where(picked_id: nil, user_id: @user.id).order(:created_at)
+    incompelete = request_incomplete
     @incompelete = incompelete
     if incompelete.size < n
       puts "incompelete.size < n => #{incompelete.size} < #{n}"
@@ -136,6 +141,7 @@ class PickWordInSetsController < ApplicationController
       @correct = @translations.find{|t| t.id == @pick_word_in_set.correct_id}
       @target_dialect_id = @correct.word.dialect_id
       @source_dialect_id = @correct.translation_dialect_id
+      @option_dialect_id = @pick_word_in_set.option_dialect_id
     end
 
     def set_user
@@ -143,9 +149,16 @@ class PickWordInSetsController < ApplicationController
       @user_id = @user.id.to_i
     end
 
+    def request_incomplete
+      PickWordInSet.joins(:correct).joins("INNER JOIN words ON words.id=correct.word_id") \
+        .where(picked_id: nil, user_id: @user.id, option_dialect_id: @option_dialect_id,  \
+        correct: {words: {dialect_id: @target_dialect_id}, \
+         translation_dialect_id: @source_dialect_id}).order(:created_at)
+    end
+
     # Only allow a list of trusted parameters through.
     def pick_word_in_set_params
-      params.require(:pick_word_in_set).permit(:picked_id, :n)
+      params.require(:pick_word_in_set).permit(:picked_id, :n, :source_dialect_id, :target_dialect_id, :option_dialect_id)
     end
 
     def dialect_progress
@@ -313,12 +326,19 @@ class PickWordInSetsController < ApplicationController
     end
 
     def save_translation_groups_as_picks(sets)
+      source_language_id = Dialect.find_by(id: @source_dialect_id).language_id
+      target_language_id = Dialect.find_by(id: @target_dialect_id).language_id
+      languages = [source_language_id, target_language_id]
+      other_dialect_ids = Dialect.where(language_id:languages).pluck(:id).reject{|id|id==@source_dialect_id}
       picks = []
       sets.each do |correct, translations|
         @pick_word_in_set = PickWordInSet.new
         @translations = translations
         @translations.append(correct)
         @translations.sort_by!{|t|t.id}
+        word_ids = @translations.map{|t|t.word.id}
+        other_relevant_translations = Translation.joins(:word).where(word:{id: word_ids}, translation_dialect_id:other_dialect_ids)
+        @translations += other_relevant_translations
         translations_ids = @translations.map{|t| t.id}
         # Find all WordSets that have the same words
         matching_translation_sets = TranslationSet.joins(:translations)
@@ -345,6 +365,7 @@ class PickWordInSetsController < ApplicationController
         @pick_word_in_set.translation_set_id = @translation_set.id
         @pick_word_in_set.version = 1
         @pick_word_in_set.user_id = @user.id
+        @pick_word_in_set.option_dialect_id = @option_dialect_id
 
         puts "saving @pick_word_in_set = #{@pick_word_in_set.attributes};"
         @saved = @pick_word_in_set.save

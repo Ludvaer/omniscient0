@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_11_08_112605) do
+ActiveRecord::Schema[7.0].define(version: 2024_11_25_104258) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -56,6 +56,8 @@ ActiveRecord::Schema[7.0].define(version: 2024_11_08_112605) do
     t.datetime "updated_at", null: false
     t.bigint "translation_set_id", null: false
     t.bigint "user_id", null: false
+    t.bigint "option_dialect_id", default: 7, null: false
+    t.index ["option_dialect_id"], name: "index_pick_word_in_sets_on_option_dialect_id"
     t.index ["translation_set_id"], name: "index_pick_word_in_sets_on_translation_set_id"
     t.index ["user_id"], name: "index_pick_word_in_sets_on_user_id"
   end
@@ -163,6 +165,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_11_08_112605) do
     t.index ["spelling"], name: "index_words_on_spelling"
   end
 
+  add_foreign_key "pick_word_in_sets", "dialects", column: "option_dialect_id"
   add_foreign_key "pick_word_in_sets", "translation_sets"
   add_foreign_key "pick_word_in_sets", "users"
   add_foreign_key "translations", "users"

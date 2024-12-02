@@ -1,28 +1,28 @@
 <%
-translation_set = pick_word_in_set.translation_set
-translations = translation_set&.translations
-correct = translations&.find{|t| t.id == pick_word_in_set.correct_id}
-optionboard_id = if correct.nil? then 'optionboard_new' else "optionboard_#{pick_word_in_set.id}" end
-div_id = if correct.nil? then 'pick_word_in_set_new_div' else "pick_word_in_set_#{pick_word_in_set.id}_div" end
-form_id = if correct.nil? then 'test_pick_new_form' else "test_pick_#{pick_word_in_set.id}_form" end
-picked_id = if correct.nil? then 'test_pick_new_input' else "test_pick_#{pick_word_in_set.id}_input" end
+n = locals[:params][:n]
+source_dialect_id = locals[:params][:source_dialect_id]
+target_dialect_id = locals[:params][:target_dialect_id]
+option_dialect_id = locals[:params][:option_dialect_id]
+identificator = "id#{pick_word_in_set.id}n#{n}s#{source_dialect_id}t#{target_dialect_id}o#{option_dialect_id}"
+optionboard_id = "optionboard_#{identificator}"
+div_id = "pick_word_in_set_#{identificator}_div"
+form_id = "test_pick_#{identificator}_form"
+picked_id = "test_pick_#{identificator}_input"
 %>
 <div class="pick_word_in_set" id="<%= div_id %>">
 <%# if correct %>
   <div class="optionboard" id="<%= optionboard_id %>">
     <svg class="fit-text source-word" xmlns="http://www.w3.org/2000/svg">
       <text dominant-baseline="middle" text-anchor="middle">
-        <%= correct&.word&.spelling %>
       </text>
     </svg>
     <p class="comment-word">Kana Transcription</p>
     <%# translations&.each do |translation| %>
     <% (1..9).each do |i| %>
-      <%  translation =  translations ? translations[i] : false %>
       <button type="button">
         <div class="option-wrap">
             <span class="option-marker"><%=i%>:</span>
-            <span class="option-text"><%=translation ? translation.translation : "" %></span>
+            <span class="option-text"></span>
         </div>
       </button>
     <% end %>
@@ -32,7 +32,7 @@ picked_id = if correct.nil? then 'test_pick_new_input' else "test_pick_#{pick_wo
         <span class="option-text"> Don't know </span>
       </div>
     </button>
-    <button type="button" onclick="moveNewPick(pick_model_<%= pick_word_in_set.id %>)">
+    <button type="button" onclick="moveNewPick(pick_model_<%= identificator %>)">
       <div class="option-wrap">
         <span class="option-marker">enter:</span>
         <span class="option-text"> Next </span>
@@ -52,34 +52,36 @@ picked_id = if correct.nil? then 'test_pick_new_input' else "test_pick_#{pick_wo
   }
   pick_model_inits = declared_pick_model_inits ? pick_model_inits : [];
 
-  var declared_loadedPickWordInSet<%= pick_word_in_set.id %>;
+  var declared_loadedPickWordInSet<%= identificator %>;
   try {
-    isLoadedPickWordInSet<%= pick_word_in_set.id %>;
-    declared_loadedPickWordInSet<%= pick_word_in_set.id %> = true;
+    isLoadedPickWordInSet<%= identificator %>;
+    declared_loadedPickWordInSet<%= identificator %> = true;
   } catch(e) {
-    declared_loadedPickWordInSet<%= pick_word_in_set.id %> = false;
+    declared_loadedPickWordInSet<%= identificator %> = false;
   }
-  isLoadedPickWordInSet<%= pick_word_in_set.id %> = declared_loadedPickWordInSet<%= pick_word_in_set.id %> ? isLoadedPickWordInSet<%= pick_word_in_set.id %> : false;
+  isLoadedPickWordInSet<%= identificator %> = declared_loadedPickWordInSet<%= identificator %> ? isLoadedPickWordInSet<%= identificator %> : false;
 
-  function pick_model_<%= pick_word_in_set.id %>_load() {
-    if(isLoadedPickWordInSet<%= pick_word_in_set.id %>) {
+
+  function pick_model_<%= identificator %>_load() {
+    if(isLoadedPickWordInSet<%= identificator %>) {
       console.log(`=== already loaded`);
       var pick_div = document.getElementById("<%= div_id %>");
       if(pick_div == null){
         console.log(`=== pick_div null`);
-        //document.removeEventListener('turbolinks:load', pick_model_<%= pick_word_in_set.id %>_load);
+        document.removeEventListener('turbolinks:load', pick_model_<%= identificator %>_load);
+        isLoadedPickWordInSet<%= identificator %> = false;
         return;
       }
-      pick_model_<%= pick_word_in_set.id %> = form_form_model_from(pick_div);
-      fill_form(pick_model_<%= pick_word_in_set.id %>);
+      //pick_model_<%= identificator %> = form_form_model_from(pick_div);
+      fill_form(pick_model_<%= identificator %>);
       return;
     }
     dunnoText = '<%=t("I don't know").html_safe%>';
     nextText = '<%=t("Next").html_safe%>';
     var pick_div = document.getElementById("<%= div_id %>");
     if(pick_div == null){
-      console.log(`=== pick_div null`);
-      //document.removeEventListener('turbolinks:load', pick_model_<%= pick_word_in_set.id %>_load);
+      console.log(`=== not yet loaded but pick_div is already null`);
+      //document.removeEventListener('turbolinks:load', pick_model_<%= identificator %>_load);
       return;
     }
     var declaredFormFormFrom;
@@ -94,32 +96,37 @@ picked_id = if correct.nil? then 'test_pick_new_input' else "test_pick_#{pick_wo
       return;
     }
     console.log(`=== loading`);
-    isLoadedPickWordInSet<%= pick_word_in_set.id %> = true;
-    pick_model_<%= pick_word_in_set.id %> = form_form_model_from(pick_div);
+    isLoadedPickWordInSet<%= identificator %> = true;
+    pick_model_<%= identificator %> = form_form_model_from(pick_div);
     data_preload_url = "<%= data_preload_url %>";
     pick_word_in_sets_url = "<%= pick_word_in_sets_url %>";
-    preload_queue_target_size = 10;
+    pick_model_<%= identificator %>.locals = <%= locals.to_json.html_safe  %>;
+    pick_model_<%= identificator %>.params = <%= locals[:params].to_json.html_safe  %>;
+    pick_model_<%= identificator %>.pickWordInSetN = <%= locals[:params][:n]  %>;
+    pick_model_<%= identificator %>.sourceDialectId = <%= locals[:params][:source_dialect_id] %>;
+    pick_model_<%= identificator %>.targetDialectId = <%= locals[:params][:target_dialect_id] %>;
+    pick_model_<%= identificator %>.optionDialectId = <%= locals[:params][:option_dialect_id] %>;
     <% ids = locals[:ids]%>
     <% ids = if defined?(ids) && (!ids.nil?) then ids else [] end %>
     <% ids = if ids.empty? && !pick_word_in_set.id.nil? then [pick_word_in_set.id] else ids end %>
     <% ids = if ids.include?(pick_word_in_set.id) then ids else ids + [pick_word_in_set.id] end %>
     <% preloadedData = DataPreloadService.fetch_data({"PickWordInSet" => ids}, recursive: true) %>
     receiveData(<%= preloadedData.to_json.html_safe %>, ()=> {
-      // preloadData({"PickWordInSet":[<%=pick_word_in_set.id %>]}, ()=> { // this shoud send request instead of prerender in place of receiveData
+      // preloadData({"PickWordInSet":[<%=identificator %>]}, ()=> { // this shoud send request instead of prerender in place of receiveData
       <% if pick_word_in_set.id.nil? %>
-        fill_form(pick_model_<%= pick_word_in_set.id %>)
+        fill_form(pick_model_<%= identificator %>)
       <% else %>
-        moveNewPick(pick_model_<%= pick_word_in_set.id %>, <%= pick_word_in_set.id %>)
+        moveNewPick(pick_model_<%= identificator %>, <%= pick_word_in_set.id %>)
       <% end %>
-    //pick_word_in_set_<%=pick_word_in_set.id %> = recordManager.objects['PickWordInSet'][<%= pick_word_in_set.id  %>];
-    //pick_model_<%= pick_word_in_set.id %>.data = pick_word_in_set_<%=pick_word_in_set.id %>;
-    //fill_form(pick_model_<%= pick_word_in_set.id %>)
+    //pick_word_in_set_<%=identificator %> = recordManager.objects['PickWordInSet'][<%= identificator  %>];
+    //pick_model_<%= identificator %>.data = pick_word_in_set_<%=identificator %>;
+    //fill_form(pick_model_<%= identificator %>)
       <% unless locals[:activated] %>
-         pick_model_<%= pick_word_in_set.id %>.nextButton.hidden =true;
+         pick_model_<%= identificator %>.hideNextButton();
       <%end%>
     });
   };
-  pick_model_inits.push( pick_model_<%= pick_word_in_set.id %>_load);
-  document.addEventListener('turbolinks:load', pick_model_<%= pick_word_in_set.id %>_load);
-  //document.onload = pick_model_<%= pick_word_in_set.id %>_load;
+  pick_model_inits.push( pick_model_<%= identificator %>_load);
+  document.addEventListener('turbolinks:load', pick_model_<%= identificator %>_load);
+  //document.onload = pick_model_<%= identificator %>_load;
 </script>

@@ -137,6 +137,11 @@
     }
     else { //postprocessing if all object tree is loaded
       //if all requested objects received then match all references objs
+      if('ClassModel' in previouslyRequested) {
+        Object.entries(previouslyRequested['ClassModel']).forEach((name, structure) => {
+          recordManager.classes[name] = structure;
+        });
+      }
       Object.entries(previouslyRequested).forEach(([className,requestedObjects]) => {
         Object.entries(requestedObjects).forEach(([id,requestedObject]) => {
           connectReferences(requestedObject, previouslyRequested);
@@ -217,7 +222,8 @@
     submit_pick(form_model,()=>{});
     //todo correcly would be pass url in linkable object
     history.pushState({id:form_model.data.id}, "",
-          `${pick_word_in_sets_url}/${form_model.data.id}?n=${preload_queue_target_size}`)
+          `${pick_word_in_sets_url}/${form_model.data.id}?`
+          + (new URLSearchParams(form_model.params)).toString())
     fill_form(form_model)
     form_model.showNextButton();
   }
@@ -264,27 +270,37 @@
     form_model.buttons.forEach((b) => { b.blur(); });
     form_model.hideNextButton();
     let tests = recordManager.objects.PickWordInSet;
-    let unfilledTests = Object.values(tests).filter((p) => p.picked_id == null)
+    let unfilledTests = tests ? Object.values(tests).filter((p) => p.picked_id == null
+      && p.option_dialect_id == form_model.optionDialectId && p.correct
+      && p.correct.translation_dialect_id == form_model.sourceDialectId
+      && p.correct.word.dialect_id == form_model.targetDialectId) : []
     let filled = false;
     if(unfilledTests.length >= 1 || (id != null)) {
       form_model.data = id == null ? unfilledTests[0] : recordManager.objects.PickWordInSet[id];
       fill_form(form_model)
-      history.pushState({id:form_model.data.id}, "", pick_word_in_sets_url + "/" + form_model.data.id + "/edit")
+      if(form_model.data.picked_id == null){
+        history.pushState({id:form_model.data.id}, "", pick_word_in_sets_url + "/" + form_model.data.id + "/edit?"
+              + (new URLSearchParams(form_model.params)).toString())
+      } else {
+        history.pushState({id:form_model.data.id}, "",
+              `${pick_word_in_sets_url}/${form_model.data.id}?`
+              + (new URLSearchParams(form_model.params)).toString())
+      }
       filled = true
       scrollToElementCenter(form_model.root);
       //filter out filled pick_word_in_set???
     }
-    if (unfilledTests.length < root.preload_queue_target_size) {
-      postNew(filled ? null : form_model); //pass model to be  filled with new picks if needed
+    if (unfilledTests.length < form_model.pickWordInSetN) {
+      postNew(form_model, !filled); //pass model to be  filled with new picks if needed
     }
   }
-  function postNew(form_model = null) {
+  function postNew(form_model, needMove) {
     return $.ajax(pick_word_in_sets_url, {
       type: 'POST',
       dataType: 'json',
-      data: {n:preload_queue_target_size},
+      data: form_model.params,
       error: function(jqXHR, textStatus, errorThrown) {
-        alert("Loadin new progress failed.");
+        alert("Loading new failed.");
         //TODO: system for local keeping and retrying to save obj
         //with polite reminding that saving issues are here
       },
@@ -292,18 +308,11 @@
           console.log(`$$$ data loaded`);
           receiveData(data,() =>
           {
-            if(form_model != null) //passed model meant to use it to fill with new data
+            if(needMove) //passed model meant to use it to fill with new data
             {
               moveNewPick(form_model);
             }
           })
-          //root.dataFromNewPick = data;
-          //return Turbolinks.visit(pick_word_in_sets_url + "/" + data.id + "/edit");
-          // similar behavior as an HTTP redirect
-          //window.location.replace(pick_word_in_set_url);
-          // similar behavior as clicking on a link
-          //window.location.href = pick_word_in_set_url;
-          //TODO: understand what exacyly is the differnece
       }
     });
   }
@@ -315,6 +324,12 @@
   const markerSets = [markerSet1,markerSet2,markerSet3]
   function getRandomInt(max) {
     return Math.floor(Math.random() * max);
+  }
+
+  function graphemeSplit(str) {
+    const segmenter = new Intl.Segmenter("en", {granularity: 'grapheme'});
+    const segitr = segmenter.segment(str);
+    return Array.from(segitr, ({segment}) => segment);
   }
   function fill_form(form_model)
   {
@@ -333,22 +348,57 @@
     });
     form_model.optionBoard.hidden = false;
     pick_word_in_set = form_model.data;
-    let translations = pick_word_in_set.translation_set.translations
+    sourceDialectId = form_model.sourceDialectId;
+    targetDialectId = form_model.targetDialectId;
+    allTranslations = form_model.data.translation_set.translations
+    //let translations = pick_word_in_set.translation_set.translations
+    let wordIds = [...new Set(allTranslations.map((t) => t.word.id))]; //unique words idsToRequest
+    let translations = wordIds.map((id) =>
+        allTranslations.filter((t) => t.word.id == id && t.translation_dialect_id == sourceDialectId)[0]);
     translations.sort((a,b) => {
       let d = (b.translation.length - a.translation.length);
       return d == 0 ? a.id - b.id : d;
     })
     let length = form_model.buttons.length;
-    let isCorrect = form_model.isCorrect() //pick_word_in_set.correct.word.id == pick_word_in_set.picked.word.id
-    form_model.commentWord.innerHTML = form_model.data.additional.translation;
+    let isCorrect = form_model.isCorrect(); //pick_word_in_set.correct.word.id == pick_word_in_set.picked.word.id
+    optionDialectId = form_model.data.option_dialect_id;
+    if(form_model.data.additional){}
+    else {
+      form_model.data.additional = {'id':0,'translation':'' }
+    }
+    if (optionDialectId == form_model.data.additional.translation_dialect_id) {
+      form_model.commentWord.innerHTML = form_model.data.correct.translation;
+    } else if (optionDialectId != form_model.data.correct.word.dialect_id) {
+      form_model.commentWord.innerHTML = form_model.data.additional.translation;
+    }
+    let correctKanji = []; //TODO: make japanese specific code separate from general pick word in set code
+    let correctCharArray = [];
+    let correctKanjiIndexes = [];
+    let allIncorrectKanji = translations.filter((tr) => tr != form_model.data.correct)
+        .flatMap((tr) => graphemeSplit(tr.word.spelling).filter((ch)=>wanakana.isKanji(ch) && ch != '々'));
+    if (optionDialectId == targetDialectId) {
+      form_model.svgText.innerHTML = form_model.data.additional.translation;
+      form_model.commentWord.innerHTML = pick_word_in_set.correct.translation;
+      correctCharArray = graphemeSplit(pick_word_in_set.correct.word.spelling);
+      //wanakana.tokenize(pick_word_in_set.correct.word.spelling);
+      for (let j = 0; j < correctCharArray.length; j++) {
+        if(wanakana.isKanji(correctCharArray[j]) && correctCharArray[j] != '々') {
+          correctKanjiIndexes.push(j); //collect indexes of kanji
+        }
+      }
+      correctKanji = correctKanjiIndexes.map((i)=>correctCharArray[i]);
+    } else {
+      form_model.svgText.innerHTML = pick_word_in_set.correct.word.spelling;
+    }
     if(!('markerSet' in form_model)  || form_model.markerSet == null || form_model.data.picked_id == null)
       {form_model.markerSet = markerSets[getRandomInt(markerSets.length)];}
-    markerSet = form_model.markerSet ;
+    markerSet = form_model.markerSet;
     for (let j = 0; j < length; j++)
     {
       if(j > form_model.buttons.length) { break; }
       let button = form_model.buttons[j];
-      let translation = j < translations.length? translations[j] :  {};
+      let translation = j < translations.length? translations[j] :  {'translation':'',word:{'id':0,'spelling':''}};
+      if (translation.word.id === form_model.data.correct.word.id) { translation = form_model.data.correct; }
       if(button == form_model.dunnoButton) { translation ={'id': 0, 'translation':dunnoText};}
       if(button == form_model.nextButton) { translation ={'id': -1, 'translation':nextText};}
       let prefix = ""
@@ -393,10 +443,34 @@
          button.className = className;
          button.optionMarker.innerHTML = prefix;
          if(button == form_model.dunnoButton) {button.classList.add("btn-dunno");}
-         else { button.optionText.innerHTML = translation.translation; }
+         else {
+           if (optionDialectId == translation.translation_dialect_id) {
+             button.optionText.innerHTML = translation.translation;
+           } else if (optionDialectId == translation.word.dialect_id) {
+             if(correctKanji.length > 0 && optionDialectId == targetDialectId)
+             {
+               kanji = graphemeSplit(translation.word.spelling).filter((ch)=>wanakana.isKanji(ch) && ch != '々');
+               while (kanji.length < correctKanji.length) {
+                 kanji.push(allIncorrectKanji[(j + kanji.length)%allIncorrectKanji.length]);
+               }
+               charArray = correctCharArray.slice(); //clone chars form correct answer
+               for (let j = 0; j < correctKanji.length; j++) {
+                 charArray[correctKanjiIndexes[j]] = kanji[j]; // substitute for wrong kanji
+               }
+               button.optionText.innerHTML =  charArray.join('');
+             }
+             else {
+               button.optionText.innerHTML = translation.word.spelling;
+             }
+           } else {
+             //button.optionText.innerHTML = translation.additional.translation;
+             option_translation = allTranslations
+                .filter((t) => t.word.id == translation.word.id && t.word.dialect_id == targetDialectId && t.translation_dialect_id == optionDialectId)[0];
+             button.optionText.innerHTML = option_translation ? option_translation.translation : ('(?)'+ translation.translation);
+           }
+         }
       }
     }
-    form_model.svgText.innerHTML = pick_word_in_set.correct.word.spelling;
     fit_all_text(form_model.root);
     form_model.nextButton.optionMarker.innerHTML = markerSet[10];
     if(pick_word_in_set.picked_id == null)
@@ -499,6 +573,7 @@
       btn.addEventListener('mouseleave', () => { model.buttons.forEach(b => b.blur()); });
      });
      document.addEventListener('keydown', (event) => {
+       if (event.ctrlKey) { return; }
        const key = event.key.toLowerCase(); // Normalize to lowercase
        //console.log(`pressed key ${key}`);
        let index = keyMapping(key);

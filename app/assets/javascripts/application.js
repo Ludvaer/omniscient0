@@ -31,6 +31,7 @@
 //= require jquery
 //= require jquery_ujs
 //= require turbolinks
+//= require wanakana.min
 //= require_tree .
 //= stub 'shultes'
 //= stub 'pick_word_in_sets'
