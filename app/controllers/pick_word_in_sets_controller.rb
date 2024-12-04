@@ -197,7 +197,7 @@ class PickWordInSetsController < ApplicationController
            puts "#rank = #{rank}; #{progress.correct}/#{progress.correct + progress.failed} = #{estimated_prob} => \
             #{short} + #{long} = #{short + long}"
       end
-      prob_by_rank.append([max_rank+1, 0])
+      prob_by_rank.append([DataBaseCacheService.translation_max_rank(@source_dialect_id,@target_dialect_id)+1, 0])
       #puts "#{progresses.size} translation progresses counted"
       prob_by_rank
     end
@@ -247,9 +247,9 @@ class PickWordInSetsController < ApplicationController
     def get_translations_to_learn(minimal_size)
       margin = minimal_size/10+5
       center,slope = guesstimate_sigmoid(get_estimated_prob_by_rank)
-      if slope < - 0.1 #if comeone managed to archieve sharp transition from new to old
-        slope = -0.1 # blur the slope to include new translations
-        center += 0.5*(10 + 1/slope) # move center to new translations
+      if slope < - 0.05 #if comeone managed to archieve sharp transition from new to old
+        slope = -0.05 # blur the slope to include new translations
+        center += 0.5*(20 + 1/slope) # move center to new translations
       end
       maxpick = dialect_progress.counter
       learn_progress_count = progresses.size

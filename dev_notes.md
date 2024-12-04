@@ -147,3 +147,4 @@ funny  fucntionality / messages concepts:
 !need to apply on second tap when mobile
 !!! I still think that flow/cascade pick test should be implemented
 !!! avoid repeating kana
+.. may be make proper default sigmoid and fix recursive request if no objects found at all
