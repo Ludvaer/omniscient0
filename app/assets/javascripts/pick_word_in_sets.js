@@ -362,8 +362,10 @@
     let length = form_model.buttons.length;
     let isCorrect = form_model.isCorrect(); //pick_word_in_set.correct.word.id == pick_word_in_set.picked.word.id
     optionDialectId = form_model.data.option_dialect_id;
-    if(form_model.data.additional){}
-    else {
+    additional = allTranslations.filter((t) => t.word.id === form_model.data.correct.word.id && t.translation_dialect_id != sourceDialectId)[0]
+    if (additional) {
+      form_model.data.additional = additional
+    } else {
       form_model.data.additional = {'id':0,'translation':'' }
     }
     if (optionDialectId == form_model.data.additional.translation_dialect_id) {

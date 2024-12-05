@@ -303,7 +303,7 @@ class PickWordInSetsController < ApplicationController
             kana_cost = - 2*reversed_kana_list.take(t.word.spelling.size).each_with_index.count{|ch,i| ch == t.word.spelling[-i-1]}
             same_word_cost = (t.word.spelling === whole_word ? 100 : 0)
             no_kana_cost = (reversed_kana_list.size === 0 ? 2*t.word.spelling.each_char.count{|ch|ch.kana?} : 0)
-            size_dif = 0.05*(whole_word.size - t.word.spelling.size).abs
+            size_dif = 0.01*(whole_word.size - t.word.spelling.size).abs
             same_kanji_cost + taken_cost + kana_cost + same_word_cost + no_kana_cost + 0.05*size_dif
           end.take(pick_size - 1)
         else
@@ -314,7 +314,7 @@ class PickWordInSetsController < ApplicationController
             taken_cost = (taken[t.word.spelling] )
             same_word_cost = (t.word.spelling === whole_word ? 100 : 0)
             start_same_cost = 2*t.word.spelling.each_char.to_a.each_with_index.count{|ch,i| ch === whole_word[i]}
-            size_dif = 0.05*(whole_word.size - t.word.spelling.size).abs
+            size_dif = 0.01*(whole_word.size - t.word.spelling.size).abs
             kanji_cost + taken_cost + same_word_cost + start_same_cost + size_dif
           end.take(pick_size - 1)
         end

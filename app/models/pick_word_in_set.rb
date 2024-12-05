@@ -7,21 +7,22 @@ class PickWordInSet < ApplicationRecord
   attr_readonly :version
   attr_readonly :translation_set_id
   attr_readonly :user_id
-  alias_method :parent_preloadable_attributes, :preloadable_attributes
+  # I discarded this way providing kana translation through fake attributes but if i ever need this stukk works
+  # alias_method :parent_preloadable_attributes, :preloadable_attributes
 
-  def self.preloadable_fake_references
-    return {additional: 'Translation'}
-  end
-
-  def preloadable_attributes
-    # kanaDialect = Dialect.find_by(name: 'kana')
-    # word_id = self.correct.word.id
-    # additional = Translation.joins(:word).find_by(word:{id:word_id}, translation_dialect_id: kanaDialect.id)
-    unless additional.nil?
-      return parent_preloadable_attributes.merge({ additional_id: additional&.id}) #TOFO: make it additional column?
-    end
-    return parent_preloadable_attributes
-  end
+  # def self.preloadable_fake_references
+  #   return {additional: 'Translation'}
+  # end
+  #
+  # def preloadable_attributes
+  #   # kanaDialect = Dialect.find_by(name: 'kana')
+  #   # word_id = self.correct.word.id
+  #   # additional = Translation.joins(:word).find_by(word:{id:word_id}, translation_dialect_id: kanaDialect.id)
+  #   unless additional.nil?
+  #     return parent_preloadable_attributes.merge({ additional_id: additional&.id}) #TOFO: make it additional column?
+  #   end
+  #   return parent_preloadable_attributes
+  # end
 
   def additional
     kanaDialect = Dialect.find_by(name: 'kana')
