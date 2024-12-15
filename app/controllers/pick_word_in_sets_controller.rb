@@ -38,6 +38,15 @@ class PickWordInSetsController < ApplicationController
 
   # POST /pick_word_in_sets or /pick_word_in_sets.json
   def create
+    @recursive = params[:recursive] || false
+    if (@recursive == 'false')
+      @recursive = false
+    end
+    if @recursive
+      puts 'recursive'
+    else
+      puts 'not recursive'
+    end
     @source_dialect_id = params[:source_dialect_id]
     @target_dialect_id = params[:target_dialect_id]
     @option_dialect_id = params[:option_dialect_id]
@@ -74,7 +83,7 @@ class PickWordInSetsController < ApplicationController
         if @saved
           format.html { redirect_to edit_pick_word_in_set_url(@pick_word_in_set), notice: @notice}
           format.json { render json: \
-             DataPreloadService.fetch_data({"PickWordInSet" => [@pick_word_in_sets.pluck(:id)]}, recursive: false) \
+             DataPreloadService.fetch_data({"PickWordInSet" => [@pick_word_in_sets.pluck(:id)]}, recursive: @recursive) \
              , status: :created, location: @pick_word_in_set }
         else
           format.html { render :new, status: :unprocessable_entity }

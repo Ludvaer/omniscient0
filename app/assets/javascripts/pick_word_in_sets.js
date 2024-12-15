@@ -267,6 +267,7 @@
   }
 
   function moveNewPick(form_model, id = null) {
+    console.log(`%%% moving`);
     form_model.buttons.forEach((b) => { b.blur(); });
     form_model.hideNextButton();
     let tests = recordManager.objects.PickWordInSet;
@@ -298,7 +299,7 @@
     return $.ajax(pick_word_in_sets_url, {
       type: 'POST',
       dataType: 'json',
-      data: form_model.params,
+      data: Object.assign({}, form_model.params, {'recursive': needMove}),
       error: function(jqXHR, textStatus, errorThrown) {
         alert("Loading new failed.");
         //TODO: system for local keeping and retrying to save obj
@@ -414,10 +415,11 @@
         if(button != form_model.nextButton) {
             button.onclick = (() =>{
               //console.log(`%%% clicking`);
-              if(button === document.activeElement)
-                {select(translation.id,form_model);}
+              if(button === button?.contentWindow?.document?.activeElement || form_model.lastSelected === button )
+                {select(translation.id,form_model);form_model.lastSelected = false;}
               else {
-                buttons.forEach((b) => { b == button ? b.focus() : b.blur(); });
+                form_model.lastSelected = button;
+                form_model.buttons.forEach((b) => { b == button ? b.focus() : b.blur(); });
               }
             });
         }
@@ -565,14 +567,25 @@
     //   if(child.tagName == 'INPUT' && child.getAttribute("name") == "pick_word_in_set[picked_id]")
     //     { picked_input = model.picked_input = child; }
     // }
-
+    model.confirm = () => {
+         console.log(`%%% confirming`);
+         model.buttons.forEach(b => {
+             if(b === b?.contentWindow?.document?.activeElement && b != nextButton)
+               { b.click(); model.lastKeyedIndex= false; }
+         });
+         if(model.lastSelected)
+         {
+           model.lastSelected.click();
+         }
+    };
      buttons.forEach(btn => {
       btn.addEventListener('mouseenter', () => {
-        model.buttons.forEach(b => {b != btn? b.blur() : b.focus(); });
+        if( nextButton.isConfirm) {return;}
+        model.buttons.forEach(b => {b != btn? b.blur() : (model.lastSelected = b).focus(); });
         if('data' in model && model.data.picked_id == null && btn != nextButton) { model.hideNextButton(); }
         // Automatically focus the button on hover and unfocus every one else
       });
-      btn.addEventListener('mouseleave', () => { model.buttons.forEach(b => b.blur()); });
+      btn.addEventListener('mouseleave', () => { model.buttons.forEach(b => b.blur()); model.lastSelected = false;});
      });
      document.addEventListener('keydown', (event) => {
        if (event.ctrlKey) { return; }
@@ -586,8 +599,9 @@
            else { moveNewPick(model); }
           return;
        }
-       if(model.data.picked_id == null) { model.showConfirmButton();}
+       if(model.data.picked_id == null) {   model.showConfirmButton();}
        model.buttons.forEach(b =>(b == buttons[index]? b.focus () : b.blur()));
+       model.lastSelected = buttons[index];
      });
 
      model.isCorrectTransaction = ((transaction) => {
@@ -601,19 +615,17 @@
      };
      model.showNextButton = () => {
         model.nextButton.className = 'btn-next';
-        model.nextButton.click = () => moveNewPick(model);
+        model.nextButton.optionText.innerHTML = 'Next';
+        model.nextButton.onclick = () => moveNewPick(model);
+        model.nextButton.isConfirm = false;
         model.buttons.forEach(b => {b.blur(); });
      };
-     model.confirm = () => {
-          //console.log(`%%% confirming`);
-          model.buttons.forEach(b => {
-              if(b === b?.contentWindow?.document?.activeElement && b != nextButton)
-                { b.click(); }
-          });
-     };
+
      model.showConfirmButton = () => {
-        nextButton.className = 'btn-next';
-        nextButton.click = model.confirm;
+        model.nextButton.className = 'btn-next';
+        model.nextButton.onclick = model.confirm;
+        model.nextButton.optionText.innerHTML = 'Confirm';
+        model.nextButton.isConfirm = true;
         buttons.forEach(b => {b.blur(); });
      };
     return model;
