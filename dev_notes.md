@@ -103,10 +103,11 @@ I need to decide weather I want to rebuild the interface and/to populate it from
 !!!check how action retrived for each ajax in new test
 !I will probably add some faster navigation support through state pop and state objects
 
-1) complete delayless test flow by keeping queue of tests,
-2) rework interface and display hiragana
+1) complete delayless test flow by keeping queue of tests, +
+2) rework interface and display hiragana +
 3) add multiple test support
 4) rework queue generation to reduce regeneration of sets and learn more in order
+5) add your translation option
 
 I might also want to add some message queue to allow traking of saving progress and other stuff
 !do something about links below interactive fields (remain old)
@@ -141,10 +142,18 @@ funny  fucntionality / messages concepts:
 !9 + 8 tests where 9 translations displayed and new word is shown each time you choosing on ranslation selected and correct one are replaced with new from pool
 !!!need supprot for multiple kana
 !!!need reload data if issued with saving reveal that desync happened
-? style issue with border
-? might be better move shorter answers to bottom and autoscroll of they are too long anyway
+? style issue with border +
+? might be better move shorter answers to bottom and autoscroll of they are too long anyway +
 !!need better filter for similar to correct translations
 !need to apply on second tap when mobile
-!!! I still think that flow/cascade pick test should be implemented
+!!! I still think that flow/cascade pick test should be implemented when only correct (and may be picked) pick is being replaced rplaced with new option
 !!! avoid repeating kana
 .. may be make proper default sigmoid and fix recursive request if no objects found at all
+.. may need to switch to 4 options
+.. consder maintainig different conventions in different languages veven when importing data to js from ruby
+
+> it's probably a nice idea to load html through data preload next and add some class_model logic to separate model too
+clicking on inactive button should copy text and show hint copied
+
+!!!organize declared checks
+!!!I think it's critical to  sort out train typing counts checks and pryority tracking

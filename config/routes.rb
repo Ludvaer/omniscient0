@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+
+  get 'mix_train/update'
   resources :translation_sets
   resources :descriptions
   resources :word_in_sets
@@ -8,7 +10,7 @@ Rails.application.routes.draw do
   resources :dialects
   resources :languages
   get '/data_preload' => 'data_preload#preload', as: :data_preload
-
+  get '/form_partial' => 'mix_train#render_form_partial', as: :form_partial
   #welcome
   root 'pseudo_static#welcome'
   get 'test_page' => 'pseudo_static#test_page',  as: :test_page
@@ -16,6 +18,7 @@ Rails.application.routes.draw do
   get '/:locale' => 'pseudo_static#welcome', as: :pseudo_root
 
   scope "(:locale)", locale: /en|ru/ do
+    get 'mix_train/new',  as: :new_mix_train
 
     get 'sigil' => 'pseudo_static#sigil',  as: :sigil
     #signup view destroy users

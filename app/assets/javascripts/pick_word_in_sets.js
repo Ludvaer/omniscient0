@@ -349,8 +349,8 @@
     });
     form_model.optionBoard.hidden = false;
     pick_word_in_set = form_model.data;
-    sourceDialectId = form_model.sourceDialectId;
-    targetDialectId = form_model.targetDialectId;
+    sourceDialectId = form_model.data.correct.translation_dialect_id;
+    targetDialectId = form_model.data.correct.word.dialect_id;
     allTranslations = form_model.data.translation_set.translations
     //let translations = pick_word_in_set.translation_set.translations
     let wordIds = [...new Set(allTranslations.map((t) => t.word.id))]; //unique words idsToRequest
@@ -520,7 +520,7 @@
   // {
   //   root.fit_all_text(document)
   // }
-  function form_form_model_from(pick_div)
+  function form_form_model_from(pick_div) //TODO: i really need to rewrite from model as proper class
   {
     const model = {};
     model.root = pick_div;
@@ -613,10 +613,11 @@
      model.hideNextButton = () => {
         model.nextButton.classList.add('transparent');
      };
+     model.onMoveNextClick = () => moveNewPick(model);
      model.showNextButton = () => {
         model.nextButton.className = 'btn-next';
         model.nextButton.optionText.innerHTML = 'Next';
-        model.nextButton.onclick = () => moveNewPick(model);
+        model.nextButton.onclick = model.onMoveNextClick;
         model.nextButton.isConfirm = false;
         model.buttons.forEach(b => {b.blur(); });
      };
@@ -704,11 +705,11 @@
 
   var declared;
   try {
-    root.pick_model_inits = root.pick_model_inits? root.pick_model_inits : [];
+    root.pick_model_inits = root.pick_model_inits ? root.pick_model_inits : [];
     declared = true;
   } catch(e) {
     declared = false;
   }
-  var pick_model_inits = declared ? pick_model_inits : [];
+  root.pick_model_inits = declared ? root.pick_model_inits : [];
   root.pick_model_inits.forEach( (i) => {i();})
 }).call(this);

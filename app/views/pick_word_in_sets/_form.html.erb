@@ -97,15 +97,16 @@ picked_id = "test_pick_#{identificator}_input"
     }
     console.log(`=== loading`);
     isLoadedPickWordInSet<%= identificator %> = true;
-    pick_model_<%= identificator %> = form_form_model_from(pick_div);
+    <% form_model_id = "pick_model_#{identificator}" %>
+    <%= form_model_id %> = form_form_model_from(pick_div);
     data_preload_url = "<%= data_preload_url %>";
     pick_word_in_sets_url = "<%= pick_word_in_sets_url %>";
-    pick_model_<%= identificator %>.locals = <%= locals.to_json.html_safe  %>;
-    pick_model_<%= identificator %>.params = <%= locals[:params].to_json.html_safe  %>;
-    pick_model_<%= identificator %>.pickWordInSetN = <%= locals[:params][:n]  %>;
-    pick_model_<%= identificator %>.sourceDialectId = <%= locals[:params][:source_dialect_id] %>;
-    pick_model_<%= identificator %>.targetDialectId = <%= locals[:params][:target_dialect_id] %>;
-    pick_model_<%= identificator %>.optionDialectId = <%= locals[:params][:option_dialect_id] %>;
+    <%= form_model_id %>.locals = <%= locals.to_json.html_safe  %>;
+    <%= form_model_id %>.params = <%= locals[:params].to_json.html_safe  %>;
+    <%= form_model_id %>.pickWordInSetN = <%= locals[:params][:n] || 0 %>;
+    <%= form_model_id %>.sourceDialectId = <%= locals[:params][:source_dialect_id] || 0 %>;
+    <%= form_model_id %>.targetDialectId = <%= locals[:params][:target_dialect_id] || 0 %>;
+    <%= form_model_id %>.optionDialectId = <%= locals[:params][:option_dialect_id] || 0 %>;
     <% ids = locals[:ids]%>
     <% ids = if defined?(ids) && (!ids.nil?) then ids else [] end %>
     <% ids = if ids.empty? && !pick_word_in_set.id.nil? then [pick_word_in_set.id] else ids end %>
@@ -114,9 +115,9 @@ picked_id = "test_pick_#{identificator}_input"
     receiveData(<%= preloadedData.to_json.html_safe %>, ()=> {
       // preloadData({"PickWordInSet":[<%=identificator %>]}, ()=> { // this shoud send request instead of prerender in place of receiveData
       <% if pick_word_in_set.id.nil? %>
-        fill_form(pick_model_<%= identificator %>)
+        fill_form(<%= form_model_id %>)
       <% else %>
-        moveNewPick(pick_model_<%= identificator %>, <%= pick_word_in_set.id %>)
+        moveNewPick(<%= form_model_id %>, <%= pick_word_in_set.id %>)
       <% end %>
     //pick_word_in_set_<%=identificator %> = recordManager.objects['PickWordInSet'][<%= identificator  %>];
     //pick_model_<%= identificator %>.data = pick_word_in_set_<%=identificator %>;
@@ -125,8 +126,9 @@ picked_id = "test_pick_#{identificator}_input"
          pick_model_<%= identificator %>.hideNextButton();
       <%end%>
     });
+    formModels['PickWordInSet'] = <%= form_model_id %>;
   };
   pick_model_inits.push( pick_model_<%= identificator %>_load);
   document.addEventListener('turbolinks:load', pick_model_<%= identificator %>_load);
-  //document.onload = pick_model_<%= identificator %>_load;
+
 </script>

@@ -36,3 +36,14 @@
 //= stub 'shultes'
 //= stub 'pick_word_in_sets'
 //= stub 'test_page'
+
+function unique(a) {
+  return [...new Set(a)];
+}
+(function() {
+  let root = typeof exports !== "undefined" && exports !== null ? exports : this;
+  root.INIT_FORMS = false;
+  root.formModels = {};
+  root.initialized = {};
+  root.unique = unique;
+  }).call(this);

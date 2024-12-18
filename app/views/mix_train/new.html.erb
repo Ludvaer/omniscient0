@@ -1,0 +1,121 @@
+<% provide(:title, t('mix train')) %>
+<% provide(:assets,javascript_include_tag('pick_word_in_sets','data-turbolinks-track' => true)) %>
+
+<div id='mainboard'></div>
+
+<div id='scripts' hidden='true'></div>
+<script type="text/javascript">
+function init_mix_train() {
+    var gameboard = document.getElementById('mainboard');
+    if (init_mix_train in initialized) {
+      if (gameboard == null) {
+        document.removeEventListener('turbolinks:load', init_mix_train);
+      }
+      return;
+    }
+    var scriptArea =  document.getElementById('scripts');
+    var params = <%=params.to_json.html_safe%>
+    data_preload_url = "<%= data_preload_url %>";
+    form_partial_url = "<%= form_partial_url %>";
+
+    async function fetchForm(modelName, onFetch) {
+      const response = await fetch(form_partial_url + '&model_name=' + modelName, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        htmlKeeper[modelName] = data.html;
+        onFetch();
+      } else {
+        console.error('Error fetching form:', await response.json());
+      }
+    }
+   trainList = <%= @train_list.to_json.html_safe %>;
+   preloadedData = <%= @data.to_json.html_safe %>;
+   //we need to sort out which of preloaded data tests relates to which train in trainlist to keep counting
+   receiveData(preloadedData, ()=> {});
+   testNames = unique(trainList.map(t => t.name))
+   htmlKeeper = {}
+   elementKeeper = {}
+   var renderedForms = {};
+   function moveNext()
+   {
+     testNames.forEach((testName, i) => {
+       let tests = recordManager.objects[testName];
+       let unfilledTests = tests ? Object.values(tests).filter((p) => p.picked_id == null) : []; //TODO: need universal filled indicator
+       if(unfilledTests.length > 0) {
+         moveNewPick(formModels[testName], unfilledTests[0].id);
+       }
+     });
+   }
+
+   function render()  {
+     testNames.forEach((item, i) => {
+       if (item in renderedForms) {
+         return;
+       }
+       let div = document.createElement("div");
+       div.innerHTML = htmlKeeper[item];
+       elementKeeper[item] = div;
+       gameboard.appendChild(div);
+       const scripts = div.querySelectorAll('script');
+       // For each original script
+       scripts.forEach(originalScript => {
+         // Create a new script element
+         const newScript = document.createElement('script');
+
+         // Copy attributes if needed
+         for (const attr of originalScript.attributes) {
+           newScript.setAttribute(attr.name, attr.value);
+         }
+
+         // Move the script content
+         newScript.textContent = originalScript.textContent;
+         newScript.onload = function(){
+
+         }
+         // // Append new script to where you want them to run
+         scriptArea.appendChild(newScript);
+         //remove old script
+         originalScript.remove();
+
+         //run queued inits
+         var declared;
+         try {
+           pick_model_inits = pick_model_inits? pick_model_inits : [];
+           declared = true;
+         } catch(e) {
+           declared = false;
+         }
+         pick_model_inits.forEach( (i) => {i();})
+         formModels[item].onMoveNextClick = moveNext;
+
+         let tests = recordManager.objects.PickWordInSet;
+         let unfilledTests = tests ? Object.values(tests).filter((p) => p.picked_id == null) : []; //TODO: need universal filled indicator
+         moveNewPick(formModels[item], unfilledTests[0].id);
+       });
+       renderedForms[item] = div;
+     });
+
+   }
+
+   testNames.forEach((item, i) => {
+     fetchForm(item, render);
+   });
+   initialized[init_mix_train] = true;
+}
+var declared;
+try {
+  pick_model_inits = pick_model_inits? pick_model_inits : [];
+  declared = true;
+} catch(e) {
+  declared = false;
+}
+pick_model_inits = declared ? pick_model_inits : [];
+pick_model_inits.push(init_mix_train);
+document.addEventListener('turbolinks:load', init_mix_train);
+</script>
