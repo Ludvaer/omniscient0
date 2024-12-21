@@ -28,8 +28,8 @@ module MixTrainHelper
     end
     source_dialect_id = (Dialect.find_by(name: source.downcase) || Dialect.find_by(id: source.to_i)).id
     target_dialect_id = (Dialect.find_by(name: target.downcase) || Dialect.find_by(id: target.to_i)).id
-    kana_dialect_id = Dialect.find_by(name: 'kana')
-    kanji_dialect_id = Dialect.find_by(name: 'kanji')
+    kana_dialect_id = Dialect.find_by(name: 'kana').id
+    kanji_dialect_id = Dialect.find_by(name: 'kanji').id
     name = 'PickWordInSet'
     @@i ||= 1
     pick_list =
