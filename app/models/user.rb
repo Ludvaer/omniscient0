@@ -13,7 +13,7 @@ class User < ApplicationRecord
 		               #uniqueness checked during validation, removed here to avoid ext db queries
 	validates :email, presence: true, length: { maximum: MAX_EMAIL_LENGTH },
 		format: { with: VALID_EMAIL_REGEX }#, uniqueness: { case_sensitive: false }
-	validates :password, presence: true, length: { minimum: PASSWORD_LENGTH, maximum: PASSWORD_LENGTH}
+	# validates :password, presence: true, length: { minimum: PASSWORD_LENGTH, maximum: PASSWORD_LENGTH}
 	validates :downame,  presence: true, length: { maximum: MAX_USERNAME_LENGTH,  minimum: MIN_USERNAME_LENGTH},
 		format: { with: VALID_USER_REGEX }
 	has_secure_password

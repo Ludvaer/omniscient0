@@ -67,7 +67,6 @@ ActiveRecord::Schema[7.0].define(version: 2024_11_25_104258) do
     t.string "token"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["token"], name: "index_sessions_on_token", unique: true
   end
 
   create_table "shultes", force: :cascade do |t|
@@ -96,7 +95,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_11_25_104258) do
     t.integer "translation_dialect_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "user_id", default: 7, null: false
+    t.bigint "user_id", default: 0, null: false
     t.integer "priority"
     t.integer "rank"
     t.index ["translation_dialect_id"], name: "index_translations_on_translation_dialect_id"

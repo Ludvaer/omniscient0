@@ -8,11 +8,8 @@
 require 'csv'
 
 #zero translation and zero word are needed for 'do not know' option to be distinguishable from nil / undefined
-zero_word = Word.find_or_create_by!(id:0)
-zero_translation = Translation.find_or_create_by!(id:0, word_id:0)
+
 #just in case most things must have some stub zero elemnt
-zero_language = Language.find_or_create_by!(id:0)
-zero_dialect = Dialect.find_or_create_by!(id:0, language_id:0)
 
 csv_text = File.read(Rails.root.join('db', 'seeds', 'users.csv'))
 csv_text.gsub! '"', ''
@@ -22,12 +19,14 @@ csv.each do |row|
   unless User.where(name:row['name']).exists?
       puts "regenerate user #{row['name']}"
       user = User.new
+      user.id = row['id']
       user.name = row['name']
       user.email = row['email']
       user.downame = row['downame']
       user.activated = row['activated']
       user.password_digest = row['password_digest']
-      user.save
+      result = user.save
+      puts "gen res #{result}: #{user.errors.to_json}"
   end
 end
 puts 'users are finished'
@@ -55,6 +54,7 @@ csv.each do |row|
       dialect.save
   end
 end
+zero_language = Language.find_or_create_by!(id:0)
 puts 'languages are finished'
 
 csv_text = File.read(Rails.root.join('db', 'seeds', 'dialects.csv'))
@@ -68,6 +68,7 @@ csv.each do |row|
       dialect.save
   end
 end
+zero_dialect = Dialect.find_or_create_by!(id:0, language_id:0)
 puts 'dialects are finished'
 
 japanese_dialect_id =  Dialect.find_by(name:'japanese').id
@@ -88,7 +89,7 @@ Word.where(dialect_id: japanese_dialect_id).each do |word|
     kept_with_kana = kept_with_kana +1
   end
 end
-
+zero_word = Word.find_or_create_by!(id:0, dialect_id:0)
 existing_jap_words = Word
   .where(dialect_id:[japanese_dialect_id,kanji_dialect_id])
   .group_by{|w| w.spelling + "|" + w.translations.where(translation_dialect_id:kana_dialect_id)&.first&.translation.to_s }
@@ -117,9 +118,13 @@ kana_tranlations.group_by{|kt| kt.word.spelling + '|' + kt.translation}.values.e
     deleted_kana_duplicated = deleted_kana_duplicated + 1
   end
 end
+#zero_translation = Translation.find_or_create_by!(id:0, word_id:0, user_id:0, translation_dialect_id:0)
+
 puts "#{deleted_kana_duplicated} tranlations are deleted as duplicated kana"
 
 def parse_csv(provider, file_path, dialect_from)
+  word = Word.new
+  word_saved = true
   japanese_dialect_id =  Dialect.find_by(name:'japanese').id
   kanji_dialect_id =  Dialect.find_by(name:'kanji').id
   kana_dialect_id =  Dialect.find_by(name:'kana').id
@@ -143,6 +148,8 @@ def parse_csv(provider, file_path, dialect_from)
     overriden_translations[k] = false
   end
 
+  saved_words_counter = 0
+
   puts "start parsing csv for #{provider} with existing seed #{existing_translations.size} translations "
   #  puts "start parsing csv for #{provider} with existing seed translations #{existing_translations.take(100)}"
   counter = 0
@@ -156,6 +163,9 @@ def parse_csv(provider, file_path, dialect_from)
     counter = counter + 1
     if counter%200 == 0
       puts "#{counter} progress"
+      if !word_saved
+        puts "last word errors: #{word.errors.to_json}"
+      end
     end
     japanese = row[dialect_from_column_name].split(/;/)[0]
     romaji = row['Romaji']&.split(/;/)&.first
@@ -211,7 +221,7 @@ def parse_csv(provider, file_path, dialect_from)
         word = Word.new
         word.spelling = japanese
         word.dialect_id = dialect_from_id
-        word.save
+        word_saved = word.save
         word = word.reload
         counter_word = counter_word + 1
     end

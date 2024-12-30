@@ -1,4 +1,5 @@
 class AccountActivationsController < ApplicationController
+  include SessionsHelper
 
   # GET /account_activations or /account_activations.json
   def index
