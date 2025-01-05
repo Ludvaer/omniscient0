@@ -1,4 +1,5 @@
 id	name	email	password_digest	Token	downame	activated
+0	"zero"	"zero@example.com"	"$2a$12$XLo6p94vvx4OxoFjKrV35.esxK.VE549Nthmdsi5tSPgCWFxnC9ge"		"mikhailutochkin"	true
 1	"mikhailutochkin"	"mikhailutochkin@gmail.com"	"$2a$12$XLo6p94vvx4OxoFjKrV35.esxK.VE549Nthmdsi5tSPgCWFxnC9ge"		"mikhailutochkin"	true
 2	"Lurr"	"wolflurr@gmail.com"	"$2a$12$NLWWzZj5TpwaeNkstzzMOOlLvQCZNwT0gUPrPZdr3Q2roImM3PBuq"		"lurr"	true
 5	"YarxiSeed"	"yarxiseed@example.com"	"$2a$12$nkOARH5DCFUohPyHX4vAOeYaSG.u1miWbGb6ag0/hWoKUefCfTeRi"		"yarxiseed"	true

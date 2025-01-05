@@ -10,7 +10,7 @@ gem "rails", "~> 7.0.4"
 gem "sprockets-rails"
 
 # Use pg as the database for Active Record
-gem "pg"
+gem "pg", "~> 1.4.5"
 
 
 
@@ -86,6 +86,6 @@ group :test do
   # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
   gem "capybara"
   gem "selenium-webdriver"
-  gem "webdrivers"  
+  gem "webdrivers"
   gem "nokogiri"
 end
