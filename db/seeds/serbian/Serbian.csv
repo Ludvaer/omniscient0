@@ -1,0 +1,40 @@
+include|cyrillic|latin|original cyrillic|original latin|part of speech|gender|person|plurality|case|russian short|russian|english short|english|japanese short|japanese-
+-|да|da|||conjunction|||||что|что, чтобы, как, a, ecли бы|that|that, to, so, so that, in order to|ために|関係代名詞、 ために
+-|да|da|||particle|||||да| да, (указатель инфинитива, начала вопроса, побуждения)|yes|yes, (used when starting a question, expressing wishes, commands)|はい|はい、(疑問文の最初に置く)
+-|je|је|бити|biti|verb||3|s|||||||
+-|je|је|она|ona|pronoun|f|3|singular|genitive,accusative||||||
+-|не|ne|||particle|||||нет|нет|not|not,no|ない|ない、いいえ、否
+-|се|se|се̏бе|sȅbe|pronoun||1|singular|genitive,accusative|себя|себя, себе|self|myself, itself, yourself, ...|自分|自分
+-|се|se|се|se|particle|||||ся|ся (возвратная частица)|self|self (reflexive particle)|自分|自分 (再帰動詞の助詞)
+-|и|i|и|i|conjunction|||||и|и|and|and, also, too, as well, even, so|と|と、や、及び、そして
+-|у|u|у|u|preposition|||||в|в|in|in, at, to, into, on, in, at, during|に|に、で、の中に、の内部に、において
+-|то|to|тај|taj|pronoun|n||s|nominative,accusative|то|то|that|that, it, then|それ|それ、その、だから
+-|сам|sam|бити|biti|verb||1|s||||am|am||
+-|сам|sam|||adjective|||s|nominative,accusative,vocative|сам|сам, сама, само, самостоятельно|self|alone,self,himself,unaided,single-handed|自身|自身、一人で、独り、だけ
+-|на|na|||preposition|||||на|на, в, за, по, с|on|to, on, onto, at, in, by, for, at|の上|の上、へ、に、で、間に、
+-|на|na|||interjection|||||на|на! бери!|take it|here you are! take it!||
++|tȋ|ти̑|||pronoun||1|s||ты|ты|you|you, your|あなた|あなた、君、お前
++|ми̑|mȋ|ми̑|mȋ|pronoun||1|p||мы|мы, мне|we|we, us, ourselves, to me|私たち|私たち、私に
+-|зà|zà|зà|zà|preposition|||||за|за, для|for|for, behind, by, instead, about, during, after, as|のため|ために、後ろに、間に、 代わりに、 で、
+-|си|sȉ|би̏ти|bȉti|verb||2|singular||есть|есть, глагол 'быть', второе лицо|are|are, second person singular of 'to be'|です|です、である、自分自身に
+-|си|sȉ|се̏бе|sȅbe|pronoun||1|singular|dative|себе|себе в дательном падеже|to me|to myself|自分自身に|自分自身に
+-|ли|li|лѝ|lȉ|particle|||||ли|ли, же, если|question particle|question particle (yes/no questions), if, intensifier|か|か、なの
+-|шта̏|štȁ|шта̏|štȁ|pronoun|||||что|что|what|what, which|何|何、何ですか
+-|штȍ|štȍ|штȍ|štȍ|pronoun|||||что|что, который, потому|what|what, which, because|何|何、何ですか、について
+-|штȍ|štȍ|штȍ|štȍ|conjunction|||||потому|потому, вместо|because|because, why, instead|だから|だから、その代わり
++|я̏|jȁ|ја|ja|pronoun|||||я|я|I|I, myself|私|私, 僕
+-|ȁли|ȁli|али|ali|conjunction|||||но|но, однако|but|but, however|しかし|しかし、でも
+-|сà|sȁ|са|sa|preposition|||||с|с|with|with, from, alongside, as, from|と|と、一緒に、で、から
+-|сȕ|sȕ|би̏ти|bȉti|verb||||||||||
+-|нѝје|nȉje|би̏ти|bȉti|verb|||||не|не является, не было|not|is not, was not|ではない|ではない
+-|ȍво|ȍvo|ȍво|ȍvo|pronoun|||||это|это, этот|this|this, this one|これ|これ、この
++|сȁмо|sȁmo|сȁмо|sȁmo|particle|||||только|только, лишь|only|only, just, solely|だけ|ただひとつ、だけ、ただ
++|сȁмо|sȁmo|сȁмо|sȁmo|conjunction|||||только|только, лишь|only|only, just, solely|だけ|ただひとつ、だけ、ただ
+-|мè|mè|я̏|jȁ|pronoun||1|singular|accusative,genitive|меня|меня (винительный  или родительный падеж)|me|me, myself (genitive or accusative of I)|私を|私を (主格形 対格形)
+-|тè|tȅ|ти̑|tȋ|pronoun||1|singular|accusative,genitive|тебя|тебя (винительный или родительный падеж), те (женский род мнонжественное число)|you|to you (genitive or accusative), those (feminine plural)|あなたを|あなたを、君を、お前を、(主格形 対格形)  それ (複数 女)
+-|тè|tȅ|таj|taj|pronoun|f||plural||тебя|тебя (винительный или родительный падеж), те (женский род мнонжественное число)|you|to you (genitive or accusative), those (feminine plural)|あなたを|あなたを、君を、お前を、(主格形 対格形)  それ (複数 女)
+-|ȍд|ȍd|ȍд|ȍd|preposition|||||от|от, из, начиная с|from|from, of, since|から|から、より
+-|а̏|ȁ|а̏|ȁ|conjunction|||||а|а, но, тогда|and, but|and, but, while|そして|そして、しかし、でも
+-|гà|gà|ȍн|ȍn|pronoun|m|1|singular|accusative,genitive|его|его (винительный падеж)|him|him, it|彼を|彼を、それを
+-|бȉ|bȉ|бȉти|bȉti|verb|||||бы|бы (частица, выражает условность)|would|would, should, could|なら|なら、だったら
+-|ка̏ко|kȁko|ка̏ко|kȁko|verb|||||как|как, каким образом|how|how, in what way|どう|どう、どのように

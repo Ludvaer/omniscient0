@@ -1,0 +1,17 @@
+question|correct|1|2|3|4|5|6|7|8|9|task|original
+ja _|1|sam|si|je|smo|ste|su|7|8|9|correct_from|biti
+ti _|2|sam|si|je|smo|ste|su|7|8|9|correct_from|biti
+on _|3|sam|si|je|smo|ste|su|7|8|9|correct_from|biti
+ona _|3|sam|si|je|smo|ste|su|7|8|9|correct_from|biti
+ono _|3|sam|si|je|smo|ste|su|7|8|9|correct_from|biti
+mi _|4|sam|si|je|smo|ste|su|7|8|9|correct_from|biti
+vi _|5|sam|si|je|smo|ste|su|7|8|9|correct_from|biti
+oni _|6|sam|si|je|smo|ste|su|7|8|9|correct_from|biti
+one _|6|sam|si|je|smo|ste|su|7|8|9|correct_from|biti
+ona _|6|sam|si|je|smo|ste|su|7|8|9|correct_from|biti
+on|1|oni|one|ona|4|5|6|7|8|9|to_multiple|
+ona|2|oni|one|ona|4|5|6|7|8|9|to_multiple|
+ono|3|oni|one|ona|4|5|6|7|8|9|to_multiple|
+oni|1|on|ona|ono|4|5|6|7|8|9|to_singular|
+one|2|on|ona|ono|4|5|6|7|8|9|to_singular|
+ona|3|on|ona|ono|4|5|6|7|8|9|to_singular|
