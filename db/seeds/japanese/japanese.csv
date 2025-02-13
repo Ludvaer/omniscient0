@@ -1,0 +1,37 @@
+include|word|reading|original|part of speech|tags|russian short|russian|english short|english|serbian short|serbian
+-|の|の|の|particle||ый|обозначение притяжательности, свойства|of|of (that works backwards)||
+-|に|に|に|particle||к|к, в|to|of toward, into||
+-|は|は|は|particle|||отмечает тему предложения||marks the topic of the sentence||
+-|た|た|た|suffix|||суффикс прошедшего времени||past tense suffix||
+-|を|を|を|particle|||отмечает объект на который действует глагол||marks object of a verb||
+-|だ|だ|だ|verb||есть|быть, есть|be|be, is, are (copula)|biti|sam, si, je, smo, si, ste, su
+-|が|が|が|particle|||отмечает объект предложения||indicates the subject of a sentence||
+-|て|て|て|suffix|||соеденительный суффикс||the conjunctive ending||
+-|と|と|と|particle||и|и|and|and||
+-|ます|ます|ます|suffix|polite||суффикс вежливой формы глогола||polite verb suffix||
++|も|も|も|particle||тоже|тоже|too|too||
+-|で|で|で|particle||в|в, с|at|at, with, by, using||
+-|てる|ている|て いる|suffix|combo||окончание указывающе на продолжительность|ing|continuation suffix||
+-|ている|ている|て いる|suffix|combo||окончание указывающе на продолжительность|ing|continuation suffix||
+-|です|です|だ|verb|polite|есть|быть, есть (вежливый глоагол связка)|be|be, is, are (polite copula)|biti|jesam, jesi, jest, jesmo, jesi, jeste, jesu
+-|れる|れる||suffix|||окончание пассивности||passive suffix||
+-|てる|ている||suffix|||окончание указывающе на продолжительность|ing|continuation suffix||
+-|つう|つう|と 言う|suffix|combo|зовётся|называется, именуется|called|called, named||
+-|という|という|と 言う|suffix|combo|зовётся|называется, именуется|called|called, named||
++|事|こと|事|noun|вещь|дело, вещь, обстоятельство, факт, случай|thing|abstract thing, affair, matter, fact||
++|ええ|ええ|ええ|interjection||да|да|yes|yes|da|da
++|えー|えー|ええ|interjection||да|да|yes|yes|da|da
++|言う|いう|言う|u-verb||говорить|говорить, сказать|say|say, tell||
+-|のです|のです|の だ|verb|polite, combo|есть же|быть, есть (вежливый усилительный глагол связка)|be|be, is, are (asserion polite copula)|biti|jesam, jesi, jest, jesmo, jesi, jeste, jesu
+-|んです|んです|の だ|verb|polite, combo|есть же|быть, есть (вежливый  усилительный глагол связка)|be|be, is, are (asserion polite copula)|biti|jesam, jesi, jest, jesmo, jesi, jeste, jesu
+-|あの|あの|あの|interjection|||||||
++|あの|あの|彼の|pronoun||тот|тот (та, то)|that|that, those|онај|онај (онај, она, оно, они, оне, она)
+-|あのう|あのう|あのう|interjection|||||||
+-|あのー|あのー|あのー|interjection|||||||
++|する|する|為る|verb|irregular|делать|делать|do|do||
+-|まー|まー|まー|interjection|||||||
+-|まあ|まあ|まあ|interjection|||||||
++|ある|ある|有る|verb|irregular|быть|быть, иметься, находиться|be|be, exist, there is; be had; be found|ìmati|
+-|ね|ね|ね|particle||же|же (усилительная частица)|isn't it|right? eh? isn't it? innit? ||
++|ない|ない|無い|i-adjective||нету|не быть, не иметься, нет|none| there is no||
++|なる|なる|成る|verb||стать|становиться, делаться, превращаться|become|become, get, grow, turn into||
