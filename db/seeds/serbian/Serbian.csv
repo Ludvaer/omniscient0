@@ -1,7 +1,7 @@
 include|cyrillic|latin|original cyrillic|original latin|part of speech|gender|person|plurality|case|russian short|russian|english short|english|japanese short|japanese-
 -|да|da|да|da|conjunction|||||что|что, чтобы, как, a, ecли бы|that|that, to, so, so that, in order to|ために|関係代名詞、ために
 -|да|da|да|da|particle|||||да|да, (указатель инфинитива, начала вопроса, побуждения)|yes|yes, (used when starting a question, expressing wishes, commands)|はい|はい、(疑問文の最初に置く)
--|je|је|бити|biti|verb||3|singular||есть|есть, глагол 'быть', третье лицо|is|is, third person singular of 'to be'|です|です、である
+-|je|је|би̏ти|bȉti|verb||3|singular||есть|есть, глагол 'быть', третье лицо|is|is, third person singular of 'to be'|です|です、である
 -|je|је|она|ona|pronoun|f|3|singular|genitive, accusative|её|её|her|her|彼女の|彼女の
 -|не|ne|не|ne|particle|||||нет|нет|not|not, no|ない|ない、いいえ、否
 -|се|se|се̏бе|sȅbe|pronoun||3|singular|genitive, accusative|себя|себя, себе|self|myself, itself, yourself, ...|自分|自分
@@ -9,7 +9,7 @@ include|cyrillic|latin|original cyrillic|original latin|part of speech|gender|pe
 -|и|i|и|i|conjunction|||||и|и|and|and, also, too, as well, even, so|と|と、や、及び、そして
 -|у|u|у|u|preposition|||||в|в|in|in, at, to, into, on, during|に|に、で、の中に、の内部に、において
 -|то|to|тај|taj|pronoun|n||singular|nominative, accusative|то|то|that|that, it, then|それ|それ、その、だから
--|сам|sam|бити|biti|verb||1|singular||есть|есть|am|am|です|です
+-|сам|sam|би̏ти|bȉti|verb||1|singular||есть|есть|am|am|です|です
 -|сам|sam|сам|sam|adjective|||singular|nominative, accusative, vocative|сам|сам, сама, само, самостоятельно|self|alone, self, himself, unaided, single-handed|自身|自身、一人で、独り、だけ
 -|на|na|на|na|preposition|||||на|на, в, за, по, с|on|to, on, onto, at, in, by, for, at|の上|の上、へ、に、で、間に、
 -|на|na|на|na|interjection|||||на|на! бери!|take it|here you are! take it!||
@@ -26,7 +26,7 @@ include|cyrillic|latin|original cyrillic|original latin|part of speech|gender|pe
 +|ја̑|jȃ|ја̑|jȃ|pronoun||1|singular|nominative|я|я|I|I, myself|私|私, 僕
 -|ȁли|ȁli|али|ali|conjunction|||||но|но, однако|but|but, however|しかし|しかし、でも
 -|са|sa|са|sa|preposition|||||с|с|with|with, from, alongside, as, from|と|と、一緒に、で、から
--|су|su|би̏ти|bȉti|verb||3|plural|present|есть|есть, третье лицо множественного числа|are|are (plural of "to be")|です|です
+-|су|su|би̏ти|bȉti|verb||3|plural|present|есть|есть (третье лицо множественного числа)|are|are (plural to be)|です|です
 -|нѝје|nìje|би̏ти|bȉti|verb||3|singular|present, negative|не|не является, не было|not|is not, was not|ではない|ではない
 -|о̀во̄|òvō|о̀во̄|òvō|pronoun|n||singular|nominative|это|это, этот|this|this, this one|これ|これ、この
 +|сȁмо|sȁmo|сȁмо|sȁmo|particle|||||только|только, лишь|only|only, just, solely|だけ|ただひとつ、だけ、ただ
@@ -37,25 +37,65 @@ include|cyrillic|latin|original cyrillic|original latin|part of speech|gender|pe
 -|ȍд|ȍd|ȍд|ȍd|preposition|||||от|от, из, начиная с|from|from, of, since|から|から、より
 -|а̏|ȁ|а̏|ȁ|conjunction|||||а|а, но, тогда|and, but|and, but, while|そして|そして、しかし、でも
 -|гà|gà|ȍн|ȍn|pronoun|m|3|singular|accusative, genitive|его|его (винительный, родительный падеж)|him|him, it|彼を|彼を、それを
--|бȉ|bȉ|бȉти|bȉti|verb|||||бы|бы (частица, выражает условность)|would|would, should, could|なら|なら、だったら
+-|бȉ|bȉ|би̏ти|bȉti|verb|||||бы|бы (частица, выражает условность)|would|would, should, could|なら|なら、だったら
 -|ка̏ко|kȁko|ка̏ко|kȁko|adverb|||||как|как, каким образом|how|how, in what way|どう|どう、どのように
 -|о|o|о|o|preposition|||||о|о, про|about|about, of, concerning, regarding|に関して|に関して、の周りに、に対して
 -|dòbro|до̀бро|dòbro|до̀бро|adverb|||||хорошо|хорошо, ладно, пра́вильно|well|well, fine, alright, correctly|よく|よく、うまく、正しく、きちんと
 -|dòbro|до̀бро|dòbro|до̀бро|noun|n||singular|nominative, accusative|добро|добро, благо, имущество, собственность|good|good, goodness, well-being, property, estate|善|善、幸福、財産、不動産
 -|ȁко|ȁko|ȁко|ȁko|conjunction|||||если|если, допустим|if|if, in case|もし|もし、だったら、なら
 +|свȅ|svȅ|свȅ|svȅ|pronoun|||||всё|всё, все|all|all, everything|すべて|すべて、全部、一切、皆
--|смо̏|smȍ|бȉти|bȉti|verb||1|plural|present|есть|есть, первое лицо множественного числа|are|are (first person plural of "to be")|です|です
+-|смо̏|smȍ|би̏ти|bȉti|verb||1|plural|present|есть|есть, первое лицо множественного числа|are|are (first person plural of "to be")|です|です
 -|ка̏ко|kȁko|ка̏ко|kȁko|adverb|||||как|как, каким образом|how|how, in what way|どう|どう、どのように、如何
 -|ка̏ко|kȁko|ка̏ко|kȁko|conjunction|||||как|как, как только, так как|as|as, while, to, so, so as to, so that, in order to, in order for|をしている間に|をしている間に
--|ћȅ|će|бȉти|bȉti|verb||3||future|будет|будет (будущее время)|will|will (future tense marker)|だろう|だろう、でしょう
+-|ћȅ|će|би̏ти|bȉti|verb||3||future|будет|будет (будущее время)|will|will (future tense marker)|だろう|だろう、でしょう
 -|тȁко|tȁko|тȁко|tȁko|adverb|||||так|так, таким образом|so|so, thus, in that way|そう|そう、そのように
 +|знȁти|znȁti|знȁти|znȁti|verb|||||знать|знаю, понимать|know|know, be aware|知る|知る、分かる
 -|знȁм|znȁm|знȁти|znȁti|verb||1|singular|present|знаю|знаю, понимаю|know|know, be aware|知る|知る、分かる
--|нѝсам|nȉsam|бȉти|bȉti|verb||1|singular|present,negative|не|не являюсь|am not|am not|ではない|ではない
-+|моћи|moći|мoћи|moći|verb|||||мочь|мочь, уметь, быть способным|can|can, be able to, may|できる|できる、可能
--|могу|mogu|мoћи|moći|verb||1|singular|present|могу|могу, умею, способен|can|can, be able to, may|できる|できる、可能
--|сте|ste|бȉти|bȉti|verb||2|plural|present|есть|есть, второе лицо множественного числа|are|are (second person plural of "to be")|です|です
+-|нѝсам|nȉsam|би̏ти|bȉti|verb||1|singular|present,negative|не|не являюсь|am not|am not|ではない|ではない
++|мо̏ћи|mȍći|мoћи|mȍći|verb|||||мочь|мочь, уметь, быть способным|can|can, be able to, may|できる|できる、可能
+-|мо̏гу|mògu|мoћи|mȍći|verb||1|singular|present|могу|могу, умею, способен|can|can, be able to, may|できる|できる、可能
+-|сте|ste|би̏ти|bȉti|verb||2|plural|present|есть|есть, второе лицо множественного числа|are|are (second person plural of "to be")|です|です
 -|ȍвде|ovde|ȍвде|ovde|adverb|||||здесь|здесь, тут|here|here, in this place|ここ|ここ、こちら
 -|па|pa|па|pa|conjunction|||||затем|затем, потом, да и|then|then, and so, therefore|それから|それから、だから
 -|па|pa|па|pa|particle|||||ну|ну, же, вот|well|well, so, now, then|さて|さて、では、それで
--|био|bio|бȉти|bȉti|verb|m|3|singular|past|был|был (мужской род, прошедшее время)|was|was (masculine singular past of "to be")|だった|だった (男性形)
+-|био|bio|би̏ти|bȉti|verb|m|3|singular|past|был|был (мужской род, прошедшее время)|was|was (masculine singular past of "to be")|だった|だった (男性形)
++|зȁшто|zȁšto|зȁшто|zȁšto|adverb|||||почему|почему, зачем|why|why, for what reason|なぜ|なぜ、どうして
+-|с|s|с|s|preposition|||||с|с, вместе с|with|with, alongside, together with, from|と|と、一緒に、から
++|о̑н|ȏn|о̑н|ȏn|pronoun|m|3|singular|nominative|он|он|he|he, it (for masculine nouns)|彼|彼、それ（男性名詞に対して）
++|јȍш|jȍš|јȍш|jȍš|adverb|||||ещё|ещё, больше, до сих пор|still|still, yet, more|まだ|まだ、更に、もっと
++|нȅшто|nȅšto|нȅшто|nȅšto|pronoun|||singular|nominative, accusative|что-то|что-то, нечто|something|something, anything|何か|何か、何でも
+-|би̏ло|bȉlo|би̏ти|bȉti|verb|n|3|singular|past|было|было (средний род, прошедшее время)|was|was (neuter singular past of "to be")|だった|だった (中性形)
++|би̏ло|bȉlo|би̏ло|bȉlo|noun|n||singular|nominative|пульс|пульс, ритм|pulse|pulse, rhythm, beat|脈|脈、鼓動、リズム
+-|рȅду|rȅdu|рȅд|rȅd|noun|m||singular|dative, locative|порядке|порядке, месте|order|order, place|順番|順番、秩序
++|рȅд|rȅd|рȅд|rȅd|noun|m||singular|nominative|порядок|порядок, строй, ряд, очередь|order|order, row, sequence|順番|順番、秩序、列
++|би̏ти|bȉti|би̏ти|bȉti|verb|||||быть|быть, существовать|to be|to be, exist|いる|である、いる、存在する
++|ко̏ји|kȍji|ко̏ји|kȍji|pronoun|m|3|||который|который, какой из|which|which|どの|どの、どれ、どちら
++|ка̏д|kȁd|ка̏д|kȁd|adverb|||||когда|когда, в какое время|when|when, at what time|いつ|いつ、どの時
+-|ка̏д|kȁd|ка̏д|kȁd|conjunction|||||когда|когда, если, в то время как|when|when, if, while|〜時|〜時、もし、〜のとき
+-|ва̑с|vȃs|ти̑|tȋ|pronoun||2|plural|genitive, accusative|вас|вас (родительный или винительный падеж)|you|you (genitive or accusative of "you")|あなたを|あなたを、君を、お前を (所有格 対格)
+-|ћу|ću|би̏ти|bȉti|verb||1|singular|future|буду|буду (будущее время)|will|will (future tense marker)|だろう|だろう、でしょう、です (未来形)
++|хва́ла|hvála|хвȁла|hvala|noun|f||singular|nominative|спасибо|спасибо, благодарность|thanks|thanks, gratitude|ありがとう|ありがとう、感謝
+-|и̏з|ȉz|и̏з|ȉz|preposition|||||из|из, от, с|from|from, out of, since|から|から、より
+-|мислим|mislim|мислити|misliti|verb||1|singular|present|думаю|думаю, полагаю|think|(I) think, believe|思う|(私) 思う、考える
++|ми̏слити|mȉsliti|ми̏слити|mȉsliti|verb|||||думать|думать, размышлять, считать|to think|to think, to believe, to consider|思う|思う、考える
+-|ѝма|ìma|ѝмати|ìmati|verb||3|singular|present|имеет|имеет, есть, имеется|has|has, there is|ある|ある、持っている
++|ѝмати|ìmati|ѝмати|ìmati|verb|||||иметь|иметь, обладать|to have|to have, to possess|持つ|持つ、ある、 所有する
+-|или|ȉli|или|ȉli|conjunction|||||или|или, либо|or|or, either|または|または、それとも、か
+-|знаш|znaš|знȁти|znȁti|verb||2|singular|present|знаешь|знаешь, понимаешь|know|(you) know, are aware|知る|(あなた) 知る、分かる
++|можда|možda|можда|možda|adverb|||||может|может быть, возможно|maybe|maybe, perhaps|たぶん|たぶん、おそらく
+-|их|ih|о̑н|ȏn|pronoun||3|plural|genitive, accusative|их|их (родительный или винительный падеж)|them|them (genitive or accusative they)|彼らを|彼らを、彼女らを、それらを (所有格 対格)
+-|ви̏ше|vȉše|ви̏ше|vȉše|adverb|||||больше|больше, более, ещё|more|more, greater, further|もっと|もっと、さらに、より多く
+-|ȍнда|ȍnda|ȍнда|ȍnda|adverb|||||тогда|тогда, затем, потом|then|then, at that time, afterwards|それから|それから、 後で、 その時
+-|сȁда|sȁda|сȁда|sȁda|adverb|||||сейчас|сейчас, теперь|now|now, at present|今|今、現在
+-|вам|vam|ти̑|tȋ|pronoun||2|plural|dative|вам|вам (дательный падеж)|to you|to you (dative plural you)|あなたたちに|あなたたちに、君たちに、(与格)
+-|зȁр|zȁr|зȁр|zȁr|particle|||||разве|разве, неужели|is it|really?, is it so|まさか|まさか、 本当ですか
+-|за̑р|zȃr|за̑р|zȃr|noun|m||singular|nominative|завеса|завеса, фата, паранджа|veil|veil, curtain, |ベール|ベール、覆う、カーテ
+-|зȁр|zȁr|зȁр|zȁr|noun|m||singular|nominative|кость|игральная кость|diсe|diсe, die|サイコロ|采 ダイス サイコロ
++|гдȅ|gdȅ|гдȅ|gdȅ|adverb|||||где|где, куда|where|where, to where|どこ|どこ、どこに
+-|до|do|до|do|adverb|||||кроме|кроме, примерно, от того что|only|only, except, around, approximately, due to, because of|だけ|だけ、ざっと、のせいで
+-|дȍ|dȍ|дȍ|dȍ|preposition|||||до|до, к, перед|to|to, until, by, before|まで|まで、に
++|дȏ|dȏ|дȏ|dȏ|noun|m||singular|nominative|долина|долина, лощина|dale|dale, small valley|谷|谷、谿谷
+-|бих|bih|би̏ти|bȉti|verb||1|singular|conditional|бы|бы, был бы (условное наклонение)|would|would (conditional)|だったら|だったら、であれば
+-|трȅба|trȅba|трȅбати|trȅbati|verb||3|singular|present|нужно|нужно, требуется|need|need, must, should|必要|必要
++|трȅбати|trȅbati|трȅбати|trȅbati|verb|||||нуждаться|нуждаться, нужно, надлежит, требовать|to need|to need, to require|必要がある|必要とする、要求する
+-|мȏј|mȏj|мȏј|mȏj|pronoun|m||singular|nominative|мой|мой, моя, моё|my|my, mine|私の|私の、僕の
