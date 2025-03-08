@@ -11,27 +11,119 @@ include|word|reading|original|part of speech|tags|russian short|russian|english 
 -|ます|ます|ます|suffix|polite||суффикс вежливой формы глогола||polite verb suffix||
 +|も|も|も|particle||тоже|тоже|too|too||
 -|で|で|で|particle||в|в, с|at|at, with, by, using||
--|てる|ている|て いる|suffix|combo||окончание указывающе на продолжительность|ing|continuation suffix||
--|ている|ている|て いる|suffix|combo||окончание указывающе на продолжительность|ing|continuation suffix||
+-|てる|ている|て+いる|suffix|combo||окончание указывающе на продолжительность|ing|continuation suffix||
+-|ている|ている|て+いる|suffix|combo||окончание указывающе на продолжительность|ing|continuation suffix||
 -|です|です|だ|verb|polite|есть|быть, есть (вежливый глоагол связка)|be|be, is, are (polite copula)|biti|jesam, jesi, jest, jesmo, jesi, jeste, jesu
 -|れる|れる||suffix|||окончание пассивности||passive suffix||
 -|てる|ている||suffix|||окончание указывающе на продолжительность|ing|continuation suffix||
--|つう|つう|と 言う|suffix|combo|зовётся|называется, именуется|called|called, named||
--|という|という|と 言う|suffix|combo|зовётся|называется, именуется|called|called, named||
+-|つう|つう|と+言う|suffix|combo|зовётся|называется, именуется|called|called, named||
+-|という|という|と+言う|suffix|combo|зовётся|называется, именуется|called|called, named||
 +|事|こと|事|noun|вещь|дело, вещь, обстоятельство, факт, случай|thing|abstract thing, affair, matter, fact||
 +|ええ|ええ|ええ|interjection||да|да|yes|yes|da|da
 +|えー|えー|ええ|interjection||да|да|yes|yes|da|da
 +|言う|いう|言う|u-verb||говорить|говорить, сказать|say|say, tell||
--|のです|のです|の だ|verb|polite, combo|есть же|быть, есть (вежливый усилительный глагол связка)|be|be, is, are (asserion polite copula)|biti|jesam, jesi, jest, jesmo, jesi, jeste, jesu
--|んです|んです|の だ|verb|polite, combo|есть же|быть, есть (вежливый  усилительный глагол связка)|be|be, is, are (asserion polite copula)|biti|jesam, jesi, jest, jesmo, jesi, jeste, jesu
+-|のです|のです|の+だ|compound|polite, combo|есть же|быть, есть (вежливый усилительный глагол связка)|be|be, is, are (asserion polite copula)|biti|jesam, jesi, jest, jesmo, jesi, jeste, jesu
+-|んです|んです|の+だ|compound|polite, combo|есть же|быть, есть (вежливый  усилительный глагол связка)|be|be, is, are (asserion polite copula)|biti|jesam, jesi, jest, jesmo, jesi, jeste, jesu
 -|あの|あの|あの|interjection|||||||
-+|あの|あの|彼の|pronoun||тот|тот (та, то)|that|that, those|онај|онај (онај, она, оно, они, оне, она)
++|あの|あの|彼の|pronoun|usukana|тот|тот (та, то)|that|that, those|онај|онај (онај, она, оно, они, оне, она)
 -|あのう|あのう|あのう|interjection|||||||
 -|あのー|あのー|あのー|interjection|||||||
-+|する|する|為る|verb|irregular|делать|делать|do|do||
++|する|する|為る|verb|irregular, usukana|делать|делать|do|do||
 -|まー|まー|まー|interjection|||||||
 -|まあ|まあ|まあ|interjection|||||||
-+|ある|ある|有る|verb|irregular|быть|быть, иметься, находиться|be|be, exist, there is; be had; be found|ìmati|
++|ある|ある|有る|verb|irregular, usukana|быть|быть, иметься, находиться|be|be, exist, there is; be had; be found|ìmati|
 -|ね|ね|ね|particle||же|же (усилительная частица)|isn't it|right? eh? isn't it? innit? ||
-+|ない|ない|無い|i-adjective||нету|не быть, не иметься, нет|none| there is no||
-+|なる|なる|成る|verb||стать|становиться, делаться, превращаться|become|become, get, grow, turn into||
++|ない|ない|ない|suffix||нету|не быть, не иметься, нет|none| there is no||
++|なる|なる|成る|verb|usukana|стать|становиться, делаться, превращаться|become|become, get, grow, turn into||
+-|か|か|か|particle||ли|ли|question marker|indicates a question|ли|ли
++|その|その|其の|usukana|pre-noun adjectival||тот|тот|that|that|тај|тај
++|けれど|けれど|けれど|conjunction||но|но|but|but|али|али
++|から|から|から|particle||из|из|from|from|од|од
+-|よう|よう|よう|suffix|inducement|же|же|you know|adds emphasis, inducement|зар|зар
++|思う|おもう|思う|verb||думать|думать, полагать, ожидать|think|think, believe, feel, expect|мислити|мислити, веровати
+-|で|で|で|conjunction||так|так, затем|so|so, then|тако|тако, онда
+-|か|か|か|particle|conditional|если|если, или|if|if, or|ако|ако, или
+-|が|が|が|particle|adversative|но|но, однако|but|but, however|али|али, међутим
++|物|もの|物|noun||вещь|вещь, предмет|thing|thing, object, stuff|ствар|ствар, предмет
+-|そう|そう|そう|adverb||так|так, такой|so|so, such|тако|тако, такав
++|何|なに,なん|何|pronoun||что|что, что-то, ничего|what|what, something, anything, nothing|шта|шта, нешто, ништа
+-|と|と|と|particle|conditional|если, когда|если, когда, с|if, when, with|if, when, with|ако, кад|ако, када, са
++|私|わたし|私|pronoun|neutral|я|я (нейтр.)|I|I (neutral)|ја|ја (неутрално)
+-|私|わたくし|私|pronoun|formal|я|я (форм.)|I|I (formal)|ја|ја (формално)
+-|私|あたし|私|pronoun|feminine|я|я (женск.)|I|I (feminine)|ја|ја (женск.)
+-|てしまう|てしまう|てしまう|compound verb|completion|в итоге|в итоге сделать что-то|end up|end up doing ...|завршити|завршити чинећи нешто
++|それ|それ|其れ|pronoun||то|то|that|that|то|то
+-|とか|とか|とか|particle|listing,combo|и, или|и, или|and, or|and, or|и, или|и, или
+-|この|この|此の|adnominal||этот|этот|this|this|овај|овај
++|無い|ない|無い|i-adjective|negation|нет|нет чего-то|no|There is no ..., no ...|нема|нема
++|行く|いく|行く|verb|movement|идти|идти, ехать|go|go, come|ићи|ићи, кренути
+-|のだ|のだ|の+だ|compound|assertion, combo|же, ведь|же, ведь, указание|it is that|assertion, explanation|то је то|то је то, објашњење
+-|んだ|んだ|の+だ|compound|assertion, combo|же, ведь|же, ведь, указание|it is that|assertion, explanation|то је то|то је то, објашњење
+-|せる|せる|せる|suffix|aux,causative|заставлять|заставлять, давать сделать|make do|make someone do|натерати|натерати, приморати
++|これ|これ|此れ,之|pronoun||это|это|this|this|ово|ово
++|もう|もう|もう|adverb||уже|уже, скоро, опять|already|already, soon, again|већ|већ, ускоро, опет
++|人|ひと|人|noun|person|человек|человек, люди|person|person, people, human being|особа|особа, људи
+-|よ|よ|よ|particle|assertion, reminding|же|же, напоминает|you know|assertion, reminder|зар|зар, подсећање
++|こう|こう|こう|adverb||так|так, вот так|like this|so, like this|тако|тако, овако
++|から|から|から|particle|conjunction, cause|потому что|потому что, так как|because|because, since|јер|јер, зато што
+-|ば|ば|ば|particle|conjunction, conditional|если|если|if|if|ако|ако
++|や|や|や|particle|listing, choice|или|и, или|or|and, or|или|и, или
++|来る|くる|来る|verb|movement|приходить|приходить|come|come|доћи|доћи
+-|その|その|その|interjection||э-э|э-э, мм|uh|uh, um|хм|хм
++|まで|まで|まで|particle||до|до, вплоть до|until|to, till, until|до|до
++|見る|みる|見る|verb|perception|видеть|видеть|see|see, look at, watch, check|видети|видети
++|たり|たり|たり|particle|listing|и|и, и так далее|and|and (for listing actions)|и|и, и тако даље
++|今|いま|今|noun|time|сейчас|сейчас|now|now|сада|сада
++|良い|いい|良い|i-adjective|quality|хороший|хороший|good|good|добар|добар
++|所|ところ|所|noun|place|место|место, точка|place|place, point|место|место
++|自分|じぶん|自分|noun|self|сам|сам, себя|oneself|oneself|сам|сам
+-|ん|ん|ん|interjection||мм|мм, ну|mm|oh, mm, well|мм|мм, па
+-|あー|あー|あー|interjection|hesitation|ах|ах, э-э|ah|er, uh, um, hmm, ah, oh|ах|ах, хм
++|やはり|やはり|やはり|adverb|expectation|все же|все же, как и ожидалось|still|as expected, still|ипак|ипак, како се очекивало
++|やっぱり|やっぱり|やっぱり|adverb||все же|все же, как и ожидалось|still|as expected, still|ипак|ипак, како се очекивало
+-|たい|たい|たい|suffix|auxiliary, desire|хочу|хочу, хотелось бы|want|want to, like to|желим|желим
++|やる|やる|遣る|verb|action|делать|делать, дать|do|do, make, give|радити|радити, дати
++|中|なか|中|noun|location|внутри|внутри, в|inside|inside, in|унутра|унутра, у
++|いる|いる|居る|verb|existence|быть|быть, находиться|be|be, exist, stay|бити|бити, налазити се
++|できる|できる|出来る|verb|potential|мочь|мочь, быть готовым|be ready|be ready, be able|моћи|моћи, бити спреман
++|など|など|何+と|particle|listing|итд.|и так далее, и тому подобное|etc.|and so on, etc.|итд.|итд.
+-|として|として|と+為る+て|compound|role, function|как|как, в качестве|as|as|као|као, у својству
++|後|あと|後|noun|time|после|после, позже|after|after, later|после|после, касније
++|また|また|また|adverb, conjunction|addition, repetition|ещё|ещё, кроме того|again|additionally, again|још|још, опет
++|ちょっと|ちょっと|ちょっと|adverb|degree|немного|немного, чуть-чуть|a bit|(just) a little, a bit|мало|мало, малоце
+-|てくる|てくる|て + 来る|compound|movement|прийти|прийти (после действия)|go and|go and ..., come and ...|доћи|доћи након нечега
++|だけ|だけ|だけ|particle|limit|только|только, лишь|only|only, merely|само|само
+-|くらい|くらい|くらい|particle|approximation|около|около, примерно|about|about, around|око|око, отприлике
++|ぐらい|ぐらい|ぐらい|particle|approximation|около|около, примерно|about|about, around|око|око, отприлике
+-|ではない|ではない|で + は + ない|compound|negation|не|не является|not|it is not the case that...|није|није случај да...
+-|えーと|えーと|えーと|interjection|hesitation|э-э|э-э, ну, так...|well|well, let me see|хм|хм, па да видимо
++|方|ほう|方|noun|direction|сторона|сторона, путь|way|direction, side|страна|страна, пут
+-|ていく|ていく|て + 行く|compound|movement|уйти|идти (после действия)|go and|go and ..., move away|отићи|отићи након нечега
+-|てく|てく|て + 行く|compound|movement|уйти|идти (после действия)|go and|go and ..., move away|отићи|отићи након нечега
++|訳|わけ|訳|noun|reason, cause|причина|причина, смысл|reason|reason, cause|разлог|разлог, узрок
+-|へ|へ|へ|particle|destination|к|к, в (направление)|to|to, toward|ка|ка, према
+-|どう|どう|どう|adverb|manner|как|как, каким образом|how|how, what|како|како, на који начин
+-|し|し|し|particle|conjunction|и|и, кроме того|and|and, besides|и|и, поред тога
++|本当|ほんとう|本当|noun|truth, reality|правда|правда, истина|truth|truth, right|истина|истина, стварност
++|持つ|もつ|持つ|verb|possession|держать|держать, иметь|hold|have, take, hold|држати|држати, имати
++|出る|でる|出る|verb|movement|выходить|выходить, появляться|go out|go out, come out, attend|изаћи|изаћи, појавити се
++|ため|ため|為|noun|purpose|ради|ради, для|for|for, sake of|за|за, ради
++|すごい|すごい|凄い|i-adjective|intensity|потрясающий|потрясающий, ужасный|amazing|fantastic, wonderful, terrible|невероватан|невероватан, страшан
++|考える|かんがえる|考える|verb|thought|думать|думать, размышлять|think|think, consider|размишљати|размишљати, мислити
++|そこ|そこ|其所|pronoun|location|там|там, туда|there|there, then|там|там, онда
+-|う|う|う|suffix|auxiliary, solicitation|давай|давай (приглашение)|let's|solicitation (let’s)|хајде|хајде, дајмо
++|分かる|わかる|分かる|verb|comprehension|понимать|понимать, разбираться|understand|understand, see|разумети|разумети, схватити
+-|ておる|ておる|て + 居る|compound|continuation, polite|быть|быть (вежливо)|be|continuation (polite)|бити|бити (пристојно)
+-|について|について|に + 就いて|compound|topic, relation|о|о, относительно|about|about, concerning|о|о, у вези са
+-|それで|それで|其れ + で|conjunction|consequence|поэтому|поэтому, и тогда|so|and then, so, that is why|зато|зато, дакле
++|入る|はいる|入る|verb|movement|входить|входить, заходить|enter|enter, come in, go in|ући|ући, улазити
++|作る|つくる|作る|verb|creation|делать|делать, создавать|make|make, create, cook|правити|правити, створити
+-|てみる|てみる|て + 見る|compound|attempt|попробовать|попробовать, попытаться|try|try ... ing|пробати|пробати, покушати
++|聞く|きく|聞く|verb|perception|слышать|слышать, слушать, спрашивать, подчиняться|hear|hear, listen to, ask, obey|чути|чути, слушати, питати, покоравати се
++|聴く|きく|聴く|verb|perception|слушать|слушать (музыку)|listen|listen to (music, attentively)|слушати|слушати (музику, пажљиво)
++|そして|そして|其れ + して|conjunction|sequence|и|и, затем|and|and, so|и|и, затим
+-|てくれる|てくれる|て + 呉れる|compound|favor|сделать|сделать (в качестве одолжения)|do for|do something as a favor|учинити|учинити као услугу
++|場合|ばあい|場合|noun|situation|случай|случай, ситуация|case|case, occasion|случај|случај, прилика
++|話|はなし|話|noun|communication|рассказ|рассказ, беседа|story|story, talk|прича|прича, разговор
++|ながら|ながら|乍ら|particle|simultaneity|во время|во время, одновременно|while|while, during, as|док|док, истовремено
++|そんな|そんな|其んな|adnominal|quality|такой|такой, подобный|such|that, such|такав|такав, такав као
