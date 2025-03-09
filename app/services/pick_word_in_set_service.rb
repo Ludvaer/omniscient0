@@ -132,7 +132,19 @@ class PickWordInSetService
         maxpick = dialect_progress.counter
         learn_progress_count = progresses.size
         translations = []
-        #a lso sorry we guesstimated erf bur will use tanh instead
+        prob_from_sigmoid =  "0.5*(1 + tanh(#{slope}*(translations.rank-#{center})))"
+        inverse_sigmoid =  "0.5*(1 + tanh(#{slope}*(translations.rank-#{center})))"
+        naive_prob = "correct/(correct + failed + 1.0)"
+        #not really probb but additiona decaying prob over sigmoid
+        prob_from_progress = \
+            "(1.0 - #{naive_prob})*0.5^(0.2 * (#{maxpick} - last_counter)) \
+            + (#{naive_prob} - #{prob_from_sigmoid})*0.5^((#{maxpick} - last_counter)/#{learn_progress_count})"
+        #also sorry we guesstimated erf bur will use tanh instead
+        @incompelete ||= request_incomplete
+        excluded_word_ids = @incompelete.joins(:correct).pluck('correct.word_id').uniq
+        #request to exclude all words from sets in incomplete picks:
+        #excluded_word_ids = @incompelete.joins(translation_set: :translations).pluck('translations.word_id').uniq
+        puts "excluded_word_ids #{excluded_word_ids}"
         translations =
             Translation.joins(:word) \
             .includes(:word) \
@@ -140,17 +152,15 @@ class PickWordInSetService
                ON user_translation_learn_progresses.translation_id=translations.id \
                AND user_translation_learn_progresses.user_id=#{@user.id}") \
             .where(word:{dialect_id: @target_dialect_id}, translation_dialect_id: @source_dialect_id) \
-        #   .select('DISTINCT ON (word.spelling) *') #sadly does not work if not sorted primarily by spelling
+            .where.not(word_id: excluded_word_ids)\
             .order(Arel.sql( \
-              "abs( COALESCE( \
-              (1.0 - correct/(correct + failed + 0.01))*0.5^(0.1 * (#{maxpick} - last_counter)) \
-              + (correct/(correct + failed + 0.01) - 0.5*(1 + tanh(#{slope}*(translations.rank-#{center}))) )*0.5^((#{maxpick} - last_counter)/#{learn_progress_count}) \
-              ,0) + 0.5*(1 + tanh(#{slope}*(translations.rank-#{center}))) - 0.85) \
+              "COALESCE(#{prob_from_progress},0) \
+              + abs(#{prob_from_sigmoid} - #{TARGET_PROBABILITY}) \
               + 0.02*RANDOM()" \
-              )).take(minimal_size + margin)
+              ))\
+              .take(minimal_size + margin)
         translations
       end
-
 
       def group_tranlation_sets(translations, pick_count, pick_size)
         # select translations for picks in sets
