@@ -156,7 +156,7 @@ class PickWordInSetService
             .order(Arel.sql( \
               "COALESCE(#{prob_from_progress},0) \
               + abs(#{prob_from_sigmoid} - #{TARGET_PROBABILITY}) \
-              + 0.02*RANDOM()" \
+              + 0.04*RANDOM()" \
               ))\
               .take(minimal_size + margin)
         translations

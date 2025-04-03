@@ -1,38 +1,49 @@
 general issues:
-filter digits in a row that are not filtered out yet (probably some sort of knaji links)
-check if there are nearly empy translations like archaic: or obsolete: or obs.
-; - on end of string
-m in kana is not kanned while should be equivalent to n
++filter digits in a row that are not filtered out yet (probably some sort of knaji links)
++check if there are nearly empy translations like archaic: or obsolete: or obs.
++; - on end of string
++m in kana is not kanned while should be equivalent to n
 
 ]I probably need mandatory supply hiragana when use alternative unpopular reading
 
 specific cases:
-日々 [hibi] [nichinichi] daily; day after day # (lost 々)
-出だす obsolete:   # no real text
-please (imperative form of) #pointless description of missing link to kanji
-一リットル入り [ichirittoru-iri] ~no holding a liter #stray @ and lost ~no
-コmピュウタア # unkaninized m
-small; little; tiny; fine; petty; slight #repeats three time ! need to fix repetiotions when seeding
-下さい (imperative form of ) # missing linked kanji in brakets makes it pointless
-bread (Portug. pao) r56194 # pointless link
-小っちゃい - ちtちゃい - messed up kana
-前方 [zempō] the front; ~no front; ~ni, ~he in front, forward, ahead - check ni he as both variants
-お前 rude you # need : after rude
-kigaku translation contains answer
-女 おんあ woman - wrong kananization
-大女 - おおおんあ not ouonna?
-キャmプ場 - unconverted m
-ちぢ千に  ちぢに= 千々に [chiji-ni] something broken badd in word itself
-こと事に よる  possibly; not improbably # doubled koto
-コmピュウタア # m
-ながながしい - 長しい  # lost  長々しい
- 公 の - おおやけ # kana does not match word spelling oo when ou is likely
++日々 [hibi] [nichinichi] daily; day after day # (lost 々)
++出だす obsolete:   # no real text
++please (imperative form of) #pointless description of missing link to kanji
++一リットル入り [ichirittoru-iri] ~no holding a liter #stray @ and lost ~no
++コmピュウタア # unkaninized m
+?small; little; tiny; fine; petty; slight #repeats three time ! need to fix repetiotions when seeding
++下さい (imperative form of ) # missing linked kanji in brakets makes it pointless
++bread (Portug. pao) r56194 # pointless link
+?小っちゃい - ちtちゃい - messed up kana
+?前方 [zempō] the front; ~no front; ~ni, ~he in front, forward, ahead - check ni he as both variants
+?お前 rude you # need : after rude
++kigaku translation contains answer
+?女 おんあ woman - wrong kananization  おお -correct
++大女 - おおおんあ not ouonna?
++キャmプ場 - unconverted m
++ちぢ千に  ちぢに= 千々に [chiji-ni] something broken badd in word itself
++こと事に よる  possibly; not improbably # doubled koto
++コmピュウタア # m
++ながながしい - 長しい  # lost  長々しい
++ 公 の - おおやけ # kana does not match word spelling oo when ou is likely おお -correct
+hiragana only words seem to be lost
++テーマ - missing in file
 
 
 
-
-
-
+Need to check if everything is ok"
+removing unconfirmed translations with key 友達|ともだち
+removing unconfirmed translations with key 毎日|まいにち
+removing unconfirmed translations with key まあまあ|まあーまあ
+removing unconfirmed translations with key お早う御座居ます|おはよう ございまs
+removing unconfirmed translations with key 初めまして|はじめまして
+removing unconfirmed translations with key 今晩は|こmばんわ
+removing unconfirmed translations with key お休みなさい|おーやすみーなさい
+removing unconfirmed translations with key 有り難う御座居ます|ありがとう ございまs
+removing unconfirmed translations with key どうも有り難う御座居ます|どうも ありがとう ございまs
+removing unconfirmed translations with key 済みません|すみません
+removing unconfirmed translations with key どう致しまして|どういたしまして
 
 
 

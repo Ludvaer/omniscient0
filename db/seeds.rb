@@ -71,6 +71,7 @@ end
 zero_dialect = Dialect.find_or_create_by!(id:0, language_id:0)
 puts 'dialects are finished'
 
+zero_translation = Translation.find_or_create_by!(id:0, word_id:0, user_id:0, translation_dialect_id:0, translation: "")
 japanese_dialect_id =  Dialect.find_by(name:'japanese').id
 kanji_dialect_id =  Dialect.find_by(name:'kanji').id
 kana_dialect_id =  Dialect.find_by(name:'kana').id
@@ -82,6 +83,7 @@ deleted_jap_duplicated = 0
 Word.where(dialect_id: japanese_dialect_id).each do |word|
   kana = word.translations.where(translation_dialect_id:kana_dialect_id)&.first&.translation.to_s
   if kana.blank?
+    puts "word without kana #{word.spelling}"
     word.delete
     deleted_without_kana = deleted_without_kana + 1
     next
@@ -89,7 +91,7 @@ Word.where(dialect_id: japanese_dialect_id).each do |word|
     kept_with_kana = kept_with_kana +1
   end
 end
-zero_word = Word.find_or_create_by!(id:0, dialect_id:0)
+zero_word = Word.find_or_create_by!(id:0, dialect_id:0, spelling:"")
 existing_jap_words = Word
   .where(dialect_id:[japanese_dialect_id,kanji_dialect_id])
   .group_by{|w| w.spelling + "|" + w.translations.where(translation_dialect_id:kana_dialect_id)&.first&.translation.to_s }
@@ -104,13 +106,13 @@ puts "deleted #{deleted_without_kana} jap word without kana and #{deleted_jap_du
 puts "#{kept_with_kana} jap words and total #{existing_jap_words.size} diffrent keys ar kept"
 
 kana_tranlations = Translation.where(translation_dialect_id: kana_dialect_id)
-kana_tranlations.each do |kt|
-  if kt.translation != kt.translation.downcase.hiragana
-    puts "[#{kt.translation}] != [#{kt.translation.downcase.hiragana}]"
-    kt.translation = kt.translation.downcase.hiragana
-    kt.save
-  end
-end
+# kana_tranlations.each do |kt|
+#   if kt.translation != kt.translation.downcase.hiragana
+#     puts "[#{kt.translation}] != [#{kt.translation.downcase.hiragana}]"
+#     kt.translation = kt.translation.downcase.hiragana
+#     kt.save
+#   end
+# end
 deleted_kana_duplicated = 0
 kana_tranlations.group_by{|kt| kt.word.spelling + '|' + kt.translation}.values.each do |same_kanas|
   same_kanas.drop(1).each do |sk|
@@ -203,11 +205,22 @@ def parse_csv(provider, file_path, dialect_from)
     romaji&.gsub! 'o:', 'ou'
     romaji&.gsub! 'a:', 'aa'
     romaji&.gsub! 'e:', 'ee'
-    hiragana = romaji&.downcase&.hiragana.to_s
-    #words = Word.where(spelling:japanese, dialect_id:japanese_dialect_id)
-
-    # words = Word.where(spelling:japanese, dialect_id:japanese_dialect_id)
-    # key = japanese + "|" + word.translations.where(translation_dialect_id:kana_dialect_id)&.first&.translation.to_s
+    # romaji&.gsub! 'm', 'n'
+    if japanese.contains_katakana?
+      hiragana = romaji&.downcase
+    elsif romaji
+      hiragana = romaji.downcase.to_s.gsub('nn', 'んn').hiragana.to_s.gsub('m', 'ん') \
+          .gsub('まs','ます').gsub('tち','っち')
+      unless hiragana.gsub(/\(|\)|\[|\]|\ |ー/,'').kana? || (romaji.include?('nna') && !hiragana.include?('な'))
+        puts "unkaninized hiragana #{hiragana} for word #{japanese}"
+      end
+    else
+      hiragana = ""
+    end
+    if (hiragana.blank? or hiragana == '=') and dialect_from.name == 'japanese'
+      puts "missing reading #{romaji} for word #{japanese}"
+      next
+    end
     key = japanese + "|" + hiragana
     existing_word_translations = existing_translations[key]
     word = nil
@@ -234,15 +247,19 @@ def parse_csv(provider, file_path, dialect_from)
     # puts "updating key: #{key}"
     array.each do |dialect_id, translation_text|
       if dialect_id.blank? or translation_text.blank?
+        #  puts "skipped_blank: #{translation_text}"
         next
       end
       translations = existing_word_translations&.select{|ewt| ewt.translation_dialect_id == dialect_id}
       # puts "#{key} for dialct #{dialect_id} has #{translations&.size} translations"
       translation = if !translations&.size.nil? and translations&.size > 0 then translations[0] else nil end
-      if translation.nil? and dialect_id == kana_dialect_id
-        translation = word.reload.translations.where(translation_dialect_id:dialect_id,translation:translation_text)
+      if translation.nil? # and dialect_id == kana_dialect_id
+        translation = word.reload.translations.find_by(translation_dialect_id:dialect_id,translation:translation_text)
         unless translation.nil?
           skipped_same_kana = skipped_same_kana + 1
+          if japanese == '病む'
+            puts "skipped_same: #{translation_text} with translation id #{translation.id} and text #{translation.translation}"
+          end
           next
         end
       end
@@ -265,7 +282,12 @@ def parse_csv(provider, file_path, dialect_from)
         translation.translation_dialect_id = dialect_id
         translation.user = user
         translation.priority = priority
-        translation.save
+        unless translation.save
+          puts "saving #{key.to_s} => #{translation_text} failed #{translation.errors}"
+        end
+        if japanese == '病む'
+          puts "#{key.to_s} => #{translation_text} saved"
+        end
       end
       translations&.drop(1)&.each do |t|
         counter_deleted = counter_deleted + 1
