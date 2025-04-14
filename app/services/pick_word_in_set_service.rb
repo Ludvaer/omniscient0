@@ -20,7 +20,6 @@ class PickWordInSetService
 
   def create
     incompelete = request_incomplete
-    @incompelete = incompelete
     if incompelete.size < @n
       puts "incompelete.size < @n => #{incompelete.size} < #{@n}"
       incompelete += create_new_picks(@n,PICK_SIZE)
@@ -28,14 +27,17 @@ class PickWordInSetService
       puts "incompelete.size > @n => #{incompelete.size} >= #{@n} return incomplete"
     end
 
-    return @incompelete
+    return incompelete
   end
 
   def request_incomplete
-    PickWordInSet.joins(:correct).joins("INNER JOIN words ON words.id=correct.word_id") \
+    return @incomplete if @incomplete && !@incomplete.nil?
+    @incomplete = PickWordInSet.joins(:correct).joins("INNER JOIN words ON words.id=correct.word_id")
+      .includes(:correct, correct:[:word]) \
       .where(picked_id: nil, user_id: @user.id, option_dialect_id: @option_dialect_id,  \
       correct: {words: {dialect_id: @target_dialect_id}, \
-       translation_dialect_id: @source_dialect_id}).order(:created_at)
+       translation_dialect_id: @source_dialect_id}).order(:created_at).to_a
+    return @incomplete
   end
 
 
@@ -45,7 +47,95 @@ class PickWordInSetService
               .find_or_create_by!(source_dialect_id: @source_dialect_id, \
                                  dialect_id: @target_dialect_id, \
                                  user_id: @user.id)
+
   end
+
+  def soft_logit(y, epsilon = 1e-15)
+    y = [[y, epsilon].max, 1 - epsilon].min
+    # Math.log((1 - y) / y)
+    -Math.tan((y+ 0.5)*Math::PI)
+  end
+
+  def monotonic_fit(data)
+    xs, ys = data.transpose
+
+    # Sort y values descending, assign them to xs (already sorted)
+    sorted_ys = ys.sort.reverse
+
+    realigned_data = xs.zip(sorted_ys)
+
+    return realigned_data
+  end
+
+
+  def estimate_sigmoid(y_by_x)
+    y_by_x = monotonic_fit(y_by_x)
+    s_w  = 0# ws.sum
+    s_x  = 0# ws.zip(x_data).map { |w, x| w * x }.sum
+    s_z  = 0#  ws.zip(zs).map     { |w, z| w * z }.sum
+    s_xx = 0#  ws.zip(x_data).map { |w, x| w * x * x }.sum
+    s_xz = 0#  ws.zip(x_data.zip(zs)).map { |w, (x, z)| w * x * z }.sum
+    y_by_x.each_cons(2) do |(x1,y1),(x2,y2)|
+      ss = (y2 - y1)/(x2-x1)
+      if x1 == x2
+        next
+      end
+      (x1..x2).each do |xx|
+        x = xx
+        y = y1 + (x-x1)*ss
+        y = (y2-y1).abs > 1e-16 ? [y1,y2].min + (y - [y1,y2].min)**2/(y2-y1).abs : y
+        z = soft_logit(y) #   Math.log((1 - y) / y) = ln(1-y) - ln (y)
+        w =   1.0 / (1.0 + z**2)  # 1 / (1 +   Math.log**2((1 - y) / y))
+        wxz = 1.0 / (z + 1.0 / z)
+        s_w += w
+        s_x += w * x
+        s_z += wxz # w * z
+        s_xx += w * x * x
+        s_xz += wxz * x  # w * z * x
+      end
+    end
+    denom = s_w * s_xx - s_x * s_x
+    a = (s_w * s_xz - s_x * s_z) / denom
+    c = (s_z - a * s_x) / s_w
+    b = -c / a
+    mean = -c / a
+    slope = -a/Math::PI
+    @center = mean
+    @slope = slope
+    return [mean, slope]
+  end
+
+  def guesstimate_sigmoid(y_by_x) # y_by_x = {[x1,y1], [x2, y2], .... [xk, yk]}
+    y_by_x = monotonic_fit(y_by_x)
+    # unless @center.nil? || @slope.nil?
+    #   return [@center, @slope]
+    # end
+    # guesstimtes sigmoid (erf kind) while pretending that dy/dx is a normal distribution
+    # sigmoid implied to be negatively sloped from 1 on left to 0 on right
+    # !!! y values on range ends a supposed to be y[x_min] = 1 and y[x_max] = 0
+    # otherwise we have infinitely wrong guestimate on tails which is kinda hard to minimize
+    # average position weighted by -slope * dx where dx = segment length and slope = dy/dx
+    # sum(-dy/dx*dx*avearge(x))/(sum(slope*dx))
+    # which is sum(-dy*average(x))/sum(dy)
+    # sum(dy) = y.last - y.first = 1
+    # sum(-dy*average(x)) = sum(-(y2-y1)*(x2-x1)/2)
+    #TODO: get rid of dict, supply sorted array of arrays [[x1,y1],[x2,y2],[x3,y3]]
+    # .sort_by{|x,y| x} removed since supplied sorted
+    sum, sqr_sum =  y_by_x.each_cons(2).inject([0, 0]) do |(acc, sqr_acc),((x1,y1),(x2,y2))|
+      [acc +  -0.5 * (y2 - y1) * (x2 + x1), sqr_acc - ((y2 - y1 + 1) / (x2 - x1 + 1).to_f) * sum_sqr_d(x1, x2)]
+    end
+
+    puts "#{sum}, #{sqr_sum}"
+    dispersion = [sqr_sum - sum * sum, 1].max
+  #  puts "dispersion = #{sum * sum} - #{sqr_sum} = #{dispersion};  std_err = #{Math.sqrt(dispersion)}"
+    center,std_err = sum, Math.sqrt(dispersion)
+    slope = -Math.sqrt(2)/(Math.sqrt(Math::PI)*std_err) #we still like negative slope
+  #  puts "center=#{center}; slope=#{slope})"
+    @center = center
+    @slope = slope
+    [@center, @slope]
+  end
+
   private
       def progresses
         @progresses ||= UserTranslationLearnProgress \
@@ -53,30 +143,46 @@ class PickWordInSetService
           .joins("INNER JOIN translations ON translations.id=user_translation_learn_progresses.translation_id") \
           .joins("INNER JOIN words ON words.id=translations.word_id") \
           .where("user_translation_learn_progresses.user_id = #{@user.id} \
-             AND translations.translation_dialect_id IN (?) \
-             AND words.dialect_id IN (?)", @source_dialect_id, @target_dialect_id) \
+             AND translations.translation_dialect_id = #{@source_dialect_id} \
+             AND words.dialect_id = #{@target_dialect_id}") \
           .order("translations.rank")
         return @progresses
       end
 
       def get_estimated_prob_by_rank
-        prob_by_rank = [[0, 1.0]]
+        maxrank = DataBaseCacheService.translation_max_rank(@source_dialect_id,@target_dialect_id)
         learn_progress_count = progresses.size
         max_rank = 1
         maxpick = dialect_progress.counter
         puts "maxpick = #{maxpick}; learn_progress_count = #{learn_progress_count}"
+        prob_by_rank = [[0,1.0]]
+        sum = 1.0
+        cnt = 1
+        appended_value = 0
         progresses.each do |progress|
              rank = progress.translation.rank
+             # if rank > max_rank + 1
+             #   prob_by_rank.append([max_rank + 1, [sum / cnt,appended_value].min])
+             # end
              max_rank = [rank,max_rank].max
-             estimated_prob =  progress.correct / (progress.correct + progress.failed + 0.01)
+             estimated_prob =  (progress.correct + 1e-15) / (progress.correct + progress.failed + 2e-15)
              short = (1 - estimated_prob) * (0.5**(0.1 * (maxpick - progress.last_counter)))
              long = (estimated_prob - 0)* (0.5**((maxpick - progress.last_counter)/learn_progress_count))
-             prob_by_rank.append([rank, short + long])
-             puts "#rank = #{rank}; #{progress.correct}/#{progress.correct + progress.failed} = #{estimated_prob} => \
+             appended_value = estimated_prob # *0.99 # + (short + long) * 0.01
+             sum += appended_value
+             cnt += 1
+             prob_by_rank.append([rank, appended_value])
+             puts "#rank = #{rank}; val = #{appended_value}   #{progress.correct}/#{progress.correct + progress.failed} = #{estimated_prob} => \
               #{short} + #{long} = #{short + long}"
         end
-        prob_by_rank.append([DataBaseCacheService.translation_max_rank(@source_dialect_id,@target_dialect_id)+1, 0])
+        sum = prob_by_rank.sum{|x|x[1]};
+        high = sum / prob_by_rank.length
+        low = 0.1*sum / (maxrank + prob_by_rank.length)
+        # prob_by_rank[1][1] = high
+        prob_by_rank.append([maxpick+1, [low,appended_value].min])
+        prob_by_rank.append([maxrank+1, 0])
         #puts "#{progresses.size} translation progresses counted"
+        puts prob_by_rank.to_s
         prob_by_rank
       end
 
@@ -94,54 +200,35 @@ class PickWordInSetService
       # puts "#{1.5*1.5 + 2.5*2.5} = sum_sqr_d(1,3) = #{sum_sqr_d(1,3)}"
       # puts "#{2.5*2.5 + 3.5*3.5 + 4.5*4.5} = sum_sqr_d(2,5) = #{sum_sqr_d(2,5)}"
 
-      def guesstimate_sigmoid(y_by_x) # y_by_x = {[x1,y1], [x2, y2], .... [xk, yk]}
-        unless @center.nil? || @slope.nil?
-          return [@center, @slope]
-        end
-        # guesstimtes sigmoid (erf kind) while pretending that dy/dx is a normal distribution
-        # sigmoid implied to be negatively sloped from 1 on left to 0 on right
-        # !!! y values on range ends a supposed to be y[x_min] = 1 and y[x_max] = 0
-        # otherwise we have infinitely wrong guestimate on tails which is kinda hard to minimize
-        # average position weighted by -slope * dx where dx = segment length and slope = dy/dx
-        # sum(-dy/dx*dx*avearge(x))/(sum(slope*dx))
-        # which is sum(-dy*average(x))/sum(dy)
-        # sum(dy) = y.last - y.first = 1
-        # sum(-dy*average(x)) = sum(-(y2-y1)*(x2-x1)/2)
-        #TODO: get rid of dict, supply sorted array of arrays [[x1,y1],[x2,y2],[x3,y3]]
-        # .sort_by{|x,y| x} removed since supplied sorted
-        sum, sqr_sum =  y_by_x.each_cons(2).inject([0, 0]) do |(acc, sqr_acc),((x1,y1),(x2,y2))|
-          [acc +  -0.5 * (y2 - y1) * (x2 + x1), sqr_acc - ((y2 - y1) / (x2 - x1).to_f) * sum_sqr_d(x1, x2)]
-        end
-        dispersion = [sqr_sum - sum * sum, 1].max
-        puts "dispersion = #{sum * sum} - #{sqr_sum} = #{dispersion};  std_err = #{Math.sqrt(dispersion)}"
-        center,std_err = sum, Math.sqrt(dispersion)
-        slope = -Math.sqrt(2)/(Math.sqrt(Math::PI)*std_err) #we still like negative slope
-        puts "center=#{center}; slope=#{slope})"
-        @center = center
-        @slope = slope
-        [@center, @slope]
-      end
 
       def get_translations_to_learn(minimal_size)
+        maxrank = DataBaseCacheService.translation_max_rank(@source_dialect_id,@target_dialect_id)
         margin = minimal_size/10+5
-        center,slope = guesstimate_sigmoid(get_estimated_prob_by_rank)
+        center,slope = estimate_sigmoid(get_estimated_prob_by_rank)
+        puts "center=#{center}; slope=#{slope})"
+        if center < 0
+          slope = 1 / (1 / slope + center)
+          center = 0
+          slope = [-1.0 / Math.sqrt(maxrank), slope].min
+        end
         if slope < - 0.05 #if comeone managed to archieve sharp transition from new to old
           slope = -0.05 # blur the slope to include new translations
           center += 0.5*(20 + 1/slope) # move center to new translations
         end
+        slope = [-1.0 /(maxrank), slope].min
+        puts "center=#{center}; slope=#{slope})"
         maxpick = dialect_progress.counter
         learn_progress_count = progresses.size
         translations = []
-        prob_from_sigmoid =  "0.5*(1 + tanh(#{slope}*(translations.rank-#{center})))"
-        inverse_sigmoid =  "0.5*(1 + tanh(#{slope}*(translations.rank-#{center})))"
-        naive_prob = "correct/(correct + failed + 1.0)"
+        prob_from_sigmoid =  "0.5*(1 + tanh((#{slope})*(translations.rank-(#{center}))))"
+        naive_prob = "((correct + 0.1)/(correct + failed + 0.2))"
         #not really probb but additiona decaying prob over sigmoid
         prob_from_progress = \
             "(1.0 - #{naive_prob})*0.5^(0.2 * (#{maxpick} - last_counter)) \
             + (#{naive_prob} - #{prob_from_sigmoid})*0.5^((#{maxpick} - last_counter)/#{learn_progress_count})"
         #also sorry we guesstimated erf bur will use tanh instead
-        @incompelete ||= request_incomplete
-        excluded_word_ids = @incompelete.joins(:correct).pluck('correct.word_id').uniq
+        incompelete = request_incomplete
+        excluded_word_ids = incompelete.pluck('correct.word_id').uniq
         #request to exclude all words from sets in incomplete picks:
         #excluded_word_ids = @incompelete.joins(translation_set: :translations).pluck('translations.word_id').uniq
         puts "excluded_word_ids #{excluded_word_ids}"
@@ -154,11 +241,16 @@ class PickWordInSetService
             .where(word:{dialect_id: @target_dialect_id}, translation_dialect_id: @source_dialect_id) \
             .where.not(word_id: excluded_word_ids)\
             .order(Arel.sql( \
-              "COALESCE(#{prob_from_progress},0) \
+              "COALESCE((#{prob_from_progress}) * (#{prob_from_sigmoid}) ,0) \
               + abs(#{prob_from_sigmoid} - #{TARGET_PROBABILITY}) \
-              + 0.04*RANDOM()" \
+              + 0.000000001*RANDOM()" \
               ))\
               .take(minimal_size + margin)
+        info = translations.map do |t|
+          probfromsigmoid =  0.5*(1 + Math.tanh((slope)*(t.rank-(center))))
+          [t.rank, t.word.spelling, t.translation, probfromsigmoid].to_s
+        end
+        puts info
         translations
       end
 

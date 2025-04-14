@@ -116,9 +116,11 @@ end
 
 puts("#{word_list.length}---------------------------------------")
 word_list.sort_by!{|w| w[3]}
-# puts word_list.take(1000).map{|w| w.to_s}
+#
 
 rank = 0
+english_dialect_id =  Dialect.find_by(name:'english').id
+russian_dialect_id =  Dialect.find_by(name:'russian').id
 word_list.each do |word|
   rank += 1
   kanji = word[0]
@@ -137,8 +139,18 @@ word_list.each do |word|
   if translation.nil?
     puts word.to_s
   else
-    translation2 = Translation.find_by(rank:rank)
-    translation2.update_attribute(:rank, translation.rank)
-    translation.update_attribute(:rank, rank)
+    word_id = translation.word.id
+    [english_dialect_id,russian_dialect_id].each do |dialect_id|
+      translation1 = Translation.find_by(word_id:word_id, translation_dialect_id:dialect_id )
+      if translation1
+        translation2 = Translation.find_by(rank:rank, translation_dialect_id:dialect_id)
+        translation2&.update_attribute(:rank, translation1.rank)
+        translation1.update_attribute(:rank, rank)
+      else
+        puts "found but not in #{dialect_id} is #{word.to_s}"
+      end
+    end
   end
 end
+puts("#{word_list.length}---------------------------------------")
+puts word_list.take(1000).map{|w| w.to_s}
