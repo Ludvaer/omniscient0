@@ -128,7 +128,7 @@ include|word|reading|original|part of speech|tags|russian short|russian|english 
 +|日本|にほん|日本|noun|country|Япония|Япония|Japan|Japan|Јапан|Јапан
 +|風|ふう|風|na-adjective|style|стиль|стиль, способ, образ|style|style, type, way, like|стил|стил, начин
 -|おー|おー|おー|interjection|exclamation|о!|о! вау!|oh!|Oh! Wow!|о!|о! вау!
-+|前|まえ|前|noun|position, time|перед|перед, раньше|before|forward; front; before|пре|пре, испред
++|前|まえ|前|noun|position, time|перед|перед, раньше|before|front; before|пре|пре, испред
 +|多い|おおい|多い|i-adjective|quantity|много|много, многочисленный|many|many, much, a lot of|много|много, бројан
 -|のではない|のではない|の + で + は + ない|compound|negation, assertion|не|это не так, что ...|not|it is not that ...|није|није тако да ...
 -|んではない|んではない|の + で + は + ない|compound|negation, assertion|не|это не так, что ...|not|it is not that ...|није|није тако да ...
@@ -148,3 +148,23 @@ include|word|reading|original|part of speech|tags|russian short|russian|english 
 -|みたい|みたい|みたい|na-adjective|similarity, informal|как|как, вроде, похоже на|like|like, as if|као|као, налик
 +|でも|でも|でも|conjunction|contrast|но|но, однако|but|but, however|али|али, међутим
 +|ここ|ここ|此処|pronoun|location|здесь|здесь, тут|here|here|овде|овде
++|とても|とても|とても|adverb|degree|очень|очень|very|very|веома|веома
++|とっても|とっても|とっても|adverb|degree (colloquial)|очень|очень (разг.)|very|very (colloquial)|баш|баш, веома
++|いろいろ|いろいろ|色々|adv., na-adjective|variety|разное|разное, различное|various|various|разни|разни, свакакви
++|一|いち|一|noun|number|один|один|one|one|један|један
+-|そう|そう|そう|na-adjective, noun|imminence, conjecture|вот-вот|вот-вот, похоже, кажется|about to|be about to; seems like|скоро|скоро, изгледа као
++|行なう,行う|おこなう|行なう|verb|formal, action|проводить|проводить, осуществлять, выполнять|carry out|do, carry out, hold|спровести|спровести, одржати
++|一番|いちばん|一番|adverb|superlative, order|самый|самый, номер один|most|number one, first, most|највише|највише, први
++|二|に|二|noun|number|два|два|two|two|два|два
++|同じ|おなじ|同じ|adnominal|sameness|тот же|тот же, одинаковый|same|same|исти|исти, једнак
++|まず|まず|先ず|adverb|sequence, priority|сперва|сначала, прежде всего|first|first; anyway|прво|прво, најпре
++|必要|ひつよう|必要|na-adjective, noun|necessity|нужно|необходимый, нужда
++|仕事（する）|しごと（する）|仕事（する）|noun, verb|action, occupation|работа|работа; работать|work|work, job; to work|посао|посао, радити
++|余り|あまり|余り|adv., noun|surplus, leftover, quantity|избыток|излишек, остаток, лишнее|surplus|surplus, extra, remaining, more than needed|сувишак|остатак, сувишак
++|によって|によって|に + 因って|compound|cause, agent, dependence|из-за|в зависимости от, из-за, посредством|by|by, because of; depending on|због|због, у зависности од
++|かもしれない|かもしれない|か + も + 知る + ない|compound|conjecture, possibility|может быть|возможно, может быть|maybe|perhaps, maybe|можда|можда
++|僕|ぼく|僕|pronoun|male, casual polite|я|я (мужск., вежливое/неформальное)|I|I (used by male speakers)|ја|ја (мушки, неформално)
++|皆|みな|皆|noun|people, collective|все|все, все люди|everyone|everyone; all|сви|сви
++|彼|かれ|彼|pronoun|male|он|он|he|he|он|он
++|方|かた|方|noun|polite person|человек|человек (вежл.)|person|person (polite), way, direction|особа|особа (учтиво), страна
++|食べる|たべる|食べる|verb|action, basic verb|есть|есть
