@@ -1,6 +1,6 @@
 class PickWordInSetsController < ApplicationController
-  before_action :set_pick_word_in_set, only: %i[ show edit update destroy ]
   before_action :set_user
+  before_action :set_pick_word_in_set, only: %i[ show edit update destroy ]
 
   # GET /pick_word_in_sets or /pick_word_in_sets.json
   def index
@@ -10,28 +10,48 @@ class PickWordInSetsController < ApplicationController
   # GET /pick_word_in_sets/1 or /pick_word_in_sets/1.json
   def show
     @n = params[:n] || 1
-    params[:current_user] = @user
-    params[:target_dialect_id] = @target_dialect_id
-    params[:source_dialect_id] = @source_dialect_id
-    params[:option_dialect_id] = @option_dialect_id
-    service = PickWordInSetService.new(params)
+    service = PickWordInSetService.new(@params_as_objects)
     @incompelete = service.request_incomplete
     puts("@incompelete[#{@incompelete.size}]")
   end
 
-  # I need move this logic to create and make start test button here or smth
+  # display testing start page with already existing tests if they existing
+  # and button to create action for making more
   # GET /pick_word_in_sets/new
   def new
     @n = params[:n]
-    @source_dialect_id = params[:source_dialect_id]
-    @target_dialect_id = params[:target_dialect_id]
-    @option_dialect_id = params[:option_dialect_id]
-    service = PickWordInSetService.new(params.merge(current_user: @user))
+    @target_dialect_name = params[:target]
+    @option_dialect_name = params[:option]
+    @display_dialect_names = params[:display]
+    @display_dialect_names = case @display_dialect_names
+                            when String
+                              @display_dialect_names.split(",") # if comma-separated string
+                            when Array
+                              @display_dialect_names
+                            else
+                              []
+                            end
+    params_as_objects = {
+        display_dialects: @display_dialect_names.map{|name|Dialect.find_by_name(name)},
+        target_dialect: Dialect.find_by_name(@target_dialect_name),
+        option_dialect: Dialect.find_by_name(@option_dialect_name),
+        current_user: @user,
+        n: @n
+      }
+    @display_dialects_ids = @display_dialect_names.map{|name|Dialect.find_by_name(name).id}
+    @target_dialect_id = Dialect.find_by_name(@target_dialect_name).id
+    @option_dialect_id = Dialect.find_by_name(@option_dialect_name).id
+    puts "--params_as_objects--"
+    puts params_as_objects.to_s
+    service = PickWordInSetService.new(params_as_objects)
     @incompelete = service.request_incomplete
-    puts("@incompelete[#{@incompelete.size}]")
-    @pick_word_in_set = PickWordInSet.new
+    puts ("@incompelete[#{@incompelete.size}]")
+    @pick_word_in_set = service.new
+    puts "#{@pick_word_in_set.template.inspect}"
+    puts "#{@pick_word_in_set.template.direction.inspect}"
   end
 
+  # open already existing test to wiev or pass
   # GET /pick_word_in_sets/1/edit
   def edit
     @n = params[:n] || 1
@@ -39,21 +59,44 @@ class PickWordInSetsController < ApplicationController
     puts("@incompelete[#{@incompelete.size}]")
   end
 
+  # creates and displays new test with undefined user answer
   # POST /pick_word_in_sets or /pick_word_in_sets.json
   def create
-    service = PickWordInSetService.new(params)
-    @recursive = params[:recursive] || false
-    if (@recursive == 'false')
-      @recursive = false
-    end
-    @pick_word_in_sets = PickWordInSet.create(params.merge(current_user: @user))
+    @n = params[:n]
+    @target_dialect_name = params[:target]
+    @option_dialect_name = params[:option]
+    @display_dialect_names = params[:display]
+    @display_dialect_names = case @display_dialect_names
+                            when String
+                              @display_dialect_names.split(",") # if comma-separated string
+                            when Array
+                              @display_dialect_names
+                            else
+                              []
+                            end
+    params_as_objects = {
+        display_dialects: @display_dialect_names.map{|name|Dialect.find_by_name(name)},
+        target_dialect: Dialect.find_by_name(@target_dialect_name),
+        option_dialect: Dialect.find_by_name(@option_dialect_name),
+        current_user: @user,
+        n: @n
+      }
+    puts "--params_as_objects--"
+    puts params_as_objects.to_s
+    @display_dialects_ids = @display_dialect_names.map{|name|Dialect.find_by_name(name).id}
+    @target_dialect_id = Dialect.find_by_name(@target_dialect_name).id
+    @option_dialect_id = Dialect.find_by_name(@option_dialect_name).id
+    @recursive = ( params[:recursive] == 'false') ? false : params[:recursive] || false
+    service = PickWordInSetService.new(params_as_objects)
+    @pick_word_in_sets = service.create
     @pick_word_in_set = @pick_word_in_sets[0]
     respond_to do |format|
       unless @pick_word_in_set.new_record?
         format.html { redirect_to edit_pick_word_in_set_url(@pick_word_in_set), notice: @notice}
-        format.json { render json: \
-           DataPreloadService.fetch_data({"PickWordInSet" => [@pick_word_in_sets.pluck(:id)]}, recursive: @recursive) \
-           , status: :created, location: @pick_word_in_set }
+        format.json { render json:  {\
+           data: DataPreloadService.fetch_data({"PickWordInSet" => [@pick_word_in_sets.pluck(:id)]}, recursive: @recursive), \
+           template_id: service.template.id
+           }, status: :created, location: @pick_word_in_set }
       else
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @pick_word_in_set.errors, status: :unprocessable_entity }
@@ -61,14 +104,13 @@ class PickWordInSetsController < ApplicationController
     end
   end
 
+  #represents solving test by setting selected by user field
   # PATCH/PUT /pick_word_in_sets/1 or /pick_word_in_sets/1.json
   def update
-    params[:target_dialect_id] = @target_dialect_id
-    params[:source_dialect_id] = @source_dialect_id
-    params[:option_dialect_id] = @option_dialect_id
-    service = PickWordInSetService.new(params.merge(current_user: @user))
-    dialect_progress = service.dialect_progress
-    puts "dialect_progress=#{dialect_progress} counter=#{dialect_progress.counter}"
+    service = PickWordInSetService.new(@params_as_objects)
+    template = service.template
+    template_progress = service.template_progress
+    puts "template_progress=#{template_progress} counter=#{template_progress.counter}"
     respond_to do |format|
       # @picked = @translations.find{|t| t.id == pick_word_in_set_params[:picked_id].to_i}
       picked_id = pick_word_in_set_params[:picked_id].to_i
@@ -78,15 +120,15 @@ class PickWordInSetsController < ApplicationController
           @pick_word_in_set.user_id == @user_id)
         target_dialect_id = @correct.word.dialect_id
         source_dialect_id = @correct.translation_dialect_id
-        dialect_progress.increment!(:counter)
-        puts "update dialect_progress=#{dialect_progress} counter=#{dialect_progress.counter}"
-        [@correct.id, @picked.id].uniq.each do |trans_id|
-          utlp = UserTranslationLearnProgress.find_or_create_by!(translation_id: trans_id, user_id: @user_id)
-          last_counter = [dialect_progress.counter, utlp.last_counter].max
+        template_progress.increment!(:counter)
+        puts "update template_progress=#{template_progress.inspect} counter=#{template_progress.counter}"
+        [@correct, @picked].uniq.each do |translation|
+          utlp = TemplateWordProgress.find_or_create_by!(word: translation.word, template: template)
+          last_counter = [template_progress.counter || 0, utlp.last_counter || 0].max
           if @correct.word.spelling === @picked.word.spelling
-            utlp.update!(correct: (utlp.correct + 1), last_counter: last_counter)
+            utlp.update!(correct: ((utlp.correct || 0) + 1), last_counter: last_counter)
           else
-            utlp.update!(failed: (utlp.failed + 1), last_counter: last_counter)
+            utlp.update!(failed: ((utlp.failed || 0) + 1), last_counter: last_counter)
           end
         end
         @pick_word_in_set.update!(picked_id: pick_word_in_set_params[:picked_id].to_i)
@@ -112,9 +154,10 @@ class PickWordInSetsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_pick_word_in_set
+      @n = params[:n]
       @pick_word_in_set = PickWordInSet \
-      .joins(:translation_set, translation_set: [:translations], translation_set: {translations: :word}) \
-      .includes(:translation_set, translation_set: [:translations], translation_set: {translations: :word}) \
+      .joins(:translation_set, translation_set: [:translations], translation_set: {translations: :word}, template: :direction ) \
+      .includes(:translation_set, translation_set: [:translations], translation_set: {translations: :word}, template: :direction) \
       .find(params[:id])
       @translation_set = @pick_word_in_set.translation_set
       @translations = @translation_set.translations
@@ -122,6 +165,15 @@ class PickWordInSetsController < ApplicationController
       @target_dialect_id = @correct.word.dialect_id
       @source_dialect_id = @correct.translation_dialect_id
       @option_dialect_id = @pick_word_in_set.option_dialect_id
+      @template = @pick_word_in_set.template
+      @direction = @template.direction
+      @params_as_objects = {
+          display_dialects: @direction.display_dialects,
+          target_dialect: @direction.target_dialect,
+          option_dialect: @direction.option_dialect,
+          current_user: @user,
+          n: @n
+        }
     end
 
     def set_user

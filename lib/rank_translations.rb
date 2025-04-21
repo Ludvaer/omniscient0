@@ -1,4 +1,7 @@
 require 'csv'
+Word.all.joins(:translations) \
+  .group("words.id").order("MAX(translations.rank)")\
+  .each_with_index{|w,i| w.update_attribute(:rank, i)}
 zero_translation = Translation.find_or_create_by!(id:0, word_id:0, user_id:0, translation_dialect_id:0, translation: "")
 jap_folder = Rails.root.join('db', 'seeds','japanese')
 level_folders = [
@@ -141,11 +144,13 @@ word_list.each do |word|
   else
     word_id = translation.word.id
     [english_dialect_id,russian_dialect_id].each do |dialect_id|
-      translation1 = Translation.find_by(word_id:word_id, translation_dialect_id:dialect_id )
+      translation1 = Translation.eager_load(:word).find_by(word_id:word_id, translation_dialect_id:dialect_id )
       if translation1
-        translation2 = Translation.find_by(rank:rank, translation_dialect_id:dialect_id)
+        translation2 = Translation.eager_load(:word).find_by(rank:rank, translation_dialect_id:dialect_id)
         translation2&.update_attribute(:rank, translation1.rank)
         translation1.update_attribute(:rank, rank)
+        translation1.word.update_attribute(:rank, rank)
+        translation2&.word&.update_attribute(:rank, rank)
       else
         puts "found but not in #{dialect_id} is #{word.to_s}"
       end

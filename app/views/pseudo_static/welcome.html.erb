@@ -5,18 +5,7 @@
   <%= link_to t('Pick word in set test') + " x 10", new_pick_word_in_set_path(n: 10) %>
   <%= link_to t('Pick word in set test'), new_pick_word_in_set_path %>
   <%= link_to t('Sigil'), sigil_path %>
-
-  <%= new_pick_word_in_set_url_from_names('english','japanese','english')  %>
-  <%= new_pick_word_in_set_url_from_names('english','japanese','japanese')  %>
-  <%= new_pick_word_in_set_url_from_names('english','japanese','kana')  %>
-  <%= new_pick_word_in_set_url_from_names('english','kanji','english')  %>
-  <%= new_pick_word_in_set_url_from_names('english','kanji','kanji')  %>
+  <%= new_pick_word_in_set_url_from_names('japanese',['japanese','kana'],'english')  %>
+  <%= new_pick_word_in_set_url_from_names('japanese','japanese','english')  %>
   <%= new_mix_train_url_from_names('english','japanese')  %>
-
-  <%= new_pick_word_in_set_url_from_names('russian','japanese','russian')  %>
-  <%= new_pick_word_in_set_url_from_names('russian','japanese','japanese')  %>
-  <%= new_pick_word_in_set_url_from_names('russian','japanese','kana')  %>
-  <%= new_pick_word_in_set_url_from_names('russian','kanji','russian')  %>
-  <%= new_pick_word_in_set_url_from_names('russian','kanji','kanji')  %>
-  <%= new_mix_train_url_from_names('russian','japanese')  %>
 </div>

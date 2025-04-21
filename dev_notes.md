@@ -38,6 +38,12 @@ rails generate migration AddUserRefToPickWordInSet user:references
 #I want to add users ref to my words translation table to track source
 rails generate migration AddUserRefToTranslation user:references
 
+# generating new model  
+rails generate model PickWordInSetType
+# reference to user target and option dialects added to migration manually
+rails generate migration CreateJoinTableDialectPickWordInSetType dialect pick_word_in_set_type
+
+
 in order:
  - system to select languages which you learn and which you know -
    probably as settings profile belongs to user while user has many settings profiles
@@ -77,7 +83,8 @@ Iwill definetly need rewrite some request to be moar efficient
 I want separete table for performance that will join users and picks while tracking
 it should contain usuccesfull vs successfull vs index attmts
 
-rails generate model UserTranslationLearnProgress user_id:big_int translation_id:big_int correct:integer failed:integer last_counter:integer
+<!-- rails generate model UserTranslationLearnProgress user_id:big_int translation_id:big_int correct:integer failed:integer last_counter:integer -->
+rails generate model UserWordLearnProgress  correct:integer failed:integer
 rails generate migration AddRankToTranslations rank:integer
 
 
@@ -85,11 +92,12 @@ i must fix keeping stats updated when testing !!!!
 I may want to add more advanced search for common hiragana suffix and confusing translation evader later
 That would require separate request for each newly created pick test which would find similar for different meaning words with similar not entirely well known.
 
-rails generate model UserDialectProgress counter:integer
-rails generate migration AddUserRefToUserDialectProgress user:references
-rails generate migration AddDialectRefToUserDialectProgress dialect:references
+<!-- rails generate model UserDialectProgress counter:integer -->
+rails generate model UserTemplateProgress counter:integer
+rails generate migration AddUserRefToPickWordInSetTemplateProgress user:references
+<!-- rails generate migration AddUserRefToUserDialectProgress user:references
+rails generate migration AddDialectRefToUserDialectProgress dialect:references -->
 
-+make text on disabled button selectable (imitate disabling with color style adn detaching onclick instead?)
 
 
 
@@ -157,3 +165,4 @@ clicking on inactive button should copy text and show hint copied
 
 !!!organize declared checks
 !!!I think it's critical to  sort out train typing counts checks and pryority tracking
+Dont forget to fix initialization tests in js

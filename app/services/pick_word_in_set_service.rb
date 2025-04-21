@@ -3,22 +3,37 @@ class PickWordInSetService
   MAX_PICKS_PER_REQUEST =100
   TARGET_PROBABILITY = 0.85
   def initialize(params)
-    @recursive = params[:recursive] || false
-    if (@recursive == 'false')
-      @recursive = false
-    end
-    @source_dialect_id = params[:source_dialect_id]
-    @target_dialect_id = params[:target_dialect_id]
-    @option_dialect_id = params[:option_dialect_id]
-    @n = [[params[:n].to_i || 1, 1].max, 100].min
+    @display_dialects = params[:display_dialects]
+    @target_dialect = params[:target_dialect]
+    @option_dialect = params[:option_dialect]
     @user = params[:current_user]
+    @n = [[params[:n].to_i || 1, 1].max, 100].min
+    @display_dialects_ids = @display_dialects.map{|d|d.id}
+    @target_dialect_id = @target_dialect.id
+    @option_dialect_id = @option_dialect.id
+    #TODO: get rid of source_dialect using display dialects array now
+    @source_dialect_id = (@display_dialects_ids + [@option_dialect_id])\
+      .reject{|id|id==Dialect.find_by_name('kana').id || id == @target_dialect_id}[0]
+    puts "PickWordInSetService #{@source_dialect_id}->#{@target_dialect_id} | #{@display_dialects_ids} ->#{ @option_dialect_id}"
+    #TODO: seprate find and find or create
+    @direction = PickWordInSetDirection.find_or_init(@target_dialect,@display_dialects,@option_dialect)
+    @template = PickWordInSetTemplate.find_or_init(@direction, @user)
+    puts ">>> @template.inspect: #{@template.inspect} direction:#{@template.direction} display:#{@template.direction.display_dialects.to_a.to_s}"
   end
 
   def self.create(params)
     PickWordInSetService.new(params).create
   end
 
+  def new
+    new_one = PickWordInSet.new
+    new_one.template = @template
+    new_one
+  end
+
   def create
+    @direction.save if @direction.new_record?
+    @template.save if @template.new_record?
     incompelete = request_incomplete
     if incompelete.size < @n
       puts "incompelete.size < @n => #{incompelete.size} < #{@n}"
@@ -30,23 +45,25 @@ class PickWordInSetService
     return incompelete
   end
 
+  def template
+    @template
+  end
+
   def request_incomplete
-    return @incomplete if @incomplete && !@incomplete.nil?
-    @incomplete = PickWordInSet.joins(:correct).joins("INNER JOIN words ON words.id=correct.word_id")
-      .includes(:correct, correct:[:word]) \
-      .where(picked_id: nil, user_id: @user.id, option_dialect_id: @option_dialect_id,  \
-      correct: {words: {dialect_id: @target_dialect_id}, \
-       translation_dialect_id: @source_dialect_id}).order(:created_at).to_a
+    return @incomplete if @incomplete
+    return [] if  @template.id.nil?
+    @incomplete = PickWordInSet.joins( :template, correct: :word) \
+      .includes( :template, correct: :word) \
+      .where(picked_id: nil, template_id: @template.id).order(:created_at).to_a
+    #.joins("INNER JOIN words ON words.id=correct.word_id")
     return @incomplete
   end
 
 
-  def dialect_progress
-    puts "checking new dialect_progress u: #{@user.id} dialects: #{@source_dialect_id} => #{@target_dialect_id}"
-    @dialect_progress ||= UserDialectProgress \
-              .find_or_create_by!(source_dialect_id: @source_dialect_id, \
-                                 dialect_id: @target_dialect_id, \
-                                 user_id: @user.id)
+  def template_progress
+    puts "checking new template_progress u: #{@user.id} dialects: #{@display_dialect_ids} => #{@option_dialect_id}"
+    @TemplateProgress ||= TemplateProgress \
+              .find_or_create_by!(template: @template)
 
   end
 
@@ -138,41 +155,39 @@ class PickWordInSetService
 
   private
       def progresses
-        @progresses ||= UserTranslationLearnProgress \
-          .includes(:translation) \
-          .joins("INNER JOIN translations ON translations.id=user_translation_learn_progresses.translation_id") \
-          .joins("INNER JOIN words ON words.id=translations.word_id") \
-          .where("user_translation_learn_progresses.user_id = #{@user.id} \
-             AND translations.translation_dialect_id = #{@source_dialect_id} \
-             AND words.dialect_id = #{@target_dialect_id}") \
-          .order("translations.rank")
+        @progresses ||= TemplateWordProgress \
+          .eager_load(:word,:template) \
+          .where(template: @template) \
+          .order("words.rank")
         return @progresses
       end
 
       def get_estimated_prob_by_rank
-        maxrank = DataBaseCacheService.translation_max_rank(@source_dialect_id,@target_dialect_id)
+        maxrank = Word.max_rank(@direction.target_dialect)
         learn_progress_count = progresses.size
         max_rank = 1
-        maxpick = dialect_progress.counter
+        maxpick = template_progress.counter
         puts "maxpick = #{maxpick}; learn_progress_count = #{learn_progress_count}"
         prob_by_rank = [[0,1.0]]
         sum = 1.0
         cnt = 1
         appended_value = 0
         progresses.each do |progress|
-             rank = progress.translation.rank
+             rank = progress.word.rank
+             correct = progress.correct || 0
+             failed = progress.failed || 0
              # if rank > max_rank + 1
              #   prob_by_rank.append([max_rank + 1, [sum / cnt,appended_value].min])
              # end
              max_rank = [rank,max_rank].max
-             estimated_prob =  (progress.correct + 1e-15) / (progress.correct + progress.failed + 2e-15)
+             estimated_prob =  (correct + 1e-15) / (correct + failed + 2e-15)
              short = (1 - estimated_prob) * (0.5**(0.1 * (maxpick - progress.last_counter)))
              long = (estimated_prob - 0)* (0.5**((maxpick - progress.last_counter)/learn_progress_count))
              appended_value = estimated_prob # *0.99 # + (short + long) * 0.01
              sum += appended_value
              cnt += 1
              prob_by_rank.append([rank, appended_value])
-             puts "#rank = #{rank}; val = #{appended_value}   #{progress.correct}/#{progress.correct + progress.failed} = #{estimated_prob} => \
+             puts "#rank = #{rank}; val = #{appended_value}   #{correct}/#{correct + failed} = #{estimated_prob} => \
               #{short} + #{long} = #{short + long}"
         end
         sum = prob_by_rank.sum{|x|x[1]};
@@ -202,7 +217,7 @@ class PickWordInSetService
 
 
       def get_translations_to_learn(minimal_size)
-        maxrank = DataBaseCacheService.translation_max_rank(@source_dialect_id,@target_dialect_id)
+        maxrank = Word.max_rank(@direction.target_dialect)
         margin = minimal_size/10+5
         center,slope = estimate_sigmoid(get_estimated_prob_by_rank)
         puts "center=#{center}; slope=#{slope})"
@@ -217,10 +232,10 @@ class PickWordInSetService
         end
         slope = [-1.0 /(maxrank), slope].min
         puts "center=#{center}; slope=#{slope})"
-        maxpick = dialect_progress.counter
+        maxpick = template_progress.counter
         learn_progress_count = progresses.size
         translations = []
-        prob_from_sigmoid =  "0.5*(1 + tanh((#{slope})*(translations.rank-(#{center}))))"
+        prob_from_sigmoid =  "0.5*(1 + tanh((#{slope})*(words.rank-(#{center}))))"
         naive_prob = "((correct + 0.1)/(correct + failed + 0.2))"
         #not really probb but additiona decaying prob over sigmoid
         prob_from_progress = \
@@ -231,21 +246,36 @@ class PickWordInSetService
         excluded_word_ids = incompelete.pluck('correct.word_id').uniq
         #request to exclude all words from sets in incomplete picks:
         #excluded_word_ids = @incompelete.joins(translation_set: :translations).pluck('translations.word_id').uniq
-        puts "excluded_word_ids #{excluded_word_ids}"
-        translations =
-            Translation.joins(:word) \
-            .includes(:word) \
-            .joins("LEFT OUTER JOIN user_translation_learn_progresses \
-               ON user_translation_learn_progresses.translation_id=translations.id \
-               AND user_translation_learn_progresses.user_id=#{@user.id}") \
-            .where(word:{dialect_id: @target_dialect_id}, translation_dialect_id: @source_dialect_id) \
-            .where.not(word_id: excluded_word_ids)\
+        puts "incompelete: #{incompelete.map {|p|p.id }} excluded_word_ids #{excluded_word_ids}"
+        dialects_of_interest = @display_dialects_ids + [@option_dialect_id]
+        # translations =
+        #     Translation.joins(:word) \
+        #     .includes(:word) \
+        #     .joins("LEFT OUTER JOIN template_word_progresses \
+        #        ON template_word_progresses.template_id=#{@template.id} \
+        #        AND template_word_progresses.word_id=word.id") \
+        #     .where(word:{dialect_id: @target_dialect_id}, translation_dialect_id: @source_dialect_id) \
+        #     .where.not(word_id: excluded_word_ids)\
+        #     .order(Arel.sql( \
+        #       "COALESCE((#{prob_from_progress}) * (#{prob_from_sigmoid}) ,0) \
+        #       + abs(#{prob_from_sigmoid} - #{TARGET_PROBABILITY}) \
+        #       + 0.000000001*RANDOM()" \
+        #       )).select('DISTINCT ON (word.id) translations.*')
+        #       .take(minimal_size + margin) #TODO: remake this to select word and then proper trnaslation for each
+        words = Word.joins("LEFT OUTER JOIN template_word_progresses \
+               ON template_word_progresses.template_id=#{@template.id} \
+               AND template_word_progresses.word_id=words.id") \
+            .where(dialect_id: @target_dialect_id) \
+            .where.not(id: excluded_word_ids)\
             .order(Arel.sql( \
               "COALESCE((#{prob_from_progress}) * (#{prob_from_sigmoid}) ,0) \
               + abs(#{prob_from_sigmoid} - #{TARGET_PROBABILITY}) \
               + 0.000000001*RANDOM()" \
-              ))\
-              .take(minimal_size + margin)
+              )).take(minimal_size + margin)
+        translations = Translation.eager_load(:word)\
+              .where(word:{id: words.pluck(:id)}, translation_dialect_id: @source_dialect_id)
+              .order(word: {id: :asc}, rank: :asc)
+              .select('DISTINCT ON (word.id) translations.*') #TODO: use left inner join
         info = translations.map do |t|
           probfromsigmoid =  0.5*(1 + Math.tanh((slope)*(t.rank-(center))))
           [t.rank, t.word.spelling, t.translation, probfromsigmoid].to_s
@@ -309,10 +339,11 @@ class PickWordInSetService
         source_language_id = Dialect.find_by(id: @source_dialect_id).language_id
         target_language_id = Dialect.find_by(id: @target_dialect_id).language_id
         languages = [source_language_id, target_language_id]
-        other_dialect_ids = Dialect.where(language_id:languages).pluck(:id).reject{|id|id==@source_dialect_id}
+        #other_dialect_ids = Dialect.where(language_id:languages).pluck(:id).reject{|id|id==@source_dialect_id}
+        other_dialect_ids =(@display_dialects_ids + [@option_dialect_id]).reject{|id|id==@source_dialect_id}
         picks = []
         sets.each do |correct, translations|
-          @pick_word_in_set = PickWordInSet.new
+          pick_word_in_set = PickWordInSet.new
           @translations = translations
           @translations.append(correct)
           @translations.sort_by!{|t|t.id}
@@ -339,18 +370,17 @@ class PickWordInSetService
           else
             @translation_set = matching_translation_sets[0]
           end
-          @correct = correct
-          @pick_word_in_set.picked_id = nil
-          @pick_word_in_set.correct_id = @correct.id
-          @pick_word_in_set.translation_set_id = @translation_set.id
-          @pick_word_in_set.version = 1
-          @pick_word_in_set.user_id = @user.id
-          @pick_word_in_set.option_dialect_id = @option_dialect_id
-
-          puts "saving @pick_word_in_set = #{@pick_word_in_set.attributes};"
-          @saved = @pick_word_in_set.save
-          puts "@pick_word_in_set id = #{@pick_word_in_set.id}; saved = #{@saved} / #{@pick_word_in_set.errors}"
-          picks.append(@pick_word_in_set)
+          pick_word_in_set.picked_id = nil
+          pick_word_in_set.correct_id = correct.id
+          pick_word_in_set.translation_set_id = @translation_set.id
+          pick_word_in_set.version = 1
+          pick_word_in_set.user_id = @user.id
+          pick_word_in_set.option_dialect_id = @option_dialect_id
+          pick_word_in_set.template_id = @template.id
+          puts "saving pick_word_in_set = #{pick_word_in_set.attributes};"
+          @saved = pick_word_in_set.save
+          puts "pick_word_in_set id = #{pick_word_in_set.id}; saved = #{@saved} / #{pick_word_in_set.errors}"
+          picks.append(pick_word_in_set)
         end
         picks
       end

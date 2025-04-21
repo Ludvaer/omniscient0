@@ -6,8 +6,9 @@ application up and running.
 Things you may want to cover:
 
 * Ruby version
-ruby "3.1.2"
-gem "rails", "~> 7.0.4"
+ruby "3.1.2" (windows installer from https://rubyinstaller.org/)
+gem "rails", "~> 8.0.2"  (gem install rails)
+bundle install
 
 * System dependencies
 

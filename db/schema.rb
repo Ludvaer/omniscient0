@@ -10,9 +10,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_11_25_104258) do
+ActiveRecord::Schema[8.0].define(version: 2025_04_21_111748) do
   # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
+  enable_extension "pg_catalog.plpgsql"
 
   create_table "account_activations", force: :cascade do |t|
     t.integer "user_id"
@@ -35,6 +35,13 @@ ActiveRecord::Schema[7.0].define(version: 2024_11_25_104258) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "dialects_pick_directions", id: false, force: :cascade do |t|
+    t.bigint "dialect_id", null: false
+    t.bigint "pick_word_in_set_direction_id", null: false
+    t.index ["dialect_id", "pick_word_in_set_direction_id"], name: "index_dialects_pick_directions_on_dialect"
+    t.index ["pick_word_in_set_direction_id", "dialect_id"], name: "index_dialects_on_dialects_pick_directions"
+  end
+
   create_table "languages", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
@@ -48,6 +55,22 @@ ActiveRecord::Schema[7.0].define(version: 2024_11_25_104258) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "pick_word_in_set_directions", force: :cascade do |t|
+    t.bigint "target_dialect_id", null: false
+    t.bigint "option_dialect_id", null: false
+    t.index ["option_dialect_id"], name: "index_pick_word_in_set_directions_on_option_dialect_id"
+    t.index ["target_dialect_id"], name: "index_pick_word_in_set_directions_on_target_dialect_id"
+  end
+
+  create_table "pick_word_in_set_templates", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "direction_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["direction_id"], name: "index_pick_word_in_set_templates_on_direction_id"
+    t.index ["user_id"], name: "index_pick_word_in_set_templates_on_user_id"
+  end
+
   create_table "pick_word_in_sets", force: :cascade do |t|
     t.integer "correct_id"
     t.integer "picked_id"
@@ -57,7 +80,9 @@ ActiveRecord::Schema[7.0].define(version: 2024_11_25_104258) do
     t.bigint "translation_set_id", null: false
     t.bigint "user_id", null: false
     t.bigint "option_dialect_id", default: 7, null: false
+    t.bigint "template_id", null: false
     t.index ["option_dialect_id"], name: "index_pick_word_in_sets_on_option_dialect_id"
+    t.index ["template_id"], name: "index_pick_word_in_sets_on_template_id"
     t.index ["translation_set_id"], name: "index_pick_word_in_sets_on_translation_set_id"
     t.index ["user_id"], name: "index_pick_word_in_sets_on_user_id"
   end
@@ -77,6 +102,26 @@ ActiveRecord::Schema[7.0].define(version: 2024_11_25_104258) do
     t.decimal "shuffle"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "template_progresses", force: :cascade do |t|
+    t.integer "counter", default: 0, null: false
+    t.bigint "template_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["template_id"], name: "index_template_progresses_on_template_id"
+  end
+
+  create_table "template_word_progresses", force: :cascade do |t|
+    t.integer "correct", default: 0, null: false
+    t.integer "failed", default: 0, null: false
+    t.integer "last_counter", default: 0, null: false
+    t.bigint "word_id", null: false
+    t.bigint "template_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["template_id"], name: "index_template_word_progresses_on_template_id"
+    t.index ["word_id"], name: "index_template_word_progresses_on_word_id"
   end
 
   create_table "translation_sets", force: :cascade do |t|
@@ -160,13 +205,22 @@ ActiveRecord::Schema[7.0].define(version: 2024_11_25_104258) do
     t.integer "dialect_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "rank", default: 0
     t.index ["dialect_id"], name: "index_words_on_dialect_id"
     t.index ["spelling"], name: "index_words_on_spelling"
   end
 
+  add_foreign_key "pick_word_in_set_directions", "dialects", column: "option_dialect_id"
+  add_foreign_key "pick_word_in_set_directions", "dialects", column: "target_dialect_id"
+  add_foreign_key "pick_word_in_set_templates", "pick_word_in_set_directions", column: "direction_id"
+  add_foreign_key "pick_word_in_set_templates", "users"
   add_foreign_key "pick_word_in_sets", "dialects", column: "option_dialect_id"
+  add_foreign_key "pick_word_in_sets", "pick_word_in_set_templates", column: "template_id"
   add_foreign_key "pick_word_in_sets", "translation_sets"
   add_foreign_key "pick_word_in_sets", "users"
+  add_foreign_key "template_progresses", "pick_word_in_set_templates", column: "template_id"
+  add_foreign_key "template_word_progresses", "pick_word_in_set_templates", column: "template_id"
+  add_foreign_key "template_word_progresses", "words"
   add_foreign_key "translations", "users"
   add_foreign_key "user_dialect_progresses", "dialects"
   add_foreign_key "user_dialect_progresses", "dialects", column: "source_dialect_id"

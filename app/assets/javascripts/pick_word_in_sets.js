@@ -271,10 +271,9 @@
     form_model.buttons.forEach((b) => { b.blur(); });
     form_model.hideNextButton();
     let tests = recordManager.objects.PickWordInSet;
-    let unfilledTests = tests ? Object.values(tests).filter((p) => p.picked_id == null
-      && p.option_dialect_id == form_model.optionDialectId && p.correct
-      && p.correct.translation_dialect_id == form_model.sourceDialectId
-      && p.correct.word.dialect_id == form_model.targetDialectId) : []
+    let unfilledTests = (tests && form_model.templateId > 0)
+      ? Object.values(tests).filter((p) => p.picked_id == null && p.template_id == form_model.templateId) 
+      : []
     let filled = false;
     if(unfilledTests.length >= 1 || (id != null)) {
       form_model.data = id == null ? unfilledTests[0] : recordManager.objects.PickWordInSet[id];
@@ -307,7 +306,8 @@
       },
       success: function(data, textStatus, jqXHR) {
           console.log(`$$$ data loaded`);
-          receiveData(data,() =>
+          form_model.templateId = data.template_id
+          receiveData(data.data,() =>
           {
             if(needMove) //passed model meant to use it to fill with new data
             {

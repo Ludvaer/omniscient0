@@ -3,6 +3,7 @@ class PickWordInSet < ApplicationRecord
   belongs_to :user
   belongs_to :correct, :class_name => 'Translation'
   belongs_to :picked, :class_name => 'Translation', optional: true
+  belongs_to :template,  :class_name => 'PickWordInSetTemplate'
   attr_readonly :correct_id
   attr_readonly :version
   attr_readonly :translation_set_id
@@ -37,6 +38,13 @@ class PickWordInSet < ApplicationRecord
 
   def self.create(params)
     return PickWordInSetService.create(params)
+  end
+
+  def self.new_blank(params)
+    display_dialects = params[:display_dialects]
+    target_dialect = params[:target_dialect]
+    option_dialect = params[:option_dialect]
+    @direction = PickWordInSetDirection.find(target_dialect,display_dialects,option_dialect)
   end
 
 

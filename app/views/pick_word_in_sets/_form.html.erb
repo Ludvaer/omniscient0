@@ -8,6 +8,13 @@ optionboard_id = "optionboard_#{identificator}"
 div_id = "pick_word_in_set_#{identificator}_div"
 form_id = "test_pick_#{identificator}_form"
 picked_id = "test_pick_#{identificator}_input"
+direction = pick_word_in_set.template.direction
+
+target_name = direction.target_dialect.name
+display_names = direction.display_dialects.map{|dialect|dialect.name}
+option_name = direction.option_dialect.name
+target = direction.target_dialect.name
+url_params = {n:n, target:target_name, display:display_names, option:option_name }
 %>
 <div class="pick_word_in_set" id="<%= div_id %>">
 <%# if correct %>
@@ -103,10 +110,12 @@ picked_id = "test_pick_#{identificator}_input"
     pick_word_in_sets_url = "<%= pick_word_in_sets_url %>";
     <%= form_model_id %>.locals = <%= locals.to_json.html_safe  %>;
     <%= form_model_id %>.params = <%= locals[:params].to_json.html_safe  %>;
+    <%= form_model_id %>.params = <%= url_params.to_json.html_safe  %>;
     <%= form_model_id %>.pickWordInSetN = <%= locals[:params][:n] || 0 %>;
     <%= form_model_id %>.sourceDialectId = <%= locals[:params][:source_dialect_id] || 0 %>;
     <%= form_model_id %>.targetDialectId = <%= locals[:params][:target_dialect_id] || 0 %>;
     <%= form_model_id %>.optionDialectId = <%= locals[:params][:option_dialect_id] || 0 %>;
+    <%= form_model_id %>.templateId = <%= pick_word_in_set.template.id || 0 %>;
     <% ids = locals[:ids]%>
     <% ids = if defined?(ids) && (!ids.nil?) then ids else [] end %>
     <% ids = if ids.empty? && !pick_word_in_set.id.nil? then [pick_word_in_set.id] else ids end %>

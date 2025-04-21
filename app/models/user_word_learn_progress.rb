@@ -1,0 +1,2 @@
+class UserWordLearnProgress < ApplicationRecord
+end

@@ -85,3 +85,8 @@ yes; that's right; *=11 Really ?, Is that so ?; they say; I hear
 
 この間 の|konoaida no|recent|1|
 近頃 の|chikagoro no|recent; late; modern|2|
+
+報告 する|houkoku suru|report; inform|1|
+通知 する|tsuuchi suru|notify; inform; let know|1|
+
+#probably need code that splits translations and avoid simialr anyway
