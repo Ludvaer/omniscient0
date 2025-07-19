@@ -17,7 +17,7 @@ include|word|reading|original|part of speech|tags|russian short|russian|english 
 -|れる|れる|れる|suffix|passive|—|окончание пассивности|—|passive suffix|—|наставак за пасив-|てる|ている||suffix|||окончание указывающе на продолжительность|ing|continuation suffix||
 -|つう|つう|と + 言う|suffix|combo, naming|зовётся|называется, именуется|called|called, named|зове се|зове се, именује се
 -|という|という|と + 言う|suffix|combo, naming|зовётся|называется, именуется|called|called, named|зове се|зове се, именује се
-+|事|こと|事|noun|abstract thing|вещь|дело, вещь, обстоятельство, факт, случай|thing|abstract thing, affair, matter, fact|ствар|ствар, случај, чињеница
++|事|こと|事|noun||обстоятельство|дело, вещь, обстоятельство, факт, случай|thing|abstract thing, affair, matter, fact|ствар|ствар, случај, чињеница
 +|ええ|ええ|ええ|interjection|affirmation|да|да|yes|yes|да|да
 -|えー|えー|ええ|interjection|hesitation|да|да|yes|yes|да|да+|言う|いう|言う|u-verb||говорить|говорить, сказать|say|say, tell||
 -|のです|のです|の + だ|compound|polite, combo|есть же|быть, есть (вежливый усилительный глагол-связка)|be|be, is, are (assertion, polite copula)|бити|јесам, јеси, јест, јесмо, јесте, јесу
@@ -168,3 +168,8 @@ include|word|reading|original|part of speech|tags|russian short|russian|english 
 +|彼|かれ|彼|pronoun|male|он|он|he|he|он|он
 +|方|かた|方|noun|polite person|человек|человек (вежл.)|person|person (polite), way, direction|особа|особа (учтиво), страна
 +|食べる|たべる|食べる|verb|action, basic verb|есть|есть
++|ほど|ほど|程|particle|extent, comparison|примерно|примерно, степень, мера|about|about; extent; degree; as...as|отприлике|отприлике, мера
++|しかし|しかし|しかし|conjunction|contrast|но|но, однако|but|but, however|али|али, међутим
++|書く|かく|書く|verb|action|писать|писать|write|write|писати|писати
++|入れる|いれる|入れる|verb|placement, inclusion|класть|вкладывать, помещать, включать|put in|put in; insert; include|ставити|ставити, унети
++|次|つぎ|次|noun|order, sequence|следующий|следующий, следующий по порядку|next|next; following; coming|следећи|следећи, наредни
