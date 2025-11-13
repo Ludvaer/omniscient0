@@ -18,6 +18,10 @@ class User < ApplicationRecord
 		format: { with: VALID_USER_REGEX }
 	has_secure_password
 
+	def self.system_user(name)
+		User.find_or_create_by(name: name, email: name + '@example.com', downame: name.downcase)
+	end
+
 	def create_activation
 		aa = AccountActivation.new
 		aa.email = email

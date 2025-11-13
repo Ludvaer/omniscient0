@@ -62,6 +62,8 @@ which ?(of the two); who ? 149353_
 unbarked log[s]; ^^224117; bot. symplocos; = Symplocos
 indoor; covered; *=10 indoors; within doors
 yes; that's right; *=11 Really ?, Is that so ?; they say; I hear
+yes; that's right; *=11 Really ?, Is that so ?; they say; I hear
+
 
 仕儀|shigi|lit.|10|
 
@@ -69,6 +71,10 @@ yes; that's right; *=11 Really ?, Is that so ?; they say; I hear
  鯨 kujira ??
  胴欲 douyuku ?
 
+ 手ぶら lost de in kanji
+
+
+ マッチ matchi match [es] r66207; sports match
 
  similar picks:
  http://127.0.0.1:3000/en/pick_word_in_sets/274?n=10&source_dialect_id=2&target_dialect_id=1&option_dialect_id=2
@@ -89,4 +95,10 @@ yes; that's right; *=11 Really ?, Is that so ?; they say; I hear
 報告 する|houkoku suru|report; inform|1|
 通知 する|tsuuchi suru|notify; inform; let know|1|
 
+sonna vs kou
+sugoi vs kurushii
+
+outside; exterior; open air another place; outside
 #probably need code that splits translations and avoid simialr anyway
+
+next; following; coming vs subsequent

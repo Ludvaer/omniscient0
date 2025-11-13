@@ -14,11 +14,11 @@ class PickWordInSetService
     #TODO: get rid of source_dialect using display dialects array now
     @source_dialect_id = (@display_dialects_ids + [@option_dialect_id])\
       .reject{|id|id==Dialect.find_by_name('kana').id || id == @target_dialect_id}[0]
-    puts "PickWordInSetService #{@source_dialect_id}->#{@target_dialect_id} | #{@display_dialects_ids} ->#{ @option_dialect_id}"
+    # puts "PickWordInSetService #{@source_dialect_id}->#{@target_dialect_id} | #{@display_dialects_ids} ->#{ @option_dialect_id}"
     #TODO: seprate find and find or create
     @direction = PickWordInSetDirection.find_or_init(@target_dialect,@display_dialects,@option_dialect)
     @template = PickWordInSetTemplate.find_or_init(@direction, @user)
-    puts ">>> @template.inspect: #{@template.inspect} direction:#{@template.direction} display:#{@template.direction.display_dialects.to_a.to_s}"
+    # puts ">>> @template.inspect: #{@template.inspect} direction:#{@template.direction} display:#{@template.direction.display_dialects.to_a.to_s}"
   end
 
   def self.create(params)
@@ -67,10 +67,10 @@ class PickWordInSetService
 
   end
 
-  def soft_logit(y, epsilon = 1e-15)
+  def soft_logit(y, epsilon = 1e-12)
     y = [[y, epsilon].max, 1 - epsilon].min
-    # Math.log((1 - y) / y)
-    -Math.tan((y+ 0.5)*Math::PI)
+    Math.log((1 - y) / y)
+    # -Math.tan((y+ 0.5)*Math::PI)
   end
 
   def monotonic_fit(data)
@@ -78,47 +78,43 @@ class PickWordInSetService
 
     # Sort y values descending, assign them to xs (already sorted)
     sorted_ys = ys.sort.reverse
-
+    averaged_ys = ys.zip(sorted_ys).map { |y1,y2| 0.5*(y1+y2)  }
+    sorted_ys = averaged_ys.sort.reverse
     realigned_data = xs.zip(sorted_ys)
+
+    puts "realigned_data: #{realigned_data}"
 
     return realigned_data
   end
 
 
   def estimate_sigmoid(y_by_x)
-    y_by_x = monotonic_fit(y_by_x)
+    xy_data = monotonic_fit(y_by_x)
     s_w  = 0# ws.sum
     s_x  = 0# ws.zip(x_data).map { |w, x| w * x }.sum
     s_z  = 0#  ws.zip(zs).map     { |w, z| w * z }.sum
     s_xx = 0#  ws.zip(x_data).map { |w, x| w * x * x }.sum
     s_xz = 0#  ws.zip(x_data.zip(zs)).map { |w, (x, z)| w * x * z }.sum
-    y_by_x.each_cons(2) do |(x1,y1),(x2,y2)|
-      ss = (y2 - y1)/(x2-x1)
-      if x1 == x2
-        next
-      end
-      (x1..x2).each do |xx|
-        x = xx
-        y = y1 + (x-x1)*ss
-        y = (y2-y1).abs > 1e-16 ? [y1,y2].min + (y - [y1,y2].min)**2/(y2-y1).abs : y
-        z = soft_logit(y) #   Math.log((1 - y) / y) = ln(1-y) - ln (y)
-        w =   1.0 / (1.0 + z**2)  # 1 / (1 +   Math.log**2((1 - y) / y))
-        wxz = 1.0 / (z + 1.0 / z)
-        s_w += w
-        s_x += w * x
-        s_z += wxz # w * z
-        s_xx += w * x * x
-        s_xz += wxz * x  # w * z * x
-      end
+
+    y_by_x.each do |x,y|
+      z = soft_logit(y) #   Math.log((1 - y) / y) = ln(1-y) - ln (y)
+      w = 1.0 / (1.0 + z**2)  # 1 / (1 +   Math.log**2((1 - y) / y))
+      wxz = 1.0 / (1.0/z + z)
+      s_w += w
+      s_x += w * x
+      s_z += wxz # w * z
+      s_xx += w * x * x
+      s_xz += wxz * x  # w * z * x
     end
-    denom = s_w * s_xx - s_x * s_x
-    a = (s_w * s_xz - s_x * s_z) / denom
+
+    denom = s_w * s_xx - s_x * s_x + 1
+    a = (s_w * s_xz - s_x * s_z + 1) / denom
     c = (s_z - a * s_x) / s_w
     b = -c / a
+    # return a, b
+    # ax + c = 0
     mean = -c / a
     slope = -a/Math::PI
-    @center = mean
-    @slope = slope
     return [mean, slope]
   end
 
@@ -163,23 +159,23 @@ class PickWordInSetService
       end
 
       def get_estimated_prob_by_rank
-        maxrank = Word.max_rank(@direction.target_dialect)
+        word_max_rank = Word.max_rank(@direction.target_dialect)
         learn_progress_count = progresses.size
-        max_rank = 1
+        progress_max_rank = 1
         maxpick = template_progress.counter
         puts "maxpick = #{maxpick}; learn_progress_count = #{learn_progress_count}"
         prob_by_rank = [[0,1.0]]
         sum = 1.0
         cnt = 1
         appended_value = 0
-        progresses.each do |progress|
+        progresses.reject{|p|p.word_id == 0 || p.correct + p.failed == 0}.each do |progress|
              rank = progress.word.rank
              correct = progress.correct || 0
              failed = progress.failed || 0
              # if rank > max_rank + 1
              #   prob_by_rank.append([max_rank + 1, [sum / cnt,appended_value].min])
              # end
-             max_rank = [rank,max_rank].max
+             progress_max_rank = [rank,progress_max_rank].max
              estimated_prob =  (correct + 1e-15) / (correct + failed + 2e-15)
              short = (1 - estimated_prob) * (0.5**(0.1 * (maxpick - progress.last_counter)))
              long = (estimated_prob - 0)* (0.5**((maxpick - progress.last_counter)/learn_progress_count))
@@ -192,10 +188,10 @@ class PickWordInSetService
         end
         sum = prob_by_rank.sum{|x|x[1]};
         high = sum / prob_by_rank.length
-        low = 0.1*sum / (maxrank + prob_by_rank.length)
+        low = 0.1*sum / (word_max_rank + prob_by_rank.length)
         # prob_by_rank[1][1] = high
-        prob_by_rank.append([maxpick+1, [low,appended_value].min])
-        prob_by_rank.append([maxrank+1, 0])
+        prob_by_rank.append([progress_max_rank+1, [low,appended_value].min])
+        prob_by_rank.append([word_max_rank+1, 0])
         #puts "#{progresses.size} translation progresses counted"
         puts prob_by_rank.to_s
         prob_by_rank
@@ -236,18 +232,18 @@ class PickWordInSetService
         learn_progress_count = progresses.size
         translations = []
         prob_from_sigmoid =  "0.5*(1 + tanh((#{slope})*(words.rank-(#{center}))))"
-        naive_prob = "((correct + 0.1)/(correct + failed + 0.2))"
+        #  probfromsigmoid =  0.5*(1 + Math.tanh((slope)*(t.rank-(center))))
+        naive_prob = "((correct + 0.01)/(correct + failed + 0.02))"
         #not really probb but additiona decaying prob over sigmoid
         prob_from_progress = \
-            "(1.0 - #{naive_prob})*0.5^(0.2 * (#{maxpick} - last_counter)) \
+            "(1.0 - #{naive_prob})*0.5^(0.1 * (#{maxpick} - last_counter)) \
             + (#{naive_prob} - #{prob_from_sigmoid})*0.5^((#{maxpick} - last_counter)/#{learn_progress_count})"
         #also sorry we guesstimated erf bur will use tanh instead
         incompelete = request_incomplete
-        excluded_word_ids = incompelete.pluck('correct.word_id').uniq
+        excluded_word_ids = incompelete.map{|t|t.correct.word.id}.uniq
         #request to exclude all words from sets in incomplete picks:
         #excluded_word_ids = @incompelete.joins(translation_set: :translations).pluck('translations.word_id').uniq
         puts "incompelete: #{incompelete.map {|p|p.id }} excluded_word_ids #{excluded_word_ids}"
-        dialects_of_interest = @display_dialects_ids + [@option_dialect_id]
         # translations =
         #     Translation.joins(:word) \
         #     .includes(:word) \
@@ -268,7 +264,7 @@ class PickWordInSetService
             .where(dialect_id: @target_dialect_id) \
             .where.not(id: excluded_word_ids)\
             .order(Arel.sql( \
-              "COALESCE((#{prob_from_progress}) * (#{prob_from_sigmoid}) ,0) \
+              "COALESCE((2*#{prob_from_progress}) * (#{prob_from_sigmoid})*(1 - #{prob_from_sigmoid}) ,0) \
               + abs(#{prob_from_sigmoid} - #{TARGET_PROBABILITY}) \
               + 0.000000001*RANDOM()" \
               )).take(minimal_size + margin)
@@ -277,8 +273,8 @@ class PickWordInSetService
               .order(word: {id: :asc}, rank: :asc)
               .select('DISTINCT ON (word.id) translations.*') #TODO: use left inner join
         info = translations.map do |t|
-          probfromsigmoid =  0.5*(1 + Math.tanh((slope)*(t.rank-(center))))
-          [t.rank, t.word.spelling, t.translation, probfromsigmoid].to_s
+          probfromsigmoid =  0.5*(1 + Math.tanh((slope)*(t.word.rank-(center))))
+          [t.word.rank, t.word.spelling, t.translation, probfromsigmoid].to_s
         end
         puts info
         translations
@@ -366,13 +362,13 @@ class PickWordInSetService
             sql = "INSERT INTO translation_sets_translations (translation_set_id, translation_id) VALUES #{values}"
             # Execute the SQL
             ActiveRecord::Base.connection.execute(sql)
-            @translation_set = new_translation_set
+            translation_set = new_translation_set
           else
-            @translation_set = matching_translation_sets[0]
+            translation_set = matching_translation_sets[0]
           end
           pick_word_in_set.picked_id = nil
           pick_word_in_set.correct_id = correct.id
-          pick_word_in_set.translation_set_id = @translation_set.id
+          pick_word_in_set.translation_set_id = translation_set.id
           pick_word_in_set.version = 1
           pick_word_in_set.user_id = @user.id
           pick_word_in_set.option_dialect_id = @option_dialect_id
