@@ -7,3 +7,4 @@ id	name	email	password_digest	Token	downame	activated
 7	"HirokoStormSeed"	"hirokostormseed@example.com"	"$2a$12$jqaZ76QPr/ToxIK5dTNhZ.MZm4U4oQMTfUSiyN73IAPEN8iRS9j6e"		"hirokostormseed"	true
 8	"YarxiComboSeed"	"yarxicomboseed@example.com"	"$2a$12$QnLSVJUrjFcIScR1h2MNGeORu/HZTMVrOWIB4RIHxEaJp.ZcEFD8C"		"yarxicomboseed"	true
 9	"JishopComboSeed"	"jishopcomboseed@example.com"	"$2a$12$ktsDeqB.uSZE.ZleOvpnqODSW6mf00XtFdmL7vN91ifi.EKdMSJSS"		"jishopcomboseed"	true
+10	"JMDictParser"	"JMDictParser@example.com"	"$2a$12$ktsDeqB.uSZE.ZleOvpnqODSW6mf00XtFdmL7vN91ifi.EKdMSJSS"		"jmdictparser"	true

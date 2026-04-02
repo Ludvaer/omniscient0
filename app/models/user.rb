@@ -18,8 +18,9 @@ class User < ApplicationRecord
 		format: { with: VALID_USER_REGEX }
 	has_secure_password
 
+  # Gets user by name for system purposes
 	def self.system_user(name)
-		User.find_or_create_by(name: name, email: name + '@example.com', downame: name.downcase)
+		User.find_or_create_by!(name: name, email: name + '@example.com', downame: name.downcase)
 	end
 
 	def create_activation

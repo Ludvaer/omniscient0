@@ -26,7 +26,7 @@ as[0].product(*as[1..-1]).each do |source_dialect,target_dialect,user|
     end
   end
   if imax > 0
-    UserDialectProgress.find_or_create_by(dialect_id: target_dialect.id, \
+    UserDialectProgress.find_or_create_by!(dialect_id: target_dialect.id, \
          user_id: user.id, source_dialect_id:source_dialect.id).update!(counter: imax)
     puts "updated last counter #{imax}"
   end
