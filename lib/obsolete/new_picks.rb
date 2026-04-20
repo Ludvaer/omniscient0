@@ -150,14 +150,14 @@ translations.each do |trans|
     puts ("#{whole_word} contains kanji")
     trans_set = []
     kanji_list = whole_word.each_char.select{|ch|ch.kanji?}
-    reversed_kana_list = whole_word.reverse.each_char.select{|ch|ch.kana?}
+    reversed_kana_list = whole_word.reverse.each_char.select{|ch|ch.kana_with_symbol?}
     puts ("kanji_list #{kanji_list} reversed_kana_list #{reversed_kana_list}")
     trans_set = translations.sort_by do |t|
       same_kanji_cost = t.word.spelling.each_char.count{|ch|ch.in?(kanji_list)}*10
       taken_cost = (taken[t.word.spelling])
       kana_cost = - 2*reversed_kana_list.take(t.word.spelling.size).each_with_index.count{|ch,i| ch == t.word.spelling[-i-1]}
       same_word_cost = (t.word.spelling === whole_word ? 100 : 0)
-      no_kana_cost = (reversed_kana_list.size === 0 ? 2*t.word.spelling.each_char.count{|ch|ch.kana?} : 0)
+      no_kana_cost = (reversed_kana_list.size === 0 ? 2*t.word.spelling.each_char.count{|ch|ch.kana_with_symbol?} : 0)
       size_dif = 0.05*(whole_word.size - t.word.spelling.size).abs
       same_kanji_cost + taken_cost + kana_cost + same_word_cost + no_kana_cost + 0.05*size_dif
     end.take(pick_size - 1)

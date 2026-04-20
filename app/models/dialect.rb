@@ -18,6 +18,10 @@ class Dialect < ApplicationRecord
     @@russian ||= by_name('russian')
   end
 
+  def self.kanji
+    @@kanji ||= by_name('kanji')
+  end
+
   def self.by_name(name)
     @@by_name[name]
   end

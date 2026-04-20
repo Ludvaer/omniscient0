@@ -18,7 +18,7 @@ def group_meanings_by_added_string(meanings)
     text = meaning.strip
 
     added_strings = text.scan(/\{([^}]+)\}/).flatten
-    key = added_strings.empty? ? nil : added_strings.join(' ')
+    key = added_strings.empty? ? nil : added_strings.join(' ').gsub('~','')
 
     cleaned = text.gsub(/\{[^}]+\}/, '').strip
     cleaned = cleaned.gsub(/\s+/, ' ')
@@ -32,6 +32,7 @@ puts "-" * 40
 puts ("-" * 14) + "  START NEW RUN   " + ("-" * 14)
 puts "-" * 40
 user = User.system_user('JMDictParser')
+puts "user id #{user.id}"
 file_path = 'D:\input\books\japanese\Dictionary\JMdict'  # or JMdict.xml if not English-only
 jap_dialect_id = Dialect.japanese.id
 english_dialect_id = Dialect.english.id
@@ -41,15 +42,16 @@ existing_jap_words = Word.existing_japanese_by_key
 dialect_by_lang = {'eng' => english_dialect_id,  'rus' => ru_dialect_id}
 puts 'existing examples'
 
-#now you can find jap words with some added particle by no particle key
-existing_jap_words.to_a.each do |key,word|
-  if key.include?(' ')
-    sub_key = key.split('|').map{|s| s.split(' ')[0]}.join('|')
-    if not existing_jap_words.has_key?(sub_key)
-      existing_jap_words[sub_key] = word
-    end
-  end
-end
+# I might not need that anymore since i moved particles to sufix field and form key propely
+# #now you can find jap words with some added particle by no particle key
+# existing_jap_words.to_a.each do |key,word|
+#   if key.include?(' ')
+#     sub_key = key.split('|').map{|s| s.split(' ')[0]}.join('|')
+#     if not existing_jap_words.has_key?(sub_key)
+#       existing_jap_words[sub_key] = word
+#     end
+#   end
+# end
 
 existing_jap_words.drop(0).take(20).each{|x,y|puts x.to_s}
 
@@ -60,7 +62,7 @@ File.open(file_path) do |file|
   doc = Nokogiri::XML(file)
 
   # doc.xpath('//entry').drop(0).take(50).each do |entry|
-  doc.xpath('//entry').each do |entry|
+  doc.xpath('//entry').take(50).each do |entry|
     if (queue.length > 0)
       data = queue.pop
     else
@@ -107,6 +109,7 @@ File.open(file_path) do |file|
     elements = if kanji_elements.length > 0 then kanji_elements else reading_elements end
     add_without_go_prefix!(elements)
     add_without_go_prefix!(reading_elements,'お') if kanji_elements.any? { |word| word.start_with?("御") }
+    reading_elements =reading_elements.map{|re|re.safe_hiragana}
     key = existing_words = nil
     Subsets.each_subset(reading_elements) do |reading_element_subset|
       elements.each do |w0|
@@ -194,8 +197,8 @@ File.open(file_path) do |file|
       reading_elements = [reading_elements]
     end
     if not reading_elements.any?
-      if word_to_edit.spelling.kana?
-        reading_elements = [word_to_edit.spelling.hiragana]
+      if word_to_edit.spelling.kana_with_symbol?
+        reading_elements = [word_to_edit.spelling.safe_hiragana]
         puts "set reading #{word_to_edit.spelling} to #{reading_elements}"
       else
         puts "skip #{word_to_edit.spelling}"
@@ -205,19 +208,17 @@ File.open(file_path) do |file|
     #TODO: remove obsolete alternative writings
     #update alternative writings as translations to japanese
     reading_elements.each do |reading|
-      unless word_to_edit.spelling == reading
-        tt = Translation.find_or_create_by!(
-          translation: reading,
-          translation_dialect_id: kana_dialect_id,
-          word_id: word_to_edit.id
-          )
-        if tt.user_id == 0
-          tt.update!(user_id: user.id)
-          tt.update!(priority: rank)
-        end
-        tt.save
-        puts "saved #{saved} for word #{word_to_edit.id}:#{word_to_edit.spelling} transcribed as #{tt.translation}"
+      tt = Translation.find_or_create_by!(
+        translation: reading,
+        translation_dialect_id: kana_dialect_id,
+        word_id: word_to_edit.id
+        )
+      if tt.user_id == 0
+        tt.update!(user_id: user.id)
+        tt.update!(priority: rank)
       end
+      tt.save
+      puts "saved #{saved} for word #{word_to_edit.id}:#{word_to_edit.spelling} transcribed as #{tt.translation}"
     end
 
     #TODO: make language any
@@ -234,7 +235,7 @@ File.open(file_path) do |file|
           translation: texts.filter{|t| not t.include?('(см.)')}.join(', ')
         )
         saved = translation.save
-        puts "saved #{saved} for word #{word_to_edit.id}:#{word_to_edit.spelling} translated as #{translation.translation}"
+        puts "saved #{saved} for word #{word_to_edit.id}:#{word_to_edit.spelling} translated as #{translation.translation} with rank #{translation.rank}"
         #TODO: remove unconfirmed translations and non translated words
       end
     end

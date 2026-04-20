@@ -1,0 +1,7 @@
+currently parsing jmdict comes with ranking translation from 0 to 150 based on
+freq rank and common word marker
+jshop and yarxi comes with utility in approx range 1 - 10 converted to priorities 1-2000
+which is converted to order rank at some point
+
+main current sequense:
+1 seed to l

@@ -69,8 +69,7 @@ Japanese|Romaji|English|Utility|Type
 金|kane|money; metal|1|
 お金|okane|money|1|
 金|KIN|gold; abbrev. Friday; shogi  the Gold|1|
-九|KYUU|nine|1|
-九|KU|nine|1|
+九|KYUU;KU|nine|1|
 九つ|kokonotsu|nine|1|
 九々|KUKU|multiplication table|1|
 空|KUU|emptiness; Buddh. Sunyata; sky; air|1|
@@ -115,14 +114,11 @@ Japanese|Romaji|English|Utility|Type
 校|KOU|>  abbrev.; school; proofreading|1|
 左 の|hidari no|left|1|
 三|SAN|three|1|
-三つ|mitsu|three|1|
-三つ|mittsu|three|1|
+三つ|mitsu;mittsu|three|1|
 山|yama|mountain; forest; mine; heap; pile; crown of a hat; climax; turning point; speculation|1|
 山々|yamayama|mountains; plenty; very much|1|
-四|SHI|four|1|
-四|yon|four|1|
-四つ|yotsu|four|1|
-四つ|yottsu|four|1|
+四|SHI;yon|four|1|
+四つ|yotsu;yottsu|four|1|
 子|ko|child; youngster|1|
 子|ne|the Rat (1 st sign of Chise Zodiac); arch:  north; arch:  pm  am|1|
 お子さん|okosan|honor. your (his; her) child|1|
@@ -131,18 +127,14 @@ Japanese|Romaji|English|Utility|Type
 字|aza|village or town section with its own name|1|
 字|azana|village or town section with its own name; pseudonym; alias; nickname|1|
 耳|mimi|ear[s]; hearing|1|
-七|SHICHI|seven|1|
-七|nana|seven|1|
-七つ|nanatsu|seven|1|
-七つ|nana|seven|1|
+七|SHICHI;nana|seven|1|
+七つ|nanatsu;nana|seven|1|
 車|kuruma|car; wheeled vehicle; wheel|1|
 手|te|hand; hands; labor force; worker; work; efforts; trouble; hand; handwriting; handle; way; method; means; trick; skill; ability; sort; kind; line; move (in board games)|1|
 手 も なく|te mo naku|easily|1|
 手ぶら|tebura|empty  handed|1|
-手ぶら|teburade|empty  handed|1|
 手ずから|tezukara|with one's own hands; personally|1|
-十|JUU|ten|1|
-十|too|ten|1|
+十|JUU;too|ten|1|
 出る|deru|go out; leave; depart; come out; appear; come from; originate; graduate; stick out; protrude; exceed; take part (in a competition etc.); attend; serve (in a company etc.); come out (as a result), work out; sell; be in demand; be found|1|
 出す|dasu|put out; push out; take out; give out; produce; pay; expose; exhibit; send; forward; post; publish; print|1|
 出|de|coming out; appearance; one's origin; outlay; expenditure; sale; mand; crop; yield; beginning; start|1|
@@ -165,14 +157,10 @@ Japanese|Romaji|English|Utility|Type
 小ざっぱり した|kozappari shita|neat; clean; tidy; dapper|1|
 小ぢんまり と した|kodinmari to shita|smug; cosy|1|
 小|SHOU|smallness in idioms:|1|
-上|ue|upside; topside; after a verb  besides; moreover; in addition; now when...|1|
-上|uwa|upside; topside; after a verb  besides; moreover; in addition; now when...|1|
-上 に|ue ni|above; upwards|1|
-上 に|uwa ni|above; upwards|1|
-上 から|ue kara|from above|1|
-上 から|uwa kara|from above|1|
-上 の|ue no|upper; upward; higher; upper; superior; over; above; on; after; upon; when; in respect to; concerning|1|
-上 の|uwa no|upper; upward; higher; upper; superior; over; above; on; after; upon; when; in respect to; concerning|1|
+上|ue;uwa|upside; topside; after a verb  besides; moreover; in addition; now when...|1|
+上 に|ue;uwa ni|above; upwards|1|
+上 から|ue;uwa kara|from above|1|
+上 の|ue;uwa no|upper; upward; higher; upper; superior; over; above; on; after; upon; when; in respect to; concerning|1|
 上|kami|upper part; top; head; upper stream; superiors; authorities|1|
 上 の|kami no|upper|1|
 上げる|ageru|raise; elevate; lift up; increase; give; offer; present; complete; finish; after a verb in '  te' form indicates  that the action is performed for  nd or 3 rd person; gain (profit), achieve (results); praise; be not too expensive; send (a child to school); hold (a ceremony), solemnize; show in; usher in; admit; throw up; vomit|1|
@@ -249,8 +237,7 @@ Japanese|Romaji|English|Utility|Type
 先々 から|sakizaki kara|beforehand|1|
 千|SEN|thousand|1|
 千|chi|arch:  thousand|1|
-千々に|chidini|(be broken) into pieces; (grieve) deeply|1|
-千々に|chiji|(be broken) into pieces; (grieve) deeply|1|
+千々に|chidini;chiji|(be broken) into pieces; (grieve) deeply|1|
 川|kawa|river|1|
 早い|hayai|early; quick; prompt|1|
 早める|hayameru|accelerate; quicken; advance|1|
@@ -275,11 +262,9 @@ Japanese|Romaji|English|Utility|Type
 村|mura|village|1|
 大きい|ookii|large; big; great|1|
 大きな|ookina|large; big; great|1|
-大いに|ooini|very; greatly; exceedingly; very; greatly; exceedingly|1|
-大まか|oomaka|broadly; roughly; generously; openhandedly|1|
-大まか|oomakani|broadly; roughly; generously; openhandedly|1|
-大ざっぱ|oozappa|at a rough estimate|1|
-大ざっぱ|oozappani|at a rough estimate|1|
+大いに|ooini;ooini|very; greatly; exceedingly|1|
+大まか|oomaka;oomakani|broadly; roughly; generously; openhandedly|1|
+大ざっぱ|oozappa;oozappani|at a rough estimate|1|
 大いなる|ooinaru|large; huge; great|1|
 大らか な|ooraka na|placid; large  hearted|1|
 大した|TAISHITA|big; serious; important; great|1|
@@ -301,16 +286,14 @@ Japanese|Romaji|English|Utility|Type
 町|machi|town; section of a city; city streets; city quarters|1|
 町|CHOU|unit of length (109.09  m; 60  ken); unit of square measure (0.9917  hectares; 10  tan; 3000  tsubo)|1|
 天|TEN|sky; heavens; providence; Heaven; [laws of]  nature; destiny; fate; deva; deity (in Hinduism and Buddhism); top edge (of a book)|1|
-天|ame|obsolete:  heavens|1|
-天|ama|obsolete:  heavens|1|
+天|ame;ama|obsolete:  heavens|1|
 田|ta|rice field; paddy field|1|
 土|tsuchi|earth; soil; ground|1|
 土|DO|abbrev. Saturday|1|
 二|NI|two|1|
 二つ|futatsu|two|1|
 日|hi|sun; day; date|1|
-日々|hibi|daily; day after day|1|
-日々|NICHINICHI|daily; day after day|1|
+日々|hibi;NICHINICHI|daily; day after day|1|
 日|NICHI|abbrev. Sunday|1|
 日ならず して|hinarazu shite|lit:  in a few days; before long; shortly|1|
 入る|iru|enter; go in; set (as of the sun); attain|1|
@@ -327,8 +310,7 @@ Japanese|Romaji|English|Utility|Type
 白ける|shirakeru|become chilled; become cheerless|1|
 白々しい|shirajirashii|transparent; palpable (lie)|1|
 八|HACHI|eight|1|
-八つ|yatsu|eight|1|
-八つ|yattsu|eight|1|
+八つ|yatsu;yattsu|eight|1|
 お八|oyatsu|colloquial:  afternoon snack|1|
 百|HYAKU|hundred|1|
 百|momo|eleg: hundred; great amount|1|
@@ -364,15 +346,13 @@ Japanese|Romaji|English|Utility|Type
 力む|rikimu|strain oneself; bear down; boast; brag; bluff|1|
 林|hayashi|woods; grove; forest; surname|1|
 六|ROKU|six|1|
-六つ|mutsu|six|1|
-六つ|muttsu|six|1|
+六つ|mutsu;muttsu|six|1|
 引く|hiku|draw; pull; drag; tug; lead (a horse; a person); draw; attract (attention etc.); draw (a line); lay on (gas; water etc.); give (a quotation; an example); retreat; withdraw; resign; retire; subside; abate; subtract; deduct; cut down (a price); look up in a dictionary; catch a cold; blunt the edge|2|
 引き|hiki|patronage; pull; backing; discount; reduction in price|2|
 引ける|hikeru|close; be over; break up; feel small|2|
 引け|hike|close (of office; stock market etc.); defeat; reverse; loss|2|
 羽|ha|feathers; plumage|2|
-羽|hane|feather; plumage; wings; paddle; blade|2|
-羽|wa|feather; plumage; wings; paddle; blade|2|
+羽|hane;wa|feather; plumage; wings; paddle; blade|2|
 雲|kumo|cloud|2|
 園|sono|garden|2|
 遠い|tooi|distant; far; remote|2|
@@ -383,8 +363,7 @@ Japanese|Romaji|English|Utility|Type
 黄|ki|yellow|2|
 黄ばむ|kibamu|turn yellowish|2|
 黄ばみ|kibami|yellow tint|2|
-何|nani|what|2|
-何|nan|what|2|
+何|nani;nan|what|2|
 何の|nanno|what  [kind of...]; with neg. not at all; int. Oh!  [It's nothing!]|2|
 何か|nanika|some; any; something|2|
 何も|nanimo|>  with neg.; nothing; [not]  necessarily; why|2|
@@ -405,8 +384,7 @@ Japanese|Romaji|English|Utility|Type
 何とかか(ん)とか して|nantokaka(n)toka shite|colloquial:  somehow or other; by hook or by crook|2|
 何としても|nantoshitemo|by any means; at any risk|2|
 何となく|nantonaku|somehow; for some reason or  other; without knowing why|2|
-何とはなしに|nantohanashini|somehow; for some reason or  other; without knowing why|2|
-何とはなしに|nantowanashini|somehow; for some reason or  other; without knowing why|2|
+何とはなしに|nantohanashini;nantowanashini|somehow; for some reason or  other; without knowing why|2|
 何とも|nantomo|quite; really; with neg. not a bit; not at all; nothing|2|
 何ともない|nantomonai|there's nothing  [bad]|2|
 何となれば|nantonareba|lit:  for; because|2|
@@ -426,8 +404,7 @@ Japanese|Romaji|English|Utility|Type
 何れにしても|izurenishitemo|either way; at all events; in any case|2|
 夏|natsu|summer|2|
 夏|KA|Xia dynasty (China; XXI  XVII BC)|2|
-家|ie|house; home; dwelling; family; household; home; one's family name|2|
-家|ya|house; home; dwelling; family; household; home; one's family name|2|
+家|ie;ya|house; home; dwelling; family; household; home; one's family name|2|
 家|uchi|house; home; family|2|
 家 の|uchi no|my; our|2|
 家々|ieie|houses|2|
@@ -511,8 +488,7 @@ Japanese|Romaji|English|Utility|Type
 弓|yumi|bow (for archery); bound  archery; music  bow|2|
 牛|ushi|cow; bull; ox; cattle|2|
 牛|GYUU|beef|2|
-魚|sakana|fish|2|
-魚|uo|fish|2|
+魚|sakana;uo|fish|2|
 京|KYOU|capital; metropolis|2|
 京|KEI|capital; metropolis; ten quadrillion; 10   cho (10      000)|2|
 強い|tsuyoi|strong; powerful; intense; hard; robust|2|
@@ -533,8 +509,7 @@ Japanese|Romaji|English|Utility|Type
 近く の|chikaku no|nearby; neighboring|2|
 近く|chikaku|shortly; soon; nearly; approximately|2|
 近く なる|chikaku naru|draw near|2|
-近々 に|chikadika ni|shortly; before long; soon|2|
-近々 に|KINKIN ni|shortly; before long; soon|2|
+近々 に|chikadika;KINKIN ni|shortly; before long; soon|2|
 近しい|chikashii|intimate; friendly|2|
 兄|ani|elder brother|2|
 兄さん|niisan|elder brother|2|
@@ -579,8 +554,7 @@ Japanese|Romaji|English|Utility|Type
 後れ|okure|backwardness; lag; failure; defeat; shyness|2|
 後らす|okurasu|retard; delay; defer|2|
 後めたい|ushirometai|anxious; ashamed|2|
-後々|nochinochi|[distant]  future|2|
-後々|atoato|[distant]  future|2|
+後々|nochinochi;atoato|[distant]  future|2|
 語|GO|word; speech; language|2|
 語る|kataru|tell; talk; speak|2|
 語らう|katarau|talk; converse; chat; plot together; conspire; pledge one's troth|2|
@@ -593,20 +567,16 @@ Japanese|Romaji|English|Utility|Type
 交ざる|mazaru|be mixed; be mingled; intermingle|2|
 交じる|majiru|be mixed; be mingled; intermingle|2|
 交々|komogomo|alternately; in succession|2|
-交|KOU|turning point (of two eras etc.)|2|
-交|kau|turning point (of two eras etc.)|2|
+交|KOU;kau|turning point (of two eras etc.)|2|
 光る|hikaru|shine; glow; glitter; sparkle|2|
 光|hikari|light; flash; sparkle; beam; figurative:  glory; honor; influence|2|
-公 の|ooyake no|public; open; official; governmental|2|
-公 の|KOU no|public; open; official; governmental|2|
-公 に する|ooyake ni suru|publish; announce officially|2|
-公 に する|KOU ni suru|publish; announce officially|2|
+公 の|ooyake;KOU no|public; open; official; governmental|2|
+公 に する|ooyake;KOU ni suru|publish; announce officially|2|
 公|kimi|obsolete:  sovereign; emperor|2|
 工|takumi|> obsolete:; artisan; craftsman; carpenter|2|
 工む|takumu|plan; contrive|2|
 広い|hiroi|wide; broad; extensive; vast; spacious|2|
-広やか|hiroyaka|wide; broad; extensive; vast; spacious|2|
-広やか|hiroyakana|wide; broad; extensive; vast; spacious|2|
+広やか|hiroyaka;hiroyakana|wide; broad; extensive; vast; spacious|2|
 広がる|hirogaru|widen; extend; spread out; spread; reach to|2|
 広げる|hirogeru|widen; expand; spread; unfold; unroll; open|2|
 広まる|hiromaru|spread; be propagated; become popular; prevail|2|
@@ -621,10 +591,8 @@ Japanese|Romaji|English|Utility|Type
 行|KOU|party; suite in idioms:|2|
 行|GYOU|line of characters (usu. vertical); religious austerities|2|
 行|kudari|lit:  vertical line of characters|2|
-行きずり|yukizuri|casual; passing|2|
-行きずり|yukizurino|casual; passing|2|
-行きっきり|yukikkiri|for long time; forever (gone)|2|
-行きっきり|yukikkirini|for long time; forever (gone)|2|
+行きずり|yukizuri;yukizurino|casual; passing|2|
+行きっきり|yukikkiri;yukikkirini|for long time; forever (gone)|2|
 行かす|ikasu|informal: [be]  great (smart; stylish; cool)|2|
 高い|takai|high; tall; expensive; loud|2|
 高|taka|amount; sum; quantity; rise (in price)|2|
@@ -633,8 +601,7 @@ Japanese|Romaji|English|Utility|Type
 高める|takameru|raise; lift; elevate; improve|2|
 高ぶる|takaburu|be proud; be arrogant|2|
 高み|takami|height; elevated place|2|
-高らか|takaraka|loudly; aloud|2|
-高らか|takarakani|loudly; aloud|2|
+高らか|takaraka;takarakani|loudly; aloud|2|
 高々|takadaka|at most; at best; no more than...|2|
 高々 と|takadaka to|very high; aloft; loudly; in a loud voice|2|
 高じる|KOUJIRU|grow worse; become aggravated|2|
@@ -648,8 +615,7 @@ Japanese|Romaji|English|Utility|Type
 国々|kuniguni|countries; nations|2|
 黒|kuro|black; blackness|2|
 黒い|kuroi|black; dark|2|
-黒ずんだ|kurozunda|blackish; swarthy|2|
-黒ずんだ|kurozumu|blackish; swarthy|2|
+黒ずんだ|kurozunda;kurozumu|blackish; swarthy|2|
 黒っぽい|kuroppoi|blackish; dark|2|
 黒める|kuromeru|make black|2|
 黒まる|kuromaru|become black|2|
@@ -671,13 +637,11 @@ Japanese|Romaji|English|Utility|Type
 細る|hosoru|get thin; get narrow; taper off|2|
 細める|hosomeru|make narrow|2|
 細かい|komakai|fine; small; minute; detailed; elaborate; stingy|2|
-細か|komaka|fine; small; minute; detailed; elaborate; stingy|2|
-細か|komakana|fine; small; minute; detailed; elaborate; stingy|2|
+細か|komaka;komakana|fine; small; minute; detailed; elaborate; stingy|2|
 細い|komai|fine; small; minute; detailed; elaborate; stingy|2|
 細かしい|komakashii|tiny|2|
 細やか|komayaka|small; tiny; detailed; deep (color); warm (feeling)|2|
-細やか|sasayaka|small; modest|2|
-細やか|sasayakana|small; modest|2|
+細やか|sasayaka;sasayakana|small; modest|2|
 細々 と|komagoma to|minutely; in great detail|2|
 細々 と した|komagoma to shita|sundry; miscellaneous|2|
 細々 と した|hosoboso to shita|slender; slim; delicate|2|
@@ -697,8 +661,7 @@ Japanese|Romaji|English|Utility|Type
 思う|omou|think; suppose; believe; wish; feel like; expect; intend; imagine; love; care for|2|
 思い|omoi|thought; idea; feelings; desire|2|
 思わず|omowazu|unintentionally; unconsciously|2|
-思わぬ|omowanu|unexpected|2|
-思わぬ|omowan|unexpected|2|
+思わぬ|omowanu;omowan|unexpected|2|
 思わしい|omowashii|desirable; satisfactory|2|
 思わせる|omowaseru|give the impression that|2|
 思われる|omowareru|seem; appear|2|
@@ -718,8 +681,7 @@ Japanese|Romaji|English|Utility|Type
 時|toki|time; when; in case of...|2|
 時々|tokidoki|sometimes; occasionally|2|
 時々 の|tokidoki no|occasional; casual|2|
-時には|tokiniha|at times; once in a while|2|
-時には|tokiniwa|at times; once in a while|2|
+時には|tokiniha;tokiniwa|at times; once in a while|2|
 時めく|tokimeku|prosper; flourish|2|
 自ら|mizukara|oneself; personally|2|
 自ら の|mizukara no|one's own|2|
@@ -756,8 +718,7 @@ Japanese|Romaji|English|Utility|Type
 少しずつ|sukoshizutsu|little by little|2|
 場|ba|place; space; situation; moment; theater  scene; phys. field; market; exchange|2|
 色|iro|color; hue; tint; shade; facial expression; look; sensuality; sexual passion; kind; sort; type|2|
-色づく|iroduku|acquire a color|2|
-色づく|irozuku|acquire a color|2|
+色づく|iroduku;irozuku|acquire a color|2|
 色めく|iromeku|acquire a color; liven; grow agitated; begin to waver (in a battle)|2|
 色っぽい|iroppoi|sexy; seductive|2|
 色めかしい|iromekashii|sexy; seductive|2|
@@ -806,8 +767,7 @@ Japanese|Romaji|English|Utility|Type
 晴れ|hare|fine weather; clear sky|2|
 晴れ の|hare no|formal; public; grand|2|
 晴れて|harete|openly; publicly|2|
-晴れやか|hareyaka|bright; beaming; cheerful|2|
-晴れやか|hareyakana|bright; beaming; cheerful|2|
+晴れやか|hareyaka;hareyakana|bright; beaming; cheerful|2|
 晴れがましい|haregamashii|gala; grand; ostentatious; conspicuous; making awkward|2|
 晴々しい|harebareshii|clear; cloudless; cheerful|2|
 晴々した|harebareshita|clear; cloudless; cheerful|2|
@@ -907,8 +867,7 @@ Japanese|Romaji|English|Utility|Type
 直ちに|tadachini|immediately; at once; directly; in person|2|
 直|CHOKU|openhearted; honest; cheap|2|
 直|JIKI|directly; in person; at once; soon; easily; readily; close; near by|2|
-直か|jika|directly; in person|2|
-直か|jikani|directly; in person|2|
+直か|jika;jikani|directly; in person|2|
 直々 の|JIKIJIKI no|personal; direct|2|
 直々 に|JIKIJIKI ni|personally; in person|2|
 直と|hitato|(nestle) close to|2|
@@ -926,8 +885,7 @@ Japanese|Romaji|English|Utility|Type
 通じて と|TSUUJITE to|with consent of; in collusion with|2|
 通じ|TSUUJI|motion of bowels; evacuation; response (in smb. 's heart)|2|
 通|TSUU|expert; connoisseur|2|
-弟|otouto|younger brother|2|
-弟|ototo|younger brother|2|
+弟|otouto;ototo|younger brother|2|
 弟|TEI|younger brother|2|
 弟|oto|arch:  younger brother; younger sister|2|
 店|mise|shop; store; firm|2|
@@ -936,10 +894,8 @@ Japanese|Romaji|English|Utility|Type
 点じる|TENJIRU|light; kindle; drop (eyedrops); make (tea)|2|
 点ける|tsukeru|light; kindle; switch on|2|
 点く|tsuku|be lighted; be switched on|2|
-点す|tomosu|light up; set alight; kindle|2|
-点す|tobosu|light up; set alight; kindle|2|
-点る|tomoru|burn; be lighted|2|
-点る|toboru|burn; be lighted|2|
+点す|tomosu;tobosu|light up; set alight; kindle|2|
+点る|tomoru;toboru|burn; be lighted|2|
 点てる|tateru|make (tea)|2|
 点す|sasu|light (fire); apply (moxa cautery)|2|
 点々|TENTEN|here and there; in drops|2|
@@ -1044,22 +1000,19 @@ Japanese|Romaji|English|Utility|Type
 母さん|kaasan|mom; mum; mother|2|
 方|HOU|direction; side; part; function word used for comparison|2|
 方|kata|direction; polite  person|2|
-方に|masani|lit:  right now; precisely now|2|
-方に|masa|lit:  right now; precisely now|2|
+方に|masani;masa|lit:  right now; precisely now|2|
 方々|katagata|all people; ladies and gentlemen|2|
 方々|HOUBOU|every direction; everywhere|2|
 北|kita|north|2|
 北 の|kita no|northern|2|
 妹|imouto|younger sister|2|
-毎々|MAIMAI|rare  each time|2|
-毎々|goto|rare  each time|2|
+毎々|MAIMAI;goto|rare  each time|2|
 万|MAN|ten thousand|2|
 万|yorozu|ten thousand; all things; everything|2|
 万々|BANBAN|very much; fully; neg. never; by no means|2|
 明かり|akari|light; lamp|2|
 明るい|akarui|literal or figurative:  bright; light; clear; fair; uncorrupt; well versed in  smth.|2|
-明らか|akiraka|literal or figurative:  bright; light; clear; fair; uncorrupt; well versed in  smth.; clear; distinct; obvious|2|
-明らか|akirakana|literal or figurative:  bright; light; clear; fair; uncorrupt; well versed in  smth.; clear; distinct; obvious|2|
+明らか|akiraka;akirakana|literal or figurative:  bright; light; clear; fair; uncorrupt; well versed in  smth.; clear; distinct; obvious|2|
 明るみ に (で)|akarumi ni (de)|in the light|2|
 明らむ|akaramu|brighten (as of the sky)|2|
 明ける|akeru|dawn; break; become light; begin; open (as of the new year etc.); be over; expire|2|
@@ -1080,8 +1033,7 @@ Japanese|Romaji|English|Utility|Type
 毛むくじゃら の|kemukujara no|informal:  hairy; shaggy|2|
 門|MON|gate; entrance; school (religious or scientific); biol. phylum; division|2|
 門|kado|gate; gateway; entrance|2|
-夜|yoru|night; late evening|2|
-夜|yo|night; late evening|2|
+夜|yoru;yo|night; late evening|2|
 夜々|yoyo|every night; night after night|2|
 野|no|[uncultivated]  field; open country|2|
 野 の|no no|wild (plants; animals)|2|
@@ -1104,11 +1056,10 @@ Japanese|Romaji|English|Utility|Type
 悪し|ashi|arch:  bad|3|
 悪しからず|ashikarazu|[don't take it]  amiss|3|
 悪たれる|akutareru|informal:  do mischief|3|
-悪たれ|akutare|> informal:; mischief; abusive words; rowdy; naughty boy|3|
-悪たれ|nikui|> informal:; mischief; abusive words; rowdy; naughty boy|3|
+悪たれ|akutare;nikui|> informal:; mischief; abusive words; rowdy; naughty boy|3|
 安い|yasui|cheap; inexpensive; peaceful; quiet; tranquil|3|
 安っぽい|yasuppoi|cheapish; tasteless|3|
-安らか|yasuraka|quiet; peaceful; quiet; peaceful|3|
+安らか|yasuraka;yasuraka|quiet; peaceful|3|
 安らぎ|yasuragi|peace of mind|3|
 安んじる|yasunjiru|be contented; be at ease|3|
 安まる|yasumaru|be relieved|3|
@@ -1150,11 +1101,9 @@ Japanese|Romaji|English|Utility|Type
 横 から|yoko kara|from the flank|3|
 横たわる|yokotawaru|lie down; stretch out|3|
 横たえる|yokotaeru|lay  [oneself]  down; place across|3|
-屋|OKU|roof; house|3|
-屋|ya|roof; house|3|
+屋|OKU;ya|roof; house|3|
 温かい|atatakai|warm|3|
-温か|atataka|warm|3|
-温か|atatakana|warm|3|
+温か|atataka;atatakana|warm|3|
 温まる|atatamaru|warm oneself; be heated; get warm|3|
 温める|atatameru|warm up; heat|3|
 温み|nukumi|[slight]  warmth|3|
@@ -1166,8 +1115,7 @@ Japanese|Romaji|English|Utility|Type
 化かす|bakasu|bewitch; enchant|3|
 お化け|obake|transformed monster|3|
 化する|KASURU|> lit:; transform (convert; change) into  smth.; influence; make; render|3|
-化す|KASU|> lit:; transform (convert; change) into  smth.; influence; make; render|3|
-化す|KESU|> lit:; transform (convert; change) into  smth.; influence; make; render|3|
+化す|KASU;KESU|> lit:; transform (convert; change) into  smth.; influence; make; render|3|
 荷|ni|load; cargo; freight; luggage; figurative:  load; burden|3|
 荷なう|ninau|carry|3|
 界|sakai|bound|3|
@@ -1192,8 +1140,7 @@ Japanese|Romaji|English|Utility|Type
 感じる|KANJIRU|feel; experience; be conscious of; be impressed|3|
 漢|KAN|Han dynasty (China; 206  BC — 220  AD)|3|
 館|yakata|obsolete:  mansion; palace|3|
-館|tachi|obsolete:  mansion; palace; fort|3|
-館|tate|obsolete:  mansion; palace; fort|3|
+館|tachi;tate|obsolete:  mansion; palace; fort|3|
 岸|kishi|shore; bank; coast; beach|3|
 期|KI|period; time; term|3|
 期する|KISURU|expect; anticipate; fix a date|3|
@@ -1259,11 +1206,9 @@ Japanese|Romaji|English|Utility|Type
 係る|kakaru|lit:  be made by  smb., be  smb. 's  work|3|
 係わる|kakawaru|be concerned in  smth., have to do with  smth.; affect; threaten; stick to (an opinion)|3|
 軽い|karui|light (not heavy; not intense; not difficult; not important etc.)|3|
-軽やか|karoyaka|light (not heavy; not intense; not difficult; not important etc.)|3|
-軽やか|karoyakana|light (not heavy; not intense; not difficult; not important etc.)|3|
+軽やか|karoyaka;karoyakana|light (not heavy; not intense; not difficult; not important etc.)|3|
 軽んじる|karonjiru|make light of  smth., slight; neglect|3|
-軽はずみ|karuhazumi|rash; hasty; thoughtless|3|
-軽はずみ|karuhazumina|rash; hasty; thoughtless|3|
+軽はずみ|karuhazumi;karuhazumina|rash; hasty; thoughtless|3|
 軽々 と|karugaru to|lightly; easily; without effort|3|
 軽々しい|karugarushii|thoughtless; careless; rash; imprudent; indiscreet|3|
 決める|kimeru|decide; fix; settle; determine|3|
@@ -1277,8 +1222,7 @@ Japanese|Romaji|English|Utility|Type
 決して|KESSHITE|by no means|3|
 血|chi|blood|3|
 血ばむ|chibamu|become bloody|3|
-血だらけ|chidarake|bloody; bloodstained|3|
-血だらけ|chidarakeno|bloody; bloodstained|3|
+血だらけ|chidarake;chidarakeno|bloody; bloodstained|3|
 研ぐ|togu|sharpen; whet; grind; polish; scour; wash (rice)|3|
 研く|migaku|polish; scour|3|
 県|KEN|prefecture (in Japan); county; xian (in China); province; district (in other countries)|3|
@@ -1361,8 +1305,7 @@ Japanese|Romaji|English|Utility|Type
 主 たる|SHU taru|main; principal; chief|3|
 主 と して|SHU to shite|mainly; chiefly|3|
 取る|toru|take; pick up; get; acquire; obtain; receive; remove; get rid of  smth.; understand; grasp; interpret; numerous bound meanings|3|
-取って|ni totte|to; for; in the case of|3|
-取って|totte|to; for; in the case of|3|
+取って|ni totte;totte|to; for; in the case of|3|
 取れる|toreru|come off; slip out of position; [can]  be obtained (earned; paid); be obtained (yielded; produced); be caught (as of fish or game); be taken off; be removed (as of pain etc.); potential form of|3|
 守る|mamoru|protect; defend; guard; observe; obey; keep to; adhere to|3|
 守り|mamori|protection; defense|3|
@@ -1414,9 +1357,7 @@ Japanese|Romaji|English|Utility|Type
 重ね|kasane|pile; heap; layer; counter for suits and various sets|3|
 重なる|kasanaru|lie on top of one another; stack in layers; pile up; come one after another (as of troubles etc.); fall on (a day)|3|
 重々|JUUJUU|repeatedly; many times; extremely; very much|3|
-重々しい|omoomoshii|serious; solemn|3|
-重々しい|omo|serious; solemn|3|
-重々しい|e|srious; solmn|3|
+重々しい|omoomoshii;omo;e|serious; solemn|3|
 宿|yado|inn; lodging; shelter; refuge; dwelling; home; informal: [my]  hubby|3|
 宿|SHUKU|obsolete:  relay station|3|
 宿る|yadoru|stay overnight; take shelter; dwell; reside; lodge|3|
@@ -1466,8 +1407,7 @@ Japanese|Romaji|English|Utility|Type
 真 の|SHIN no|true; real; genuine; veritable|3|
 真 に|SHIN ni|truly; really; indeed|3|
 真|makoto|truth; reality|3|
-真ける|mani ukeru|take seriously; believe|3|
-真ける|ma|take seriously; believe|3|
+真ける|mani ukeru;ma|take seriously; believe|3|
 神|kami|Shinto deity; god (in the broad sense)|3|
 神々|kamigami|deities; gods|3|
 神々しい|kougoushii|divine; heavenly|3|
@@ -1493,9 +1433,7 @@ Japanese|Romaji|English|Utility|Type
 全き|mattaki|perfect; complete|3|
 想う|omou|think|3|
 想|SOU|thought; idea in idioms:|3|
-相|SOU|aspect; physiognomy; lineaments; astron., phys., chem., elec. phase|3|
-相|ai|aspect; physiognomy; lineaments; astron., phys., chem., elec. phase|3|
-相|au|aspect; physiognomy; lineaments; astron., phys., chem., elec. phase|3|
+相|SOU;ai;au|aspect; physiognomy; lineaments; astron., phys., chem., elec. phase|3|
 相する|SOUSURU|tell fortune|3|
 送る|okuru|send; mail; dispatch; ship; see off; escort; spend (time); add kana ending to a kanji|3|
 送り|okuri|sending; seeing off; invoice|3|
@@ -1503,17 +1441,13 @@ Japanese|Romaji|English|Utility|Type
 息 する|iki suru|breathe; respire|3|
 息む|ikimu|strain; bear down|3|
 息み|ikimi|strain; labor pains|3|
-息づく|ikiduku|heave a sigh; gasp|3|
-息づく|ikizuku|heave a sigh; gasp|3|
+息づく|ikiduku;ikizuku|heave a sigh; gasp|3|
 息|SOKU|son|3|
 速い|hayai|quick; fast; rapid|3|
 速める|hayameru|quicken; speed up|3|
-速やか|sumiyaka|lit:|3|
-速やか|sumiyakani|lit:|3|
-速やか な|sumiyaka na|quick; prompt; swift|3|
-速やか な|sumiyakani na|quick; prompt; swift|3|
-速やか に|sumiyaka ni|quickly; promptly; swiftly|3|
-速やか に|sumiyakani ni|quickly; promptly; swiftly|3|
+速やか|sumiyaka;sumiyakani|lit:|3|
+速やか な|sumiyaka;sumiyakani na|quick; prompt; swift|3|
+速やか に|sumiyaka;sumiyakani ni|quickly; promptly; swiftly|3|
 族|yakara|family; relatives; fellows; company; gang|3|
 族|ZOKU|family; relatives; tribe; race; group (of chemical elements etc.); biol. tribe|3|
 他 の|hoka no|another|3|
@@ -1522,10 +1456,8 @@ Japanese|Romaji|English|Utility|Type
 他 に (で)|hoka ni (de)|elsewhere|3|
 他 から|hoka kara|from outside|3|
 他|TA|others; the rest|3|
-その他|SONOTA|the others; the rest; and so forth|3|
-その他|sonohoka|the others; the rest; and so forth|3|
-その他 に|SONOTA ni|besides; moreover|3|
-その他 に|sonohoka ni|besides; moreover|3|
+その他|SONOTA;sonohoka|the others; the rest; and so forth|3|
+その他 に|SONOTA;sonohoka ni|besides; moreover|3|
 他し|adashi|obsolete:  another (in compounds)|3|
 打つ|utsu|strike; hit; beat; knock; drive in (a nail etc.); strike (the hour); attack; kill; shoot; baseball  hit (the ball); forge (a sword etc.); clap (hands); touch (one's heart); cut off (one's head); send (a telegram); play (a game of go); gamble; perform (a play on stage); plow; till (a rice paddy); make (buckwheat noodles); braid (a cord); cast (a net); pay (money on a contract); water; sprinkle; give responses|3|
 打つ|butsu|strike; hit; beat; colloquial:  speak|3|
@@ -1544,8 +1476,7 @@ Japanese|Romaji|English|Utility|Type
 に代わって|ni kawatte|instead of; in place of; on behalf of|3|
 代える|kaeru|replace  smth. with another; substitute|3|
 代|yo|era of rule|3|
-代|DAI|generation; fee; charge|3|
-代|shiro|generation; fee; charge|3|
+代|DAI;shiro|generation; fee; charge|3|
 代々|DAIDAI|generation after generation|3|
 代々 の|DAIDAI no|successive; hereditary|3|
 代|yoyo|eleg: generation after generation|3|
@@ -1592,8 +1523,7 @@ Japanese|Romaji|English|Utility|Type
 定めて|sadamete|probably; presumably; surely; no doubt|3|
 定めし|sadameshi|probably; presumably; surely; no doubt|3|
 定めなき|sadamenaki|uncertain; changeable; transient; ephemeral|3|
-定か|sadaka|certain; definite; positive|3|
-定か|sadakana|certain; definite; positive|3|
+定か|sadaka;sadakana|certain; definite; positive|3|
 庭|niwa|yard; courtyard; garden|3|
 笛|fue|flute; pipe; clarinet; whistle|3|
 鉄|TETSU|iron|3|
@@ -1601,8 +1531,7 @@ Japanese|Romaji|English|Utility|Type
 鉄|kurogane|lit:  iron|3|
 転じる|TENJIRU|revolve; rotate; turn around; alter; change; shift; turn; move; be transferred|3|
 転じて|TENJITE|figuratively|3|
-転ぶ|korobu|fall down; tumble down; roll|3|
-転ぶ|marobu|fall down; tumble down; roll|3|
+転ぶ|korobu;marobu|fall down; tumble down; roll|3|
 転ばす|korobasu|knock down; tumble down; roll over|3|
 転がす|korogasu|knock down; tumble down; roll over|3|
 転がる|korogaru|roll; lie down; fall down; lie about; sprawl; welter|3|
@@ -1617,8 +1546,7 @@ Japanese|Romaji|English|Utility|Type
 度|tabi|time; occasion; after a verb  every time when...|3|
 度々|tabitabi|often; frequently; again and again|3|
 度々|DODO|lit:  often; frequently; again and again|3|
-度する|DOSURU|reclaim; redeem|3|
-度する|tai|reclaim; redeem|3|
+度する|DOSURU;tai|reclaim; redeem|3|
 島|shima|island|3|
 島々|shimajima|islands|3|
 投げる|nageru|throw; cast; pitch; hurl; abandon; throw up; sell at a loss|3|
@@ -1626,10 +1554,9 @@ Japanese|Romaji|English|Utility|Type
 湯|yu|hot water; hot spring; spa; bath; public bathhouse|3|
 お湯|oyu|hot water; hot spring; spa; bath; public bathhouse|3|
 等しい|hitoshii|equal; equivalent; same|3|
-等|TOU|class; grade; rank; etcetera; and so forth; and the like|3|
-等|nado|etcetera; and so forth; and the like|3|
-等々|TOUTOU|etcetera; and so forth; and the like|3|
-等々|ra|etcete; and so forth; and the like|3|
+等|TOU|class; grade; rank|3|
+等|nado;TOU|etcetera; and so forth; and the like|3|
+等々|TOUTOU;ra|etcetera; and so forth; and the like|3|
 豆|mame|beans; peas|3|
 動く|ugoku|move; shift; stir; act; work; operate; run; vary; change; be touched; be moved|3|
 動き|ugoki|movement; motion; activity; development; trend|3|
@@ -1644,8 +1571,7 @@ Japanese|Romaji|English|Utility|Type
 倍 [に] する|BAI [ni] suru|double|3|
 倍 の|BAI no|doubled|3|
 箱|hako|box; chest; case; bin; shamisen; colloquial:  railway car|3|
-畑|hatake|[dry]  field; plantation; vegetable garden; figurative:  one's field; one's specialty|3|
-畑|hata|[dry]  field; plantation; vegetable garden; figurative:  one's field; one's specialty|3|
+畑|hatake;hata|[dry]  field; plantation; vegetable garden; figurative:  one's field; one's specialty|3|
 発する|HASSURU|emit; emanate; radiate; discharge; utter; give out; issue; publish; promulgate; send out; dispatch; depart; leave; cause; give rise to  smth.; originate in  smth., start  somewhere|3|
 発つ|tatsu|leave; depart; start|3|
 発く|abaku|disclose (a secret), expose (a crime); open (a grave)|3|
@@ -1738,8 +1664,7 @@ Japanese|Romaji|English|Utility|Type
 命|MEI|command; order; instruction; life; destiny; fate|3|
 命じる|MEIJIRU|order; command; appoint; nominate|3|
 面|omote|face; surface  [of water]; mask (in Noh theater)|3|
-面|omo|lit:; face; surface  [of water]; mask (in Noh theater)|3|
-面|mo|lit:; face; surface  [of water]; mask (in Noh theater)|3|
+面|omo;mo|lit:; face; surface  [of water]; mask (in Noh theater)|3|
 面|MEN|lit:  face; mask; faceguard; surface; side; facet; aspect; side; phase; corners (to plane off); page (of a newspaper)|3|
 面|tsura|> informal:; face; phiz; surface|3|
 面する|MENSURU|face; border; front on  smth.|3|
@@ -1760,7 +1685,7 @@ Japanese|Romaji|English|Utility|Type
 有|YUU|possession in idioms:|3|
 有する|YUUSURU|have; own; possess|3|
 有らゆる|arayuru|each and every; every possible|3|
-由|yoshi|reason; cause; ground; means; way|3|
+由|yoshi|reason; cause; ground; means; way; it is said that...; I hear that...|3|
 由 ある|yoshi aru|lit:  of some consequence; of position; of noble birth|3|
 由 です|yoshi desu|it is said that...; I hear that...|3|
 由る|yoru|be caused by  smth., be due to  smth.|3|
@@ -1776,6 +1701,7 @@ Japanese|Romaji|English|Utility|Type
 予|YO|lit:  I; myself; the author|3|
 様 な|YOU na|like; similar to; [such]  as|3|
 様 です|YOU desu|like; similarly; in a way of; as if; seemingly|3|
+様|YOU|like; similarly; in a way of; as if; seemingly|3|
 様 に|YOU ni|in order to; so that|3|
 様 に なる|YOU ni naru|after a verb indicates  the beginning of an action|3|
 様|sama|state; situation; appearance|3|
@@ -1803,8 +1729,7 @@ Japanese|Romaji|English|Utility|Type
 流し|nagashi|sink; bath attendant; cruising taxi; obsolete:  strolling musician|3|
 旅|tabi|travel; trip; journey|3|
 旅 する|tabi suru|make a journey|3|
-両|RYOU|ryo (Chinese  liang; Dutch  tael), old unit of weight and currency; originated in  ancient China and used in all East Asia including  Japan; the weight was different in different eras|3|
-両|teeru|ryo (Chinese  liang; Dutch  tael), old unit of weight and currency; originated in  ancient China and used in all East Asia including  Japan; the weight was different in different eras|3|
+両|RYOU;teeru|ryo (Chinese  liang; Dutch  tael), old unit of weight and currency; originated in  ancient China and used in all East Asia including  Japan; the weight was different in different eras|3|
 両々|RYOURYOU|lit:  both|3|
 緑 の|midori no|green; verdant|3|
 緑|midori|young leaves; verdure|3|
@@ -1858,8 +1783,7 @@ Japanese|Romaji|English|Utility|Type
 加える|kuwaeru|add; sum up; append; annex; include; incorporate; gain; gather; increase; pick up; give; inflict (damage; injury etc.)|4|
 加えて に|kuwaete ni|in addition to  smth.|4|
 加わる|kuwawaru|join in; participate; grow; increase; gain in  smth.|4|
-加うるに|kuouruni|besides; furthermore; on top of that|4|
-加うるに|kuwauruni|besides; furthermore; on top of that|4|
+加うるに|kuouruni;kuwauruni|besides; furthermore; on top of that|4|
 加|KA|addition; plus|4|
 果たす|hatasu|carry out; accomplish; complete; finish; discharge; perfom; fulfill; realize; figurative:  kill|4|
 果たして|hatashite|as was expected; sure enough; really; indeed; ever|4|
@@ -1867,8 +1791,7 @@ Japanese|Romaji|English|Utility|Type
 果て|hate|end; extremity; end; limit; bounds; confines; result; outcome|4|
 果てし|hateshi|end; extremity; end; limit; bounds; confines; result; outcome|4|
 果てしない|hateshinai|endless; boundless; everlasting|4|
-果|KA|lit:  fruit; result; Buddh. causality; karma|4|
-果|kuda|lit:  fruit; result; Buddh. causality; karma|4|
+果|KA;kuda|lit:  fruit; result; Buddh. causality; karma|4|
 課|KA|section; department (of a company etc.); lesson; task|4|
 課する|KASURU|levy; put; lay (a tax); impose (a fine); assign (a task; a homework)|4|
 芽|me|bud; germ; sprout; spear|4|
@@ -1942,9 +1865,7 @@ Japanese|Romaji|English|Utility|Type
 漁る|sunadoru|fish|4|
 競う|kisou|compete; vie|4|
 競る|seru|bid; make a bid; sell at auction; compete; vie|4|
-競り|seri|competition; auction|4|
-競り|kurabe|competition; auction|4|
-競り|kura|competition; auction|4|
+競り|seri;kurabe;kura|competition; auction|4|
 共 に|tomo ni|together|4|
 共 に する|tomo ni suru|share  smth. with smb.|4|
 共々 に|tomodomo ni|in company with  smb.|4|
@@ -2002,8 +1923,7 @@ Japanese|Romaji|English|Utility|Type
 固まり|katamari|lump; clod; mass; cluster; crowd; flock; devotee; worshiper|4|
 候|KOU|season; weather|4|
 候う|sourou|be|4|
-功|isao|meritorious deed|4|
-功|isaoshi|meritorious deed|4|
+功|isao;isaoshi|meritorious deed|4|
 功|KOU|merit; achievement; success|4|
 好く|suku|like; love; be fond of  smth.|4|
 好き な|suki na|beloved; favorite|4|
@@ -2014,8 +1934,7 @@ Japanese|Romaji|English|Utility|Type
 好み で|konomi de|by choice; by preference|4|
 好んで|kononde|willingly; by choice|4|
 好ましい|konomashii|desirable; pleasant|4|
-好い|yoi|good|4|
-好い|ii|good|4|
+好い|yoi;ii|good|4|
 好|yoshimi|friendship; intimacy|4|
 香る|kaoru|smell sweet; be fragrant|4|
 香り|kaori|aroma; sweet smell; fragrance|4|
@@ -2031,8 +1950,7 @@ Japanese|Romaji|English|Utility|Type
 菜|na|vegetables; greens; cabbage; rape|4|
 材|ZAI|lumber; timber; material; ability; talent|4|
 阪|saka|slope|4|
-崎|misaki|promontory; cape|4|
-崎|saki|promontory; cape|4|
+崎|misaki;saki|promontory; cape|4|
 埼|saki|promontory; cape|4|
 刷る|suru|print|4|
 刷り|suri|printing|4|
@@ -2091,8 +2009,7 @@ Japanese|Romaji|English|Utility|Type
 辞する|JISURU|resign; quit; decline; give up|4|
 辞める|yameru|quit; resign; retire|4|
 鹿|shika|deer|4|
-鹿|ka|arch: deer|4|
-鹿|kanoshishi|arch: deer|4|
+鹿|ka;kanoshishi|arch: deer|4|
 失う|ushinau|lose; miss; be deprived of  smth.|4|
 失せる|useru|disappear; vanish; be lost|4|
 失くす|nakusu|lose; miss|4|
@@ -2121,10 +2038,8 @@ Japanese|Romaji|English|Utility|Type
 初めて|hajimete|for the first time|4|
 初めまして|hajimemashite|pleased to meet you; how do you do|4|
 初の|hatsuno|first; maiden; new|4|
-初に|hatsuni|for the first time|4|
-初に|hatsu|for the first time|4|
-初々しい|uiuishii|innocent; naive|4|
-初々しい|ui|innocent; naive|4|
+初に|hatsuni;hatsu|for the first time|4|
+初々しい|uiuishii;ui|innocent; naive|4|
 唱える|tonaeru|chant; recite; intone; repeat; advocate; preach; espouse; cry; cheer; yell|4|
 松|matsu|pine tree|4|
 焼く|yaku|burn; set on fire; incinerate; cremate; roast; broil; grill; bake; toast; scorch; singe; parch; cauterize; photo  print; be jealous|4|
@@ -2153,8 +2068,7 @@ Japanese|Romaji|English|Utility|Type
 成るべく|narubeku|if possible; as...  as possible|4|
 成るたけ|narutake|if possible; as...  as possible|4|
 清い|kiyoi|clean; pure; neat; honorable|4|
-清らか|kiyoraka|clean; pure; neat; honorable|4|
-清らか|kiyorakana|clean; pure; neat; honorable|4|
+清らか|kiyoraka;kiyorakana|clean; pure; neat; honorable|4|
 清まる|kiyomaru|be cleansed; be purified|4|
 清める|kiyomeru|cleanse; purify|4|
 清め|kiyome|ablution|4|
@@ -2162,8 +2076,7 @@ Japanese|Romaji|English|Utility|Type
 清|SHIN|Qing (Manchu) dynasty (China; 1644-1911)|4|
 清々|SEISEI|feel refreshed|4|
 清々しい|sugasugashii|refreshing; bracing; crisp|4|
-静か|shizuka|quiet; silent; still; calm; tranquil; peaceful|4|
-静か|shizukana|quiet; silent; still; calm; tranquil; peaceful|4|
+静か|shizuka;shizukana|quiet; silent; still; calm; tranquil; peaceful|4|
 静める|shizumeru|soothe; appease; pacify|4|
 静まる|shizumaru|become quiet; calm down|4|
 静けさ|shizukesa|silence; tranquility|4|
@@ -2198,8 +2111,7 @@ Japanese|Romaji|English|Utility|Type
 戦く|ononoku|shudder; tremble|4|
 戦ぐ|soyogu|rustle; stir; sway|4|
 浅い|asai|shallow; superficial; light; pale (as of a color); early (as of a season)|4|
-浅はか|asahaka|superficial; frivolous; thoughtless; rash; foolish|4|
-浅はか|asahakana|superficial; frivolous; thoughtless; rash; foolish|4|
+浅はか|asahaka;asahakana|superficial; frivolous; thoughtless; rash; foolish|4|
 浅ましい|asamashii|shameful; despicable; wretched; pitiable|4|
 選ぶ|erabu|select; choose; elect|4|
 選る|eru|select; choose; elect|4|
@@ -2215,14 +2127,12 @@ Japanese|Romaji|English|Utility|Type
 然らしめる|shikarashimeru|make it so; decree|4|
 然も|shikamo|moreover; and yet|4|
 然う|sou|so|4|
-然して|soushite|and; then; and then; and now|4|
-然して|soshite|and; then; and then; and now|4|
+然して|soushite;soshite|and; then; and then; and now|4|
 然|sa|lit:  so|4|
 然る|saru|lit:  a certain; such|4|
 然れど|saredo|lit:  but; however|4|
 然りとて|saritote|lit:  but; however|4|
-然り と は|sari to ha|if  [it is]  so|4|
-然り と は|sari to wa|if  [it is]  so|4|
+然り と は|sari to ha;sari to wa|if  [it is]  so|4|
 然らば|shikaraba|lit:  if  [it is]  so|4|
 然らずば|shikarazuba|lit:  otherwise; else|4|
 然れども|shikaredomo|lit:  however|4|
@@ -2234,8 +2144,7 @@ Japanese|Romaji|English|Utility|Type
 争い|arasoi|dispute; conflict; competition|4|
 側|soba|side|4|
 側 に|soba ni|by; beside; near|4|
-側|kawa|side; row|4|
-側|gawa|side; row|4|
+側|kawa;gawa|side; row|4|
 側める|sobameru|look away; turn away|4|
 束|taba|bundle; bunch; sheaf|4|
 束ねる|tabaneru|bundle; tie up in bundles; control; manage; govern|4|
@@ -2245,16 +2154,11 @@ Japanese|Romaji|English|Utility|Type
 束ねる|tsukaneru|bundle; tie up|4|
 束|SOKU|after a number:; counter for bundles; fluxes etc.; sheaves (of straw); ream of 200  sheets (of Japanese paper); four fingers (a unit of arrow length)|4|
 続|ZOKU|continuation; sequel|4|
-続く|tsuduku|continue; go on; follow; ensue; be adjacent; be contiguous|4|
-続く|tsuzuku|continue; go on; follow; ensue; be adjacent; be contiguous|4|
-続いて|tsuduite|continuously; after that; then|4|
-続いて|tsuzuite|continuously; after that; then|4|
-続き|tsuduki|continuation; succession; range; row|4|
-続き|tsuzuki|continuation; succession; range; row|4|
-続ける|tsudukeru|continue; go ahead; carry on|4|
-続ける|tsuzukeru|continue; go ahead; carry on|4|
-続けて|tsudukete|continuously|4|
-続けて|tsuzukete|continuously|4|
+続く|tsuduku;tsuzuku|continue; go on; follow; ensue; be adjacent; be contiguous|4|
+続いて|tsuduite;tsuzuite|continuously; after that; then|4|
+続き|tsuduki;tsuzuki|continuation; succession; range; row|4|
+続ける|tsudukeru;tsuzukeru|continue; go ahead; carry on|4|
+続けて|tsudukete;tsuzukete|continuously|4|
 続々|ZOKUZOKU|continuously; one after another|4|
 卒|SOTSU|soldier; private|4|
 卒する|SOSSURU|pass away; die|4|
@@ -2290,12 +2194,9 @@ Japanese|Romaji|English|Utility|Type
 伝う|tsutau|go along; follow|4|
 伝|DEN|way; manner; trick; biography; life; legend; tradition; commentary|4|
 徒|TO|group; fellow (see compounds below)|4|
-徒|itazura|in vain; uselessly; idly|4|
-徒|itazurani|in vain; uselessly; idly|4|
-徒|ada|vain; futile|4|
-徒|adashi|vain; futile|4|
-徒|muda|vain; futile|4|
-徒|mudana|vain; futile|4|
+徒|itazura;itazurani|in vain; uselessly; idly|4|
+徒|ada;adashi|vain; futile|4|
+徒|muda;mudana|vain; futile|4|
 徒|tada|merely; simply|4|
 徒 の|tada no|common; usual|4|
 徒ならぬ|tadanaranu|extraordinary; serious|4|
@@ -2308,8 +2209,7 @@ Japanese|Romaji|English|Utility|Type
 灯り|akari|eleg:  light; illumination|4|
 灯|TOU|eleg:  light; illumination|4|
 灯す|tomosu|light up; set alight; kindle|4|
-灯る|tomoru|burn; be lighted|4|
-灯る|toboru|burn; be lighted|4|
+灯る|tomoru;toboru|burn; be lighted|4|
 働く|hataraku|work; labor; do (evil), commit (a crime); work; operate; function; be conjugated (as of a verb); informal:  reduce the price|4|
 働き|hataraki|work; labor; functioning; ability; talent; achievements; merits|4|
 徳|TOKU|morality; virtue|4|
@@ -2335,8 +2235,7 @@ Japanese|Romaji|English|Utility|Type
 梅|ume|Japanese apricot (plum),= Prunus m|4|
 博する|HAKUSURU|gain; win; earn (confidence; reputation; fame; victory etc.)|4|
 飯|meshi|boiled rice; cooked rice; meal; food; livelihood; sustenance|4|
-飯|mama|boiled rice (childish word)|4|
-飯|manma|boiled rice (childish word)|4|
+飯|mama;manma|boiled rice (childish word)|4|
 飯|ii|boiled rice|4|
 飛ぶ|tobu|fly; rush; race; tear; jump; leap; vault; skip (pages); go in a wrong sequence|4|
 飛ばす|tobasu|fly; let fly; send; shoot; drive fast; speed up; gallop; blow away; scatter; spatter; issue; send out; leave out; omit|4|
@@ -2398,8 +2297,7 @@ Japanese|Romaji|English|Utility|Type
 辺|HEN|vicinity; neighborhood; approximate level; vicinity; geom. side|4|
 辺り|atari|vicinity; neighborhood; surroundings|4|
 辺り|hotori|vicinity; neighborhood; surroundings; waterside; shore|4|
-辺|he|arch:; vicinity; neighborhood; surroundings; waterside; shore|4|
-辺|be|arch:; vicinity; neighborhood; surroundings; waterside; shore|4|
+辺|he;be|arch:; vicinity; neighborhood; surroundings; waterside; shore|4|
 便り|tayori|news; tidings; correspondence|4|
 便|BIN|postal service; delivery; mail; opportunity; chance; airline flight|4|
 便|BEN|convenience; facilities; accommodation; excrement; feces|4|
@@ -2420,8 +2318,7 @@ Japanese|Romaji|English|Utility|Type
 望む|nozomu|desire; wish; hope; expect; command a distant view of  smth.|4|
 望み|nozomi|desire; wish; hope; expectation|4|
 望ましい|nozomashii|desirable; welcome|4|
-望むらくは|nozomurakuha|hopefully; preferably|4|
-望むらくは|nozomurakuwa|hopefully; preferably|4|
+望むらくは|nozomurakuha;nozomurakuwa|hopefully; preferably|4|
 望|mochi|eleg: full moon|4|
 牧|maki|pasture|4|
 末|sue|last part; end; close; trifles; trivialities; [promising]  future; offspring; descendant; youngest child|4|
@@ -2453,12 +2350,9 @@ Japanese|Romaji|English|Utility|Type
 無けなし の|nakenashi no|little; paultry; last|4|
 約|YAKU|promise; vow; abridgment; abbreviation; approximately; about|4|
 約する|YAKUSURU|promise; pledge; abridge; abbreviate; math. reduce (a fraction)|4|
-約める|tsudumeru|shorten; curtail; condense; reduce; abridge; economize|4|
-約める|tsuzumeru|shorten; curtail; condense; reduce; abridge; economize|4|
-約まる|tsudumaru|shrink; be shortened; be simplified|4|
-約まる|tsuzumaru|shrink; be shortened; be simplified|4|
-約まやか|tsudumayaka|neat and small; frugal; modest; unpretentious; brief; concise|4|
-約まやか|tsuzumayaka|neat and small; frugal; modest; unpretentious; brief; concise|4|
+約める|tsudumeru;tsuzumeru|shorten; curtail; condense; reduce; abridge; economize|4|
+約まる|tsudumaru;tsuzumaru|shrink; be shortened; be simplified|4|
+約まやか|tsudumayaka;tsuzumayaka|neat and small; frugal; modest; unpretentious; brief; concise|4|
 勇|YUU|courage; bravery in idioms:|4|
 勇む|isamu|cheer up; be in high spirits|4|
 勇ましい|isamashii|brave; bold; courageous; stirring; inspiring|4|
@@ -2484,8 +2378,7 @@ Japanese|Romaji|English|Utility|Type
 陸|ROKU|six (used in legal documents  and checks); usually with negation|4|
 陸 な|ROKU na|decent; proper; good; satisfactory|4|
 陸 に|ROKU ni|properly; well|4|
-良い|yoi|good|4|
-良い|ii|good|4|
+良い|yoi;ii|good|4|
 良し|yoshi|good; all right; OK|4|
 良く|yoku|well; skillfully; often; frequently; usually|4|
 良く する|yoku suru|be good at  smth.|4|
@@ -2603,10 +2496,8 @@ Japanese|Romaji|English|Utility|Type
 解する|KAISURU|lit:  understand; interpret|5|
 解く|hodoku|undo; untie; unfasten; loosen; unravel; unknit|5|
 解ける|hodokeru|come loose; get untied|5|
-解す|hogosu|untie; unfasten; unbind; disentangle; unsew; unknit; loosen (hair)|5|
-解す|hogusu|untie; unfasten; unbind; disentangle; unsew; unknit; loosen (hair)|5|
-解れる|hogureru|come loose; get untied; get relieved; be softened|5|
-解れる|hogoreru|come loose; get untied; get relieved; be softened|5|
+解す|hogosu;hogusu|untie; unfasten; unbind; disentangle; unsew; unknit; loosen (hair)|5|
+解れる|hogureru;hogoreru|come loose; get untied; get relieved; be softened|5|
 解れる|hotsureru|fray; be frayed; ravel; stray; become loose (as of hair)|5|
 解る|wakaru|understand; know|5|
 解せない|gesenai|informal:  beyond understanding|5|
@@ -2636,8 +2527,7 @@ Japanese|Romaji|English|Utility|Type
 基|KI|math. radix; base; chem. radical|5|
 基|motoi|basis; foundation; origin; cause|5|
 基|moto|basis; foundation; origin; cause|5|
-基づく|motoduku|be based on; originate|5|
-基づく|motozuku|be based on; originate|5|
+基づく|motoduku;motozuku|be based on; originate|5|
 寄る|yoru|draw near; approach; drop in; call at; get together; meet|5|
 寄せる|yoseru|bring near; let approach; bring together; add up; send|5|
 紀|KI|geol. period|5|
@@ -2685,8 +2575,7 @@ Japanese|Romaji|English|Utility|Type
 経|tateito|warp|5|
 経|tate|warp|5|
 経の|tateno|lengthwise|5|
-潔い|isagiyoi|brave; gallant; heroic; frank; righteous; spotless; immaculate|5|
-潔い|isagiyoku|brave; gallant; heroic; frank; righteous; spotless; immaculate|5|
+潔い|isagiyoi;isagiyoku|brave; gallant; heroic; frank; righteous; spotless; immaculate|5|
 潔し と しない|isagiyoshi to shinai|be too proud (to do smth.)|5|
 件|KEN|affair; case; matter|5|
 件の|kudanno|the said; the above  mentioned|5|
@@ -2743,8 +2632,7 @@ Japanese|Romaji|English|Utility|Type
 災い する|wazawai suru|do harm; ruin|5|
 際|kiwa|verge; edge; brink; border; moment (before something happens)|5|
 際 に|SAI ni|when; in the case of|5|
-際して に|SAISHITE ni|when; in the case of|5|
-際して に|SAISHI ni|when; in the case of|5|
+際して に|SAISHITE;SAISHI ni|when; in the case of|5|
 在る|aru|be  somewhere; be sited; be located; be situated|5|
 在りし|arishi|bygone; past|5|
 在|ZAI|suburbs; outskirts; country|5|
@@ -2818,8 +2706,7 @@ Japanese|Romaji|English|Utility|Type
 常 の|tsune no|usual; ordinary; continual|5|
 常 に|tsune ni|usually; always|5|
 常 と する|tsune to suru|be in the habit of doing|5|
-常ならぬ|tsunenaranu|unusual|5|
-常ならぬ|tsunenaran|unusual|5|
+常ならぬ|tsunenaranu;tsunenaran|unusual|5|
 常ならば|tsunenaraba|usually|5|
 常々|tsunezune|usually; always|5|
 常|towa|eternally|5|
@@ -2897,8 +2784,7 @@ Japanese|Romaji|English|Utility|Type
 損する|SONSURU|loss; incur losses|5|
 損じる|SONJIRU|damage; harm; hurt; be damaged; be harmed|5|
 損じ|SONJI|informal:  breakage; wreckage|5|
-態 と|waza to|deliberately; intentionally; on purpose|5|
-態 と|wazato to|deliberately; intentionally; on purpose|5|
+態 と|waza;wazato to|deliberately; intentionally; on purpose|5|
 態々 と|wazawaza to|deliberately; intentionally; on purpose|5|
 態|TAI|state; condition; gram. voice|5|
 態|zama|informal: [unpleasant]  appearance|5|
@@ -2962,8 +2848,7 @@ Japanese|Romaji|English|Utility|Type
 能|NOU|ability; capability; Noh (classical Japanese play)|5|
 能く|yoku|well; skillfully; often; frequently; usually|5|
 能く する|yoku suru|be good at  smth.|5|
-能う|atau|be able|5|
-能う|atou|be able|5|
+能う|atau;atou|be able|5|
 破る|yaburu|break; smash; tear; rip; destroy; break through; penetrate; break out; break (a record); defeat (one's enemy); violate; transgress; infringe; baffle; frustrate; thwart|5|
 破く|yabuku|break; smash; tear; rip; destroy; break through; penetrate; break out; break (a record); defeat (one's enemy); violate; transgress; infringe; baffle; frustrate; thwart|5|
 破れる|yabureru|break; burst; tear; rip open; be ruined; be worn out; be broken off; collapse; rupture; suffer a defeat; be beaten; fail; be baffled|5|
@@ -2971,15 +2856,14 @@ Japanese|Romaji|English|Utility|Type
 破れ|yabure|rupture; breach; rent; tear; failure; breakdown; collapse|5|
 破れ|yare|spoilage; waste; wastepaper|5|
 破れかぶれ|yaburekabure|desperation|5|
-判|HAN|[personal]  seal; stamp; seal impression; format; size (of paper etc.)|5|
-判|BAN|format; size (of paper etc.)|5|
+判|HAN|[personal]  seal; stamp; seal impression|5|
+判|BAN;HAN|format; size (of paper etc.)|5|
 判じる|HANJIRU|judge; decide; interpret; solve; decipher; puzzle out|5|
 判る|wakaru|understand|5|
 版|HAN|printing block; plate; printing; publishing; edition|5|
 犯す|okasu|commit (a crime; an offense); violate; break (law; regulations); defy; disregard; set at naught; rape; dishonor|5|
 犯|HAN|crime; conviction|5|
-比べる|kuraberu|compare; contrast|5|
-比べる|kurabe|compare; contrast|5|
+比べる|kuraberu;kurabe|compare; contrast|5|
 比べっこ|kurabekko|race; contest|5|
 比|HI|math. ratio; lit:  comparison; lit:  equal; peer; match|5|
 比する|HISURU|compare|5|
@@ -3017,8 +2901,7 @@ Japanese|Romaji|English|Utility|Type
 仏|BUTSU|Buddha; Buddhism|5|
 仏|hotoke|Buddha; deceased person|5|
 仏|FUTSU|abbrev. France|5|
-粉|ko|powder; flour; meal|5|
-粉|kona|powder; flour; meal|5|
+粉|ko;kona|powder; flour; meal|5|
 粉々 に [なってえ]|konagona ni [nattee]|into pieces; into powder|5|
 粉々 に なる|konagona ni naru|come to pieces; break into fragments|5|
 粉|deshimeetoru|decimeter|5|
@@ -3026,8 +2909,7 @@ Japanese|Romaji|English|Utility|Type
 弁|BEN|dialect; accent; speech; tongue; discrimination; petal; valve; ventil|5|
 弁じる|BENJIRU|speak; talk; tell; argue in favor of  smb.; manage; carry out; distinguish; tell|5|
 弁える|wakimaeru|discern; discriminate; have a good knowledge of  smth.|5|
-弁え|wakimae|discernment; knowledge|5|
-弁え|bira|discernment; knowledge|5|
+弁え|wakimae;bira|discernment; knowledge|5|
 保つ|tamotsu|keep; preserve; maintain; retain; support; sustain; protect; last; endure; stay the same|5|
 保する|HOSURU|guarantee; secure|5|
 墓|haka|grave; tomb|5|
@@ -3036,8 +2918,7 @@ Japanese|Romaji|English|Utility|Type
 報い|mukui|reward; retribution|5|
 報|HOU|news; report; information|5|
 報じる|HOUJIRU|report; inform; requite; repay; return|5|
-豊か な|yutaka na|abundant; ample; plentiful; rich|5|
-豊か な|toyo na|abundant; ample; plentiful; rich|5|
+豊か な|yutaka;toyo na|abundant; ample; plentiful; rich|5|
 暴れる|abareru|rage; rampage; rave; act violently|5|
 暴く|abaku|disclose (a secret), expose (a crime); open (a grave)|5|
 暴|BOU|violence in idioms:|5|
@@ -3097,8 +2978,7 @@ Japanese|Romaji|English|Utility|Type
 延べる|noberu|extend; prolong; postpone; spread out (bedding)|6|
 延べ|nobe|stretching; deferment; credit|6|
 延々 と|EN'EN to|for an endlessly long time; with an indication of time  as long as|6|
-延いては|hiiteha|besides; in addition to  smth., not only...  but also...|6|
-延いては|hiitewa|besides; in addition to  smth., not only...  but also...|6|
+延いては|hiiteha;hiitewa|besides; in addition to  smth., not only...  but also...|6|
 沿う|sou|lie along  smth., follow along  smth.|6|
 沿って に|sotte ni|along|6|
 恩|ON|debt of gratitude; obligation; kindness; goodness; favor|6|
@@ -3140,10 +3020,8 @@ Japanese|Romaji|English|Utility|Type
 危める|ayameru|obsolete:  kill; wound|6|
 揮う|furuu|wield; brandish; shake; wield; exert; command|6|
 机|tsukue|desk; bureau|6|
-貴い|toutoi|precious; valuable; noble; high  ranking|6|
-貴い|tattoi|precious; valuable; noble; high  ranking|6|
-貴ぶ|toutobu|value; esteem; respect|6|
-貴ぶ|tattobu|value; esteem; respect|6|
+貴い|toutoi;tattoi|precious; valuable; noble; high  ranking|6|
+貴ぶ|toutobu;tattobu|value; esteem; respect|6|
 疑う|utagau|doubt; distrust; be suspicious|6|
 疑る|utaguru|doubt; distrust; be suspicious|6|
 疑い|utagai|doubt; suspicion; question|6|
@@ -3237,21 +3115,16 @@ Japanese|Romaji|English|Utility|Type
 策する|SAKUSURU|make a plan|6|
 蚕|kaiko|ent. silkworm; = Bombyx mori|6|
 姿|sugata|figure; appearance; posture; state; situation|6|
-私|watakushi|I; me; myself|6|
-私|watashi|I; me; myself|6|
-私 の|watakushi no|my; private; personal|6|
-私 の|watashi no|my; private; personal|6|
-私 する|watakushi suru|appropriate|6|
-私 する|watashi suru|appropriate|6|
-私 の ある|watakushi no aru|selfish; self  interested|6|
-私 の ある|watashi no aru|selfish; self  interested|6|
+私|watakushi;watashi|I; me; myself|6|
+私 の|watakushi;watashi no|my; private; personal|6|
+私 する|watakushi;watashi suru|appropriate|6|
+私 の ある|watakushi;watashi no aru|selfish; self  interested|6|
 私|washi|informal:  I; me (usu. used by old people)|6|
 至る|itaru|reach; arrive; attain|6|
 至り|itari|utmost limit; extremity|6|
 至らない|itaranai|imperfect; inexperienced; careless|6|
 至って|itatte|very; exceedingly|6|
-至って は|ni itatte ha|as for...|6|
-至って は|ni itatte wa|as for...|6|
+至って は|ni itatte ha;ni itatte wa|as for...|6|
 視る|miru|look; watch; observe|6|
 詞|kotoba|word|6|
 射る|iru|shoot (an arrow); hit (a target etc.; also fig.)|6|
@@ -3263,8 +3136,7 @@ Japanese|Romaji|English|Utility|Type
 若い|wakai|young; youthful; junior|6|
 若し|moshi|if|6|
 若しも|moshimo|if|6|
-若しくは|moshikuha|or; either...  or|6|
-若しくは|moshikuwa|or; either...  or|6|
+若しくは|moshikuha;moshikuwa|or; either...  or|6|
 若しかしたら|moshikashitara|maybe; possibly; by any chance; it is to be feared that...|6|
 若しかすると|moshikasuruto|maybe; possibly; by any chance; it is to be feared that...|6|
 若しかして|moshikashite|maybe; possibly; by any chance; it is to be feared that...|6|
@@ -3279,10 +3151,8 @@ Japanese|Romaji|English|Utility|Type
 宗|mune|purport; aim|6|
 就く|tsuku|take up (a position), assume (office), enter (a business), set about (a task)|6|
 就ける|tsukeru|place  smb. in a position|6|
-就いて|ni tsuite|concerning; regarding; as for...|6|
-就いて|tsuite|concerning; regarding; as for...|6|
-就き|ni tsuki|concerning; regarding; as for...; on the occasion of; in view of...|6|
-就き|tsuki|concerning; regarding; as for...; on the occasion of; in view of...|6|
+就いて|ni tsuite;tsuite|concerning; regarding; as for...|6|
+就き|ni tsuki;tsuki|concerning; regarding; as for...; on the occasion of; in view of...|6|
 衆|SHUU|masses; populace; crowd|6|
 従う|shitagau|follow; accompany; obey; comply with; yield to; submit|6|
 従って|shitagatte|consequently; therefore|6|
@@ -3294,8 +3164,7 @@ Japanese|Romaji|English|Utility|Type
 縦し|yoshi|even if|6|
 縦しや|yoshiya|even if|6|
 縦んば|yoshinba|even if|6|
-縦|hoshiimama|at will; as one pleases|6|
-縦|hoshiimamani|at will; as one pleases|6|
+縦|hoshiimama;hoshiimamani|at will; as one pleases|6|
 縮める|chidimeru|contract; shrink; shorten; reduce; crumple; wrinkle; draw in; jerk back; duck (one's head)|6|
 縮まる|chidimaru|shrink; contract; cringe; be shortened; be reduced|6|
 縮む|chidimu|shrink; contract; cringe; be shortened; be reduced; wrinkle; crumple; shrivel|6|
@@ -3304,28 +3173,23 @@ Japanese|Romaji|English|Utility|Type
 縮らす|chidirasu|curl; crinkle; crimp|6|
 熟する|JUKUSURU|ripen; mellow; mature; acquire proficiency; come into common use (as of words)|6|
 熟す|JUKUSU|ripen; mellow; mature; acquire proficiency; come into common use (as of words)|6|
-熟れる|ureru|ripen; get mellow; mature|6|
-熟れる|nareru|ripen; get mellow; mature|6|
+熟れる|ureru;nareru|ripen; get mellow; mature|6|
 熟む|umu|get ripe|6|
 熟す|konasu|grind; powder; pulverize; digest; cope; deal; handle; manage; finish; sell; act; perfom (one's part)|6|
 熟々|tsukuduku|thoroughly; utterly; earnestly; intently; deeply; keenly; severely|6|
 熟々|tsuratsura|thoroughly; profoundly|6|
 純な|JUNNA|pure; genuine; unalloyed|6|
 処|tokoro|place|6|
-処する に|SHOSURU ni|deal with  smth., treat; manage; sentence; condemn  smb. to  smth.|6|
-処する に|ko ni|deal with  smth., treat; manage; sentence; condemn  smb. to  smth.|6|
-処する|SHOSURU|act; behave; conduct oneself|6|
-処する|ko|act; behave; conduct oneself|6|
+処する に|SHOSURU;ko ni|deal with  smth., treat; manage; sentence; condemn  smb. to  smth.|6|
+処する|SHOSURU;ko|act; behave; conduct oneself|6|
 署|SHO|police station|6|
-諸|moro|altogether; completely; (to fall) flat; with a thud|6|
-諸|moroni|altogether; completely; (to fall) flat; with a thud|6|
+諸|moro;moroni|altogether; completely; (to fall) flat; with a thud|6|
 諸々 の|moromoro no|various; all kinds of; all|6|
 除く|nozoku|remove; eliminate; exclude; cancel|6|
 除いて|nozoite|except; with the exception of|6|
 除ける|nokeru|remove; put out  [of the way]; omit; exclude; finish; manage to do|6|
 除|JO|math. division|6|
-除する|JOSURU|math. divide|6|
-除する|yoke|math. divide|6|
+除する|JOSURU;yoke|math. divide|6|
 傷|kizu|wound; injury; bruise; scratch; crack; defect; flaw; blemish; fault|6|
 傷つく|kizutsuku|be injured; be wounded; figurative:  be hurt (marred; spoiled)|6|
 傷つける|kizutsukeru|injure; wound; figurative:  hurt; impair; mar; spoil; stain; disgrace|6|
@@ -3335,8 +3199,7 @@ Japanese|Romaji|English|Utility|Type
 傷ましい|itamashii|sad; pitiful|6|
 傷々しい|itaitashii|sad; pitiful|6|
 将|SHOU|commander; general; admiral|6|
-将に|masani|almost; just about to; on the verge of|6|
-将に|masa|almost; just about to; on the verge of|6|
+将に|masani;masa|almost; just about to; on the verge of|6|
 将|hata|lit:  or|6|
 承る|uketamawaru|humble  listen to; hear; be informed|6|
 承ける|ukeru|receive; inherit|6|
@@ -3363,18 +3226,14 @@ Japanese|Romaji|English|Utility|Type
 盛る|moru|heap up; fill (a bowl with rice); prescribe (a medicine); graduate; mark out; add (poison)|6|
 聖なる|SEINARU|holy; sacred|6|
 聖|hijiri|saint; sage; [wandering]  monk; great master; Emperor|6|
-誠|makoto|sincerity; honesty; truth; reality; male name|6|
-誠|makotoni|sincerity; honesty; truth; reality; male name|6|
-誠 に|makoto ni|truly; really; very; extremely|6|
-誠 に|makotoni ni|truly; really; very; extremely|6|
-誠しやか|makotoshiyaka|plausibly; with seeming truth|6|
-誠しやか|makotoshiyakani|plausibly; with seeming truth|6|
+誠|makoto;makotoni|sincerity; honesty; truth; reality; male name|6|
+誠 に|makoto;makotoni ni|truly; really; very; extremely|6|
+誠しやか|makotoshiyaka;makotoshiyakani|plausibly; with seeming truth|6|
 舌|shita|tongue; reed (of a woodwind instrument); clapper (of a bell)|6|
 舌たるい|shitatarui|lisping|6|
 宣する|SENSURU|proclaim; announce|6|
 宣う|notamau|be pleased to say|6|
-宣はく|notamahaku|lit: arch:  says that...|6|
-宣はく|notamawaku|lit: arch:  says that...|6|
+宣はく|notamahaku;notamawaku|lit: arch:  says that...|6|
 専ら|moppara|exclusively; entirely; mainly; solely|6|
 泉|izumi|spring; fountainhead; source|6|
 洗う|arau|wash; cleanse; rinse; bathe; figurative:  inquire; probe|6|
@@ -3388,8 +3247,7 @@ Japanese|Romaji|English|Utility|Type
 銭|zeni|money; cash; change|6|
 銭|SEN|old monetary unit (1/100  yen)|6|
 善|ZEN|good; goodness|6|
-善い|yoi|good; virtuous|6|
-善い|ii|good; virtuous|6|
+善い|yoi;ii|good; virtuous|6|
 創|kizu|wound; injury|6|
 創める|hajimeru|start; originate|6|
 創る|tsukuru|make; create|6|
@@ -3408,16 +3266,12 @@ Japanese|Romaji|English|Utility|Type
 蔵する|ZOUSURU|own; have; possess|6|
 存する|SONSURU|exist; remain alive; consist in  smth.; retain; keep|6|
 存じる|ZONJIRU|know; be aware of  smth.; think; suppose|6|
-尊い|tattoi|exalted; august; sacred|6|
-尊い|toutoi|exalted; august; sacred|6|
-尊ぶ|tattobu|respect; honor; revere|6|
-尊ぶ|toutobu|respect; honor; revere|6|
-尊ぶ|mikoto|respect; honor; revere|6|
+尊い|tattoi;toutoi|exalted; august; sacred|6|
+尊ぶ|tattobu;toutobu;mikoto|respect; honor; revere|6|
 退く|shirizoku|move backward; retreat; withdraw; leave; retire; resign|6|
 退ける|shirizokeru|expel; drive away; oust; reject; refuse; repel; repulse|6|
 退く|hiku|retreat; withdraw; retire; resign; subside; abate|6|
-退く|noku|get out of the way; step aside|6|
-退く|doku|get out of the way; step aside|6|
+退く|noku;doku|get out of the way; step aside|6|
 退ける|nokeru|remove; put out  [of the way]; omit; exclude; finish; manage to do|6|
 退ける|dokeru|remove; put out  [of the way]; omit; exclude; finish; manage to do|6|
 退る|shisaru|retreat; move backward|6|
@@ -3430,8 +3284,7 @@ Japanese|Romaji|English|Utility|Type
 探る|saguru|fumble; grope; search; feel out; spy; explore; trace; probe (a wound etc.)|6|
 探す|sagasu|search; look for|6|
 暖かい|atatakai|warm|6|
-暖か|atataka|warm|6|
-暖か|atatakana|warm|6|
+暖か|atataka;atatakana|warm|6|
 暖まる|atatamaru|warm oneself; be heated; get warm|6|
 暖める|atatameru|warm up; heat|6|
 段|DAN|step; stair; rung; step; stage; level; degree; sport  grade; dan; passage; paragraph; act; scene; column (of print); case; occasion|6|
@@ -3447,8 +3300,7 @@ Japanese|Romaji|English|Utility|Type
 著す|arawasu|write; author; publish|6|
 著しい|ichijirushii|remarkable; conspicuous; marked|6|
 庁|CHOU|government agency; public office|6|
-潮|shio|tide; current; seawater; chance; opportunity|6|
-潮|ushio|tide; current; seawater; chance; opportunity|6|
+潮|shio;ushio|tide; current; seawater; chance; opportunity|6|
 腸|CHOU|intestines|6|
 腸|harawata|entrails; guts; bowels; figurative:  heart; mind; bot. placenta (of a melon etc.)|6|
 頂く|itadaku|humble  accept; receive; be given; be favored with; humble  eat; drink; be crowned; wear (a crown); be presided over by  smb.; after a verb in ' te'  form humbly  indicates that the action is  carried out for the speaker|6|
@@ -3472,8 +3324,7 @@ Japanese|Romaji|English|Utility|Type
 届く|todoku|reach; arrive; be delivered; be received; be attained; be fulfilled; be careful; be attentive|6|
 届ける|todokeru|deliver; send; forward; report; notify|6|
 難しい|muzukashii|difficult; hard; troublesome; doubtful; unpromising; serious; sullen; displeased; strict; stern; hypercritical; hard to please|6|
-難い|katai|lit:  difficult; impossible|6|
-難い|nikui|lit:  difficult; impossible|6|
+難い|katai;nikui|lit:  difficult; impossible|6|
 難|NAN|difficulty; trouble; accident; disaster; fault; flaw; defect; blame; criticism|6|
 難なく|NANNAKU|without difficulty|6|
 難じる|NANJIRU|lit:  criticize; blame|6|
@@ -3534,8 +3385,7 @@ Japanese|Romaji|English|Utility|Type
 閉まる|shimaru|be shut; be closed; be locked|6|
 閉てる|tateru|shut (a sliding door)|6|
 片を つける|katawo tsukeru|settle; be through with  smth.|6|
-片が つく|kataga tsuku|be settled; be finished; come to an end|6|
-片が つく|kata|be settled; be finished; come to an end|6|
+片が つく|kataga tsuku;kata|be settled; be finished; come to an end|6|
 片|hira|leaf; sheet; petal; flake|6|
 片々|HENPEN|pieces; scraps; fragments|6|
 補う|oginau|supply; replenish; fill up; supplement; compensate; offset|6|
@@ -3571,7 +3421,7 @@ Japanese|Romaji|English|Utility|Type
 訳|YAKU|translation; rendering; interpretation|6|
 訳 する|YAKU suru|translate; render; interpret|6|
 訳す|yakusu|translate; render; interpret|6|
-訳|wake|sense; meaning; reason; cause; grounds; circumstances; matter|6|
+訳|wake|sense; meaning; reason; cause; grounds; circumstances; matter; it happens that...|6|
 訳 です|wake desu|it happens that...|6|
 訳なく|wakenaku|easily; simply|6|
 訳も なく|wakemo naku|without any reason|6|
@@ -3604,8 +3454,7 @@ Japanese|Romaji|English|Utility|Type
 律|RITSU|law; rule; commandment; rhythm|6|
 律する|RISSURU|judge; measure; apply a rule|6|
 臨む|nozomu|face; border; front on  smth.; meet; come face to face; be confronted by  smth.; attend; assist (at a ceremony etc.); deal with  smth. or smb.|6|
-朗らか|hogaraka|clear; bright (sky; weather); clear; sonorous (sound); cheerful|6|
-朗らか|hogarakana|clear; bright (sky; weather); clear; sonorous (sound); cheerful|6|
+朗らか|hogaraka;hogarakana|clear; bright (sky; weather); clear; sonorous (sound); cheerful|6|
 朗々|ROUROU|clear; sonorous; resonant (voice); bright (moon etc.)|6|
 論|RON|view; opinion; argument; discourse; dispute; essay; comments; treatise|6|
 論じる|RONJIRU|discuss; comment; treat; argue; dispute; consider; take into account|6|
@@ -3679,10 +3528,8 @@ Japanese|Romaji|English|Utility|Type
 懐かしがる|natsukashigaru|long for  smth., yearn after  smth., miss|7|
 懐く|natsuku|become attached to  smb., be tamed|7|
 懐ける|natsukeru|tame; win  smb. 's  heart|7|
-皆|mina|all; everyone; everybody; everything|7|
-皆|minna|all; everyone; everybody; everything|7|
-皆 で|mina de|in all; all together|7|
-皆 で|minna de|in all; all together|7|
+皆|mina;minna|all; everyone; everybody; everything|7|
+皆 で|mina;minna de|in all; all together|7|
 皆さん|minasan|all of you; ladies and gentlemen!|7|
 隔てる|hedateru|separate; set apart; estrange|7|
 隔て|hedate|barrier; partition; interval; distance; distinction; difference|7|
@@ -3717,8 +3564,7 @@ Japanese|Romaji|English|Utility|Type
 甘ったるい|amattarui|sugary; sentimental|7|
 甘い|umai|tasty; delicious|7|
 緩い|yurui|slack; loose; lax; gentle; lenient; slow|7|
-緩やか|yuruyaka|slack; loose; lax; gentle; lenient; slow|7|
-緩やか|yuruyakana|slack; loose; lax; gentle; lenient; slow|7|
+緩やか|yuruyaka;yuruyakana|slack; loose; lax; gentle; lenient; slow|7|
 緩む|yurumu|come loose; become slack; ease off; become moderate|7|
 緩める|yurumeru|unloose; unfasten; ease up; mitigate|7|
 緩み|yurumi|slackness; relaxation|7|
@@ -3808,38 +3654,24 @@ Japanese|Romaji|English|Utility|Type
 剣|KEN|sword (ancient; straight; double  edged); fencing; swordsmanship; bayonet; sting (of a bee)|7|
 堅い|katai|hard; tough; tight; stiff; firm; strong; steady; sound; reliable; trustworthy; serious; solid; stubborn; obstinate|7|
 嫌う|kirau|dislike; hate|7|
-嫌い|kirai|dislike; antipathy; tinge; touch; suspicion|7|
-嫌い|kiraini|dislike; antipathy; tinge; touch; suspicion|7|
-嫌い な|kirai na|distasteful; repugnant|7|
-嫌い な|kiraini na|distasteful; repugnant|7|
-嫌い で ある|kirai de aru|dislike; hate|7|
-嫌い で ある|kiraini de aru|dislike; hate|7|
-嫌 な|iya na|disagreeable; repulsive|7|
-嫌 な|iyana na|disagreeable; repulsive|7|
-嫌 な|iyani na|disagreeable; repulsive|7|
-嫌 に|iya ni|disagreeably; offensively|7|
-嫌 に|iyana ni|disagreeably; offensively|7|
-嫌 に|iyani ni|disagreeably; offensively|7|
-嫌 に なる|iya ni naru|become disgusted with  smth.|7|
-嫌 に なる|iyana ni naru|become disgusted with  smth.|7|
-嫌 に なる|iyani ni naru|become disgusted with  smth.|7|
+嫌い|kirai;kiraini|dislike; antipathy; tinge; touch; suspicion|7|
+嫌い な|kirai;kiraini na|distasteful; repugnant|7|
+嫌い で ある|kirai;kiraini de aru|dislike; hate|7|
+嫌 な|iya;iyana;iyani na|disagreeable; repulsive|7|
+嫌 に|iya;iyana;iyani ni|disagreeably; offensively|7|
+嫌 に なる|iya;iyana;iyani ni naru|become disgusted with  smth.|7|
 嫌らしい|iyarashii|unpleasant; offensive|7|
 嫌がる|iyagaru|dislike; hate|7|
 嫌がらせ|iyagarase|harassment; disagreeable words|7|
 顕す|arawasu|reveal; manifest; expose|7|
 顕れる|arawareru|be found out; become known; be disclosed; come to light|7|
-顕|arawa|frankly; clearly; openly; publicly|7|
-顕|arawani|frankly; clearly; openly; publicly|7|
-顕|arawana|frankly; clearly; openly; publicly|7|
+顕|arawa;arawani;arawana|frankly; clearly; openly; publicly|7|
 互い に|tagai ni|mutually; reciprocally; [with]  each other|7|
 互い の|tagai no|mutual; reciprocal; each other's|7|
 互い を|tagai wo|one another|7|
-互 に|katami ni|mutually; reciprocally; [with]  each other|7|
-互 に|katamini ni|mutually; reciprocally; [with]  each other|7|
-互 の|katami no|mutual; reciprocal; each other's|7|
-互 の|katamini no|mutual; reciprocal; each other's|7|
-互 を|katami wo|one another|7|
-互 を|katamini wo|one another|7|
+互 に|katami;katamini ni|mutually; reciprocally; [with]  each other|7|
+互 の|katami;katamini no|mutual; reciprocal; each other's|7|
+互 を|katami;katamini wo|one another|7|
 御する|GYOSURU|handle; manipulate; manage; control; rule; drive (a horse  drawn vehicle)|7|
 荒れる|areru|be stormy (as of  weather; sea etc.); run wild; tear around; be ruined; run waste; get chapped (as of skin)|7|
 荒れ|are|stormy weather; chaps of skin|7|
@@ -3880,8 +3712,7 @@ Japanese|Romaji|English|Utility|Type
 湿り|shimeri|dampness; humidity; moisture|7|
 お湿り|oshimeri|sprinkling of rain|7|
 湿っぽい|shimeppoi|damp; humid; gloomy|7|
-湿やか|shimeyaka|quiet; gentle; sad|7|
-湿やか|shimeyakana|quiet; gentle; sad|7|
+湿やか|shimeyaka;shimeyakana|quiet; gentle; sad|7|
 湿|SHITSU|itch; scabies|7|
 趣|omomuki|purport; gist; content; flavor; taste; elegance; appearance; look; air|7|
 趣 の ある|omomuki no aru|tasteful; elegant; refined|7|
@@ -3892,10 +3723,8 @@ Japanese|Romaji|English|Utility|Type
 寿ぐ|kotohogu|congratulate; wish one well|7|
 寿く|kotobuku|congratulate; wish one well|7|
 柔らかい|yawarakai|soft; tender; gentle; meek; mild|7|
-柔らか|yawaraka|soft; tender; gentle; meek; mild|7|
-柔らか|yawarakana|soft; tender; gentle; meek; mild|7|
-柔な|yawana|frail; fragile|7|
-柔な|yawa|frail; fragile|7|
+柔らか|yawaraka;yawarakana|soft; tender; gentle; meek; mild|7|
+柔な|yawana;yawa|frail; fragile|7|
 柔ら|yawara|obsolete:  judo; straw balls on ship's sides which  cushion the blow when mooring|7|
 瞬く|matataku|wink; blink; twinkle; flicker|7|
 瞬く|mabataku|wink; blink; twinkle; flicker|7|
@@ -3905,11 +3734,8 @@ Japanese|Romaji|English|Utility|Type
 巡る|meguru|go round; patrol; turn round; revolve; surround|7|
 巡り|meguri|tour; round; circulation; circumference|7|
 巡らす|megurasu|enclose; surround; turn  [round]; figurative:  revolve in one's mind|7|
-お巡りさん|omawarisan|informal:  policeman; cop|7|
-お巡りさん|omawari|informal:  policeman; cop|7|
-お巡りさん|mawari|informal:  policeman; cop|7|
-緒|SHO|beginning; inception in idioms:|7|
-緒|CHO|beginning; inception in idioms:|7|
+お巡りさん|omawarisan;omawari;mawari|informal:  policeman; cop|7|
+緒|SHO;CHO|beginning; inception in idioms:|7|
 緒|o|crd; strap; thng; string|7|
 緒|itoguchi|end of a thread; figurative:  beginning; start; first step; figurative:  clue to  smth.|7|
 召す|mesu|honorific verb for 2 nd and 3 rd person; summon; send for  smb.; put on; wear; buy; take (a bath or vehicle)|7|
@@ -3948,8 +3774,7 @@ Japanese|Romaji|English|Utility|Type
 伸す|nosu|stretch; extend; smooth out; iron; gain (influence etc.); go further; extend the journey; informal:  knock out; floor|7|
 伸び|nobi|elongation; growth; stretch; excess; surplus|7|
 伸び する|nobi suru|stretch  [oneself]|7|
-伸びやか|nobiyaka|comfortable; carefree|7|
-伸びやか|nobiyakana|comfortable; carefree|7|
+伸びやか|nobiyaka;nobiyakana|comfortable; carefree|7|
 寝る|neru|lie down; go to bed; sleep; sleep with  smb., be lovers; figurative:  lie idle (as of goods; capital etc.)|7|
 寝かす|nekasu|lay down; put to sleep; figurative:  let (goods or capital) lie idle|7|
 寝|ne|sleep; sleeping|7|
@@ -3992,21 +3817,15 @@ Japanese|Romaji|English|Utility|Type
 惜しい|oshii|regrettable; pitiful; precious; valuable; too good for  smth.|7|
 惜しむ|oshimu|regret; deplore; value; prize; spare; grudge; be reluctant; be loath|7|
 惜しがる|oshigaru|regret; deplore; value; prize; spare; grudge; be reluctant; be loath|7|
-鮮やか|azayaka|bright; clear; vivid; brilliant|7|
-鮮やか|azayakana|bright; clear; vivid; brilliant|7|
+鮮やか|azayaka;azayakana|bright; clear; vivid; brilliant|7|
 疎い|utoi|estranged; distant; unfamiliar with  smth.|7|
 疎む|utomu|shun; neglect; estrange|7|
 疎んじる|utonjiru|shun; neglect; estrange|7|
 疎ましい|utomashii|disagreeable|7|
-疎ら な|mabara na|sparse; scattered; sporadic|7|
-疎ら な|mabarana na|sparse; scattered; sporadic|7|
-疎ら な|mabarani na|sparse; scattered; sporadic|7|
-疎か|orosoka|negligent; remiss; careless|7|
-疎か|orosokana|negligent; remiss; careless|7|
-疎か な|oroka na|trifling|7|
-疎か な|orokana na|trifling|7|
-疎か|oroka|to say nothing of...|7|
-疎か|orokana|to say nothing of...|7|
+疎ら な|mabara;mabarana;mabarani na|sparse; scattered; sporadic|7|
+疎か|orosoka;orosokana|negligent; remiss; careless|7|
+疎か な|oroka;orokana na|trifling|7|
+疎か|oroka;orokana|to say nothing of...|7|
 疎|SO|estranged; alienated; sparse; scattered|7|
 疎々しい|utoutoshii|disagreeable; unfriendly; indifferent; cold|7|
 粗|ara|bony parts of a fish; offals; smb's  weak point|7|
@@ -4026,8 +3845,7 @@ Japanese|Romaji|English|Utility|Type
 騒々 と|zawazawa to|rustling|7|
 騒めく|zawameku|be noisy; buzz; rustle|7|
 騒つく|zawatsuku|be noisy; buzz; rustle|7|
-騒く|zomeku|revel; be noisy|7|
-騒く|someku|revel; be noisy|7|
+騒く|zomeku;someku|revel; be noisy|7|
 憎む|nikumu|hate; detest; abhor|7|
 憎しみ|nikushimi|hatred; enmity|7|
 憎い|nikui|hateful; abominable; slang  splendid; cool|7|
@@ -4083,8 +3901,7 @@ Japanese|Romaji|English|Utility|Type
 淡々|TANTAN|light  colored; light  flavored; indifferent; unconcerned|7|
 淡す|awasu|remove astringency from persimmons|7|
 端|TAN|beginning in idioms:|7|
-端|hashi|end; edge; extremity; tip; corner; scrap; fag end|7|
-端|haji|end; edge; extremity; tip; corner; scrap; fag end|7|
+端|hashi;haji|end; edge; extremity; tip; corner; scrap; fag end|7|
 端|hata|side; edge|7|
 端|hana|beginning; outset; [protruded]  end; tip|7|
 端|ha|edge; border|7|
@@ -4133,8 +3950,7 @@ Japanese|Romaji|English|Utility|Type
 沈む|shizumu|sink; submerge; go to the bottom; set; go down (the sun; the moon); be downcast; feel depressed|7|
 沈める|shizumeru|sink; send to the bottom; put under water|7|
 珍しい|mezurashii|rare; unusual; novel; strange|7|
-珍か|mezuraka|rare; unusual; novel; strange|7|
-珍か|mezurakana|rare; unusual; novel; strange|7|
+珍か|mezuraka;mezurakana|rare; unusual; novel; strange|7|
 珍しく|mezurashiku|unusually; exceptionally|7|
 珍しがる|mezurashigaru|find  smth. curious; be astonished|7|
 珍|CHIN|rarity; marvel|7|
@@ -4145,8 +3961,7 @@ Japanese|Romaji|English|Utility|Type
 締め|shime|ream of paper; summing up; (sign on an envelope); choking techniques (in judo)|7|
 締めて|shimete|in all; all told|7|
 締まり|shimari|tightness; firmness; steadiness; locking (of a door)|7|
-泥|doro|mud; mire|7|
-泥|DEI|mud; mire|7|
+泥|doro;DEI|mud; mire|7|
 泥んこ|doronko|colloquial: mud; mire|7|
 泥だらけ の|dorodarake no|muddy; covered with mud|7|
 泥む|nazumu|adhere to  smth., be wedded to  smth.|7|
@@ -4155,12 +3970,10 @@ Japanese|Romaji|English|Utility|Type
 添わる|sowaru|be added to|7|
 添わす|sowasu|mate; marry|7|
 殿|shingari|rear; rearguard; tail end|7|
-殿|tono|[feudal]  lord; palace|7|
-殿|dono|[feudal]  lord; palace|7|
+殿|tono;dono|[feudal]  lord; palace|7|
 塗る|nuru|paint; coat; lay on; spread on; plaster; smear; daub; pin (a crime on smb.)|7|
 塗り|nuri|painting; coating; varnishing; lacquering; lacquerware|7|
-塗れる|mamireru|be smeared; be covered (with blood; mud etc.)|7|
-塗れる|mabureru|be smeared; be covered (with blood; mud etc.)|7|
+塗れる|mamireru;mabureru|be smeared; be covered (with blood; mud etc.)|7|
 塗す|mabusu|smear; cover; sprinkle|7|
 渡る|wataru|vt  cross over; go across; ferry; wade; ford; vt  make one's way (in the world); walk (through life); migrate (birds etc.); be brought from abroad; be transferred; change hands|7|
 渡り|watari|passage; transit; crossing; ferry; migration (of birds etc.); negotiations; mutual arrangements; gang  plank; gang  board; length; diameter|7|
@@ -4179,8 +3992,7 @@ Japanese|Romaji|English|Utility|Type
 倒す|taosu|fell; bring down; throw to the ground; defeat; overthrow; ruin; kill (one's enemy); fail to pay; bilk|7|
 倒れ|taore|bad debt|7|
 倒ける|kokeru|fall down; tumble down|7|
-倒さま|sakasama|upside down; inside out|7|
-倒さま|sakasa|upside down; inside out|7|
+倒さま|sakasama;sakasa|upside down; inside out|7|
 凍る|kooru|freeze; congeal|7|
 凍てる|iteru|lit: freeze; congeal|7|
 凍みる|shimiru|lit: freeze; congeal|7|
@@ -4216,8 +4028,7 @@ Japanese|Romaji|English|Utility|Type
 曇らす|kumorasu|cloud up; dim; blur|7|
 鈍|DON|dull; stupid; slow  witted|7|
 鈍い|nibui|dull; blunt; sluggish; slow  witted; dim (light); thick (sound)|7|
-鈍る|niburu|become dull; weaken|7|
-鈍る|namaru|become dull; weaken|7|
+鈍る|niburu;namaru|become dull; weaken|7|
 鈍ら|namakura|dull blade; figurative:  useless fellow; good  for  nothing|7|
 鈍す|namasu|anneal|7|
 鈍い|noroi|slow; tardy; sluggish; dull  witted; flirtatious; spoony|7|
@@ -4226,8 +4037,7 @@ Japanese|Romaji|English|Utility|Type
 鈍くさ|norokusa|slowly; sluggishly|7|
 鈍くさ した|norokusa shita|sluggish|7|
 軟らかい|yawarakai|soft; tender; gentle; meek; mild|7|
-軟らか|yawaraka|soft; tender; gentle; meek; mild|7|
-軟らか|yawarakana|soft; tender; gentle; meek; mild|7|
+軟らか|yawaraka;yawarakana|soft; tender; gentle; meek; mild|7|
 如く|gotoku|like; as if; as though|7|
 如し|gotoshi|lit:  be like; be as if; seem|7|
 如き|gotoki|lit:  be like; be as if; seem|7|
@@ -4243,8 +4053,7 @@ Japanese|Romaji|English|Utility|Type
 廃る|sutaru|become outmoded; go out of use|7|
 廃り|sutari|uselessness; waste|7|
 廃する|HAISURU|abolish; discard; repeal; annul; discontinue; give up; depose; dethrone|7|
-杯|sakazuki|sake cup; wine glass; goblet|7|
-杯|HAI|sake cup; wine glass; goblet|7|
+杯|sakazuki;HAI|sake cup; wine glass; goblet|7|
 杯|tsuki|arch:  bowl; basin|7|
 泊まる|tomaru|stay overnight; stay at anchor|7|
 泊まり|tomari|stopover; stay; anchorage; night duty|7|
@@ -4254,16 +4063,13 @@ Japanese|Romaji|English|Utility|Type
 薄まる|usumaru|get thin (dilute; watery; weak)|7|
 薄らぐ|usuragu|thin out; fade; grow pale; abate; lessen; decline|7|
 薄れる|usureru|thin out; fade; grow pale; abate; lessen; decline|7|
-薄っぺら|usuppera|very thin; superficial; shallow; frivolous; flimsy|7|
-薄っぺら|usupperana|very thin; superficial; shallow; frivolous; flimsy|7|
+薄っぺら|usuppera;usupperana|very thin; superficial; shallow; frivolous; flimsy|7|
 薄々|usuusu|slightly; a little; dimly; hazily|7|
 薄|susuki|eulalia; miscanthus reed; = Miscanthus sinensis|7|
 爆ぜる|hazeru|burst open; pop; split|7|
-肌|hada|skin; body; grain; texture (of wood); disposition; temperament; turn of mind|7|
-肌|hadae|skin; body; grain; texture (of wood); disposition; temperament; turn of mind|7|
+肌|hada;hadae|skin; body; grain; texture (of wood); disposition; temperament; turn of mind|7|
 髪|kami|hair (of the head)|7|
-罰|BATSU|punishment; penalty|7|
-罰|BACHI|punishment; penalty|7|
+罰|BATSU;BACHI|punishment; penalty|7|
 罰する|BASSURU|punish|7|
 抜く|nuku|pull out; draw out; extract; pick out; make selections; quote; remove; take out; skip; omit; excel; surpass; outrun; outstrip; pierce; shoot through|7|
 抜き|nuki|omission|7|
@@ -4309,9 +4115,7 @@ Japanese|Romaji|English|Utility|Type
 怖じる|ojiru|fear; be frightened|7|
 怖じける|ojikeru|fear; be frightened|7|
 怖れる|osoreru|fear; be frightened|7|
-怖々|ozuozu|timidly; gingerly|7|
-怖々|ojioji|timidly; gingerly|7|
-怖々|kowagowa|timidly; gingerly|7|
+怖々|ozuozu;ojioji;kowagowa|timidly; gingerly|7|
 敷く|shiku|lay; spread; cover; pave; lay (a railroad); promulgate (a law)|7|
 敷き|shiki|foundation; stand; deposit money|7|
 普く|amaneku|widely; universally; everywhere; all over|7|
@@ -4374,8 +4178,7 @@ Japanese|Romaji|English|Utility|Type
 滅|METSU|OFF (label on a switch)|7|
 免じる|MENJIRU|exempt; release; dismiss|7|
 に免じて|NI MENJITE|out of respect for...|7|
-免れる|manukareru|avoid; escape; be exempted from  smth.|7|
-免れる|manugareru|avoid; escape; be exempted from  smth.|7|
+免れる|manukareru;manugareru|avoid; escape; be exempted from  smth.|7|
 免す|yurusu|exempt; exonerate; release|7|
 網|ami|net; netting|7|
 黙る|damaru|be silent; say nothing; shut one's mouth|7|
@@ -4419,8 +4222,7 @@ Japanese|Romaji|English|Utility|Type
 離|RI|rd trigram in the Book of Change: south; fire|7|
 了する|RYOUSURU|> lit:; finish; complete; understand|7|
 涼しい|suzushii|cool; refreshing|7|
-涼やか|suzuyaka|cool; refreshing|7|
-涼やか|suzuyakana|cool; refreshing|7|
+涼やか|suzuyaka;suzuyakana|cool; refreshing|7|
 涼む|suzumu|cool oneself; enjoy the evening cool|7|
 涼|RYOU|lit:  the cool|7|
 隣り の|tonari no|neighboring; adjacent; next door|7|
@@ -4440,8 +4242,7 @@ Japanese|Romaji|English|Utility|Type
 宛てる|ateru|address (a letter etc.); use (a kanji) phonetically|8|
 宛てがう|ategau|apply; put; hold; give; supply; allow; allot; assign; allocate; choose (a wife or husband)|8|
 宛ら|sanagara|lit:  just like; just as; as if|8|
-宛も|atakamo|lit:  just like; just as; as if|8|
-宛も|zutsu|lit:  just like; just as; as if|8|
+宛も|atakamo;zutsu|lit:  just like; just as; as if|8|
 闇|yami|darkness; disorder; chaos; black market|8|
 闇々 と|yamiyami to|suddenly and easily; without  resistance (as of a murder etc.)|8|
 依る|yoru|depend on  smth.; have recourse to  smth.|8|
@@ -4470,8 +4271,7 @@ Japanese|Romaji|English|Utility|Type
 浦|ura|inlet; small bay; beach; seacoast|8|
 炎|honoo|flame; blaze|8|
 炎|homura|flame; blaze|8|
-煙|kemuri|smoke|8|
-煙|kemu|smoke|8|
+煙|kemuri;kemu|smoke|8|
 煙る|kemuru|to smoke|8|
 煙い|kemui|smoky|8|
 煙たい|kemutai|smoky; feeling awkward|8|
@@ -4485,8 +4285,7 @@ Japanese|Romaji|English|Utility|Type
 艶|EN|charming; fascinating|8|
 艶|tsuya|gloss; glaze; sheen; charm; love; romance|8|
 艶っぽい|tsuyappoi|romantic; amorous; spicy|8|
-艶やか|adeyaka|charming; fascinating|8|
-艶やか|adeyakana|charming; fascinating|8|
+艶やか|adeyaka;adeyakana|charming; fascinating|8|
 艶めかしい|namamekashii|charming; fascinating|8|
 艶めく|namameku|be charming|8|
 艶やか な|tsuyayaka na|shiny; glossy; bright|8|
@@ -4509,8 +4308,7 @@ Japanese|Romaji|English|Utility|Type
 華やか な|hanayaka na|flowery; bright; gorgeous|8|
 華々しい な|hanabanashii na|flowery; bright; gorgeous|8|
 華|KA|floweriness in idioms:|8|
-雅びやか|miyabiyaka|elegant; graceful; refined|8|
-雅びやか|miyabikana|elegant; graceful; refined|8|
+雅びやか|miyabiyaka;miyabikana|elegant; graceful; refined|8|
 雅びた|miyabita|elegant; graceful; refined|8|
 雅|GA|lit:  elegance; good taste|8|
 介して を|KAISHITE wo|through the medium of  smb.|8|
@@ -4518,8 +4316,7 @@ Japanese|Romaji|English|Utility|Type
 壊れる|kowareru|break; be broken; come to pieces; be destroyed; be damaged; get out of order; fall through; miscarry; be upset; be broken off|8|
 怪しい|ayashii|doubtful; questionable; suspicious; strange; mysterious; uncanny; clumsy; awkward; poor|8|
 怪しむ|ayashimu|doubt; suspect; be suspicious; wonder; marvel|8|
-怪しげ|ayashige|strange; dubious|8|
-怪しげ|ayashigena|strange; dubious|8|
+怪しげ|ayashige;ayashigena|strange; dubious|8|
 怪しからん|keshikaran|rude; impertinent; insulting; disgraceful; shameful; inexcusable; outrageous; indecent; mean; absurd|8|
 怪|KAI|> lit:; mystery; wonder; apparition; specter|8|
 悔い|kui|regret; repentance|8|
@@ -4547,9 +4344,7 @@ Japanese|Romaji|English|Utility|Type
 括り|kukuri|tying; summing up; bundle; knot|8|
 括る|kubiru|constrict|8|
 括れる|kubireru|be constricted|8|
-括れ|kubire|constriction; compression|8|
-括れ|kurumeru|constriction; compression|8|
-括れ|kurume|constriction; compression|8|
+括れ|kubire;kurumeru;kurume|constriction; compression|8|
 渇|KATSU|thirst|8|
 渇する|KASSURU|be thirsty|8|
 渇く|kawaku|dry out; parch (esp. of one's throat)|8|
@@ -4557,8 +4352,7 @@ Japanese|Romaji|English|Utility|Type
 滑る|suberu|slide; glide; skate; ski; slip; be slippery; flunk  (an examination)|8|
 滑り|suberi|sliding; slipping; skating; skiing|8|
 滑らす|suberasu|slip; miss one's footing; let one's tongue slip|8|
-滑らか|nameraka|smooth|8|
-滑らか|namerakana|smooth|8|
+滑らか|nameraka;namerakana|smooth|8|
 滑る|numeru|be slippery; play all the time|8|
 滑り|numeri|slime|8|
 冠|kanmuri|crown; diadem; (crown of a Japanese  emperor and court nobles); top kanji radical|8|
@@ -4615,8 +4409,7 @@ Japanese|Romaji|English|Utility|Type
 忌み|imi|abstinence; taboo; mourning|8|
 忌まわしい|imawashii|abominable; ominous|8|
 忌々しい|imaimashii|vexing; annoying; hateful; accursed; detestable; disgusting; regretful|8|
-既に|sudeni|already; previously|8|
-既に|sude|already; previously|8|
+既に|sudeni;sude|already; previously|8|
 棄てる|suteru|throw away; dump; discard; abandon; leave; desert; dismiss; forsake; give up|8|
 祈る|inoru|pray; wish|8|
 祈り|inori|prayer|8|
@@ -4632,12 +4425,10 @@ Japanese|Romaji|English|Utility|Type
 偽 の|nise no|false; counterfeit|8|
 宜しい|yoroshii|good; fine; alright; OK|8|
 宜しく|yoroshiku|well; properly; suitably; regards; best wishes|8|
-宜|ube|lit:  true; well said|8|
-宜|mube|lit:  true; well said|8|
+宜|ube;mube|lit:  true; well said|8|
 戯れる|tawamureru|play; sport; frolic; jest; flirt|8|
 戯れ|tawamure|play; fun; joke; flirtation|8|
-戯れる|jareru|play the fool; joke; jest|8|
-戯れる|zareru|play the fool; joke; jest|8|
+戯れる|jareru;zareru|play the fool; joke; jest|8|
 戯ける|odokeru|informal:  play the fool; act like a clown|8|
 戯けた|odoketa|informal:  funny; comic; clownish|8|
 戯け|odoke|> colloquial:; joke; jest; humor; clownery; buffoonery|8|
@@ -4666,8 +4457,7 @@ Japanese|Romaji|English|Utility|Type
 拒ぐ|fusegu|protect; prevent|8|
 拠る|yoru|be based on  smth.; hold (a fortress)|8|
 拠|yoridokoro|ground; foundation|8|
-距|kedume|cockspur|8|
-距|kezume|cockspur|8|
+距|kedume;kezume|cockspur|8|
 凶|KYOU|bad luck|8|
 叫ぶ|sakebu|shout; scream; cry; clamor for; advocate|8|
 叫び|sakebi|shout; scream; outcry|8|
@@ -4697,20 +4487,17 @@ Japanese|Romaji|English|Utility|Type
 凝る|shikoru|become stiff; harden; indurate|8|
 凝り|shikori|stiffness (in a muscle), induration|8|
 暁|akatsuki|dawn; daybreak|8|
-暁には|akatsukiniha|if; when; in the event of|8|
-暁には|akatsukiniwa|if; when; in the event of|8|
+暁には|akatsukiniha;akatsukiniwa|if; when; in the event of|8|
 菌|KIN|bacteria; germ; fungus; mushroom; mold|8|
 菌|kinoko|mushroom|8|
 謹む|tsutsushimu|be prudent; be cautious; be careful; be moderate; restrain oneself|8|
 謹んで|tsutsushinde|reverently; respectfully|8|
-愚か|oroka|stupid; foolish; silly|8|
-愚か|orokana|stupid; foolish; silly|8|
+愚か|oroka;orokana|stupid; foolish; silly|8|
 愚かしい|orokashii|stupid; foolish; silly|8|
 愚|GU|stupidity in idioms:|8|
 愚な|GUNA|stupid; silly|8|
 偶|GUU|even number|8|
-偶|tama|occasionally; not often|8|
-偶|tamani|occasionally; not often|8|
+偶|tama;tamani|occasionally; not often|8|
 偶々|tamatama|accidentally; casually|8|
 偶さか に|tamasaka ni|not often; occasionally|8|
 偶さか の|tamasaka no|infrequent; occasional|8|
@@ -4727,8 +4514,7 @@ Japanese|Romaji|English|Utility|Type
 掘る|horu|dig; excavate|8|
 靴|kutsu|boots; shoes|8|
 繰る|kuru|wind; reel in; spin; turn (pages), look up|8|
-勲|isao|meritorious deed|8|
-勲|isaoshi|meritorious deed|8|
+勲|isao;isaoshi|meritorious deed|8|
 薫ずる|KUNZURU|be scented; be fragrant|8|
 薫る|kaoru|be scented; be fragrant|8|
 薫り|kaori|aroma; fragrance; odor|8|
@@ -4747,8 +4533,7 @@ Japanese|Romaji|English|Utility|Type
 肩|kata|shoulder[s]|8|
 賢い|kashikoi|wise; intelligent|8|
 賢しい|sakashii|wise; intelligent|8|
-賢しら|sakashira|pert; impertinent|8|
-賢しら|sakashirana|pert; impertinent|8|
+賢しら|sakashira;sakashirana|pert; impertinent|8|
 軒|noki|eaves|8|
 遣る|yaru|give; present; dispatch; send; remove; do; perform; undertake; perform on stage; eat; drink; smoke; run (business); after '  te'  form of a verb indicates  an action taken for somebody else|8|
 遣わす|tsukawasu|dispatch; send; give; present|8|
@@ -4767,13 +4552,11 @@ Japanese|Romaji|English|Utility|Type
 誇り|hokori|pride|8|
 誇り と する|hokori to suru|be proud of  smth.|8|
 誇らしい|hokorashii|proud|8|
-誇らしげ|hokorashige|proudly|8|
-誇らしげ|hokorashigeni|proudly|8|
+誇らしげ|hokorashige;hokorashigeni|proudly|8|
 雇う|yatou|employ; hire; engage; charter; hire|8|
 雇い|yatoi|employment; employee|8|
 顧みる|kaerimiru|look back; turn around; review the past; retrospect; examine oneself; give attention to; take notice of; take into consideration|8|
-鼓|tsudumi|tsuzumi (Japanese hand drum  shaped like an hourglass)|8|
-鼓|tsuzumi|(Japanese hand drum  shaped like an hourglass)|8|
+鼓|tsudumi;tsuzumi|tsuzumi (Japanese hand drum  shaped like an hourglass)|8|
 鼓す|kosu|beat; rouse; muster|8|
 鼓する|KOSURU|beat; rouse; muster|8|
 呉れる|kureru|give; present (2 nd or 3 rd person); after a verb in ' te'  form indicates  the direction of an action:  from 2 nd person to 1 st person  or from 3 rd person to any person|8|
@@ -4846,8 +4629,7 @@ Japanese|Romaji|English|Utility|Type
 恨めしい|urameshii|indignant; bitter; regretful|8|
 恨みっこ|uramikko|grudge against each other|8|
 恨みっこ なし|uramikko nashi|no hard feelings on either side|8|
-懇ろ|nengoro|cordial; hearty; kind; intimate; close|8|
-懇ろ|nengorona|cordial; hearty; kind; intimate; close|8|
+懇ろ|nengoro;nengorona|cordial; hearty; kind; intimate; close|8|
 詐る|itsuwaru|lie; deceive; falsify; feign|8|
 鎖|kusari|chain; figurative:  connection|8|
 鎖す|tozasu|shut; close|8|
@@ -4877,8 +4659,7 @@ Japanese|Romaji|English|Utility|Type
 擦る|nasuru|rub on; smear; blame another|8|
 擦る|kasuru|graze; touch lightly|8|
 傘|kasa|umbrella|8|
-惨め|mijime|miserable; wretched; pitiful|8|
-惨め|mijimena|miserable; wretched; pitiful|8|
+惨め|mijime;mijimena|miserable; wretched; pitiful|8|
 惨い|mugoi|cruel; harsh; atrocious|8|
 惨たらしい|mugotarashii|cruel; harsh; atrocious|8|
 惨 たる|SAN taru|disastrous; tragic|8|
@@ -4897,8 +4678,7 @@ Japanese|Romaji|English|Utility|Type
 脂ぎる|aburagiru|be greasy; be oily|8|
 脂ぎった|aburagitta|greasy; oily|8|
 脂|yani|resin; gum; tar; nicotine; gum (in one's eye corner)|8|
-賜う|tamau|grant; bestow; deign to give|8|
-賜う|tamou|grant; bestow; deign to give|8|
+賜う|tamau;tamou|grant; bestow; deign to give|8|
 賜る|tamawaru|have the honor to receive; grant; bestow|8|
 雌|mesu|female animal|8|
 侍|samurai|warrior|8|
@@ -4923,20 +4703,17 @@ Japanese|Romaji|English|Utility|Type
 煮える|nieru|boil; be boiled; be cooked|8|
 煮やす|niyasu|bound  boil up|8|
 遮る|saegiru|obstruct; block; interrupt|8|
-邪ま|yokoshima|evil; wicked; vicious|8|
-邪ま|yokoshimana|evil; wicked; vicious|8|
+邪ま|yokoshima;yokoshimana|evil; wicked; vicious|8|
 邪|JA|evil; vice in idioms:|8|
 酌む|kumu|have a drink  with smb.; consider; sympathize with|8|
 酌を する|SHAKUwo suru|serve sake or wine|8|
 お酌|OSHAKU|serve sake; young geisha|8|
 寂|sabi|(Japanese esthetic category  which connotes antique look; elegant simplicity  and blessed solitude)|8|
-寂しい|sabishii|lonely; lonesome|8|
-寂しい|samishii|lonely; lonesome|8|
+寂しい|sabishii;samishii|lonely; lonesome|8|
 寂しがる|sabishigaru|feel lonely; miss  smb.|8|
 寂れる|sabireru|decline in prosperity|8|
 寂びる|sabiru|decline in prosperity; mellow; mature|8|
-寂 と した|SEKI to shita|hushed; still|8|
-寂 と した|JAKU to shita|hushed; still|8|
+寂 と した|SEKI;JAKU to shita|hushed; still|8|
 狩る|karu|hunt|8|
 狩り|kari|hunting; gathering (fruits; mushrooms etc.); viewing (flowers; leaves etc.)|8|
 珠|tama|gem; precious stone|8|
@@ -4965,9 +4742,7 @@ Japanese|Romaji|English|Utility|Type
 渋い|shibui|astringent; puckery; rough; sullen; glum; quiet; sober (as of a color); refined; elegant|8|
 渋る|shiburu|hang back; hesitate; be reluctant|8|
 渋々|shibushibu|reluctantly; unwillingly|8|
-獣|kemono|beast; brute|8|
-獣|kedamono|beast; brute|8|
-獣|JUU|beast; brute|8|
+獣|kemono;kedamono;JUU|beast; brute|8|
 獣|shishi|arch:  beast; big game (esp. deer or boar)|8|
 銃|JUU|gun; rifle|8|
 粛 と して|SHUKU to shite|in solemn silence|8|
@@ -4981,10 +4756,8 @@ Japanese|Romaji|English|Utility|Type
 潤びる|hotobiru|be soaked; swell up|8|
 盾|tate|literal or figurative:  shield; escutcheon|8|
 叙する|JOSURU|describe; depict; narrate; confer (a rank)|8|
-徐ろに|omomuroni|slowly; gradually; step by step; patiently|8|
-徐ろに|omomuro|slowly; gradually; step by step; patiently|8|
-徐々に|JOJONI|slowly; gradually; step by step; patiently|8|
-徐々に|JOJO|slowly; gradually; step by step; patiently|8|
+徐ろに|omomuroni;omomuro|slowly; gradually; step by step; patiently|8|
+徐々に|JOJONI;JOJO|slowly; gradually; step by step; patiently|8|
 償う|tsugunau|recompense; make up for; recoup; redeem; expiate|8|
 匠|takumi|> obsolete:; artisan; craftsman; carpenter|8|
 奨める|susumeru|encourage; stimulate|8|
@@ -5003,8 +4776,7 @@ Japanese|Romaji|English|Utility|Type
 お粧し|omekashi|dress and makeup; foppery|8|
 肖る|ayakaru|be similar to  smb. in good luck or skill|8|
 衝く|tsuku|strike; thrust; stab; gore; push; poke; attack; assail; be pungent; stimulate (the senses); disdain (wind; rain; danger)|8|
-剰え|amassae|besides; in addition|8|
-剰え|amatsusae|besides; in addition|8|
+剰え|amassae;amatsusae|besides; in addition|8|
 譲る|yuzuru|transfer; convey; turn over; concede; give away; yield to  smb.; sell; dispose of  smth.; defer; postpone|8|
 錠|JOU|lock; padlock; tablet; pill|8|
 殖える|fueru|increase; grow  [in number]|8|
@@ -5106,8 +4878,7 @@ Japanese|Romaji|English|Utility|Type
 濁す|nigosu|make muddy; make turbid|8|
 奪う|ubau|take by force; snatch; rob; deprive; absorb; engross; fascinate|8|
 棚|tana|shelf; ledge|8|
-誰|dare|who|8|
-誰|tare|who|8|
+誰|dare;tare|who|8|
 誰の|dareno|whose|8|
 誰か|dareka|someone; somebody|8|
 誰も|daremo|anyone; anybody; no one; nobody|8|
@@ -5121,10 +4892,8 @@ Japanese|Romaji|English|Utility|Type
 稚い|itokenai|lit:  very young; infant|8|
 蓄える|takuwaeru|lay in stock; store up; save; grow (a mustache etc.)|8|
 蓄え|takuwae|savings; stock; store; reserve|8|
-弔う|tomurau|condole; hold a memorial service|8|
-弔う|toburau|condole; hold a memorial service|8|
-弔い|tomurai|condolence; Buddhist memorial service; funeral|8|
-弔い|toburai|condolence; Buddhist memorial service; funeral|8|
+弔う|tomurau;toburau|condole; hold a memorial service|8|
+弔い|tomurai;toburai|condolence; Buddhist memorial service; funeral|8|
 彫る|horu|carve; engrave; chisel; tattoo|8|
 彫る|eru|pierce; perforate; carve; engrave|8|
 懲らす|korasu|chastise; punish; discipline|8|
@@ -5191,8 +4960,7 @@ Japanese|Romaji|English|Utility|Type
 匂い が する|nioi ga suru|[have a]  smell of  smth.|8|
 匂わせる|niowaseru|give out an odor; drop a hint; insinuate|8|
 匂わす|niowasu|give out an odor; drop a hint; insinuate|8|
-匂やか|nioyaka|delightful; amazing|8|
-匂やか|nioyakana|delightful; amazing|8|
+匂やか|nioyaka;nioyakana|delightful; amazing|8|
 忍ぶ|shinobu|hide; make oneself invisible; endure; bear; stand; bot. hare's  foot fern|8|
 忍ばせる|shinobaseru|conceal; hide|8|
 忍び|shinobi|surreptitious visit; spy; ninja|8|
@@ -5222,8 +4990,7 @@ Japanese|Romaji|English|Utility|Type
 媒 する|nakadachi suru|mediate; act as intermediary|8|
 媒|nakoudo|matchmaker|8|
 媒 する|nakoudo suru|arrange a match; act as a matchmaker|8|
-剥ぐ|hagu|tear off; strip off; peel; flay; skin; deprive of  smth.|8|
-剥ぐ|hegu|tear off; strip off; peel; flay; skin; deprive of  smth.|8|
+剥ぐ|hagu;hegu|tear off; strip off; peel; flay; skin; deprive of  smth.|8|
 剥がす|hagasu|tear off; strip off; peel; flay; skin; deprive of  smth.|8|
 剥げる|hageru|come off; peel off; fade; discolor|8|
 剥げ|hage|bare patch (on a painted surface etc.)|8|
@@ -5234,9 +5001,7 @@ Japanese|Romaji|English|Utility|Type
 剥る|hezuru|informal:  pilfer|8|
 拍つ|utsu|beat (time); clap (hands)|8|
 拍|HAKU|music  beat; rhythm|8|
-迫る|semaru|approach; draw near; be imminent; press; urge; force; compel|8|
-迫る|seri|approach; draw near; be imminent; press; urge; force; compel|8|
-迫る|seru|approach; draw near; be imminent; press; urge; force; compel|8|
+迫る|semaru;seri;seru|approach; draw near; be imminent; press; urge; force; compel|8|
 縛る|shibaru|bind; tie; fasten; bind; restrain; restrict; catch; truss; arrest|8|
 縛め|imashime|lit:  binding; bonds|8|
 縛める|imashimeru|lit:  bind; restrain|8|
@@ -5255,8 +5020,7 @@ Japanese|Romaji|English|Utility|Type
 斑 な|buchi na|spotted; mottled; speckled|8|
 斑 の|buchi no|pinto (as of a horse)|8|
 斑|mura|uneven; irregular; variegated; spotted; patched; blurred; capricious; fickle|8|
-斑|hadara|obsolete:  pellets (of snow  on the ground)|8|
-斑|hadare|obsolete:  pellets (of snow  on the ground)|8|
+斑|hadara;hadare|obsolete:  pellets (of snow  on the ground)|8|
 繁る|shigeru|grow thick; be luxuriant|8|
 繁った|shigetta|thick; luxuriant; overgrown|8|
 繁く|shigeku|thickly; densely; frequently; often|8|
@@ -5275,17 +5039,14 @@ Japanese|Romaji|English|Utility|Type
 罷める|yameru|quit; resign; retire|8|
 罷め|yame|end; discontinuation|8|
 罷る|makaru|leave; withdraw; go|8|
-匹|hiki|unit for measuring rolls of cloth (2  tan; 21.2  m in length and 34  cm in width); old monetary unit (10  or 25  mon)|8|
-匹|ki|unit for measuring rolls of cloth (2  tan; 21.2  m in length and 34  cm in width); old monetary unit (10  or 25  mon)|8|
+匹|hiki;ki|unit for measuring rolls of cloth (2  tan; 21.2  m in length and 34  cm in width); old monetary unit (10  or 25  mon)|8|
 姫|hime|young lady  [of noble birth]; princess|8|
 漂う|tadayou|drift; float; waft|8|
 描く|egaku|depict; draw; paint; describe; depict|8|
 描く|kaku|draw; paint|8|
 浜|hama|beach (of a sea or lake); abbrev. slang  Yoko; captured stone (in the game of go)|8|
-頻りに|shikirini|frequently; repeatedly; often; incessantly; constantly; insistently; intently|8|
-頻りに|shikiri|frequently; repeatedly; often; incessantly; constantly; insistently; intently|8|
-頻々 と して|HINPIN to site|frequently; in rapid succession|8|
-頻々 と して|shikiru to site|frequently; in rapid succession|8|
+頻りに|shikirini;shikiri|frequently; repeatedly; often; incessantly; constantly; insistently; intently|8|
+頻々 と して|HINPIN;shikiru to site|frequently; in rapid succession|8|
 敏い|satoi|quick  witted; clever|8|
 敏 で ある|BIN de aru|be quick|8|
 瓶|BIN|bottle; vial; flask|8|
@@ -5294,8 +5055,7 @@ Japanese|Romaji|English|Utility|Type
 腐る|kusaru|rot; sour; decay; spoil; feel depressed; feel blue|8|
 腐り|kusari|decay; corruption|8|
 腐らす|kusarasu|rot; spoil; decay; addle; corrode|8|
-腐す|kusasu|disparage; speak ill of  smb.|8|
-腐す|kusareru|disparage; speak ill of  smb.|8|
+腐す|kusasu;kusareru|disparage; speak ill of  smb.|8|
 譜|FU|musical score; musical note; genealogy; family record; table; record; album|8|
 賦|FU|prose poem; ode; hist. tribute; exacted service; installment|8|
 賦す|FUSU|compose (a poem); allot; assign|8|
@@ -5328,9 +5088,7 @@ Japanese|Romaji|English|Utility|Type
 紛れもない|magiremonai|obvious; certain; undoubted|8|
 紛う|magau|be mistaken for  smth. or smb.|8|
 紛々 と して|FUNPUN to site|confusedly; pell  mell|8|
-幣|nusa|beautifully folded strips of paper or cloth; often with verses or prayers; suspended  in Shinto shrines as offering to deities|8|
-幣|mitegura|beautifully folded strips of paper or cloth; often with verses or prayers; suspended  in Shinto shrines as offering to deities|8|
-幣|HEI|beautifully folded strips of paper or cloth; often with verses or prayers; suspended  in Shinto shrines as offering to deities|8|
+幣|nusa;mitegura;HEI|beautifully folded strips of paper or cloth; often with verses or prayers; suspended  in Shinto shrines as offering to deities|8|
 弊|HEI|evil; vice; abuse; bad habit; corrupt practice|8|
 癖|kuse|habit; peculiarity; trait; weakness; curliness; kinkiness; mannerism; affectation|8|
 癖に|kuseni|though; in spite of...|8|
@@ -5363,13 +5121,11 @@ Japanese|Romaji|English|Utility|Type
 縫う|nuu|sew; stitch|8|
 縫い|nui|sewing|8|
 芳しい|kanbashii|fragrant; aromatic; balmy; favorable; fair; good (usually with negation)|8|
-芳しい|koubashii|fragrant; aromatic; balmy; favorable; fair; good (usually with negation)|8|
-芳しい|kaguwashii|fragrant; aromatic; balmy; favorable; fair; good (usually with negation)|8|
+芳しい|koubashii;kaguwashii|fragrant; aromatic; balmy; favorable; fair; good (usually with negation)|8|
 褒める|homeru|praise; commend; admire|8|
 褒めそやす|homesoyasu|praise; extol|8|
 褒めちぎる|homechigiru|praise; extol|8|
-乏しい|toboshii|scanty; scarce; meager; destitute; poor|8|
-乏しい|tomoshii|scanty; scarce; meager; destitute; poor|8|
+乏しい|toboshii;tomoshii|scanty; scarce; meager; destitute; poor|8|
 傍ら|katawara|lit:  side; besides; while|8|
 傍ら に|katawara ni|by; near; by the side of  smth.|8|
 傍|soba|side|8|
@@ -5422,8 +5178,7 @@ Japanese|Romaji|English|Utility|Type
 銘|MEI|inscription (on a tombstone; blade; vase etc.), signature (of an artisan); [brand]  name; appellation; precept; motto; maxim|8|
 銘じる|MEIJIRU|lit:  engrave; impress; stamp (on one's mind; heart etc.)|8|
 銘々 の|MEIMEI no|each; apiece|8|
-妄りに|midarini|at random; indiscriminately; without cause; unreasonably; without permission|8|
-妄りに|midari|at random; indiscriminately; without cause; unreasonably; without permission|8|
+妄りに|midarini;midari|at random; indiscriminately; without cause; unreasonably; without permission|8|
 猛る|takeru|become furious; rage; rave; rush|8|
 猛き|takeki|> obsolete:; valiant; brave; intrepid; fierce; rampant|8|
 猛々しい|takedakeshii|fierce; ferocious; audacious; impudent|8|
@@ -5474,8 +5229,7 @@ Japanese|Romaji|English|Utility|Type
 裸 で|hadaka de|naked; with nothing on|8|
 裸 に する|hadaka ni suru|undress  smb.|8|
 裸 に なる|hadaka ni naru|become naked|8|
-雷|kaminari|thunder|8|
-雷|RAI|thunder|8|
+雷|kaminari;RAI|thunder|8|
 雷|ikazuchi|obsolete: thunder|8|
 絡む|karamu|entwine; coil around; wreathe; get caught; stick to  smth.; figurative:  pick a fight|8|
 絡まる|karamaru|entwine; wind itself round; get caught; get entangled; be driven (by some motive)|8|
@@ -5512,8 +5266,7 @@ Japanese|Romaji|English|Utility|Type
 励まし|hagemashi|encouragement; incentive; stimulation|8|
 鈴|suzu|small bell; doorbell|8|
 鈴|RIN|small bell; doorbell|8|
-零|REI|zero; nought|8|
-零|zero|nought|8|
+零|REI;zero|zero; nought|8|
 零れる|koboreru|spill; overflow; be scattered|8|
 零す|kobosu|spill; slop; scatter; grumble; complain|8|
 霊|REI|soul; spirit; ghost|8|
@@ -5554,8 +5307,7 @@ Japanese|Romaji|English|Utility|Type
 惑わす|madowasu|perplex; puzzle; bewilder; mislead; deceive; tempt; seduce|8|
 枠|waku|spool; reel; spindle; frame; framework; rim; border; figurative:  framework; limits; bounds|8|
 湾|WAN|gulf; bay; inlet|8|
-丼|donburi|bowl  [of food]; front pocket (in a working vest)|8|
-丼|don|bowl  [of food]; front pocket (in a working vest)|8|
+丼|donburi;don|bowl  [of food]; front pocket (in a working vest)|8|
 鬱|UTSU|melancholy; depression; gloom|8|
 鬱ぐ|fusagu|feel depressed; mope|8|
 鬱々 と|UTSUUTSU to|gloomily; cheerlessly|8|
@@ -5579,9 +5331,7 @@ Japanese|Romaji|English|Utility|Type
 渦|uzu|vortex; whirlpool; eddy|9|
 唄|uta|song (when written by this character; normally means a Japanese song  accompanied by a shamisen)|9|
 唄う|utau|sing|9|
-餌|esa|feed; food; bait|9|
-餌|e|fd; food; bait|9|
-餌|eba|feed; food; bait|9|
+餌|esa;e;eba|feed; food; bait|9|
 詠じる|EIJIRU|write (poetry); recite (poetry)|9|
 詠む|yomu|write (poetry); recite (poetry)|9|
 悦|ETSU|bound  joy; delight; rapture|9|
@@ -5601,8 +5351,7 @@ Japanese|Romaji|English|Utility|Type
 凹む|hekomu|be dented; cave in; be daunted|9|
 凹ます|hekomasu|dent in  smth.; humiliate; put down|9|
 凹|kubo|cavity; hollow; depression; pit|9|
-凹み|kubomi|cavity; hollow; depression; pit|9|
-凹み|hekomi|cavity; hollow; depression; pit|9|
+凹み|kubomi;hekomi|cavity; hollow; depression; pit|9|
 翁|okina|venerable old man|9|
 翁|OU|venerable old man|9|
 卸し|oroshi|wholesale trade|9|
@@ -5612,8 +5361,7 @@ Japanese|Romaji|English|Utility|Type
 穏やか に|odayaka ni|quietly; calmly; in peace; moderately; reasonably|9|
 穏やか に なる|odayaka ni naru|calm down; become quiet|9|
 佳 なる|KA naru|lit:  beautiful; fine; very nice|9|
-佳い|yoi|good|9|
-佳い|ii|good|9|
+佳い|yoi;ii|good|9|
 寡|KA|minority|9|
 寡い|sukunai|few; little; insufficient|9|
 架ける|kakeru|lay (a bridge or wire) across|9|
@@ -5640,8 +5388,7 @@ Japanese|Romaji|English|Utility|Type
 岳|take|high mountain; peak|9|
 顎|ago|jaw; chin|9|
 葛|kuzu|bot. arrowroot; = Pueraria lobata/thunbergiana; kudzu; arrowroot flour|9|
-葛|tsudura|woody vine (sinomenium etc.)|9|
-葛|tsuzura|woody vine (sinomenium etc.)|9|
+葛|tsudura;tsuzura|woody vine (sinomenium etc.)|9|
 葛|kazura|vine|9|
 轄|kusabi|wedge; chock; arrowhead|9|
 釜|kama|iron pot; kettle; cauldron|9|
@@ -5736,10 +5483,8 @@ Japanese|Romaji|English|Utility|Type
 蛇|JA|snake; serpent|9|
 朱|SHU|cinnabar; vermilion|9|
 朱れる|SHUWO IRERU|correct; retouch|9|
-朱まる|AKENI SOMARU|welter in blood|9|
-朱まる|ake|welter in blood|9|
-殊に|kotoni|especially; exceptionally; particularly|9|
-殊に|koto|especially; exceptionally; particularly|9|
+朱まる|AKENI SOMARU;ake|welter in blood|9|
+殊に|kotoni;koto|especially; exceptionally; particularly|9|
 腫れ|hare|swelling; tumor|9|
 腫れる|hareru|swell|9|
 腫らす|harasu|cause to swell; inflame|9|
@@ -5750,8 +5495,7 @@ Japanese|Romaji|English|Utility|Type
 呪い する|majinai suru|charm; cast a spell|9|
 呪う|majinau|charm; cast a spell|9|
 呪る|kashiru|curse; put the evil eye on  smb.|9|
-淑やか|shitoyaka|graceful; gentle; ladylike|9|
-淑やか|shitoyakana|graceful; gentle; ladylike|9|
+淑やか|shitoyaka;shitoyakana|graceful; gentle; ladylike|9|
 旬|SHUN|season (for fruits; sports etc.)|9|
 殉じる|JUNJIRU|die a martyr|9|
 升|SHOU|unit of capacity (1.8  liters; 1/10  to; 10  go)|9|
@@ -5771,18 +5515,14 @@ Japanese|Romaji|English|Utility|Type
 慎む|tsutsushimu|be prudent; be cautious; be careful; be moderate; restrain oneself|9|
 慎み|tsutsushimi|prudence; discretion; modesty; self  control|9|
 慎ましい|tsutsumashii|modest; reserved; humble|9|
-慎ましやか|tsutsumashiyaka|modest; reserved; humble|9|
-慎ましやか|tsutsumashiyakana|modest; reserved; humble|9|
+慎ましやか|tsutsumashiyaka;tsutsumashiyakana|modest; reserved; humble|9|
 薪|takigi|firewood; fuel|9|
 薪|maki|firewood; fuel|9|
 酢|su|vinegar|9|
-帥|sochi|hist. governor (of Kyushu)|9|
-帥|sotsu|hist. governor (of Kyushu)|9|
+帥|sochi;sotsu|hist. governor (of Kyushu)|9|
 崇める|agameru|revere; venerate; worship|9|
 枢|toboso|hinge; figurative:  door|9|
-枢|kururu|hinge; figurative:  door|9|
-枢|kuru|hinge; figurative:  door|9|
-枢|kuroro|hinge; figurative:  door|9|
+枢|kururu;kuru;kuroro|hinge; figurative:  door|9|
 枢|tomara|hinge; figurative:  door|9|
 杉|sugi|cryptomeria; Japanese cedar; = Cryptomeria japonica|9|
 醒める|sameru|wake up|9|
@@ -5814,19 +5554,14 @@ Japanese|Romaji|English|Utility|Type
 膳|ZEN|small low dining table; tray; meal set on a table; dinner|9|
 お膳|OZEN|small low dining table; tray; meal set on a table; dinner|9|
 措く|oku|lay aside; set apart; except; discontinue; give up|9|
-曽て|katsute|once; formerly; before; ever|9|
-曽て|hii|once; formerly; before; ever|9|
-曽て|hi|once; formerly; before; ever|9|
-曽て の|katsute no|former; one  time|9|
-曽て の|hii no|former; one  time|9|
-曽て の|hi no|former; one  time|9|
+曽て|katsute;hii;hi|once; formerly; before; ever|9|
+曽て の|katsute;hii;hi no|former; one  time|9|
 狙う|nerau|aim at  smth., sight; have an eye to  smth.|9|
 狙い|nerai|aim; target; objective|9|
 礎|ishizue|foundation stone; cornerstone; basis; base|9|
 阻む|habamu|obstruct; hinder; hamper; check; impede|9|
 僧|SOU|Buddhist priest; monk; bonze; priesthood|9|
-爽やか|sawayaka|refreshing; bracing; clear (as of a voice); fluent (as of speech)|9|
-爽やか|sawayakana|refreshing; bracing; clear (as of a voice); fluent (as of speech)|9|
+爽やか|sawayaka;sawayakana|refreshing; bracing; clear (as of a voice); fluent (as of speech)|9|
 爽々 と して|sawasawa to shite|refreshingly|9|
 捜す|sagasu|search; look for|9|
 槽|fune|vat; tub; tank; vessel|9|
@@ -5840,8 +5575,7 @@ Japanese|Romaji|English|Utility|Type
 促す|unagasu|urge; press; incite; stimulate; hasten; accelerate|9|
 袖|sode|sleeve|9|
 遜る|herikudaru|be modest; be humble|9|
-唾|tsubaki|saliva; sputum|9|
-唾|tsuba|saliva; sputum|9|
+唾|tsubaki;tsuba|saliva; sputum|9|
 唾する|tsubakisuru|spit|9|
 堕する|DASURU|descend (to smth. unworthy)|9|
 堕ちる|ochiru|fall (esp. from the heaven)|9|
@@ -5911,8 +5645,7 @@ Japanese|Romaji|English|Utility|Type
 尼|ama|[Buddhist]  nun|9|
 虹|niji|rainbow|9|
 尿|NYOU|urine|9|
-尿|yubari|obsolete: urine|9|
-尿|ibari|obsolete: urine|9|
+尿|yubari;ibari|obsolete: urine|9|
 妊む|haramu|get pregnant; conceive|9|
 寧ろ|mushiro|rather (sooner)...  [than...]|9|
 捻る|hineru|twirl; twist; twiddle; wring; wrench; incline (the head); bend (the body); pinch; defeat; beat|9|
@@ -5942,10 +5675,8 @@ Japanese|Romaji|English|Utility|Type
 侮る|anadoru|despise; disdain; scorn; hold in contempt|9|
 侮る|anazuru|obsolete: despise; disdain; scorn; hold in contempt|9|
 憤る|ikidooru|resent; be indignant|9|
-憤る|muzukaru|fret; be cross; be peevish|9|
-憤る|mutsukaru|fret; be cross; be peevish|9|
-併せて|awasete|in addition; besides|9|
-併せて|awaseru|in addition; besides|9|
+憤る|muzukaru;mutsukaru|fret; be cross; be peevish|9|
+併せて|awasete;awaseru|in addition; besides|9|
 併し|shikashi|however; nevertheless|9|
 穂|ho|spike; ear of grain; head (of a spear); tip (of a brush); crest (of a wave)|9|
 峰|mine|summit; peak; back of a sword|9|
@@ -5956,16 +5687,14 @@ Japanese|Romaji|English|Utility|Type
 紡ぐ|tsumugu|spin; make yarn|9|
 膨らむ|fukuramu|swell; expand; become inflated|9|
 膨れる|fukureru|swell; expand; become inflated; sulk; get sulky|9|
-頬|hoo|cheek; cheeks|9|
-頬|hoho|cheek; cheeks|9|
+頬|hoo;hoho|cheek; cheeks|9|
 頬っぺた|hoppeta|informal: cheek; cheeks|9|
 撲つ|utsu|strike; hit; beat; give a blow|9|
 勃々|BOTSUBOTSU|spirited; energetic|9|
 枕|makura|pillow; tech. cushion; pad; bolster; storyteller's preparatory remarks|9|
 繭|mayu|cocoon|9|
 繭|mayo|arch: cocoon|9|
-岬|misaki|promontory; cape|9|
-岬|saki|promontory; cape|9|
+岬|misaki;saki|promontory; cape|9|
 蜜|MITSU|[floral]  nectar; honey|9|
 霧|kiri|fog; mist|9|
 霧る|kiru|rare  become misty|9|
@@ -6042,8 +5771,7 @@ Japanese|Romaji|English|Utility|Type
 捉える|toraeru|catch; capture; grasp; seize|10|
 捉まえる|tsukamaeru|catch; get; nab; capture; arrest|10|
 捉まる|tsukamaru|be caught; be arrested; hold  [fast]  to  smth.|10|
-堆く|uzutakaku|high; in a heap; in a pile|10|
-堆く|uzutakai|high; in a heap; in a pile|10|
+堆く|uzutakaku;uzutakai|high; in a heap; in a pile|10|
 戴く|itadaku|humble  accept; receive; be given; be favored with; humble  eat; drink; be crowned; wear (a crown); be presided over by  smb.; after a verb in ' te'  form humbly  indicates that the action is  carried out for the speaker|10|
 但し|tadashi|however; provided that; on condition that|10|
 朕|CHIN|obsolete:  We (first person pronoun  used by the Emperor)|10|
@@ -6114,8 +5842,7 @@ Japanese|Romaji|English|Utility|Type
 咳 する|seki suru|cough; have a cough|11|
 咳|shiwabuki|lit:   cough; coughing|11|
 咳 する|shiwabuki suru|cough; have a cough|11|
-咳く|seku|cough; have a cough|11|
-咳く|shiwabuku|cough; have a cough|11|
+咳く|seku;shiwabuku|cough; have a cough|11|
 叶う|kanau|come true; be fulfilled|11|
 叶える|kanaeru|grant; answer; hear (a prayer)|11|
 鞄|kaban|bag; suitcase|11|
@@ -6159,23 +5886,18 @@ Japanese|Romaji|English|Utility|Type
 杖|tsue|staff; cane; walking stick|11|
 蝕む|mushibamu|o1419; be worm  eaten; figurative:  gnaw at  smth., undermine|11|
 雀|suzume|[Eurasian tree]  sparrow; = Passer montanus|11|
-尖る|togaru|be pointed; be sharp|11|
-尖る|tongaru|be pointed; be sharp|11|
-尖り|togari|pointed end|11|
-尖り|tongari|pointed end|11|
+尖る|togaru;tongaru|be pointed; be sharp|11|
+尖り|togari;tongari|pointed end|11|
 尖った|togatta|pointed; sharp|11|
 尖らす|togarasu|sharpen; make pointed|11|
 尖|saki|point; tip; end|11|
-鼠|nezumi|rat; mouse; dark gray|11|
-鼠|nezu|rat; mouse; dark gray|11|
-叢がる|muragaru|crowd together|11|
-叢がる|mura|crowd together|11|
+鼠|nezumi;nezu|rat; mouse; dark gray|11|
+叢がる|muragaru;mura|crowd together|11|
 揃う|sorou|be complete; make a pair  or  set; assemble; gather; be all present; match; be uniform|11|
 揃って|sorotte|in a body; en masse; all together|11|
 揃い|soroi|uniformity; sameness; set; suit; pair; attendance|11|
 揃える|soroeru|complete (a set etc.); arrange properly; put in order; do  smth. in concert|11|
-茸|kinoko|mushroom|11|
-茸|take|mushroom|11|
+茸|kinoko;take|mushroom|11|
 只|tada|only; solely; merely; simply|11|
 只 の|tada no|common; usual; free of charge|11|
 只 で|tada de|free; without charge|11|
@@ -6195,12 +5917,9 @@ Japanese|Romaji|English|Utility|Type
 辻|tsuji|crossroads; crossing|11|
 綴じる|tojiru|bind (a book), stitch up; file; sew up|11|
 綴じ|toji|binding; stitching; sewing|11|
-綴る|tsuduru|spell; write; compose (poetry etc.); bind; patch|11|
-綴る|tsuzuru|spell; write; compose (poetry etc.); bind; patch|11|
-綴り|tsuduri|spelling; orthography; syllable; binding; sewing|11|
-綴り|tsuzuri|spelling; orthography; syllable; binding; sewing|11|
-綴れ|tsudure|rags; tatters|11|
-綴れ|tsuzure|rags; tatters|11|
+綴る|tsuduru;tsuzuru|spell; write; compose (poetry etc.); bind; patch|11|
+綴り|tsuduri;tsuzuri|spelling; orthography; syllable; binding; sewing|11|
+綴れ|tsudure;tsuzure|rags; tatters|11|
 吊る|tsuru|suspend; hang; wear (a sword)|11|
 吊るす|tsurusu|suspend; hang; wear (a sword)|11|
 吊るし|tsurushi|hand  me  down clothes|11|
@@ -6220,14 +5939,12 @@ Japanese|Romaji|English|Utility|Type
 禿げる|hageru|grow bald|11|
 禿ちょろ|hagechoro|half  bald person|11|
 禿る|chibiru|wear out; waste away (brush etc.)|11|
-禿|kaburo|bald head; bare mountain; childish short haircut; obsolete:  little girl attending  on a courtesan|11|
-禿|kamuro|bald head; bare mountain; childish short haircut; obsolete:  little girl attending  on a courtesan|11|
+禿|kaburo;kamuro|bald head; bare mountain; childish short haircut; obsolete:  little girl attending  on a courtesan|11|
 馴らす|narasu|accustom; inure; tame; domesticate|11|
 馴れる|nareru|get used; become domesticated|11|
 馴れっこ に なる|narekko ni naru|colloquial:  become  well acquainted with  smth.|11|
 馴々しい|narenareshii|unceremonial; overfamiliar|11|
-賑やか|nigiyaka|lively; cheerful; gay; bustling; crowded; busy; prosperous|11|
-賑やか|nigiyakana|lively; cheerful; gay; bustling; crowded; busy; prosperous|11|
+賑やか|nigiyaka;nigiyakana|lively; cheerful; gay; bustling; crowded; busy; prosperous|11|
 賑わしい|nigiwashii|lively; cheerful; gay; bustling; crowded; busy; prosperous|11|
 賑わう|nigiwau|be bustling; be crowded; prosper; flourish|11|
 賑わい|nigiwai|bustle; crowd; turnout; prosperity|11|
@@ -6270,9 +5987,7 @@ Japanese|Romaji|English|Utility|Type
 勿れ|nakare|lit:  do not; be not; must not|11|
 貰う|morau|get; have; obtain; accept; have  smb. to do  smth.(after a verb in ' te'  form  indicates that the action is  taken by smb. for the subject)|11|
 貰い|morai|present; alms; tip; geisha's call from another party|11|
-爺|jiji|grandad; informal:  old man|11|
-爺|jijii|grandad; informal:  old man|11|
-爺|jii|grandad; informal:  old man|11|
+爺|jiji;jijii;jii|grandad; informal:  old man|11|
 爺さん|jiisan|grandad; informal:  old man|11|
 お爺さん|ojiisan|grandad; informal:  old man|11|
 爺や|jiiya|old servant|11|
@@ -6311,10 +6026,8 @@ Japanese|Romaji|English|Utility|Type
 痒い|kayui|itchy|11|
 痒がる|kayugaru|itch; be itching|11|
 痒み|kayumi|itch|11|
-茹でる|yuderu|boil|11|
-茹でる|uderu|boil|11|
-茹だる|yudaru|boil; seethe|11|
-茹だる|udaru|boil; seethe|11|
+茹でる|yuderu;uderu|boil|11|
+茹だる|yudaru;udaru|boil; seethe|11|
 鉤|kagi|hook|11|
 鉤|hari|fishing hook|11|
 頸|kubi|neck|11|
@@ -6324,8 +6037,7 @@ Japanese|Romaji|English|Utility|Type
 逢う|au|meet|12|
 旭|asahi|rising sun|12|
 綾|aya|design; pattern; patterned silk|12|
-庵|iori|hermitage; retreat|12|
-庵|io|hermitage; retreat|12|
+庵|iori;io|hermitage; retreat|12|
 庵|AN|hermitage; retreat|12|
 按じる|ANJIRU|consider; inquire; hold; press down|12|
 鞍|kura|saddle|12|
@@ -6345,8 +6057,7 @@ Japanese|Romaji|English|Utility|Type
 嬰|EI|music  sharp|12|
 曳く|hiku|tug; draw; drag|12|
 曳々|EIEI|(drag with)|12|
-厭|iya|detestable|12|
-厭|iyana|detestable|12|
+厭|iya;iyana|detestable|12|
 厭きる|akiru|be fed up; lose interest|12|
 厭う|itou|dislike; hate; take  [good]  care of  smb.|12|
 堰|seki|dam; levee|12|
@@ -6400,8 +6111,7 @@ Japanese|Romaji|English|Utility|Type
 仇|kataki|enemy; rival|12|
 灸|KYUU|moxa cautery; moxibustion|12|
 灸|yaito|moxa cautery; moxibustion|12|
-鋸|nokogiri|saw|12|
-鋸|noko|saw|12|
+鋸|nokogiri;noko|saw|12|
 怯む|hirumu|wince; flinch; waver|12|
 怯まず に|hirumazu ni|without flinching|12|
 怯える|obieru|get frightened|12|
@@ -6430,8 +6140,7 @@ Japanese|Romaji|English|Utility|Type
 牽く|hiku|tug; pull; draw|12|
 硯|suzuri|inkstone|12|
 乎|ka|question mark in a Chinese text|12|
-姑|shuutome|mother  in  law|12|
-姑|shuuto|mother  in  law|12|
+姑|shuutome;shuuto|mother  in  law|12|
 狐|kitsune|[red]  fox; = Vulpes vulpes|12|
 糊|nori|glue; starch; paste|12|
 糊する|KOSURU|lit:  make a living; live from hand to mouth|12|
@@ -6447,8 +6156,7 @@ Japanese|Romaji|English|Utility|Type
 腔|KOU|body cavity|12|
 膏|KOU|ointment; salve|12|
 膏|abura|fat; grease; tallow|12|
-劫|KOU|buddh. kalpa; the cycle of cosmic time; figurative:  long years|12|
-劫|GOU|buddh. kalpa; the cycle of cosmic time; figurative:  long years|12|
+劫|KOU;GOU|buddh. kalpa; the cycle of cosmic time; figurative:  long years|12|
 劫かす|obiyakasu|threaten|12|
 壕|hori|ditch; moat; canal|12|
 濠|hori|moat (around a castle)|12|
@@ -6463,10 +6171,8 @@ Japanese|Romaji|English|Utility|Type
 此の|kono|this (demonstrative)|12|
 昏々と|KONKONTO|unconsciously; fast (asleep)|12|
 昏い|kurai|dark|12|
-梱|kori|bale; bundle|12|
-梱|kouri|bale; bundle|12|
-梱る|kouru|pack; tie up; bale|12|
-梱る|koru|pack; tie up; bale|12|
+梱|kori;kouri|bale; bundle|12|
+梱る|kouru;koru|pack; tie up; bale|12|
 梱|shikimi|threshold; doorsill|12|
 些か|isasaka|a little; a bit; slightly|12|
 些か も|isasaka mo|[not]  in the least|12|
@@ -6485,8 +6191,7 @@ Japanese|Romaji|English|Utility|Type
 窄める|tsubomeru|make  smth. narrower; fold; furl (an umbrella; wings etc.); pucker; purse (one's mouth); shrug (one's shoulders)|12|
 窄まる|subomaru|get narrow; contract; shut; furl|12|
 窄まる|tsubomaru|get narrow; contract; shut; furl|12|
-窄む|subomu|get narrow; contract; shut; furl|12|
-窄む|tsubomu|get narrow; contract; shut; furl|12|
+窄む|subomu;tsubomu|get narrow; contract; shut; furl|12|
 笹|sasa|bamboo grass; = Sasa; bamboo leaves|12|
 匙|saji|spoon|12|
 お薩|OSATSU|sweet potato|12|
@@ -6519,10 +6224,8 @@ Japanese|Romaji|English|Utility|Type
 屡|shibashiba|often; frequently|12|
 蕊|shibe|pistil; stamen|12|
 紗|SHA|[silk]  gauze; gossamer|12|
-夙に|tsutoni|bright and early; early in life; long ago; for a long time|12|
-夙に|tsuto|bright and early; early in life; long ago; for a long time|12|
-夙に|madakini|earlier; already|12|
-夙に|madaki|earlier; already|12|
+夙に|tsutoni;tsuto|bright and early; early in life; long ago; for a long time|12|
+夙に|madakini;madaki|earlier; already|12|
 楯|tate|literal or figurative:  shield; escutcheon|12|
 曙|akebono|dawn; daybreak|12|
 渚|nagisa|shoreline; strand; beach; surname or female name|12|
@@ -6552,8 +6255,7 @@ Japanese|Romaji|English|Utility|Type
 嵩む|kasamu|grow bulky; increase in volume|12|
 嵩じる|koujiru|grow worse; become aggravated|12|
 雛|hina|chick; young bird; [decorative]  doll|12|
-雛|hiyokko|chick; figurative:  stripling|12|
-雛|hiyoko|chick; figurative:  stripling|12|
+雛|hiyokko;hiyoko|chick; figurative:  stripling|12|
 頗る|sukoburu|exceedingly; very much|12|
 棲む|sumu|live; inhabit (as of animals)|12|
 脆い|moroi|brittle; fragile; breakable; susceptible; easily moved|12|
@@ -6565,8 +6267,7 @@ Japanese|Romaji|English|Utility|Type
 煽て|odate|instigation; flattery|12|
 煽ぐ|aogu|fan; use a fan; instigate; abet; incite|12|
 穿つ|ugatsu|dig; pierce; drill; perforate; put on; wear; be true (to nature), hit (the mark)|12|
-穿る|hojikuru|informal:  dig up; grub; pick (one's teeth etc.); examine closely; worm out|12|
-穿る|hojiru|informal:  dig up; grub; pick (one's teeth etc.); examine closely; worm out|12|
+穿る|hojikuru;hojiru|informal:  dig up; grub; pick (one's teeth etc.); examine closely; worm out|12|
 穿く|haku|put on (trousers; socks; skirt)|12|
 閃く|hirameku|flash; fulgurate; flicker; glitter; flash into one's mind; wave; flutter|12|
 閃かす|hiramekasu|flash; display; brandish|12|
@@ -6635,12 +6336,9 @@ Japanese|Romaji|English|Utility|Type
 撚れる|yoreru|get twisted; be kinky|12|
 撚れた|yoreta|twisted; kinky|12|
 撚り|yori|twist; twisting; strand; ply|12|
-乃ち|sunawachi|then; in this case|12|
-乃ち|no|then; in this case|12|
-之|kore|pron. this|12|
-之|no|pron. this|12|
-膿|umi|pus|12|
-膿|NOU|pus|12|
+乃ち|sunawachi;no|then; in this case|12|
+之|kore;no|pron. this|12|
+膿|umi;NOU|pus|12|
 膿む|umu|fester; suppurate|12|
 覗く|nozoku|peep; peek; glance|12|
 琶|HA|music  C note|12|
@@ -6720,17 +6418,13 @@ Japanese|Romaji|English|Utility|Type
 掠れる|kasureru|(of voice) become hoarse; (of characters) be blurred|12|
 凌ぐ|shinogu|o2865; endure; bear; stand; tide over; pull through; shelter oneself; keep out; stave off; excel; surpass; outdo; eclipse|12|
 諒 と する|RYOU to suru|understand; appreciate; excuse|12|
-淋しい|sabishii|lonely; lonesome|12|
-淋しい|samishii|lonely; lonesome|12|
+淋しい|sabishii;samishii|lonely; lonesome|12|
 燐|RIN|phosphorus|12|
-鱗|uroko|[fish]  scales|12|
-鱗|kokera|[fish]  scales|12|
-鱗|koke|[fish]  scales|12|
+鱗|uroko;kokera;koke|[fish]  scales|12|
 憐れむ|awaremu|pity; sympathise|12|
 憐れみ|awaremi|pity; compassion|12|
 煉る|neru|o2913 knead  [over fire](dough; paste etc.)|12|
-簾|sudare|screen; blind (made of reed  or thin bamboo slats)|12|
-簾|su|screen; blind (made of reed  or thin bamboo slats)|12|
+簾|sudare;su|screen; blind (made of reed  or thin bamboo slats)|12|
 蓮|hasu|[ Indian]   lotus; = Nelumbo nucifera|12|
 蓮|hachisu|obsolete: [ Indian]   lotus; = Nelumbo nucifera|12|
 牢|ROU|prison; jail; dungeon|12|
@@ -6741,10 +6435,8 @@ Japanese|Romaji|English|Utility|Type
 蝋|ROU|wax|12|
 禄|ROKU|hist. ration of rice; samurai's stipend|12|
 肋|abara|rib|12|
-歪む|yugamu|warp; bend; be crooked; be distorted; be perverted|12|
-歪む|hizumu|warp; bend; be crooked; be distorted; be perverted|12|
-歪み|yugami|bend; deformation; distortion|12|
-歪み|hizumi|bend; deformation; distortion|12|
+歪む|yugamu;hizumu|warp; bend; be crooked; be distorted; be perverted|12|
+歪み|yugami;hizumi|bend; deformation; distortion|12|
 歪める|yugameru|bend; warp; curve; distort|12|
 歪|ibitsu|oval; elliptical; crooked; warped; distorted|12|
 佩く|haku|wear (a sword etc.) at one's side; gird on (a sword)|12|
@@ -6783,19 +6475,15 @@ Japanese|Romaji|English|Utility|Type
 唸る|unaru|groan; moan; roar; howl; growl; snarl; bellow; buzz; drone; hum|12|
 唸り|unari|groan; moan; roar; buzzing; humming|12|
 喘ぐ|aegu|pant; gasp; breathe hard|12|
-嗄れる|kareru|get hoarse; become husky|12|
-嗄れる|shagareru|get hoarse; become husky|12|
-嗄れる|shiwagareru|get hoarse; become husky|12|
+嗄れる|kareru;shagareru;shiwagareru|get hoarse; become husky|12|
 嗄らす|karasu|get hoarse|12|
 嗜む|tashinamu|like; love; have a taste for  smth.; be prudent (careful; modest)|12|
 嗜み|tashinami|taste; relish; fondness; prudence; caution; discretion; modesty; accomplishments; attention to one's personal appearance|12|
 嗜み の ない|tashinami no nai|indescreet; immodest; indelicate; ill  bred|12|
 嗾ける|keshikakeru|set (a dog) on  smb.; instigate; incite; spur  smb. on|12|
 嗾す|sosonokasu|tempt; seduce; allure; entice; instigate; incite; abet; stir up|12|
-嗽ぐ|kuchisusugu|rince one's mouth; gargle|12|
-嗽ぐ|kuchisosogu|rince one's mouth; gargle|12|
-嘴|kuchibashi|beak; bill|12|
-嘴|hashi|beak; bill|12|
+嗽ぐ|kuchisusugu;kuchisosogu|rince one's mouth; gargle|12|
+嘴|kuchibashi;hashi|beak; bill|12|
 嘯く|usobuku|roar; howl  [at the moon]; hum; sing with one's mouth closed; feign indifference; brag; boast; talk big|12|
 嚔|kushami|sneeze; sneezing|12|
 嚔 [を] する|kushami [wo] suru|sneeze|12|
@@ -6820,20 +6508,16 @@ Japanese|Romaji|English|Utility|Type
 婢|HI|lit:  maidservant|12|
 媚びる|kobiru|flatter; curry favor with  smb., fawn upon  smb.; coquet; play the coquette with  smb., flirt|12|
 媚び|kobi|flattery; adulation; blandishments; coquetry|12|
-嫋やか|nayoyaka|lit:  supple; pliant; slender; delicate|12|
-嫋やか|nayoyakana|lit:  supple; pliant; slender; delicate|12|
-嫋やか な|taoyaka na|lit:  graceful; willowy; svelte|12|
-嫋やか な|taoyakana na|lit:  graceful; willowy; svelte|12|
-嫋か な|shinayaka na|supple; pliant; limber; lithe; limp; flexible; graceful|12|
-嫋か な|shinayakana na|supple; pliant; limber; lithe; limp; flexible; graceful|12|
+嫋やか|nayoyaka;nayoyakana|lit:  supple; pliant; slender; delicate|12|
+嫋やか な|taoyaka;taoyakana na|lit:  graceful; willowy; svelte|12|
+嫋か な|shinayaka;shinayakana na|supple; pliant; limber; lithe; limp; flexible; graceful|12|
 嫋々 と した|nayonayo to shita|feeble; delicate|12|
 嬲る|naburu|make sport (fun; butt) of  smb., bully; mock; tease; ridicule; torment|12|
 孵えす|kaesu|sit on eggs; hatch; incubate|12|
 孵える|kaeru|hatch out; be hatched|12|
 屁|he|informal:  passing gas; fart|12|
 屁|onara|informal:  fart (with a sound)|12|
-巫|kannagi|Shinto [female]  medium; diviner; oracle; sorceress|12|
-巫|mekannagi|Shinto [female]  medium; diviner; oracle; sorceress|12|
+巫|kannagi;mekannagi|Shinto [female]  medium; diviner; oracle; sorceress|12|
 帙|CHITSU|folding case for a book  or  several books (Japanese style; with straps)|12|
 幟|nobori|Japanese banner (vertical narrow flag  attached to a pole with a cross  rod)|12|
 忝|katajikenai|grateful; indebted|12|
@@ -6867,8 +6551,7 @@ Japanese|Romaji|English|Utility|Type
 拗けた|nejiketa|crooked; distorted; warped; perverse; cross  grained; sulky|12|
 捏ねる|koneru|knead; mix up (dough; mortar etc.); bound  argufy; bound  fret; be petulant|12|
 捏ねる|tsukuneru|knead and mold into balls|12|
-捏ね|tsukune|meatballs (esp. chicken meatballs  often cooked in yakitori style)|12|
-捏ね|detchiru|meatballs (esp. chicken meatballs  often cooked in yakitori style)|12|
+捏ね|tsukune;detchiru|meatballs (esp. chicken meatballs  often cooked in yakitori style)|12|
 掟|okite|law; rules; code (esp. an informal code of behavior  in some community or culture)|12|
 捩る|nejiru|screw; twist; wrench; wring; turn (a faucet); distort; make capital out of  smb. 's  slip of the tongue|12|
 捩る|yojiru|screw; twist; wrench; wring; turn (a faucet); distort; make capital out of  smb. 's  slip of the tongue|12|
@@ -6908,8 +6591,7 @@ Japanese|Romaji|English|Utility|Type
 曰く|iwaku|lit:  says (as of a proverb; classical saying etc.); reason; pretext; history; story; past|12|
 曰く が あって|iwaku ga atte|for certain reasons|12|
 曰く が ある|iwaku ga aru|there's a story  [about it]|12|
-曰はく|notamahaku|lit: arch:  says that...|12|
-曰はく|notamawaku|lit: arch:  says that...|12|
+曰はく|notamahaku;notamawaku|lit: arch:  says that...|12|
 朧ろ な|oboro na|hazy; misty; clouded; vague; dim; indistinct|12|
 朧ろ|oboro|(boiled and marshed fish; seafood or meat)|12|
 杣|soma|lumber forest; timberland; timber; lumber; woodcutter; surname|12|
@@ -7025,8 +6707,7 @@ Japanese|Romaji|English|Utility|Type
 睨み|nirami|glare; charp look; authority; power|12|
 睨めっこ|niramekko|outstaring game|12|
 睨めっくら|niramekkura|outstaring game|12|
-瞑る|tsuburu|shut; close (one's eyes)|12|
-瞑る|tsumuru|shut; close (one's eyes)|12|
+瞑る|tsuburu;tsumuru|shut; close (one's eyes)|12|
 瞑する|MEISURU|close one's eyes; figurative:  rest in piece; find repose|12|
 瞼|mabuta|eyelid[s]|12|
 碌|ROKU|usually with negation|12|
@@ -7044,10 +6725,8 @@ Japanese|Romaji|English|Utility|Type
 祟り で|tatari de|as a punishment for  smth.|12|
 祟られた|tatarareta|accursed; ill  fated|12|
 祓う|harau|Shinto  purify; get rid of sins and filth|12|
-祓|harae|Shinto  purification; exorcism|12|
-祓|harai|Shinto  purification; exorcism|12|
-祓 する|harae suru|hold a purification ceremony|12|
-祓 する|harai suru|hold a purification ceremony|12|
+祓|harae;harai|Shinto  purification; exorcism|12|
+祓 する|harae;harai suru|hold a purification ceremony|12|
 お祓|oharae|Shinto  purification; exorcism|12|
 お祓 する|oharae suru|hold a purification ceremony|12|
 穢す|kegasu|make dirty; contaminate; stain; pollute; disgrace; tarnish; desecrate|12|
@@ -7056,7 +6735,6 @@ Japanese|Romaji|English|Utility|Type
 穢れ の ない|kegare no nai|clean; innocent|12|
 穢らわしい|kegarawashii|dirty; filthy; nasty; disgusting|12|
 穢い|musai|filthy; sordid; squalid; shabby; dowdy|12|
-穢い|musa|filthy; sordid; squalid; shabby; dowdy|12|
 窘める|tashinameru|rebuke; reproach; reprove; warn  smb. against  smth.|12|
 窶れる|yatsureru|get haggard; be worn out; be emaciated|12|
 窶れた|yatsureta|haggard; worn out; emaciated|12|
@@ -7065,14 +6743,12 @@ Japanese|Romaji|English|Utility|Type
 竦む|sukumu|cower; quail; shrink; cringe; crouch|12|
 竦める|sukumeru|shrink; shrug (one's shoulders); duck (one's head)|12|
 筍|takenoko|[edible]  bamboo shoots|12|
-筍|takamuna|arch: *64849[edible]  bamboo shoots|12|
-筍|takanna|arch: *64849[edible]  bamboo shoots|12|
+筍|takamuna;takanna|arch: *64849[edible]  bamboo shoots|12|
 筵|mushiro|straw  or  bamboo mat|12|
 筵|EN|straw  or  bamboo mat; one's place (at a banquet etc.)|12|
 箒|houki|broom|12|
 箒|hahaki|obsolete:  broom|12|
-箏|koto|(13- string Japanese harp)|12|
-箏|SOU|koto (13- string Japanese harp)|12|
+箏|koto;SOU|koto (13- string Japanese harp)|12|
 篆|TEN|abbrev. see|12|
 籐|TOU|bot. rattan; = Calamus|12|
 籤|kuji|lot; lottery; raffle|12|
@@ -7119,8 +6795,7 @@ Japanese|Romaji|English|Utility|Type
 腱|KEN|tendon|12|
 膠|nikawa|isinglass; bone (gelatine) glue|12|
 膣|CHITSU|anat. vagina|12|
-臍|heso|navel; belly button; rowlock; tholepin|12|
-臍|hozo|navel; belly button; rowlock; tholepin|12|
+臍|heso;hozo|navel; belly button; rowlock; tholepin|12|
 舅|shuuto|father  in  law|12|
 舐める|nameru|lick; lap; taste; figurative:  undergo; suffer; experience; underrate; despise; lick up; burn up|12|
 舐る|neburu|lick|12|
@@ -7190,8 +6865,7 @@ Japanese|Romaji|English|Utility|Type
 跪く|hizamazuku|kneel; fall on one's knees|12|
 跪いて|hizamazuite|on one's knees|12|
 踵|kakato|heel|12|
-踵|kubisu|lit: heel|12|
-踵|kibisu|lit: heel|12|
+踵|kubisu;kibisu|lit: heel|12|
 蹲る|uzukumaru|crouch; squat down; cower|12|
 蹲う|tsukubau|crouch; squat down; cower|12|
 蹲い|tsukubai|crouching; squatting; stone washbasin in a Japanese garden (where guests crouch down to wash    their hands before the tea ceremony)|12|

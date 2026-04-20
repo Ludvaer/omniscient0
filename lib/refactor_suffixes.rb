@@ -2,9 +2,7 @@
 counter = 0
 Word.joins(:translations).includes(:translations)
     .where(dialect_id: Dialect.japanese.id).each do |word|
-  if counter > 10000
-    break
-  end
+
   if not word.spelling
     word.translations.each{|t|t.delete}
     word.delete
@@ -17,11 +15,10 @@ Word.joins(:translations).includes(:translations)
       t.delete
       next
     end
-    if t.translation_dialect_id == Dialect.kana.id and not t.translation.kana?
+    if t.translation_dialect_id == Dialect.kana.id and not t.translation.kana_with_symbol?
       ttranslation = t.translation
-      t.update!(translation: t.translation.hiragana)
+      t.update!(translation: t.translation.safe_hiragana)
       puts "update #{ttranslation} #{t.translation}"
-      t.delete
       counter += 1
       next
     end
