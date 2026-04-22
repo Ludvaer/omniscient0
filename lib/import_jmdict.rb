@@ -2,6 +2,10 @@
 # update ranks of existing words based on jmdict data
 require 'nokogiri'
 require 'subsets'
+require Rails.root.join('lib/core_ext/string/kana_extensions')
+words_to_track = [171,2817, 62332, 10988, 15152]
+changed_translations = 0
+
 
 def add_without_go_prefix!(set, prefix = "御")
   set.to_a.each do |word|   # iterate over a snapshot
@@ -38,31 +42,25 @@ jap_dialect_id = Dialect.japanese.id
 english_dialect_id = Dialect.english.id
 ru_dialect_id = Dialect.russian.id
 kana_dialect_id = Dialect.kana.id
+puts "requesting words"
 existing_jap_words = Word.existing_japanese_by_key
 dialect_by_lang = {'eng' => english_dialect_id,  'rus' => ru_dialect_id}
 puts 'existing examples'
-
-# I might not need that anymore since i moved particles to sufix field and form key propely
-# #now you can find jap words with some added particle by no particle key
-# existing_jap_words.to_a.each do |key,word|
-#   if key.include?(' ')
-#     sub_key = key.split('|').map{|s| s.split(' ')[0]}.join('|')
-#     if not existing_jap_words.has_key?(sub_key)
-#       existing_jap_words[sub_key] = word
-#     end
-#   end
-# end
-
 existing_jap_words.drop(0).take(20).each{|x,y|puts x.to_s}
+puts "requesting translatinos"
+existing_translations = Translation.where(user_id:user.id)
+puts "mapping translatinos"
+overriden_translations = existing_translations.map { |t|[t.id,false]  }.to_h
 
-#
+puts "go parse dictionary"
 queue = []
+counter = 0
 # start processing jmdict file
 File.open(file_path) do |file|
   doc = Nokogiri::XML(file)
 
   # doc.xpath('//entry').drop(0).take(50).each do |entry|
-  doc.xpath('//entry').take(50).each do |entry|
+  doc.xpath('//entry').each do |entry|
     if (queue.length > 0)
       data = queue.pop
     else
@@ -105,11 +103,18 @@ File.open(file_path) do |file|
     if(rank > 140)
       next
     end
-
+    counter += 1
+    puts counter if counter % 200 == 0
     elements = if kanji_elements.length > 0 then kanji_elements else reading_elements end
     add_without_go_prefix!(elements)
     add_without_go_prefix!(reading_elements,'お') if kanji_elements.any? { |word| word.start_with?("御") }
-    reading_elements =reading_elements.map{|re|re.safe_hiragana}
+    reading_elements =reading_elements.filter{|re|re.kana_with_symbol?}.map{|a|a.safe_hiragana}
+    last_ch = reading_elements&.first[-1]
+    if last_ch.hiragana? and reading_elements&.all?{|j|j[-1] == last_ch} and reading_elements&.any?{|h|h[-1] == last_ch}
+      reading_elements.filter!{|h|h[-1] == last_ch or (last_ch == 'は' and h[-1] =='わ')}
+    end
+    reading_elements&.uniq!&.sort!
+
     key = existing_words = nil
     Subsets.each_subset(reading_elements) do |reading_element_subset|
       elements.each do |w0|
@@ -119,21 +124,27 @@ File.open(file_path) do |file|
       end
       break if existing_words
     end
-
-    # Debug print
-    puts "Word: #{kanji_elements.join(', ')}"
-    puts "Readings: #{reading_elements.join(', ')}"
-    # puts "Meanings: #{meanings.map{|m|"(#{m[:language]}) #{m[:text]}" }.join(', ')}"
     meanings = meanings.group_by{|m|m[:language]}
-      .map { |lang,ms| [lang, group_meanings_by_added_string(ms.map {|m|m[:text]})] }
-    puts "Meanings: #{meanings}"
-    puts "priority: #{rank} (nf_rank#{nf_rank} ichi_rank#{ichi_rank} spec_rank#{spec_rank} gai_rank#{gai_rank} news_rank#{news_rank})"
+       .map { |lang,ms| [lang, group_meanings_by_added_string(ms.map {|m|m[:text]})] }
+
+    if existing_words&.any?{|w|words_to_track.include?(w.id)}
+    #Debug print
+      puts "Word: #{elements.join(', ')}"
+      puts "Readings: #{reading_elements.join(', ')}"
+
+      puts "Meanings: #{meanings}"
+      puts "priority: #{rank} (nf_rank#{nf_rank} ichi_rank#{ichi_rank} spec_rank#{spec_rank} gai_rank#{gai_rank} news_rank#{news_rank})"
+    end
     word_to_edit = nil
+
     if existing_words
       # Translation.where(word_id: existing_word.map{|x|x.id}).pluck(:translation).join(' | ')
       # I suddenly realized no need to reload words if tranlstions preloaded
       translations = existing_words.map{|word| word.translations.map{|t| t.translation}.flatten}.flatten
-      puts "existing translations: #{translations}"
+      #puts "existing translations: #{translations}"
+      puts "multiple existing words #{existing_words.map(&:spelling)}" if existing_words.length > 1
+
+      word_to_edit = existing_words.first
       existing_words.each do |w|
           w.update!(rank: rank) # new rank
           if w.spelling in kanji_elements and not word_to_edit
@@ -150,10 +161,10 @@ File.open(file_path) do |file|
 
     saved = nil
     if word_to_edit
-      puts "exists #{word_to_edit.spelling}"
+      puts "exists #{word_to_edit.spelling}" if words_to_track.include?(word_to_edit.id)
     else
       word_to_edit = Word.new
-      word_to_edit.spelling = kanji_elements.first
+      word_to_edit.spelling = elements.first
       if word_to_edit.spelling.nil? or word_to_edit.spelling.empty?
          word_to_edit.spelling = reading_elements.first
       end
@@ -161,34 +172,31 @@ File.open(file_path) do |file|
       word_to_edit.rank = rank
       if word_to_edit.spelling
         saved = word_to_edit.save
-        puts "saved #{saved} for word #{word_to_edit.id}:#{word_to_edit.spelling}"
+      puts "saved #{saved} for word #{word_to_edit.id}:#{word_to_edit.spelling}" if words_to_track.include?(word_to_edit.id)
       else
         puts "not saved #{saved} for word #{word_to_edit.id}:#{word_to_edit.spelling}"
       end
     end
 
-    if not kanji_elements.is_a?(Array)
-      kanji_elements = [kanji_elements]
+    if not elements.is_a?(Array)
+      elements = [elements]
     end
     #TODO: remove obsolete alternative writings
     #update alternative writings as translations to japanese
-    kanji_elements.each do |kanji|
+    elements.each do |kanji|
       unless word_to_edit.spelling == kanji
         tt = Translation.find_or_create_by!(
           translation: kanji,
           translation_dialect_id: jap_dialect_id,
-          priority: rank,
           word_id: word_to_edit.id
           )
         if tt.user_id == 0
-          tt.update!(user_id: user.id)
+          tt.update!(user_id: user.id,priority: rank)
         end
+
         tt.save
-        puts "saved #{saved} for word #{word_to_edit.id}:#{word_to_edit.spelling} alt as #{tt.translation}"
-        unless word_to_edit.spelling
-          word_to_edit.update!(spelling: tt.translation)
-          puts "updated spelling"
-        end
+        puts "saved #{saved} for word #{word_to_edit.id}:#{word_to_edit.spelling} alt as #{tt.translation}"  if words_to_track.include?(word_to_edit.id)
+        overriden_translations[tt.id] = true
       end
     end
 
@@ -196,15 +204,15 @@ File.open(file_path) do |file|
     if not reading_elements.is_a?(Array)
       reading_elements = [reading_elements]
     end
-    if not reading_elements.any?
-      if word_to_edit.spelling.kana_with_symbol?
-        reading_elements = [word_to_edit.spelling.safe_hiragana]
-        puts "set reading #{word_to_edit.spelling} to #{reading_elements}"
-      else
-        puts "skip #{word_to_edit.spelling}"
-        next
-      end
+    if reading_elements.blank?
+      reading_elements = word_to_edit.filter{|w|w.kana_with_symbol?}.uniq # [word_to_edit.spelling.safe_hiragana]
+      puts "set reading #{word_to_edit.spelling} to #{reading_elements}" if words_to_track.include?(word_to_edit.id)
     end
+    if reading_elements.blank?
+      puts "skip '#{word_to_edit.spelling}' without reading"
+      next
+    end
+
     #TODO: remove obsolete alternative writings
     #update alternative writings as translations to japanese
     reading_elements.each do |reading|
@@ -214,11 +222,11 @@ File.open(file_path) do |file|
         word_id: word_to_edit.id
         )
       if tt.user_id == 0
-        tt.update!(user_id: user.id)
-        tt.update!(priority: rank)
+        tt.update!(user_id: user.id,priority: rank)
       end
       tt.save
-      puts "saved #{saved} for word #{word_to_edit.id}:#{word_to_edit.spelling} transcribed as #{tt.translation}"
+      overriden_translations[tt.id] = true
+      puts "saved #{saved} for word #{word_to_edit.id}:#{word_to_edit.spelling} transcribed as #{tt.translation}" if words_to_track.include?(word_to_edit.id)
     end
 
     #TODO: make language any
@@ -228,17 +236,36 @@ File.open(file_path) do |file|
           translation_dialect_id: dialect_by_lang[lang],
           user: user,
           word_id: word_to_edit.id,
-          suffix: suffix
+          suffix: suffix&.gsub('～','')
           )
+          new_translation = texts.filter{|t| not t.include?('(см.)')}.join(', ')
+        changed_translations += 1 if translation.translation != new_translation
+        puts "updating the existing #{translation.priority}: #{translation.translation}" if words_to_track.include?(word_to_edit.id)
         translation.update!(
           priority: rank,
-          translation: texts.filter{|t| not t.include?('(см.)')}.join(', ')
+          translation: new_translation
         )
+        overriden_translations[translation.id] = true
         saved = translation.save
-        puts "saved #{saved} for word #{word_to_edit.id}:#{word_to_edit.spelling} translated as #{translation.translation} with rank #{translation.rank}"
+        puts "saved #{saved} for word #{word_to_edit.id}:#{word_to_edit.spelling} translated as #{translation.translation} with priority #{translation.priority}"  if words_to_track.include?(word_to_edit.id)
         #TODO: remove unconfirmed translations and non translated words
       end
     end
-    puts "-" * 40
+    #puts "-" * 40
   end
 end
+puts "finished parsing"
+deleted = 0
+kept = 0
+overriden_translations.each do |t_id, overriden|
+  if overriden
+    kept+=1
+  else
+    t = Translation.find_by(id:t_id)
+    puts "removing unconfirmed translations  #{Word.find_by(id:t&.word_id)&.spelling} #{t&.translation}"
+    t&.delete
+    deleted += 1
+  end
+end
+puts "#{kept} keeped"
+puts "#{deleted} deleted"

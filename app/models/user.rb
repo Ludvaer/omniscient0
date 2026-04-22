@@ -23,6 +23,23 @@ class User < ApplicationRecord
 		User.find_or_create_by!(name: name, email: name + '@example.com', downame: name.downcase)
 	end
 
+	def self.yarxi_seed
+		@@yarxi_seed ||= User.system_user("YarxiSeed")
+	end
+	def self.yarxi_combo_seed
+		@@yarxi_combo_seed ||= User.system_user("YarxiComboSeed")
+	end
+	def self.jishop_seed
+		@@jishop_seed ||= User.system_user("JishopSeed")
+	end
+	def self.jishop_combo_seed
+		@@jishop_combo_seed ||= User.system_user("JishopComboSeed")
+	end
+	def self.jmdict_parser
+		@@jmdict_parser ||= User.system_user("JMDictParser")
+	end
+
+
 	def create_activation
 		aa = AccountActivation.new
 		aa.email = email

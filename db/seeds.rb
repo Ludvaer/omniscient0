@@ -14,6 +14,7 @@ require Rails.root.join('lib/core_ext/string/kana_extensions')
 load Rails.root.join('db', 'seeds', 'users','users.rb')
 load Rails.root.join('db', 'seeds', 'languages','languages.rb')
 
+zero_word = Word.find_or_create_by!(id:0,dialect_id:0,spelling:'')
 zero_translation = Translation.find_or_create_by!(id:0, word_id:0, user_id:0, translation_dialect_id:0, translation: "")
 japanese_dialect_id =  Dialect.japanese.id
 kanji_dialect_id =  Dialect.find_by(name:'kanji').id
@@ -34,7 +35,18 @@ deleted_jap_duplicated = 0
 # end
 # puts  "deleted duplicated kanji #{deleted_kanji_duplicated}"
 
+def square_brakets_to_variants(str)
+  return [str] if not (str.include?('[') and str.include?(']'))
+  variants = [
+    str.gsub(/\[(.*?)\]/, '\1'), # with content
+    str.gsub(/\[(.*?)\]/, '')    # without content
+  ]
+  return variants
+end
 
+def handle_square_brakets(strs)
+  strs&.map{|s|square_brakets_to_variants(s)}&.flatten
+end
 
 
 
@@ -83,6 +95,9 @@ def parse_csv(provider, file_path, dialect_from)
         ? row[dialect_from_column_name].split(' ', 2)[1]&.gsub('～','')
         : '';
     w_suffix = nil if w_suffix.blank?
+
+    japanese = handle_square_brakets(japanese)
+    romaji = handle_square_brakets(romaji)
 
     english = [row['English']&.to_s]&.filter{|x|not x.blank? and not x == "_"}
     russian = [row['Russian']&.to_s]&.filter{|x|not x.blank? and not x == "_"}
@@ -152,7 +167,7 @@ def parse_csv(provider, file_path, dialect_from)
       end
       break if existing_words
     end
-    puts "not found kanji #{japanese}" if not existing_words and dialect_from_id == Dialect.kanji.id
+    # puts "not found kanji #{japanese}" if not existing_words and dialect_from_id == Dialect.kanji.id
 
     existing_word_translations = existing_words&.map{|w|w.translations.filter{|t|t.user_id==user.id and t.suffix == w_suffix}}&.flatten || []
     if existing_words.blank? #creating wor if not found
