@@ -1,8 +1,11 @@
+require Rails.root.join('lib/core_ext/string/kana_extensions')
+
 class PickWordInSetService
   PICK_SIZE = 9
   MAX_PICKS_PER_REQUEST =100
   TARGET_PROBABILITY = 0.85
   def initialize(params)
+    @order = params[:order]
     @display_dialects = params[:display_dialects]
     @target_dialect = params[:target_dialect]
     @option_dialect = params[:option_dialect]
@@ -11,8 +14,8 @@ class PickWordInSetService
     @display_dialects_ids = @display_dialects.map{|d|d.id}
     @target_dialect_id = @target_dialect.id
     @option_dialect_id = @option_dialect.id
-    #TODO: get rid of source_dialect using display dialects array now
-    @source_dialect_id = (@display_dialects_ids + [@option_dialect_id])\
+    @source_dialect_id = params[:source_dialect]
+    @source_dialect_id ||= (@display_dialects_ids + [@option_dialect_id])\
       .reject{|id|id==Dialect.find_by_name('kana').id || id == @target_dialect_id}[0]
     # puts "PickWordInSetService #{@source_dialect_id}->#{@target_dialect_id} | #{@display_dialects_ids} ->#{ @option_dialect_id}"
     #TODO: seprate find and find or create
@@ -235,9 +238,12 @@ class PickWordInSetService
         #  probfromsigmoid =  0.5*(1 + Math.tanh((slope)*(t.rank-(center))))
         naive_prob = "((correct + 0.01)/(correct + failed + 0.02))"
         #not really probb but additiona decaying prob over sigmoid
+        #regression from 1 to naive_prob
+        #slow regression from naive to sigmoid
         prob_from_progress = \
             "(1.0 - #{naive_prob})*0.5^(0.1 * (#{maxpick} - last_counter)) \
             + (#{naive_prob} - #{prob_from_sigmoid})*0.5^((#{maxpick} - last_counter)/#{learn_progress_count})"
+
         #also sorry we guesstimated erf bur will use tanh instead
         incompelete = request_incomplete
         excluded_word_ids = incompelete.map{|t|t.correct.word.id}.uniq
@@ -264,7 +270,7 @@ class PickWordInSetService
             .where(dialect_id: @target_dialect_id) \
             .where.not(id: excluded_word_ids)\
             .order(Arel.sql( \
-              "COALESCE((2*#{prob_from_progress}) * (#{prob_from_sigmoid})*(1 - #{prob_from_sigmoid}) ,0) \
+              "COALESCE((2*#{prob_from_progress}) + (1 - #{prob_from_sigmoid}) ,0) \
               + abs(#{prob_from_sigmoid} - #{TARGET_PROBABILITY}) \
               + 0.000000001*RANDOM()" \
               )).take(minimal_size + margin)
@@ -337,6 +343,9 @@ class PickWordInSetService
         languages = [source_language_id, target_language_id]
         #other_dialect_ids = Dialect.where(language_id:languages).pluck(:id).reject{|id|id==@source_dialect_id}
         other_dialect_ids =(@display_dialects_ids + [@option_dialect_id]).reject{|id|id==@source_dialect_id}
+        if(@target_dialect_id == Dialect.japanese.id and !other_dialect_ids.include?(Dialect.kana.id))
+          other_dialect_ids.append(Dialect.kana.id)
+        end
         picks = []
         sets.each do |correct, translations|
           pick_word_in_set = PickWordInSet.new

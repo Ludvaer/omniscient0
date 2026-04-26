@@ -574,3 +574,17 @@ $maxOptionWidth: 28%;
     }
   }
 }
+
+.spelling {
+  font-size: 120%
+}
+
+
+
+.corner-note {
+  font-size: 80%;
+  opacity: 0.7;
+  z-index: 99;
+  float: left;
+  // pointer-events: none;  /* optional, so it doesn't interfere with clicks */
+}

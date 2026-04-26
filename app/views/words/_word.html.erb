@@ -1,12 +1,12 @@
 <div id="<%= dom_id word %>">
-  <p>
-    <strong>Spelling:</strong>
-    <%= word.spelling %>
-  </p>
-
-  <p>
-    <strong>Dialect:</strong>
-    <%= word.dialect_id %>
-  </p>
-
+    <!-- <strong><%= t(word.dialect.name) %>:</strong> -->
+    <strong>
+  <span class='spelling'><%= word.spelling %></span>:
+<i>
+  <% if word.dialect == Dialect.japanese %>
+  <!-- <strong><%= t('reading') %>:</strong> -->
+      <%= word.translations.filter{|t|t.translation_dialect == Dialect.kana}.map(&:translation).join('; ') %>
+  <% end %></i>
+</strong>
+  <%=word.translations{|t|t.dialect == @source_dialect}.sort_by{|t|-t.user_id + (t.suffix&.length || 0)}.first.translation %>
 </div>

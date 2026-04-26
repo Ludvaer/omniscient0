@@ -4,6 +4,7 @@ require 'nokogiri'
 require 'subsets'
 require Rails.root.join('lib/core_ext/string/kana_extensions')
 words_to_track = [171,2817, 62332, 10988, 15152]
+strings_to_track = ['聴く','所','眼','悪い']
 changed_translations = 0
 
 
@@ -114,6 +115,7 @@ File.open(file_path) do |file|
       reading_elements.filter!{|h|h[-1] == last_ch or (last_ch == 'は' and h[-1] =='わ')}
     end
     reading_elements&.uniq!&.sort!
+    is_tracked = elements.any?{|e|strings_to_track.include?(e)}
 
     key = existing_words = nil
     Subsets.each_subset(reading_elements) do |reading_element_subset|
@@ -127,8 +129,8 @@ File.open(file_path) do |file|
     meanings = meanings.group_by{|m|m[:language]}
        .map { |lang,ms| [lang, group_meanings_by_added_string(ms.map {|m|m[:text]})] }
 
-    if existing_words&.any?{|w|words_to_track.include?(w.id)}
-    #Debug print
+    if is_tracked || existing_words&.any?{|w|words_to_track.include?(w.id)}
+      is_tracked ||= true
       puts "Word: #{elements.join(', ')}"
       puts "Readings: #{reading_elements.join(', ')}"
 
@@ -146,7 +148,7 @@ File.open(file_path) do |file|
 
       word_to_edit = existing_words.first
       existing_words.each do |w|
-          w.update!(rank: rank) # new rank
+          #w.update!(rank: rank) # do not update rank for existing words
           if w.spelling in kanji_elements and not word_to_edit
             word_to_edit = w
           end
@@ -161,7 +163,7 @@ File.open(file_path) do |file|
 
     saved = nil
     if word_to_edit
-      puts "exists #{word_to_edit.spelling}" if words_to_track.include?(word_to_edit.id)
+      puts "existing words #{existing_words.map(&:id)}: #{existing_words.map(&:spelling)}" if is_tracked
     else
       word_to_edit = Word.new
       word_to_edit.spelling = elements.first
@@ -172,7 +174,7 @@ File.open(file_path) do |file|
       word_to_edit.rank = rank
       if word_to_edit.spelling
         saved = word_to_edit.save
-      puts "saved #{saved} for word #{word_to_edit.id}:#{word_to_edit.spelling}" if words_to_track.include?(word_to_edit.id)
+      puts "saved #{saved} for word #{word_to_edit.id}:#{word_to_edit.spelling}" if is_tracked
       else
         puts "not saved #{saved} for word #{word_to_edit.id}:#{word_to_edit.spelling}"
       end
@@ -195,7 +197,7 @@ File.open(file_path) do |file|
         end
 
         tt.save
-        puts "saved #{saved} for word #{word_to_edit.id}:#{word_to_edit.spelling} alt as #{tt.translation}"  if words_to_track.include?(word_to_edit.id)
+        puts "saved #{saved} for word #{word_to_edit.id}:#{word_to_edit.spelling} alt as #{tt.translation}"  if is_tracked
         overriden_translations[tt.id] = true
       end
     end
@@ -206,7 +208,7 @@ File.open(file_path) do |file|
     end
     if reading_elements.blank?
       reading_elements = word_to_edit.filter{|w|w.kana_with_symbol?}.uniq # [word_to_edit.spelling.safe_hiragana]
-      puts "set reading #{word_to_edit.spelling} to #{reading_elements}" if words_to_track.include?(word_to_edit.id)
+      puts "set reading #{word_to_edit.spelling} to #{reading_elements}" if is_tracked
     end
     if reading_elements.blank?
       puts "skip '#{word_to_edit.spelling}' without reading"
@@ -226,7 +228,7 @@ File.open(file_path) do |file|
       end
       tt.save
       overriden_translations[tt.id] = true
-      puts "saved #{saved} for word #{word_to_edit.id}:#{word_to_edit.spelling} transcribed as #{tt.translation}" if words_to_track.include?(word_to_edit.id)
+      puts "saved #{saved} for word #{word_to_edit.id}:#{word_to_edit.spelling} transcribed as #{tt.translation}" if is_tracked
     end
 
     #TODO: make language any
@@ -240,14 +242,14 @@ File.open(file_path) do |file|
           )
           new_translation = texts.filter{|t| not t.include?('(см.)')}.join(', ')
         changed_translations += 1 if translation.translation != new_translation
-        puts "updating the existing #{translation.priority}: #{translation.translation}" if words_to_track.include?(word_to_edit.id)
+        puts "updating the existing #{translation.priority}: #{translation.translation}" if is_tracked
         translation.update!(
           priority: rank,
           translation: new_translation
         )
         overriden_translations[translation.id] = true
         saved = translation.save
-        puts "saved #{saved} for word #{word_to_edit.id}:#{word_to_edit.spelling} translated as #{translation.translation} with priority #{translation.priority}"  if words_to_track.include?(word_to_edit.id)
+        puts "saved #{saved} for word #{word_to_edit.id}:#{word_to_edit.spelling} translated as #{translation.translation} with priority #{translation.priority}"  if is_tracked
         #TODO: remove unconfirmed translations and non translated words
       end
     end

@@ -23,6 +23,7 @@ class PickWordInSetsController < ApplicationController
     @target_dialect_name = params[:target]
     @option_dialect_name = params[:option]
     @display_dialect_names = params[:display]
+    @source_dialect_name = params[:source]
     @display_dialect_names = case @display_dialect_names
                             when String
                               @display_dialect_names.split(",") # if comma-separated string
@@ -35,12 +36,14 @@ class PickWordInSetsController < ApplicationController
         display_dialects: @display_dialect_names.map{|name|Dialect.find_by_name(name)},
         target_dialect: Dialect.find_by_name(@target_dialect_name),
         option_dialect: Dialect.find_by_name(@option_dialect_name),
+        source_dialect: Dialect.find_by_name(@source_dialect_name),
         current_user: @user,
         n: @n
       }
     @display_dialects_ids = @display_dialect_names.map{|name|Dialect.find_by_name(name).id}
     @target_dialect_id = Dialect.find_by_name(@target_dialect_name).id
     @option_dialect_id = Dialect.find_by_name(@option_dialect_name).id
+    @source_dialect_id = Dialect.find_by_name(@source_dialect_name).id
     puts "--params_as_objects--"
     puts params_as_objects.to_s
     service = PickWordInSetService.new(params_as_objects)
@@ -66,6 +69,7 @@ class PickWordInSetsController < ApplicationController
     @target_dialect_name = params[:target]
     @option_dialect_name = params[:option]
     @display_dialect_names = params[:display]
+    @source_dialect_name = params[:source]
     @display_dialect_names = case @display_dialect_names
                             when String
                               @display_dialect_names.split(",") # if comma-separated string
@@ -78,6 +82,7 @@ class PickWordInSetsController < ApplicationController
         display_dialects: @display_dialect_names.map{|name|Dialect.find_by_name(name)},
         target_dialect: Dialect.find_by_name(@target_dialect_name),
         option_dialect: Dialect.find_by_name(@option_dialect_name),
+        source_dialect: Dialect.find_by_name(@source_dialect_name),
         current_user: @user,
         n: @n
       }
@@ -86,6 +91,7 @@ class PickWordInSetsController < ApplicationController
     @display_dialects_ids = @display_dialect_names.map{|name|Dialect.find_by_name(name).id}
     @target_dialect_id = Dialect.find_by_name(@target_dialect_name).id
     @option_dialect_id = Dialect.find_by_name(@option_dialect_name).id
+    @source_dialect_id = Dialect.find_by_name(@source_dialect_name).id
     @recursive = ( params[:recursive] == 'false') ? false : params[:recursive] || false
     service = PickWordInSetService.new(params_as_objects)
     @pick_word_in_sets = service.create
@@ -118,14 +124,14 @@ class PickWordInSetsController < ApplicationController
       if (@pick_word_in_set.picked_id == nil and \
           not @picked.nil?  and \
           @pick_word_in_set.user_id == @user_id)
-        target_dialect_id = @correct.word.dialect_id
-        source_dialect_id = @correct.translation_dialect_id
+        target_dialect_id = @correct&.word&.dialect_id
+        source_dialect_id = @correct&.translation_dialect_id
         template_progress.increment!(:counter)
         puts "update template_progress=#{template_progress.inspect} counter=#{template_progress.counter}"
-        [@correct, @picked].uniq.each do |translation|
+        [@correct, @picked].reject(&:blank?).uniq.each do |translation|
           utlp = TemplateWordProgress.find_or_create_by!(word: translation.word, template: template)
           last_counter = [template_progress.counter || 0, utlp.last_counter || 0].max
-          if @correct.word.spelling === @picked.word.spelling
+          if @correct&.word&.spelling === @picked&.word&.spelling
             utlp.update!(correct: ((utlp.correct || 0) + 1), last_counter: last_counter)
           else
             utlp.update!(failed: ((utlp.failed || 0) + 1), last_counter: last_counter)
@@ -162,8 +168,8 @@ class PickWordInSetsController < ApplicationController
       @translation_set = @pick_word_in_set.translation_set
       @translations = @translation_set.translations
       @correct = @translations.find{|t| t.id == @pick_word_in_set.correct_id}
-      @target_dialect_id = @correct.word.dialect_id
-      @source_dialect_id = @correct.translation_dialect_id
+      @target_dialect_id = @correct&.word&.dialect_id
+      @source_dialect_id = @correct&.translation_dialect_id
       @option_dialect_id = @pick_word_in_set.option_dialect_id
       @template = @pick_word_in_set.template
       @direction = @template.direction

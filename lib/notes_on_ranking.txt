@@ -6,6 +6,7 @@ which is converted to order rank at some point
 main current sequense:
 1 seed to l
 jmdict parser
-rebuild counters to konvert priority to rank
+kana_readings to cleanup
+rebuild_counters to konvert priority to rank
 rank_word to rank words
-rank from lists to use n lists
+rank from lists to use n lists and frequency

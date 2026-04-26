@@ -4,6 +4,14 @@ class PickWordInSetDirection < ApplicationRecord
     has_and_belongs_to_many :display_dialects,  class_name: 'Dialect',  join_table: 'dialects_pick_directions'
     after_save :deduplicate  # avoiding potentioanl troubles for checking uniqueness considering has_and_belongs_to_many
 
+    def self.contained_associations
+      [:display_dialects]
+    end
+    # Mark as a container
+    def self.is_container
+      true
+    end
+
     def self.find_or_init(target_dialect,display_dialects,option_dialect)
       direction = PickWordInSetDirection.find_all(target_dialect,display_dialects,option_dialect).first
       if direction

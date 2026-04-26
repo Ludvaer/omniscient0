@@ -1,6 +1,5 @@
-<p style="color: green"><%= notice %></p>
-
-<h1>Words</h1>
+<% provide(:title, t('Word list')) %>
+<% provide(:assets, javascript_include_tag('pick_word_in_sets')) %>
 
 <div id="words">
   <% @words.each do |word| %>

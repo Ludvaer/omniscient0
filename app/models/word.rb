@@ -40,4 +40,8 @@ class Word < ApplicationRecord
     end
     return result
   end
+
+  def dialect
+    Dialect.by_id(dialect_id)
+  end
 end

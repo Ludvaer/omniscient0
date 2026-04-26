@@ -3,7 +3,9 @@ class WordsController < ApplicationController
 
   # GET /words or /words.json
   def index
-    @words = Word.all
+    source_dialect_name = params[:source]
+    @source_dialect = source_dialect_name ? Dialect.by_name(source_dialect_name) : Dialect.english
+    @words = Word.eager_load(:translations).order(:rank).take(100)
   end
 
   # GET /words/1 or /words/1.json
